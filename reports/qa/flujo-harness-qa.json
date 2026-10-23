@@ -1,0 +1,88 @@
+{
+  "date": "2026-10-23",
+  "artifact": "../../web/index.html",
+  "scope": "Documento HTML y simulacion local; no valida el backend de calendario",
+  "http_status": 200,
+  "javascript_syntax": "passed (node --check)",
+  "browser_checks": {
+    "flow_stages": 8,
+    "implementation_phases": 6,
+    "acceptance_criteria": 22,
+    "normal_scenario": "3 reservas; Alvarez, Andrade, Zambrano; 1 caso para revision",
+    "same_batch_retry": "Conserva 3 reservas sin adicionales",
+    "full_calendar": "0 reservas",
+    "slot_conflict": "2 reservas; la franja ocupada se excluye",
+    "notification_failure": "Conserva 3 reservas; notificacion pendiente",
+    "valid_context": "5500 + 1024 + 820 = 7344 <= 8192; quedan 848 tokens",
+    "invalid_context": "7000 + 1024 + 820 = 8844; rechaza exceso de 652 tokens",
+    "console_errors": 0
+  },
+  "screenshot": "../capturas/flujo-harness.png",
+  "limitations": [
+    "Datos sinteticos",
+    "Sin llamadas al modelo ni API desde el HTML",
+    "Sin citas persistidas ni notificaciones reales",
+    "Diseno responsive incluido; viewport movil no comprobado en esta revision"
+  ],
+  "diagram_update": {
+    "main_view": "Diagrama interactivo",
+    "nodes": 21,
+    "scenarios_verified": 8,
+    "completed_scenarios": [
+      "normal",
+      "llm",
+      "invalid",
+      "noadvisor",
+      "budget",
+      "full",
+      "conflict",
+      "notify"
+    ],
+    "click_detail": "passed",
+    "javascript_syntax": "passed",
+    "console_errors": 0,
+    "screenshot": "../capturas/flujo-harness-diagrama.png"
+  },
+  "compaction_continuation": {
+    "scenario": "Compactar contexto y continuar",
+    "compaction_step": "8/18",
+    "continue_button_enabled_after_compaction": true,
+    "returned_to_model_step": "11/18",
+    "final_state": "18/18 Cita + seguimiento",
+    "return_edge": "compact -> context -> budget -> llm",
+    "screenshot": "../capturas/flujo-harness-compactacion.png",
+    "scope": "Simulacion visual; sin llamadas reales al modelo ni reservas"
+  },
+  "usage_panel": {
+    "mode": "simulado con referencias medidas; sin nuevas inferencias",
+    "O0_total_tokens": 0,
+    "O1_prepared_input_not_consumed": 2958,
+    "O1_after_generation": {
+      "input": 2958,
+      "output": 256,
+      "total": 3214,
+      "calls": 1
+    },
+    "inspect_node_does_not_duplicate_usage": true,
+    "before_compaction": {
+      "prepared_input": 7000,
+      "consumed": 0
+    },
+    "after_compaction": {
+      "prepared_input": 2958,
+      "input_consumed": 4964,
+      "output_consumed": 512,
+      "total": 5476
+    },
+    "after_continuation": {
+      "input_consumed": 7922,
+      "output_consumed": 768,
+      "total": 8690,
+      "calls": 2,
+      "reference_inference_time_s": 27.259398
+    },
+    "final_total_stays_unchanged": true,
+    "console_errors": 0,
+    "screenshot": "../capturas/flujo-harness-consumo.png"
+  }
+}
