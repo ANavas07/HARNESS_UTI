@@ -20,7 +20,7 @@ Esta bitácora reúne el proceso realizado, decisiones, entregables, evidencia y
 | Política de ejemplo | Creada solo para demo | [JSON](config/politica.demo.json) con `production_enabled=false`; validador y motor pendientes. |
 | Experimento A/B | Protocolo definido, no ejecutado | Requiere esqueleto funcional y entornos comparables. |
 | Sistema de calidad y tiempos | Runner implementado; un eval ejecutable | [calidad-evals.md](docs/calidad-evals.md), [evals/](evals/) y [runner](scripts/ejecutar_eval.py). Controles de D02 registrados; línea base con agente real, CI por suites y evals de runtime pendientes. |
-| Publicación inicial en GitHub | Realizada en la etapa anterior | Commit inicial `9d020d2`; cambios posteriores de auditoría y esta bitácora siguen locales al registrarlos. |
+| Publicación en GitHub | Realizada el 28 de octubre de 2026 | [HARNESS_UTI](https://github.com/ANavas07/HARNESS_UTI), rama `main`: commit inicial `9d020d2` y commit `4eac95b` con SPEC v0.8, §33, propuesta de la Etapa 10, sistema de calidad, runner de evals y HTML actualizado. Push verificado contra `origin/main`. |
 
 ## 2. Decisiones y aclaraciones del proceso
 
@@ -204,7 +204,7 @@ La QA histórica de `reports/qa/` sigue correspondiendo a la v0.5.
 8. Ejecutar aceptación aplicable, concurrencia, carga y recuperación; definir alertas, retención y responsables (G7).
 9. Ejecutar el A/B de desarrollo cuando exista el esqueleto funcional. No usar ese experimento como sustituto de pruebas del calendario.
 10. Elegir el agente de desarrollo y su envoltorio de señales, ejecutar D02 con N = 10 como primera línea base y separar las suites en CI; activar D01 y los evals de runtime cuando existan el esqueleto y el runtime.
-11. Publicar las modificaciones locales cuando corresponda y registrar commit y alcance de la publicación.
+11. Publicar las próximas modificaciones locales cuando corresponda y registrar commit y alcance de la publicación.
 
 Los valores iniciales y objetivos técnicos del spec son propuestas verificables. No se declara que se hayan eliminado todos los cuellos de botella sin implementar y medir el sistema.
 
