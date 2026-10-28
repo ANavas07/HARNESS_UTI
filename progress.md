@@ -20,7 +20,7 @@ Esta bitácora reúne el proceso realizado, decisiones, entregables, evidencia y
 | Política de ejemplo | Creada solo para demo | [JSON](config/politica.demo.json) con `production_enabled=false`; validador y motor pendientes. |
 | Experimento A/B | Protocolo definido, no ejecutado | Requiere esqueleto funcional y entornos comparables. |
 | Sistema de calidad y tiempos | Runner implementado; un eval ejecutable | [calidad-evals.md](docs/calidad-evals.md), [evals/](evals/) y [runner](scripts/ejecutar_eval.py). Controles de D02 registrados; línea base con agente real, CI por suites y evals de runtime pendientes. |
-| Publicación en GitHub | Realizada el 28 de octubre de 2026 | [HARNESS_UTI](https://github.com/ANavas07/HARNESS_UTI), rama `main`: commit inicial `9d020d2` y commit `4eac95b` con SPEC v0.8, §33, propuesta de la Etapa 10, sistema de calidad, runner de evals y HTML actualizado. Push verificado contra `origin/main`. |
+| Publicación en GitHub | Realizada el 28 de octubre de 2026 | [HARNESS_UTI](https://github.com/ANavas07/HARNESS_UTI), rama `main`: commit inicial `9d020d2`; `4eac95b` con SPEC v0.8, §33, propuesta de la Etapa 10, sistema de calidad, runner de evals y HTML; `9b3f83a` con SPEC v0.9 y contrato técnico. Push verificado contra `origin/main`. |
 
 ## 2. Decisiones y aclaraciones del proceso
 
