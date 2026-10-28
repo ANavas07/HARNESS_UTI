@@ -86,7 +86,7 @@ El LLM interpreta solicitudes y redacta textos internos. El código aplica prior
 | Agenda | De profesionales de Bienestar, usuarios con rol `bienestar` en el producto | Propuesta v0.8 |
 | Asignación | Profesional asignado al caso; si no existe, regla aprobada por Coordinación de Bienestar | **Pendiente G2.** El producto deriva al rol, no a una persona (P3) |
 | Stack | Python 3.11+, FastAPI, PostgreSQL, Alembic, pytest; interfaz React + TypeScript | Propuesta v0.8: el stack del producto. n8n y Node quedan descartados |
-| **Arquitectura** | **Opción A: módulo dentro del producto** | **Decidida por el usuario el 28 de octubre de 2026 (§6, G8).** Falta la aceptación del equipo del producto (G1) |
+| **Arquitectura** | **Opción A: módulo dentro del producto** | **Decidida por el usuario el 28 de octubre de 2026 (§6, G8).** Etapa 10 aceptada por el equipo del producto el 28 de octubre de 2026 (comunicado por el usuario) |
 | Modelo | `Qwen/Qwen3-8B-AWQ`, mismo servidor vLLM que el producto | Tool calling nativo rechazado por el servidor; el producto usa modo JSON (§22) |
 | Comunicación | Aviso al profesional en el panel interno | El aviso al estudiante pasa a posterior al MVP (§28) |
 | Capacidad | Perfil y objetivos de §29 | G7 exige medición |
@@ -111,7 +111,7 @@ Consecuencias:
 - El código del calendario se implementa en el repositorio del producto: migraciones Alembic nuevas, servicios y routers en `backend/api`, un consumidor en el bus y una pantalla en `frontend/`. Sigue su método: especificación en su SPEC_REFINADO como etapa nueva, TDD, mutaciones al 100 %, ruff, mypy, import-linter y su CI.
 - Este repositorio conserva la especificación, el sistema de calidad, el runner de evals, las mediciones de Qwen y el protocolo A/B. No contendrá código de producción del calendario.
 - P6 (feed con cursor y cuenta de servicio) deja de ser necesario.
-- La aceptación del equipo del producto sigue pendiente: el cambio entra en su repositorio y en su plan de etapas (G1).
+- La Etapa 10 fue aceptada por el equipo del producto el 28 de octubre de 2026 (comunicado por el usuario). Entra en su repositorio y en su plan de etapas como SPEC_REFINADO v1.10.
 
 ### Opción A — módulo dentro del producto (elegida)
 
@@ -551,7 +551,7 @@ Carga sintética de referencia: 1000 solicitudes, 50 profesionales, 10 000 citas
 
 | Puerta | Responsable | Evidencia para cerrarla | Mientras falta |
 |---|---|---|---|
-| G1 · Producto | Equipo del producto de deserción | Etapa del calendario aceptada en su plan; P3, P5 y P7 implementados con pruebas; modelo activo **aprobado o con excepción firmada** por la institución (hoy activo con excepción de equidad solo para el MVP) | Solo un doble del producto y datos sintéticos |
+| G1 · Producto | Equipo del producto de deserción | Etapa del calendario aceptada en su plan (**cumplido el 28 de octubre de 2026**); P3, P5 y P7 implementados con pruebas; modelo activo **aprobado o con excepción firmada** por la institución (hoy activo con excepción de equidad solo para el MVP) | Solo un doble del producto y datos sintéticos |
 | G2 · Bienestar | Coordinación de Bienestar | Política aprobada: profesionales, horarios, feriados, cupos, plazos por nivel y regla de asignación | Reservas solo sintéticas |
 | G3 · Acceso | TI y administración | Aplicación registrada en Entra ID; usuarios y alcance de coordinación asignados | Sin mutaciones con datos reales |
 | G4 · Comunicación | Responsable institucional | Procedimiento de contacto por el profesional aprobado; aviso al estudiante solo con base legal | No se afirma contacto con el estudiante |
@@ -904,9 +904,9 @@ Las decisiones institucionales quedan **cerradas para el MVP** con los valores d
 | Algoritmos de disponibilidad, ronda, reserva y conciliación | ✅ Contrato técnico §8 |
 | Datos sintéticos de prueba | ✅ Contrato técnico §10 |
 | Tareas, criterios, pruebas y gates | ✅ [Propuesta de la Etapa 10](propuesta-etapa-10-agenda.md) |
-| Aceptación del equipo del producto | ⏳ Pendiente: es la única condición que bloquea escribir en su repositorio |
+| Aceptación del equipo del producto | ✅ Etapa 10 aceptada por el equipo del producto el 28 de octubre de 2026 (comunicado por el usuario) |
 | Maqueta de la pantalla revisada por Bienestar | ⏳ Pendiente: bloquea la fase 10.D, no 10.A–10.C |
 | Los 60 evals de runtime | ⏳ Se escriben al empezar la fase 10.E |
 
-Con la aceptación del equipo del producto, el desarrollo empieza por 10.A y 10.B con TDD.
+La definición de listo está completa para las fases 10.A–10.C. El desarrollo empieza por 10.A y 10.B con TDD en el repositorio del producto, incorporando antes la Etapa 10 a su SPEC_REFINADO (v1.10).
 

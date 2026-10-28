@@ -12,7 +12,7 @@ Esta bitácora reúne el proceso realizado, decisiones, entregables, evidencia y
 |---|---|---|
 | Definición funcional y arquitectura | Cerrada para el MVP, SPEC v0.9 con contrato técnico | [SPEC](docs/SPEC.md); nuevas reglas técnicas propuestas, no aprobaciones institucionales implícitas. |
 | Auditoría integral de lógica | Realizada en diseño | [21 hallazgos de v0.6 y 12 de alineación v0.8](docs/auditoria-logica.md), con resolución propuesta y pruebas asignadas. |
-| Alineación con el Agente de Deserción v2 | Analizada el 28 de octubre | Código y documentación revisados (commit `fd64df2`). Arquitectura decidida: módulo del producto (opción A). Propuesta de la Etapa 10 redactada; aceptación del equipo del producto y cambios P3, P5 y P7 pendientes. |
+| Alineación con el Agente de Deserción v2 | Analizada el 28 de octubre | Código y documentación revisados (commit `fd64df2`). Arquitectura decidida: módulo del producto (opción A). Etapa 10 aceptada por el equipo del producto el 28 de octubre de 2026 (comunicado por el usuario). Cambios P3, P5 y P7 por implementar en la fase 10.A. |
 | Calendario, API y workers operativos | Pendientes | No hay reservas persistidas ni integración real con el producto de deserción. |
 | Conexión y medición de Qwen | Verificadas históricamente | Nueve solicitudes sintéticas; no se volvió a comprobar disponibilidad el 27 de octubre. |
 | Presupuestos de tokens | Calculados y cubiertos por cuatro pruebas | No existe aún ejecutor persistente de presupuesto por tarea. |
@@ -196,7 +196,13 @@ Tras evaluar la madurez del SPEC, se cerraron las brechas que impedían empezar:
 
 **Verificación:** la migración se ejecutó en un PostgreSQL 18 temporal con las tablas del producto que toca. Las 9 pruebas de restricciones se comportaron según el contrato.
 
-**Pendientes antes de escribir código:** solo la aceptación del equipo del producto. La maqueta revisada por Bienestar bloquea únicamente la fase 10.D.
+**Pendientes antes de escribir código:** solo la aceptación del equipo del producto, cumplida el mismo día (§3.15). La maqueta revisada por Bienestar bloquea únicamente la fase 10.D.
+
+### 3.15 Etapa 10 aceptada por el equipo del producto — 28 de octubre de 2026
+
+El usuario comunicó que el equipo del producto aceptó la propuesta de la Etapa 10 sin cambios. No se adjuntó un acta. Con esto se cumple la parte de G1 que pedía aceptar la etapa en el plan del producto.
+
+Siguen pendientes dentro de G1 la implementación de P3, P5 y P7 (fase 10.A) y la aprobación o excepción firmada del modelo activo, que solo hace falta para un piloto con estudiantes. La definición de listo (SPEC §34) queda completa para las fases 10.A–10.C.
 
 ## 4. Verificaciones realizadas y alcance
 
@@ -214,7 +220,7 @@ Tras evaluar la madurez del SPEC, se cerraron las brechas que impedían empezar:
 
 ## 5. Trabajo pendiente, en orden de dependencia
 
-1. Presentar al equipo del producto la [propuesta de la Etapa 10](docs/propuesta-etapa-10-agenda.md) para su SPEC_REFINADO, con los cambios P3, P5 y P7, y obtener la aprobación o excepción firmada del modelo activo (G1).
+1. Incorporar la [Etapa 10](docs/propuesta-etapa-10-agenda.md) al SPEC_REFINADO del producto (v1.10) y empezar la fase 10.A con TDD. Antes de un piloto, obtener la aprobación o excepción firmada del modelo activo (G1).
 2. Añadir al runner una opción de repositorio de origen para ejecutar evals sobre el producto (D01).
 3. Aprobar con Bienestar la política de agenda: profesionales, horarios, feriados, cupos, plazos por nivel y regla de asignación (G2/G4).
 4. Registrar la aplicación en Entra ID y definir el alcance de coordinación (G3).

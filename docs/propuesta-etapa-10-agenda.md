@@ -1,6 +1,6 @@
 # Propuesta — ETAPA 10: Agenda de Bienestar
 
-Propuesta para incorporar al SPEC_REFINADO del producto «Permanencia y acompañamiento estudiantil (UTI)» como versión 1.10. Redactada el 28 de octubre de 2026 desde el proyecto Harness de calendario, a partir del [SPEC del calendario v0.8](SPEC.md) y la revisión del producto en el commit `fd64df2`. **No modifica el repositorio del producto.** Su equipo decide si la acepta, la ajusta o la rechaza.
+Propuesta para incorporar al SPEC_REFINADO del producto «Permanencia y acompañamiento estudiantil (UTI)» como versión 1.10. Redactada el 28 de octubre de 2026 desde el proyecto Harness de calendario, a partir del [SPEC del calendario v0.8](SPEC.md) y la revisión del producto en el commit `fd64df2`. **Estado: aceptada por el equipo del producto el 28 de octubre de 2026 (comunicado por el usuario).** El siguiente paso es incorporarla a su SPEC_REFINADO como v1.10 y empezar la fase 10.A.
 
 El esquema SQL, los endpoints, los errores y los algoritmos de cada tarea están en el [contrato técnico de la agenda](contrato-tecnico-agenda.md).
 
