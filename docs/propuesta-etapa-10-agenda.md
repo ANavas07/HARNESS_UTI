@@ -2,6 +2,8 @@
 
 Propuesta para incorporar al SPEC_REFINADO del producto «Permanencia y acompañamiento estudiantil (UTI)» como versión 1.10. Redactada el 28 de octubre de 2026 desde el proyecto Harness de calendario, a partir del [SPEC del calendario v0.8](SPEC.md) y la revisión del producto en el commit `fd64df2`. **No modifica el repositorio del producto.** Su equipo decide si la acepta, la ajusta o la rechaza.
 
+El esquema SQL, los endpoints, los errores y los algoritmos de cada tarea están en el [contrato técnico de la agenda](contrato-tecnico-agenda.md).
+
 Sigue el formato de las etapas 4 a 9: objetivo, fuera de alcance, decisiones de diseño, tareas con entregable, criterios de aceptación, criterio de salida con su gate y pruebas orientadas a encontrar fallos. Como la etapa es grande, se divide en **seis fases**, cada una con su propio gate (G10.A a G10.F). El gate final G10 equivale al hito M9.
 
 | Campo | Valor |

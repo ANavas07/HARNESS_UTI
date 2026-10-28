@@ -1,6 +1,6 @@
 # Spec — Harness de calendario para el agente de deserción
 
-Versión: 0.8 — alineación con el Agente de Deserción v2 real: la reserva se dispara cuando Seguimiento deriva un caso, la prioridad es la del producto, no se usan nombres ni datos de contacto que el producto no tiene y la implementación sigue su stack Python. Fecha: 28 de octubre de 2026.
+Versión: 0.9 — especificación cerrada para empezar el MVP: contrato técnico (esquema SQL validado, endpoints, errores, algoritmos), valores del MVP y definición de listo (§34), sobre la alineación v0.8 con el Agente de Deserción v2 (disparo por derivación, prioridad del producto, sin nombres ni contacto, stack Python) y el harness de ejecución (§33). Fecha: 28 de octubre de 2026.
 
 Estado: especificación de implementación. Las decisiones del usuario siguen vigentes salvo las que v0.8 suspende de forma explícita (§5). Las reglas técnicas nuevas son propuestas. Los valores institucionales no confirmados tienen campos obligatorios, responsables y condiciones de activación (§23, §30). La auditoría y su trazabilidad están en [auditoria-logica.md](auditoria-logica.md).
 
@@ -8,7 +8,7 @@ Estado: especificación de implementación. Las decisiones del usuario siguen vi
 
 Decisiones confirmadas por el usuario: el MVP tiene calendario propio, consume los datos del producto de deserción y reserva automáticamente según reglas, sin aprobación por cada cita. Google Calendar y Outlook quedan para una fase posterior.
 
-Documentos complementarios: [análisis y protocolo A/B](analisis-ab-harness.md), [rutas por costo](rutas-por-costo.md) y [calidad, tiempos y evals](calidad-evals.md). Modelo: `Qwen/Qwen3-8B-AWQ` servido por vLLM en la red institucional, el mismo servidor que ya usa el producto.
+Documentos complementarios: [contrato técnico de la agenda](contrato-tecnico-agenda.md), [propuesta de la Etapa 10](propuesta-etapa-10-agenda.md), [análisis y protocolo A/B](analisis-ab-harness.md), [rutas por costo](rutas-por-costo.md) y [calidad, tiempos y evals](calidad-evals.md). Modelo: `Qwen/Qwen3-8B-AWQ` servido por vLLM en la red institucional, el mismo servidor que ya usa el producto.
 
 Vista explicativa: [flujo interactivo del harness](../web/index.html). Actualizada a la v0.8 y §33 el 28 de octubre de 2026: disparo por derivación, agenda de Bienestar, cierre y conciliación, asistente con presupuesto y trazas, y fases de la Etapa 10. Es una simulación; no sustituye la implementación.
 
@@ -38,7 +38,7 @@ Este documento define el sistema; no implica que ya exista una integración func
 - Detectar cada derivación de un caso a Bienestar y reservar una cita interna de 15 minutos con un profesional de Bienestar habilitado.
 - Ordenar las derivaciones pendientes con la **misma prioridad que la bandeja del producto** (§23).
 - Calendario propio de Bienestar: horarios semanales, bloqueos, días no laborables y disponibilidad calculada.
-- Reprogramar y cancelar citas; cancelar automáticamente cuando el caso se cierra, se descarta o queda `sin_matricula`.
+- Reprogramar y cancelar citas; cancelar automáticamente cuando el caso se cierra o queda `sin_matricula`. Descartar no aplica: el producto solo descarta casos `nuevo`, que nunca tienen cita.
 - Registrar el resultado de la cita como **intervención del producto**, sin duplicar el registro.
 - Avisar al profesional dentro de la aplicación (panel interno). El contacto con el estudiante lo hace una persona por los canales institucionales.
 - Interfaz de agenda para Bienestar y estado de la cita visible para Seguimiento.
@@ -171,7 +171,7 @@ La disponibilidad es el horario laboral del profesional menos bloqueos y citas a
 6. Elegir la primera franja válida. En una transacción breve: bloquear profesional y persona en orden estable, revalidar que el caso siga derivado y abierto, revalidar horario, bloqueos y cupos, y guardar cita, operación y aviso. Sin red ni LLM dentro de la transacción (§27).
 7. Avisar al profesional en el panel. El profesional contacta al estudiante con la cédula visible en el detalle del caso, por los canales institucionales.
 8. Atendida la cita, el profesional registra el resultado. El calendario lo transforma en una intervención del producto (tipo y resultado de su catálogo), lo que lleva el caso de `derivado` a `en_intervencion`.
-9. Si el caso se cierra, se descarta o pasa a `sin_matricula`, cancelar la cita activa y marcar sus avisos pendientes como obsoletos.
+9. Si el caso se cierra o pasa a `sin_matricula`, cancelar la cita activa y marcar sus avisos pendientes como obsoletos.
 
 Sin disponibilidad dentro de la ventana: `sin_disponibilidad`, con aviso a Coordinación de Bienestar y reactivación cuando se libere una franja, cambie un horario o avance la ventana. No reintentar en bucle ni desplazar otras citas.
 
@@ -284,6 +284,8 @@ Modelo de solicitud normalizada; sin nombres ni contacto, que el producto no tie
 
 Los comandos de escritura usan `Idempotency-Key`; misma clave con distinto payload devuelve conflicto. Los errores distinguen datos inválidos, acceso denegado, conflicto de horario, versión desactualizada y fallo temporal.
 
+El esquema SQL de la migración `0011_agenda`, los cambios en funciones del producto, el evento `cita.solicitada`, el catálogo de endpoints con sus errores, el esquema de la política, los algoritmos, los esquemas de herramientas y los datos sintéticos están en el [contrato técnico de la agenda](contrato-tecnico-agenda.md).
+
 ## 13. Concurrencia y recuperación
 
 La consulta de disponibilidad no bloquea. Al reservar: transacción breve, guardas por persona y por profesional en orden estable, revalidación de caso, horario, bloqueos y cupos, y cita, operación y aviso en el mismo commit. Restricciones de exclusión por profesional y por persona sobre el rango con márgenes. Una clave única de hora de inicio no basta.
@@ -331,7 +333,7 @@ Criterios de aceptación del MVP. Los IDs se conservan entre versiones; los reti
 | A16 | Horarios y bloqueos | La disponibilidad excluye ausencias y ocupación; cambios incompatibles devuelven conflicto. |
 | A17 | Ruta sin lenguaje natural | Detectar la derivación, asignar y reservar usan O0, sin llamadas al modelo. |
 | A18 | Presupuesto agotado | Se detienen nuevas llamadas y se reporta `budget_exceeded` con los efectos ya persistidos. |
-| A19 | Herramientas expuestas al LLM | Solo las cuatro intenciones autorizadas por rol. |
+| A19 | Herramientas expuestas al LLM | Solo las cuatro intenciones autorizadas por rol, implementadas con las cinco herramientas de §33.2 (`gestionar_cita` = `proponer_reprogramacion` + `proponer_cancelacion`). |
 | A20 | Reproducibilidad de desarrollo | Un checkout limpio instala versiones fijadas y ejecuta los comandos documentados. |
 | A21 | Ciclo de verificación | Suite rápida < 60 s; suite completa en CI. |
 | A22 | Protocolo A/B | Corridas comparables y resultados completos; no se declaran mejoras sin evidencia. |
@@ -343,7 +345,7 @@ Primero con datos sintéticos y un doble del producto; después contra una insta
 | Fase | Trabajo | Condición de cierre |
 |---|---|---|
 | 0. Definición | Arquitectura decidida (A). Acordar con el equipo del producto la etapa nueva en su SPEC_REFINADO y los cambios P3, P5 y P7; política de agenda y asignación con Bienestar. | Etapa del calendario aceptada en el plan del producto y política aprobada para piloto. |
-| 1. Cambios del producto | P1, P2, P3 y P5 con sus pruebas y mutaciones, según el método del producto. | Eventos y asignación disponibles en el producto; sus suites en verde. |
+| 1. Cambios del producto | P3 (asignación), P5 (avisos dirigidos) y, para el asistente, P7 (concurrencia global), con sus pruebas y mutaciones. | Asignación y avisos disponibles en el producto; sus suites en verde. |
 | 2. Agenda | Horarios, bloqueos, disponibilidad, solicitudes, reserva, reprogramación y cancelación. | A01–A09, A12, A15–A16 y A46–A49 con persistencia real. |
 | 3. Resultado y avisos | Registro como intervención, avisos al profesional, conciliación. | A50–A52 en verde. |
 | 4. Agente y harness observable | Intenciones, contexto, presupuestos, interfaz y evals de runtime. | A10–A11, A13–A14, A17–A19 y evals críticos 10/10. |
@@ -432,7 +434,7 @@ El [perfil de demostración](../config/politica.demo.json) concreta valores sint
 
 ### Orden, espera y cupos
 
-- Orden: `prioridad` del caso descendente, luego `derivado_en` ascendente, luego `caso_id`. Es el orden de la bandeja del producto. La prioridad se lee al registrar la solicitud y **se vuelve a leer** antes de cada ronda: un escalamiento en un corte nuevo puede subirla.
+- Orden: `prioridad` del caso descendente, luego `derivado_en` ascendente, luego `caso_id`. Es el orden de la bandeja del producto. La prioridad la calcula el producto: 10 (medio), 20 (alto) o 30 (crítico), más 5 si está escalado y 3 si está sin atender ([contrato técnico §3](contrato-tecnico-agenda.md#3-prioridad-y-orden)). La prioridad se lee al registrar la solicitud y **se vuelve a leer** antes de cada ronda: un escalamiento en un corte nuevo puede subirla.
 - Las solicitudes compiten por la agenda de su profesional. Otros profesionales avanzan en paralelo. Una solicitud que no puede reservarse (sin franja, conflicto) **no bloquea** a las siguientes del mismo profesional: queda con su motivo y la ronda continúa.
 - La espera se mide desde `derivado_en`. Si supera el plazo objetivo de su nivel, se avisa a Coordinación de Bienestar.
 - El cupo diario cuenta citas reservadas y finalizadas del profesional en su fecha local; una cancelada lo libera. Se valida dentro de la transacción.
@@ -441,7 +443,7 @@ El [perfil de demostración](../config/politica.demo.json) concreta valores sint
 ## 24. Disparo por derivación y sincronización con el producto
 
 1. **Entrada principal:** la derivación crea una solicitud idempotente con clave `caso_id + derivado_en`, dentro de la transacción de `casos.derivar`, y publica `cita.solicitada` para el planificador. Reprocesar no crea otra.
-2. **Cierre del caso:** cerrar, descartar o pasar a `sin_matricula` cancela la cita activa y marca la solicitud como `cancelada_por_caso`, en la misma transacción que el cambio del caso.
+2. **Cierre del caso:** cerrar o pasar a `sin_matricula` cancela la cita activa y marca la solicitud como `cancelada_por_caso`, en la misma transacción que el cambio del caso.
 3. **Conciliación:** un proceso periódico compara las solicitudes y citas activas con el estado actual de los casos. Corrige divergencias (caso cerrado con cita activa, caso derivado sin solicitud) y registra cada corrección. Es obligatoria mientras P2 no exista y se mantiene después como red de seguridad. Propuesta inicial: cada 15 minutos y al arrancar.
 4. **Reapertura:** un caso nuevo de la misma persona en un corte posterior es otro caso; si se deriva, genera otra solicitud. El calendario no reabre casos.
 5. **Escalamiento:** un caso escalado conserva su cita. Solo cambia la prioridad de las solicitudes aún pendientes.
@@ -472,7 +474,7 @@ Escrituras con `Idempotency-Key` y versión esperada (`If-Match`). La clave de l
 | Sin regla de asignación | pendiente → pendiente_asignacion | Aviso a coordinación |
 | Reserva confirmada | pendiente → agendada; cita reservada | Cita, operación y aviso en una transacción |
 | Sin franja | pendiente → sin_disponibilidad | Reactivación por evento o ventana, sin bucle |
-| Caso cerrado o descartado | cita reservada → cancelada; solicitud → cancelada_por_caso | Avisos pendientes pasan a obsoletos |
+| Caso cerrado | cita reservada → cancelada; solicitud → cancelada_por_caso | Avisos pendientes pasan a obsoletos. Un caso derivado no puede descartarse en el producto |
 | Caso sin matrícula | igual que cerrado | Si el caso vuelve a abrirse por reincorporación, Seguimiento decide si deriva otra vez |
 | Reprogramación | reservada → reservada, nueva versión | Avisos anteriores obsoletos |
 | Ausencia del profesional | citas afectadas → reprogramadas en bloque | Operación explícita de coordinación; las que no caben pasan a sin_disponibilidad |
@@ -641,6 +643,7 @@ Cada cambio sigue el método del producto: especificación en su SPEC_REFINADO, 
 - **Añadido:** solicitudes de agendamiento, asignación, conciliación, resultado como intervención, reprogramación en bloque, decisión de arquitectura (G8), cambios P1–P7 y criterios A46–A52.
 - **Retirados:** A23, A24 y A41.
 - **Decisión posterior, mismo día:** el usuario eligió la opción A (módulo del producto); G8 cerrada y P6 innecesario.
+- **v0.9, mismo día:** contrato técnico de la agenda, prioridad exacta del producto, descartar sin efecto sobre citas (solo aplica a casos `nuevo`), fase 1 sin P1/P2, A19 aclarado y §34 con el alcance del MVP, sus valores y la definición de listo.
 - **Ampliación, mismo día:** §33 define la lógica del harness de ejecución (ciclo del agente, herramientas de agenda, ejecutor de presupuestos, trazas de consumo y evals de runtime) y los criterios A53–A58.
 
 ## 33. Harness de ejecución
@@ -851,3 +854,59 @@ Repite N = 10 corridas por eval.
 | A58 | Ronda reservada para responder | Ninguna tarea agota sus llamadas en herramientas sin reservar la última para responder. |
 
 La descomposición en tareas está en la fase 10.E de la [propuesta de la Etapa 10](propuesta-etapa-10-agenda.md).
+
+## 34. MVP de agenda y definición de listo
+
+### Alcance del MVP
+
+El MVP sigue el mismo criterio que el MVP local del producto: corre en `localhost` con `python backend/scripts/mvp_local.py`, en modo desarrollo, con la política demo y sin contacto con estudiantes.
+
+| Incluye | No incluye |
+|---|---|
+| Fases 10.A a 10.D: agenda, reserva automática al derivar, cierre y conciliación, resultado como intervención y pantalla Agenda | Aviso al estudiante, Google Calendar u Outlook |
+| Fase 10.E solo si `VLLM_URL` está configurada: asistente de agenda con presupuesto, trazas y evals | Uso con estudiantes reales fuera de la demostración local |
+| Profesionales y equipos de demostración cargados por Administración | Entra ID, respaldos programados y operación del piloto (fase 10.F) |
+
+**Criterio de aceptación del MVP:**
+
+1. Con un solo comando se levanta el producto con la agenda.
+2. Seguimiento deriva un caso y aparece una cita en la agenda del profesional asignado.
+3. Bienestar registra el resultado y el caso pasa a `en_intervencion`.
+4. Cerrar un caso cancela su cita.
+5. La conciliación no encuentra divergencias.
+6. El orden de reserva coincide con la bandeja.
+
+### Valores para el MVP
+
+Las decisiones institucionales quedan **cerradas para el MVP** con los valores de la política demo. Para un piloto con estudiantes, la institución debe aprobarlos o reemplazarlos (G2).
+
+| Decisión | Valor del MVP | Aprobación necesaria para el piloto |
+|---|---|---|
+| Asignación | `coordinacion_manual`: Coordinación asigna; sin asignación la solicitud queda pendiente | Coordinación de Bienestar |
+| Plazo objetivo por nivel | Crítico 2, alto 5, medio 10 días hábiles | Bienestar con Seguimiento |
+| Plazo para registrar el resultado | 2 días hábiles | Bienestar |
+| Anticipación mínima | 1 día hábil (1440 min) | Bienestar |
+| Horario y cupo | Lunes a viernes, 09:00–12:00 y 14:00–17:00; 20 citas diarias por profesional | Cada profesional y Coordinación |
+| Contacto con el estudiante | El profesional, por canales institucionales | Responsable institucional |
+| Desempate alfabético | Suspendido | Responsable de datos, si se aprueba una fuente de nombres |
+
+### Definición de listo para empezar
+
+| Requisito | Estado |
+|---|---|
+| Flujo, reglas, estados y ciclo de vida | ✅ §5–§8, §23–§26 |
+| Arquitectura decidida | ✅ Opción A (§6) |
+| Esquema de base con restricciones probadas | ✅ [Contrato técnico §2](contrato-tecnico-agenda.md#2-migración-0011_agenda), validado en PostgreSQL 18 |
+| Prioridad y orden exactos | ✅ Contrato técnico §3 |
+| Cambios en funciones del producto | ✅ Contrato técnico §4 |
+| Endpoints, permisos y errores | ✅ Contrato técnico §6 |
+| Política con esquema y valores del MVP | ✅ Contrato técnico §7 y `config/politica.demo.json` |
+| Algoritmos de disponibilidad, ronda, reserva y conciliación | ✅ Contrato técnico §8 |
+| Datos sintéticos de prueba | ✅ Contrato técnico §10 |
+| Tareas, criterios, pruebas y gates | ✅ [Propuesta de la Etapa 10](propuesta-etapa-10-agenda.md) |
+| Aceptación del equipo del producto | ⏳ Pendiente: es la única condición que bloquea escribir en su repositorio |
+| Maqueta de la pantalla revisada por Bienestar | ⏳ Pendiente: bloquea la fase 10.D, no 10.A–10.C |
+| Los 60 evals de runtime | ⏳ Se escriben al empezar la fase 10.E |
+
+Con la aceptación del equipo del producto, el desarrollo empieza por 10.A y 10.B con TDD.
+

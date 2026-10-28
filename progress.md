@@ -10,7 +10,7 @@ Esta bitácora reúne el proceso realizado, decisiones, entregables, evidencia y
 
 | Frente | Estado | Evidencia o límite |
 |---|---|---|
-| Definición funcional y arquitectura | Documentada, SPEC v0.8 alineado con el producto real | [SPEC](docs/SPEC.md); nuevas reglas técnicas propuestas, no aprobaciones institucionales implícitas. |
+| Definición funcional y arquitectura | Cerrada para el MVP, SPEC v0.9 con contrato técnico | [SPEC](docs/SPEC.md); nuevas reglas técnicas propuestas, no aprobaciones institucionales implícitas. |
 | Auditoría integral de lógica | Realizada en diseño | [21 hallazgos de v0.6 y 12 de alineación v0.8](docs/auditoria-logica.md), con resolución propuesta y pruebas asignadas. |
 | Alineación con el Agente de Deserción v2 | Analizada el 28 de octubre | Código y documentación revisados (commit `fd64df2`). Arquitectura decidida: módulo del producto (opción A). Propuesta de la Etapa 10 redactada; aceptación del equipo del producto y cambios P3, P5 y P7 pendientes. |
 | Calendario, API y workers operativos | Pendientes | No hay reservas persistidas ni integración real con el producto de deserción. |
@@ -179,6 +179,25 @@ Verificación en navegador local:
 
 La QA histórica de `reports/qa/` sigue correspondiendo a la v0.5.
 
+### 3.14 SPEC cerrado para empezar el MVP — 28 de octubre de 2026
+
+Tras evaluar la madurez del SPEC, se cerraron las brechas que impedían empezar:
+
+- **[Contrato técnico de la agenda](docs/contrato-tecnico-agenda.md):**
+  - esquema SQL de la migración `0011_agenda` con restricciones de exclusión, inmutabilidad e historial de solo agregar;
+  - prioridad exacta del producto (10/20/30 + 5 escalado + 3 sin atender);
+  - cambios en `derivar`, `cerrar` y `registrar_matriculas`;
+  - evento `cita.solicitada`;
+  - 18 endpoints con permisos y catálogo de errores;
+  - esquema de la política, algoritmos de disponibilidad, ronda, reserva y conciliación;
+  - esquemas de herramientas y datos sintéticos.
+- **Correcciones del SPEC:** la fase 1 ya no menciona P1/P2; A19 aclarado; descartar no afecta citas, porque el producto solo descarta casos `nuevo`.
+- **SPEC §34:** alcance del MVP en localhost, valores del MVP para las 7 decisiones institucionales y definición de listo.
+
+**Verificación:** la migración se ejecutó en un PostgreSQL 18 temporal con las tablas del producto que toca. Las 9 pruebas de restricciones se comportaron según el contrato.
+
+**Pendientes antes de escribir código:** solo la aceptación del equipo del producto. La maqueta revisada por Bienestar bloquea únicamente la fase 10.D.
+
 ## 4. Verificaciones realizadas y alcance
 
 | Verificación | Resultado registrado | Qué demuestra |
@@ -190,6 +209,7 @@ La QA histórica de `reports/qa/` sigue correspondiendo a la v0.5.
 | Auditoría documental v0.6 | Enlaces locales, JSON demo y A01–A41 comprobados | Coherencia documental y perfil sin habilitación productiva. |
 | Controles del eval D02 con el runner | Negativo falla, positivo pasa; reportes en `reports/evals/` (28 de octubre) | El eval no es trivial ni imposible; no mide todavía ningún agente. |
 | Suite `unittest` con el runner | 10 pruebas aprobadas en unos 8 s | Runner con agentes simulados: aceptado, fuera de alcance, plazo, paso no soportado, eval bloqueado. |
+| Migración `0011_agenda` en PostgreSQL 18 temporal | 9 pruebas de restricciones según el contrato (28 de octubre) | Exclusión de solapes, una cita activa por caso, duración, inmutabilidad y permisos del chat; no prueba la lógica de servicio |
 | Concurrencia, carga, restauración y dominio LLM | Pendientes | No existe evidencia operativa de esas garantías. |
 
 ## 5. Trabajo pendiente, en orden de dependencia
