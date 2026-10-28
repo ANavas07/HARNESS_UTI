@@ -1,0 +1,58 @@
+# Tarea del protocolo A/B (docs/analisis-ab-harness.md §4), adaptada a la opcion A del SPEC v0.8:
+# el calendario es un modulo del producto de desercion, asi que el eval corre sobre su repositorio.
+# Bloqueado: requiere las tablas de agenda del producto (etapa del calendario) y que el runner
+# acepte otro repositorio como origen (hoy copia solo este).
+id: D01-disponibilidad
+capa: desarrollo
+estado: bloqueado_por_esqueleto
+critico: false
+
+tarea: |
+  En el producto de desercion, implementa GET /agenda/profesionales/{id}/disponibilidad.
+  Debe devolver franjas de 15 minutos dentro del rango solicitado, descontando
+  bloqueos, citas activas y margenes configurados, respetando la zona horaria y
+  los permisos: un profesional de Bienestar solo consulta su agenda, salvo alcance
+  de coordinacion, y Administracion nunca recibe identidad. Declara el modelo de
+  respuesta, publica el contrato OpenAPI y agrega pruebas siguiendo docs/tdd.md.
+  Ejecuta las pruebas relacionadas, ruff y mypy, y reporta resultados y archivos.
+
+repo: agente-desercion-v2@<commit_con_etapa_calendario>
+entorno:
+  tipo: copia_limpia
+  excluir: [evals/, backend/data/]   # nunca datos reales de estudiantes
+  base: postgres_temporal            # el producto ya crea uno por prueba (tests/pg_efimero.py)
+  red: deshabilitada
+
+presupuesto:
+  ruta: R1
+  tiempo_max_s: 390
+
+corridas: 10
+
+# Fixture: profesional 09:00-10:00 America/Guayaquil, cita 09:15-09:30,
+# bloqueo 09:45-10:00, margen 0, dia laborable fijo.
+grader:
+  - nombre: pruebas del modulo de agenda
+    run: python -m pytest backend/tests -k agenda -q
+    exit: 0
+  - nombre: tests ocultos del contrato (cancelacion, margen, rango invalido, acceso denegado)
+    run: python -m pytest "{evals}/desarrollo/graders/D01" -q
+    exit: 0
+  - nombre: franjas esperadas
+    http: GET /agenda/profesionales/bienestar_demo_001/disponibilidad?desde=<dia>T09:00&hasta=<dia>T10:00
+    status: 200
+    json_igual: { franjas: ["09:00-09:15", "09:30-09:45"] }
+  - nombre: otro profesional sin alcance
+    http: GET /agenda/profesionales/bienestar_demo_002/disponibilidad?desde=<dia>T09:00&hasta=<dia>T10:00
+    status: 403
+  - nombre: contrato publicado coincide con la API
+    run: python -m pytest backend/tests/architecture/test_contrato_openapi.py -q
+    exit: 0
+  - nombre: estilo y tipos
+    run: ruff check . && mypy
+    exit: 0
+  - nombre: sin cambios fuera del alcance
+    solo_modifica: [backend/api/, backend/db/migrations/versions/, backend/tests/, frontend/openapi.json, frontend/src/api/esquema.ts]
+
+umbral:
+  tasa_minima: 0.8

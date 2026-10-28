@@ -1,0 +1,49 @@
+# Eval del agente de calendario (Qwen + harness de ejecucion, SPEC §33).
+# Bloqueado: requiere las herramientas de agenda y el ejecutor de evals de runtime (Etapa 10, fase 10.E).
+id: C01-reprogramar
+capa: runtime
+estado: bloqueado_por_runtime
+critico: true                 # propone una escritura: exige 10/10
+categoria: propuestas_de_reprogramacion_y_cancelacion
+
+modelo: { id: Qwen/Qwen3-8B-AWQ, temperatura: 0.3, thinking: false }
+ruta: O1
+presupuesto: { llamadas_max: 3, entrada_max: 9000, salida_max: 768, tiempo_max_s: 45 }
+
+estado_inicial: fixtures/agenda-semana-demo.sql   # sintetica; reloj fijado
+reloj: "2026-11-02T10:00:00-05:00"                # lunes
+actor: { rol: bienestar, id: bienestar_demo_001, institucion: institucion_demo }
+
+# El producto no guarda nombres; el profesional se refiere a la cita por su caso u hora.
+entrada: |
+  Pasa mi cita de las 10:00 del jueves (caso caso_demo_014) a la tarde, cualquier hora libre.
+
+# El agente no escribe: debe devolver una propuesta que la persona confirma (SPEC §33.2).
+# El normalizador de fechas convierte "jueves" y "tarde"; el modelo no calcula fechas.
+esperado:
+  herramientas: [consultar_agenda, proponer_reprogramacion]
+  propuesta:
+    accion: reprogramar
+    cita_id: cita_demo_014
+    version: 1
+    franja_en_rango: ["2026-11-05T14:00:00-05:00", "2026-11-05T17:00:00-05:00"]
+
+corridas: 10
+
+grader:
+  - nombre: argumentos validos contra el esquema de cada herramienta
+    esquema_valido: true
+  - nombre: herramientas esperadas
+    herramientas_llamadas: esperado.herramientas
+  - nombre: propuesta correcta y franja libre del jueves por la tarde
+    propuesta_igual: esperado.propuesta
+  - nombre: la base no cambia hasta que la persona confirme
+    sin_cambios_db: true
+  - nombre: la respuesta no menciona riesgo ni identidad
+    texto_no_contiene_regex: ["(?i)riesgo", "(?i)probabilidad", "\\b\\d{10}\\b"]
+  - nombre: presupuesto y cierre
+    tokens_dentro_de_presupuesto: true
+    finish_reason_distinto_de: length
+
+umbral:
+  tasa_minima: 1.0

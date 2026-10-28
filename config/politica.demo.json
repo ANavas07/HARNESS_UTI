@@ -1,0 +1,55 @@
+{
+  "schema_version": 2,
+  "policy_id": "agenda-bienestar-demo",
+  "version": 2,
+  "mode": "demo",
+  "production_enabled": false,
+  "status": "demonstration_only",
+  "institution_id": "institucion_demo",
+  "timezone": "America/Guayaquil",
+  "trigger": {
+    "event": "caso_derivado",
+    "source": "producto_desercion"
+  },
+  "priority": {
+    "order": ["prioridad_desc", "derivado_en_asc", "caso_id_asc"],
+    "alphabetical_tiebreak": "suspended_no_names_in_source"
+  },
+  "assignment": {
+    "strategy": "coordinacion_manual",
+    "allowed_strategies": ["asignado_en_producto", "tabla_por_equipo", "coordinacion_manual"]
+  },
+  "target_business_days_by_level": {
+    "critico": 2,
+    "alto": 5,
+    "medio": 10
+  },
+  "schedule": {
+    "duration_minutes": 15,
+    "grid_minutes": 15,
+    "minimum_notice_minutes": 1440,
+    "search_business_days": 10,
+    "buffer_before_minutes": 0,
+    "buffer_after_minutes": 0,
+    "maximum_daily_appointments_per_professional": 20,
+    "weekdays_iso": [1, 2, 3, 4, 5],
+    "working_intervals_local": [
+      { "start": "09:00", "end": "12:00" },
+      { "start": "14:00", "end": "17:00" }
+    ],
+    "non_working_dates": []
+  },
+  "result_deadline_business_days": 2,
+  "communication": {
+    "mode": "panel_interno",
+    "student_delivery_enabled": false,
+    "responsible_role": "bienestar"
+  },
+  "notes": [
+    "Ejemplo para datos sinteticos; no constituye politica institucional aprobada.",
+    "SPEC v0.8: el disparador es la derivacion; el calendario no define umbral ni vigencia del riesgo.",
+    "La anticipacion de un dia habil deja tiempo al profesional para contactar al estudiante; validar con Bienestar.",
+    "El validador y motor de politicas todavia deben implementarse.",
+    "Crear y aprobar una politica distinta antes de usar estudiantes reales."
+  ]
+}

@@ -77,6 +77,8 @@ Modelo identificado mediante la configuración del usuario: **`Qwen/Qwen3-8B-AWQ
 
 Perfil inicial del ejemplo: temperatura 0.3 y `enable_thinking=false`. Congelarlo para A y B; evaluar thinking activado como un bloque experimental separado y contabilizar su consumo. Confirmar soporte de herramientas del servidor con una prueba simulada antes de ejecutar tareas del agente de código.
 
+Las corridas usan el formato, los graders y las señales de [calidad-evals.md](calidad-evals.md). La tarea de este protocolo está definida como el eval [D01](../evals/desarrollo/D01-disponibilidad.yaml); cada condición se corre N veces (5–10) en lugar de un solo par.
+
 ## 8. Entregables y condición de cierre
 
 Entregar configuración A/B versionada, manifiesto de datos sintéticos, tareas y evaluación independiente, reportes de todas las corridas y análisis de resultados con limitaciones. No declarar una mejora porcentual sin datos. Decidir después qué instrucciones, comandos y fixtures se incorporan al harness de desarrollo.

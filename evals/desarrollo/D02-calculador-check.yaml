@@ -1,0 +1,54 @@
+# Eval de desarrollo ejecutable sobre el repositorio actual.
+# Controles verificados manualmente el 2026-10-28: falla en el commit base y pasa con una solucion de referencia.
+id: D02-calculador-check
+capa: desarrollo
+estado: ejecutable
+critico: false
+solucion: desarrollo/soluciones/D02   # solo para el control positivo; el agente no la ve
+
+tarea: |
+  Agrega a scripts/calcular_rutas.py una opcion --check que valide las rutas
+  contra la medicion de entrada sin escribir ningun archivo. Debe terminar con
+  codigo 0 si todas las rutas caben y con codigo 1 y un mensaje claro en stderr
+  (sin traceback) si alguna no cabe o la medicion no es valida. Sin --check, el
+  comportamiento actual no cambia. Agrega pruebas en tests/ y ejecuta la suite.
+
+repo: harness-calendario@<commit_base>
+entorno:
+  tipo: copia_limpia          # carpeta temporal o contenedor nuevo por corrida
+  excluir: [evals/]           # el agente no ve el grader ni sus fixtures
+  python: "3.10+"
+  red: deshabilitada
+
+presupuesto:
+  ruta: R1                    # rutas-por-costo.md: 8 llamadas, 40 000 / 8 192 tokens
+  tiempo_max_s: 390
+
+corridas: 10
+
+# {evals} = carpeta evals/ fuera de la copia; {tmp} = carpeta temporal del runner.
+grader:
+  - nombre: suite completa, incluidas las pruebas del agente
+    run: python -m unittest discover -s tests
+    exit: 0
+  - nombre: --check aprueba la medicion real
+    run: python scripts/calcular_rutas.py --check
+    exit: 0
+  - nombre: --check rechaza un contexto de 4096 sin traceback
+    run: python scripts/calcular_rutas.py --check --input "{evals}/desarrollo/fixtures/qwen-medicion-ctx4096.json"
+    exit: 1
+    stderr_no_contiene: Traceback
+  - nombre: --check no escribe reportes
+    sin_cambios: [reports/llm/qwen-rutas.json, reports/llm/qwen-medicion.json]
+  - nombre: sin --check sigue escribiendo la salida indicada
+    run: python scripts/calcular_rutas.py --output "{tmp}/rutas.json"
+    exit: 0
+    archivo_existe: "{tmp}/rutas.json"
+  - nombre: el script compila
+    run: python -m py_compile scripts/calcular_rutas.py
+    exit: 0
+  - nombre: sin cambios fuera del alcance
+    solo_modifica: [scripts/calcular_rutas.py, tests/]
+
+umbral:
+  tasa_minima: 0.8            # 8 de 10 corridas

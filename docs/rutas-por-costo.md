@@ -2,6 +2,8 @@
 
 Versión 0.4 — 23 de octubre de 2026. Sustituye el enfoque económico de v0.3 por el cálculo solicitado: tokens de entrada/salida, límite de contexto, ruta y tiempo. No calcula electricidad ni precios en USD.
 
+Complemento de operación: [SPEC §29–30](SPEC.md#29-capacidad-presupuestos-y-calidad-del-modelo) define colas acotadas, plazos, compactación con continuidad y evaluación antes de habilitar O1/O2. Los números históricos de este documento no demuestran concurrencia ni calidad del calendario; esta revisión no los modifica ni repite inferencias.
+
 ## 1. Modelo y capacidad efectiva comprobada
 
 - Modelo servido: `Qwen/Qwen3-8B-AWQ`.
