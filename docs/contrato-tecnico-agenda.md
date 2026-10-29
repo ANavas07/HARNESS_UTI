@@ -1,6 +1,6 @@
 # Contrato técnico de la agenda (Etapa 10)
 
-Versión 1.0 — 28 de octubre de 2026. Complementa el [SPEC v0.8](SPEC.md) y la [propuesta de la Etapa 10](propuesta-etapa-10-agenda.md). El SPEC dice **qué** debe pasar; este documento fija **cómo** se implementa en el producto de deserción (opción A): esquema de base, cambios en funciones existentes, eventos, endpoints, errores, política, algoritmos, herramientas y datos de prueba.
+Versión 1.3 — 29 de octubre de 2026. Complementa el [SPEC v0.8](SPEC.md) y la [propuesta de la Etapa 10](propuesta-etapa-10-agenda.md). El SPEC dice **qué** debe pasar; este documento fija **cómo** se implementa en el producto de deserción (opción A): esquema de base, cambios en funciones existentes, eventos, endpoints, errores, política, algoritmos, herramientas y datos de prueba.
 
 Se basa en el código del producto revisado el 28 de octubre de 2026 (commit `fd64df2`). Si el producto cambia esas piezas, este contrato se revisa antes de implementar. Los valores marcados **[MVP]** son los de la política demo; la institución debe aprobarlos o reemplazarlos antes de un piloto.
 
@@ -11,6 +11,9 @@ Se basa en el código del producto revisado el 28 de octubre de 2026 (commit `fd
 | Identificadores | `uuid` con `gen_random_uuid()`, como el resto de `core` |
 | Usuarios | Identificador corto `text` con el formato del producto `^[a-z0-9_.-]{3,40}$` (por ejemplo `b.lopez`). Sin clave foránea a `core.usuarios`, porque en modo desarrollo los usuarios no existen en esa tabla. En `produccion` el servicio exige que el usuario exista, esté activo y tenga rol `bienestar` |
 | Tiempo | `timestamptz` en UTC; rangos `tstzrange` semiabiertos `[inicio, fin)`; zona IANA por profesional (`America/Guayaquil` **[MVP]**) |
+| Modo por entorno | `desarrollo` → `demo`, `pruebas` → `piloto_interno`, `produccion` → `produccion`. Lo resuelve la API desde `Ajustes.entorno`; ningún endpoint ni herramienta acepta el modo como parámetro |
+| Día de una cita | Fecha local de `lower(rango)` en la zona de la agenda: `(lower(rango) AT TIME ZONE zona)::date`. Un conteo por día suma `reservada` y `finalizada` y excluye `cancelada` |
+| Chat sin LLM | El modo básico no ofrece herramientas de agenda: responde que la consulta no está disponible y remite a la pantalla Agenda |
 | Versión | Columna `version integer` en cada recurso editable; los comandos llevan `If-Match: <version>` |
 | Idempotencia | Encabezado `Idempotency-Key` en todo comando de escritura; ámbito = usuario + tipo de comando |
 | Borrado | Nada se borra. Las cancelaciones cambian estado; los historiales son de solo agregar |
@@ -176,7 +179,7 @@ ALTER TABLE core.notificaciones ADD COLUMN destinatario text;                   
 ALTER TABLE core.notificaciones ADD COLUMN obsoleta boolean NOT NULL DEFAULT false;
 ALTER TABLE core.notificaciones DROP CONSTRAINT notificaciones_tipo_check;
 ALTER TABLE core.notificaciones ADD CONSTRAINT notificaciones_tipo_check CHECK (tipo IN (
-  'caso_derivado', 'caso_escalado', 'intervencion_registrada', 'uso_inusual',
+  'caso_derivado', 'caso_escalado', 'intervencion_registrada', 'uso_inusual', 'deriva',     -- tipos vigentes desde la 0007
   'cita_reservada', 'cita_reprogramada', 'cita_cancelada', 'cita_sin_resultado',
   'solicitud_sin_asignar', 'solicitud_sin_disponibilidad', 'espera_excedida'));
 CREATE INDEX notificaciones_destinatario ON core.notificaciones (destinatario, creado DESC) WHERE destinatario IS NOT NULL;
@@ -189,10 +192,13 @@ CREATE VIEW core.v_citas_chat AS
 GRANT SELECT, INSERT, UPDATE ON core.agenda_equipos, core.agenda_profesionales, core.politicas_agenda, core.agenda_horarios,
   core.agenda_bloqueos, core.solicitudes_cita, core.citas, core.operaciones_agenda TO app_api;
 GRANT SELECT, INSERT ON core.eventos_cita TO app_api;
+GRANT UPDATE (obsoleta) ON core.notificaciones TO app_api;      -- solo marcar obsoleto un aviso de una cita que cambió
 GRANT USAGE ON SEQUENCE core.eventos_cita_id_seq TO app_api;
 GRANT SELECT ON core.agenda_equipos, core.agenda_profesionales, core.agenda_horarios, core.agenda_bloqueos,
   core.solicitudes_cita, core.v_citas_chat TO app_chat_ro;          -- sin core.citas: el chat no ve persona_ref
 ```
+
+**Correcciones del 28 de octubre de 2026 (v1.2):** `app_api` necesita `UPDATE (obsoleta)` sobre `core.notificaciones` para marcar avisos obsoletos; antes solo tenía `SELECT` e `INSERT`. Lo detectó una prueba de E10-T3 con el rol real. La versión 1.0 omitía también el tipo `deriva`, agregado por la migración `0007` del producto. La prueba `test_itm8_una_deriva_fuerte_avisa_una_sola_vez_por_corte` lo detectó durante la implementación; la migración real y una prueba de regresión ya lo cubren.
 
 El *downgrade* elimina, en orden inverso, vista, índices, columnas agregadas (restaurando la restricción de tipos anterior después de borrar los avisos nuevos), tablas, disparadores y funciones. La extensión se conserva: otra migración podría usarla.
 

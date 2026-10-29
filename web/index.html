@@ -28,6 +28,7 @@
     <button data-view="tokens"><b>04</b> Contexto y tokens</button>
     <button data-view="fases"><b>05</b> Cómo construirlo</button>
     <button data-view="validacion"><b>06</b> Cómo validarlo</button>
+    <button data-view="evals"><b>07</b> Evals del lab</button>
   </nav></div>
   <div class="sidefoot small"><strong>Documento interactivo</strong><br>Basado en SPEC.md · v0.9<br>28 de octubre de 2026<br><br>Simulación local con datos ficticios. Sin conexiones al modelo, al producto ni a la agenda.</div>
 </aside>
@@ -85,6 +86,15 @@
  <div class="threecol"><div class="panel"><span class="badge green">Verificado</span><h3 style="margin-top:15px">Medición y evals de desarrollo</h3><p class="small muted" style="margin-top:9px">Contexto de 8.192 y nueve mediciones de Qwen. Runner de evals con controles de D02 registrados. Diez pruebas en unos 8 s.</p></div><div class="panel"><span class="badge amber">Proyectado</span><h3 style="margin-top:15px">Presupuestos y plazos</h3><p class="small muted" style="margin-top:9px">Rutas O1/O2 y plazos derivados de las mediciones. Falta medir con herramientas, salidas largas y concurrencia.</p></div><div class="panel"><span class="badge gray">Por implementar</span><h3 style="margin-top:15px">Etapa 10 en el producto</h3><p class="small muted" style="margin-top:9px">Agenda, conciliación, pantalla, harness de ejecución y evals de runtime. Criterios A01–A58.</p></div></div>
  <div class="panel gap"><h2>Criterios de aceptación</h2><p class="small muted" style="margin-top:8px">Requisitos del spec, no pruebas ya aprobadas. A23, A24 y A41 se retiraron en v0.8.</p><div id="acceptance-list"></div></div>
  <div class="twocol gap"><div class="panel"><h2>Evals y experimento A/B</h2><p class="small muted" style="margin-top:12px">Un eval es un test de integración donde el sistema bajo prueba es el agente más su harness.</p><div class="flowline"><b>Tarea</b><span>→</span><b>Entorno aislado</b><span>→</span><b>Grader automático</b></div><ul class="bullets"><li>D02 ya se ejecuta sobre este repositorio; D01 correrá sobre el producto.</li><li>5–10 corridas por tarea; los críticos exigen todas.</li><li>Señales: tasa de éxito, intentos hasta verde, comandos fallidos, preguntas al humano, tokens y tiempo.</li><li>El A/B compara la misma tarea con y sin el paquete de orientación; aún no se ejecuta.</li></ul></div><div class="panel"><h2>Antipatrones que evitamos</h2><ul class="bullets"><li><strong>Instrucciones interminables:</strong> una página y enlaces al detalle.</li><li><strong>Verificación lenta:</strong> suite rápida menor de 60 s; completa en CI.</li><li><strong>Una tool por endpoint:</strong> cuatro intenciones de negocio.</li><li><strong>El modelo que escribe:</strong> solo propone; la persona confirma.</li><li><strong>Dependencia de una máquina:</strong> scripts, prompts, políticas y fixtures versionados, sin secretos.</li></ul><div class="note gap">Una baja en la tasa de éxito tras un cambio del harness, con el mismo modelo, se trata como regresión del harness.</div></div></div>
+</section>
+<section class="view" id="evals" hidden aria-labelledby="title-evals">
+ <header class="hero"><div class="eyebrow">07 / Lab de evals · pass@5</div><h1 id="title-evals">Así se evaluó<br>al agente.</h1><p class="lead">Le dimos al agente tres tareas reales del producto, cinco veces cada una, y una máquina, no una persona, decidió si cada intento quedó bien. Si el harness ayuda, el agente acierta seguido; si falla, el eval nos dice qué pieza falta.</p></header>
+ <div class="panel"><h2>Cómo funciona cada intento</h2><div class="flowline" style="margin-top:16px"><b>1 · Copia limpia</b><span>→</span><b>2 · El agente trabaja</b><span>→</span><b>3 · Pruebas ocultas</b><span>→</span><b>4 · Pasa o no pasa</b></div><div class="threecol gap"><div><h3>Aislado</h3><p class="small muted" style="margin-top:6px">Cada intento empieza en una copia nueva del producto. Lo que hace un intento no ensucia al siguiente.</p></div><div><h3>Sin trampa</h3><p class="small muted" style="margin-top:6px">El agente no ve las pruebas que lo califican: entran después de que termina.</p></div><div><h3>Sin opinión humana</h3><p class="small muted" style="margin-top:6px">El resultado sale de comandos: pruebas, estilo, tipos y qué archivos tocó. Nadie «da el visto bueno».</p></div></div></div>
+ <div class="sectionhead gap"><div><h2>Las tres tareas</h2><p>Cada una prueba una pieza distinta del harness.</p></div></div>
+ <div class="threecol" id="evals-tareas"></div>
+ <div class="panel gap"><div class="sectionhead"><div><h2>Resultados: pass@5</h2><p>Cada punto es un intento: verde si pasó todas las pruebas ocultas.</p></div><span class="badge gray" id="evals-total">— / 15</span></div><div class="tablewrap"><table><thead><tr><th>Tarea</th><th>Intentos</th><th>pass@5</th><th>Intentos hasta verde</th><th>Comandos fallidos</th><th>Preguntas</th></tr></thead><tbody id="evals-tabla"></tbody></table></div><div class="note gap" id="evals-lectura"></div></div>
+ <div class="twocol gap"><div class="panel"><h2>Antes de medir: ¿el examen es justo?</h2><p class="small muted" style="margin-top:8px">Cada tarea se probó dos veces sin agente: con el código original <strong>tiene que fallar</strong> y con una solución de referencia <strong>tiene que pasar</strong>. Si no, la tarea sería trivial o imposible.</p><div class="tablewrap gap"><table><thead><tr><th>Tarea</th><th>Código original</th><th>Solución de referencia</th></tr></thead><tbody id="evals-controles"></tbody></table></div></div><div class="panel"><h2>Lo que aprendimos</h2><ul class="bullets" id="evals-lecciones"></ul></div></div>
+ <div class="panel gap"><h2>Con qué honestidad leer estos números</h2><ul class="bullets"><li>El agente fue un subagente de Claude, con las mismas herramientas que un desarrollador; no hay una CLI de agente instalada en este equipo.</li><li>Los intentos, comandos fallidos y preguntas los informa el propio agente; el pasa/no pasa lo decide el grader.</li><li>Cinco intentos dan una señal, no una estadística: importa la tendencia al repetir la medición después de cambiar el harness.</li></ul><p class="small muted gap">Registro completo: <a href="../docs/evals-lab.md">docs/evals-lab.md</a> · definiciones: <a href="../evals/lab/L1-contexto-endpoint-politica.yaml">L1</a>, <a href="../evals/lab/L2-entorno-bug-deriva.yaml">L2</a>, <a href="../evals/lab/L3-herramientas-tool-citas.yaml">L3</a></p></div>
 </section>
 <footer class="footer"><span>Explicación interactiva del spec v0.9 · Simulación sin efectos reales</span><div class="doclinks"><a href="../docs/SPEC.md">Spec completo</a><a href="../docs/propuesta-etapa-10-agenda.md">Etapa 10</a><a href="../docs/contrato-tecnico-agenda.md">Contrato técnico</a><a href="../docs/calidad-evals.md">Calidad y evals</a><a href="../docs/rutas-por-costo.md">Tokens y rutas</a><a href="../docs/auditoria-logica.md">Auditoría</a><a href="../reports/llm/qwen-medicion.json">Mediciones</a></div></footer>
 </main>
@@ -317,6 +327,42 @@ function setDiagramZoom(value){diagramZoom=Math.max(.55,Math.min(1.8,value));$('
 function fitDiagram(){const frame=$('diagram-viewport');if(!frame.clientWidth||!frame.clientHeight)return;setDiagramZoom(Math.min(1,(frame.clientHeight-20)*1320/(900*frame.clientWidth)));frame.scrollTo({top:0,left:0});}
 $('diagram-minus').addEventListener('click',()=>setDiagramZoom(diagramZoom-.15));$('diagram-plus').addEventListener('click',()=>setDiagramZoom(diagramZoom+.15));$('diagram-fit').addEventListener('click',fitDiagram);clearDiagram();requestAnimationFrame(fitDiagram);
 $('diagram-menu').addEventListener('click',()=>{const focused=document.querySelector('.shell').classList.toggle('diagram-focus');$('diagram-menu').textContent=focused?'Mostrar menú':'Ampliar lienzo';});
+</script>
+<script>
+// Lab de evals: datos medidos (docs/evals-lab.md). null = intento aún sin calificar.
+const evalsLab={
+ tareas:[
+  {id:'L1',pieza:'Contexto',color:'green',titulo:'Endpoint nuevo siguiendo las convenciones',tarea:'Agregar GET /agenda/politica para Administración.',pregunta:'¿Encuentra dónde va el código y cómo se prueba, solo con el AGENTS.md?',grader:'El endpoint responde bien (200, 404, 403) · matriz de permisos · contrato publicado · estilo y tipos',
+   intentos:[true,true,true,true,true],hasta_verde:2,comandos:1,preguntas:3},
+  {id:'L2',pieza:'Entorno',color:'amber',titulo:'Bug que solo se vio con datos reales',tarea:'El aviso de deriva falla con CheckViolation tras la migración de la agenda.',pregunta:'¿Los datos de prueba del proyecto bastan para reproducirlo sin los datos reales?',grader:'Prueba de regresión oculta · el aviso de deriva funciona · migraciones intactas',
+   intentos:[true,true,true,true,true],hasta_verde:3,comandos:0,preguntas:2},
+  {id:'L3',pieza:'Herramientas',color:'gray',titulo:'Consulta que requiere la herramienta del asistente',tarea:'Herramienta citas_por_profesional para el chat de Bienestar.',pregunta:'¿Usa la herramienta tipada y la vista de solo lectura, o intenta SQL directo?',grader:'Respuesta correcta en el día local · solo Bienestar · esquema · trazas · cero SQL fuera de las herramientas',
+   intentos:[true,true,true,true,false],hasta_verde:2,comandos:0,preguntas:2}
+ ],
+ controles:[['L1',true,true],['L2',true,true],['L3',true,true]],
+ lecciones:[
+  '<strong>Un examen también puede estar mal.</strong> Las primeras versiones de los graders de L1 y L3 rechazaron 5 intentos correctos: el agente tocó, con razón, archivos que el examen no esperaba (la API falsa del frontend y los registros de nombres de herramienta). Con esos graders el total habría sido 9/15. Se corrigieron (v2), se repitieron los controles y se recalificaron los quince intentos con la misma regla.',
+  '<strong>El único fallo real enseña algo.</strong> En L3, un intento hizo bien la herramienta pero no la registró en las trazas. Ninguna prueba del proyecto lo exige, así que sus propias pruebas pasaban. Falta una prueba que obligue a registrarla.',
+  '<strong>Falta una instrucción de entorno.</strong> 4 de 5 intentos de L1 no pudieron regenerar los tipos del frontend: no hay dependencias instaladas y AGENTS.md no dice cómo hacerlo.',
+  '<strong>Faltan decisiones en la especificación.</strong> Los 5 intentos de L1 preguntaron qué política usa el entorno «pruebas», y los 5 de L3 si las citas «finalizadas» cuentan y en qué zona horaria se define el día.',
+  '<strong>Los agentes encontraron un bug real.</strong> En L2, varios intentos notaron por su cuenta que la lista de avisos de la API no incluye los de agenda: la bandeja fallará cuando exista uno. Queda para corregir en el producto.'
+ ]
+};
+function renderEvalsLab(){
+ const d=evalsLab,nf2=v=>v===null?'—':v;
+ $('evals-tareas').innerHTML=d.tareas.map(t=>`<div class="panel"><span class="badge ${t.color}">${t.id} · ${t.pieza}</span><h3 style="margin-top:12px">${t.titulo}</h3><p class="small muted" style="margin-top:8px">${t.tarea}</p><p class="small" style="margin-top:8px"><strong>Pregunta:</strong> ${t.pregunta}</p><p class="small muted" style="margin-top:8px"><strong>Grader:</strong> ${t.grader}</p></div>`).join('');
+ let aprobados=0,calificados=0;
+ $('evals-tabla').innerHTML=d.tareas.map(t=>{const ok=t.intentos.filter(x=>x===true).length,hechos=t.intentos.filter(x=>x!==null).length;aprobados+=ok;calificados+=hechos;
+  const puntos=t.intentos.map(x=>`<span title="${x===null?'en curso':x?'pasó':'no pasó'}" style="display:inline-block;width:14px;height:14px;border-radius:50%;margin-right:4px;background:${x===null?'#dfe7e1':x?'var(--green)':'var(--red)'}"></span>`).join('');
+  return `<tr><td><strong>${t.id} · ${t.pieza}</strong></td><td>${puntos}</td><td>${hechos?ok+' / 5':'en curso'}</td><td>${nf2(t.hasta_verde)}</td><td>${nf2(t.comandos)}</td><td>${nf2(t.preguntas)}</td></tr>`}).join('');
+ $('evals-total').textContent=aprobados+' / '+(calificados||15)+(calificados<15?' · en curso':'');
+ $('evals-lectura').innerHTML=calificados<15?'Medición en curso: el total se interpreta cuando terminen los 15 intentos.':
+  aprobados>=13?`<strong>${aprobados}/15: harness sólido para estas tareas.</strong> Toca subir la dificultad de los evals.`:
+  aprobados>=8?`<strong>${aprobados}/15: normal.</strong> Los fallos dicen qué pieza falta.`:`<strong>${aprobados}/15:</strong> revisar primero contexto y entorno antes de tocar las herramientas.`;
+ $('evals-controles').innerHTML=d.controles.map(c=>`<tr><td><strong>${c[0]}</strong></td><td>${c[1]?'✅ falla, como debe':'⚠️ no falla'}</td><td>${c[2]?'✅ pasa':'⚠️ no pasa'}</td></tr>`).join('');
+ $('evals-lecciones').innerHTML=d.lecciones.map(l=>`<li>${l}</li>`).join('');
+}
+renderEvalsLab();
 </script>
 </body>
 </html>

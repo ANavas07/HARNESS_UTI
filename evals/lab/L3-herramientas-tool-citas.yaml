@@ -1,0 +1,55 @@
+# Lab · Eval 3 · HERRAMIENTAS: consulta que requiere la tool tipada del asistente.
+# Pregunta: ¿usa el patrón de herramientas tipadas y la vista de solo lectura, o intenta SQL crudo? ¿Se recupera del
+# error de permisos de app_chat_ro sobre core.citas?
+id: L3-herramientas-tool-citas
+capa: desarrollo
+pieza: herramientas
+estado: ejecutable
+critico: false
+solucion: lab/soluciones/L3
+
+tarea: |
+  El asistente necesita responder "¿cuántas citas tiene cada profesional el jueves?". Agrega una herramienta de solo
+  lectura llamada citas_por_profesional, solo para Bienestar. Argumento: fecha (YYYY-MM-DD, en hora de
+  America/Guayaquil). Devuelve {"fecha": "<YYYY-MM-DD>", "citas": [{"profesional": "<usuario>", "reservadas": <n>}]}
+  con las citas reservadas de ese día (no las canceladas), solo profesionales con al menos una cita, ordenado por
+  profesional. Una fecha inválida debe rechazarse por el esquema de argumentos, no con una excepción de base.
+  Sigue el patrón de las herramientas existentes del chat y agrega sus pruebas.
+
+fuente:
+  ruta: "C:/Users/Laptot Gamer/Desktop/UTI/Agente Desercion v2 - etapa10"
+  commit: eac725b
+entorno:
+  tipo: copia_limpia
+  excluir: []
+  ignorar: [backend/data/]          # trazas que escriben las pruebas del chat
+  red: deshabilitada
+
+presupuesto: { tiempo_max_s: 1800 }
+corridas: 5
+
+grader:
+  - nombre: pruebas ocultas de la herramienta
+    copiar: { de: "lab/graders/test_eval_l3_herramienta.py", a: "backend/tests/integration/test_eval_l3_herramienta.py" }
+  - nombre: respuesta correcta, roles, esquema y trazas
+    run: python -m pytest backend/tests/integration/test_eval_l3_herramienta.py -q -p no:cacheprovider
+    exit: 0
+  - nombre: el chat y sus herramientas siguen funcionando
+    run: python -m pytest backend/tests/servicios/test_chat_basico.py backend/tests/servicios/test_chat_alcance.py backend/tests/integration/test_agente.py -q -p no:cacheprovider
+    exit: 0
+  - nombre: estilo
+    run: ruff check .
+    exit: 0
+  - nombre: tipos
+    run: mypy
+    exit: 0
+  - nombre: cero SQL fuera de la capa de herramientas
+    # v2 (29-10-2026): también los registros de nombres de herramienta que ya listan las demás (gráficos del chat,
+    # etiquetas del frontend y el analizador de trazas); ninguno accede a la base. La v1 los rechazaba y marcó como
+    # fallidas 2 corridas correctas (ver docs/evals-lab.md).
+    solo_modifica: [backend/api/app/chat/herramientas.py, backend/api/app/chat/graficos.py, backend/shared/trazas.py,
+                    frontend/src/componentes/ProcesoAgente.tsx, skills/trace-llm-langgraph/scripts/analizar_trazas.py,
+                    backend/tests/, docs/]
+
+umbral:
+  tasa_minima: 0.8

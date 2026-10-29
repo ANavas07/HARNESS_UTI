@@ -2,6 +2,7 @@
 import contextlib
 import io
 import json
+import shutil
 import sys
 import tempfile
 import unittest
@@ -92,6 +93,38 @@ class EvalRunnerTests(unittest.TestCase):
         spec = self.custom_spec(grader=[{"nombre": "http", "http": "GET /", "status": 200}])
         code, summary, records = self.run_eval("--control", "negativo", spec=spec)
         self.assertEqual(records[0]["resultado"], "environment_error")
+
+    def test_external_agent_is_graded_against_a_fresh_copy_of_the_source_commit(self):
+        """--preparar copia la fuente y la tarea; --calificar puntúa lo que dejó un agente externo (p. ej. un subagente)."""
+        spec = self.custom_spec(fuente={"ruta": str(ROOT), "commit": "HEAD"},
+                                entorno={"excluir": ["evals/"], "ignorar": ["data/"]})
+        sin_tocar, resuelto = Path(self.tmp.name) / "corrida-1", Path(self.tmp.name) / "corrida-2"
+        with contextlib.redirect_stdout(io.StringIO()):
+            for carpeta in (sin_tocar, resuelto):
+                self.assertEqual(self.runner.main([str(spec), "--preparar", str(carpeta)]), 0)
+        self.assertTrue((Path(self.tmp.name) / "corrida-1.tarea.md").is_file())
+        self.assertFalse((sin_tocar / "evals").exists())
+        shutil.copytree(ROOT / "evals/desarrollo/soluciones/D02", resuelto, dirs_exist_ok=True)
+        (resuelto / "data").mkdir()
+        (resuelto / "data/traza.log").write_text("artefacto de una prueba", encoding="utf-8")   # ignorado por entorno.ignorar
+        senales = Path(self.tmp.name) / "senales.json"
+        senales.write_text(json.dumps({"intentos_hasta_verde": 2, "preguntas_humano": 0}), encoding="utf-8")
+        with contextlib.redirect_stdout(io.StringIO()), contextlib.redirect_stderr(io.StringIO()):
+            code = self.runner.main([str(spec), "--calificar", str(sin_tocar), str(resuelto), "--senales", str(senales), str(senales),
+                                     "--salida", str(self.out)])
+        records = sorted((json.loads(p.read_text(encoding="utf-8")) for p in self.out.rglob("*-0[12].json")), key=lambda r: r["run_id"])
+        self.assertEqual([r["resultado"] for r in records], ["failed", "accepted"])
+        self.assertEqual(records[1]["senales"]["intentos_hasta_verde"], 2)
+        self.assertNotIn("data/traza.log", records[1]["archivos_modificados"])
+        self.assertEqual(code, 1)                                    # 1 de 2 no alcanza el umbral de 0.8
+
+    def test_copiar_injects_hidden_files_before_the_next_step(self):
+        spec = self.custom_spec(grader=[
+            {"nombre": "oculto", "copiar": {"de": "desarrollo/fixtures/qwen-medicion-ctx4096.json", "a": "oculto/medicion.json"}},
+            {"nombre": "lo ve", "run": "python -c \"import pathlib,sys; sys.exit(0 if pathlib.Path('oculto/medicion.json').is_file() else 1)\"",
+             "exit": 0}])
+        code, summary, records = self.run_eval("--control", "negativo", spec=spec)
+        self.assertEqual(records[0]["resultado"], "accepted")
 
     def test_blocked_and_runtime_evals_are_refused(self):
         for blocked in ("desarrollo/D01-disponibilidad.yaml", "runtime/C01-reprogramar.yaml"):

@@ -1,0 +1,58 @@
+# Lab · Eval 1 · CONTEXTO: endpoint nuevo siguiendo las convenciones del producto.
+# Pregunta: ¿el agente encuentra dónde va el código y cómo se prueba (permisos, modelo de respuesta, contrato OpenAPI)
+# solo con el AGENTS.md y el repositorio?
+id: L1-contexto-endpoint-politica
+capa: desarrollo
+pieza: contexto
+estado: ejecutable
+critico: false
+solucion: lab/soluciones/L1
+
+tarea: |
+  En el producto de permanencia (este repositorio), agrega el endpoint GET /agenda/politica para Administración.
+  Debe devolver la política de agenda vigente (aprobada) del modo de la instancia: modo "demo" cuando la API corre
+  en entorno de desarrollo y "produccion" en cualquier otro entorno. Campos de la respuesta: id, policy_id, version,
+  modo, contenido, aprobada_por y aprobada_en. Si no hay una política vigente, responde 404. Seguimiento y Bienestar
+  no pueden usarlo (403). Ya existe el servicio api/app/services/politica_agenda.py.
+  Sigue las convenciones del proyecto (permisos, modelo de respuesta, contrato publicado) y agrega sus pruebas.
+
+fuente:
+  ruta: "C:/Users/Laptot Gamer/Desktop/UTI/Agente Desercion v2 - etapa10"
+  commit: eac725b
+entorno:
+  tipo: copia_limpia
+  excluir: []
+  ignorar: [backend/data/]          # trazas que escriben las pruebas del chat
+  red: deshabilitada
+
+presupuesto: { tiempo_max_s: 1800 }
+corridas: 5
+
+grader:
+  - nombre: pruebas ocultas del contrato del endpoint
+    copiar: { de: "lab/graders/test_eval_l1_politica.py", a: "backend/tests/integration/test_eval_l1_politica.py" }
+  - nombre: el endpoint cumple el contrato (200, 404, 403)
+    run: python -m pytest backend/tests/integration/test_eval_l1_politica.py -q -p no:cacheprovider
+    exit: 0
+  - nombre: la matriz de permisos sigue completa
+    run: python -m pytest backend/tests/integration/test_casos.py -q -p no:cacheprovider -k "matriz or toda_accion"
+    exit: 0
+  - nombre: el contrato OpenAPI publicado coincide con la API
+    run: python -m pytest backend/tests/architecture -q -p no:cacheprovider
+    exit: 0
+  - nombre: la ruta vive en un router de la API
+    run: python -c "import pathlib,sys; sys.exit(0 if any('/agenda/politica' in p.read_text(encoding='utf-8') for p in pathlib.Path('backend/api/app/routers').glob('*.py')) else 1)"
+    exit: 0
+  - nombre: estilo
+    run: ruff check .
+    exit: 0
+  - nombre: tipos
+    run: mypy
+    exit: 0
+  - nombre: solo toca la API, sus pruebas, el contrato publicado y la documentación
+    # v2 (29-10-2026): también la API falsa de las pruebas del frontend, que refleja las acciones por rol. La v1 la
+    # rechazaba y marcó como fallidas 3 corridas correctas (ver docs/evals-lab.md).
+    solo_modifica: [backend/api/, backend/tests/, frontend/openapi.json, frontend/src/api/, frontend/src/__tests__/, docs/]
+
+umbral:
+  tasa_minima: 0.8

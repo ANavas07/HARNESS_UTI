@@ -1,0 +1,48 @@
+# Lab · Eval 2 · ENTORNO: bug que solo se vio con datos reales.
+# Es el fallo F1 de la iteración 1 del loop de mejora: la 0011 borró el tipo de aviso 'deriva' de la 0007.
+# Pregunta: ¿los fixtures del proyecto bastan para reproducirlo, o el agente tiene que inventar datos?
+id: L2-entorno-bug-deriva
+capa: desarrollo
+pieza: entorno
+estado: ejecutable
+critico: false
+solucion: lab/soluciones/L2
+
+tarea: |
+  Reporte desde el MVP local con datos reales: al cerrar un corte con una deriva fuerte del riesgo, el aviso a
+  Administración falla con "CheckViolation: notificaciones_tipo_check" y no se crea. Empezó a pasar después de
+  agregar la migración de la agenda. No tienes los datos reales: reproduce el problema con los fixtures del
+  proyecto, corrígelo y deja una prueba de regresión.
+
+fuente:
+  ruta: "C:/Users/Laptot Gamer/Desktop/UTI/Agente Desercion v2 - etapa10"
+  commit: 64c289b
+entorno:
+  tipo: copia_limpia
+  excluir: []
+  ignorar: [backend/data/]          # trazas que escriben las pruebas del chat
+  red: deshabilitada
+
+presupuesto: { tiempo_max_s: 1800 }
+corridas: 5
+
+grader:
+  - nombre: prueba de regresión oculta de los tipos de aviso
+    copiar: { de: "lab/graders/test_eval_l2_avisos.py", a: "backend/tests/integration/test_eval_l2_avisos.py" }
+  - nombre: todos los tipos de aviso anteriores siguen siendo válidos
+    run: python -m pytest backend/tests/integration/test_eval_l2_avisos.py -q -p no:cacheprovider
+    exit: 0
+  - nombre: el aviso de deriva del flujo de casos funciona
+    run: python -m pytest backend/tests/integration/test_flujo_casos.py -q -p no:cacheprovider -k deriva
+    exit: 0
+  - nombre: la migración sigue siendo reversible y la agenda intacta
+    run: python -m pytest backend/tests/integration/test_migraciones.py backend/tests/integration/test_agenda_esquema.py -q -p no:cacheprovider
+    exit: 0
+  - nombre: estilo
+    run: ruff check .
+    exit: 0
+  - nombre: sin tocar datos ni código fuera de la base y sus pruebas
+    solo_modifica: [backend/db/migrations/, backend/tests/, backend/scripts/correr_mutaciones.py, docs/]
+
+umbral:
+  tasa_minima: 0.8

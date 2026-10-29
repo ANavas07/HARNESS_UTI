@@ -1,6 +1,6 @@
 # Progreso del proyecto — Harness de calendario
 
-Última actualización: **28 de octubre de 2026**, zona America/Guayaquil.
+Última actualización: **29 de octubre de 2026**, zona America/Guayaquil.
 
 Esta bitácora reúne el proceso realizado, decisiones, entregables, evidencia y trabajo pendiente. La secuencia inicial se reconstruye desde la conversación y los archivos existentes; no se asignan fechas individuales que no estén acreditadas. No es un registro de producción. El [SPEC](docs/SPEC.md) define el comportamiento y [rutas por costo](docs/rutas-por-costo.md) los presupuestos numéricos.
 
@@ -13,7 +13,7 @@ Esta bitácora reúne el proceso realizado, decisiones, entregables, evidencia y
 | Definición funcional y arquitectura | Cerrada para el MVP, SPEC v0.9 con contrato técnico | [SPEC](docs/SPEC.md); nuevas reglas técnicas propuestas, no aprobaciones institucionales implícitas. |
 | Auditoría integral de lógica | Realizada en diseño | [21 hallazgos de v0.6 y 12 de alineación v0.8](docs/auditoria-logica.md), con resolución propuesta y pruebas asignadas. |
 | Alineación con el Agente de Deserción v2 | Analizada el 28 de octubre | Código y documentación revisados (commit `fd64df2`). Arquitectura decidida: módulo del producto (opción A). Etapa 10 aceptada por el equipo del producto el 28 de octubre de 2026 (comunicado por el usuario). Cambios P3, P5 y P7 por implementar en la fase 10.A. |
-| Calendario, API y workers operativos | Pendientes | No hay reservas persistidas ni integración real con el producto de deserción. |
+| Calendario en el producto | Fase 10.A cerrada (G10.A) | PR [GRUPO2_SEGUIMIENTO#1](https://github.com/ANavas07/GRUPO2_SEGUIMIENTO/pull/1): esquema, política, asignación, avisos dirigidos y evento; 1.733 pruebas y mutaciones 46/46. Aún sin reservas ni endpoints (fase 10.B). |
 | Conexión y medición de Qwen | Verificadas históricamente | Nueve solicitudes sintéticas; no se volvió a comprobar disponibilidad el 27 de octubre. |
 | Presupuestos de tokens | Calculados y cubiertos por cuatro pruebas | No existe aún ejecutor persistente de presupuesto por tarea. |
 | HTML interactivo | Actualizado a v0.8 y §33 | Simulación local; no ejecuta herramientas ni llamadas al modelo. Verificado en navegador el 28 de octubre. |
@@ -204,6 +204,63 @@ El usuario comunicó que el equipo del producto aceptó la propuesta de la Etapa
 
 Siguen pendientes dentro de G1 la implementación de P3, P5 y P7 (fase 10.A) y la aprobación o excepción firmada del modelo activo, que solo hace falta para un piloto con estudiantes. La definición de listo (SPEC §34) queda completa para las fases 10.A–10.C.
 
+### 3.16 Desarrollo iniciado: fase 10.A en el producto — 28 de octubre de 2026
+
+El trabajo se hizo en el repositorio del producto (GRUPO2_SEGUIMIENTO), rama local `etapa-10-agenda`, en un worktree aparte (`Agente Desercion v2 - etapa10`) para no tocar los cambios sin commit del Monitor UTI en la carpeta original.
+
+- **SPEC_REFINADO v1.10** con la Etapa 10. E10-T5 (permisos) pasa a la fase 10.B: la prueba de la matriz exige que cada acción tenga su endpoint.
+- **E10-T1:** migración `0011_agenda` con 29 pruebas de integración y un objetivo de mutaciones `agenda` en el runner del producto.
+- **E10-T6:** evento `cita.solicitada` con 9 pruebas de contrato; declarado sin consumidor hasta la fase 10.B.
+- **Hallazgo:** el contrato técnico omitía el tipo de aviso `deriva` de la migración `0007`. La suite del producto lo detectó; se corrigió la migración y el [contrato técnico](docs/contrato-tecnico-agenda.md) pasó a la versión 1.1.
+- **Verificación en el producto:**
+  - 1.649 pruebas aprobadas;
+  - mutaciones del objetivo `agenda`: 17/17;
+  - ruff, mypy e import-linter en verde.
+- **Decisiones del usuario:** Coordinación asigna; la política demo se carga automáticamente en el MVP; habrá maqueta previa con Bienestar antes de 10.D; la rama se publica con un PR hacia `MVP` del producto. HARNESS_UTI no se publica por ahora.
+- **Sigue:** E10-T2, E10-T3 y E10-T4 para cerrar el gate G10.A.
+
+### 3.17 Fase 10.A cerrada (G10.A) — 28 de octubre de 2026
+
+- **Implementado en la rama del producto:**
+  - **E10-T4:** validador de la política, servicio de versiones con aprobación auditada y carga automática de la demo en `mvp_local.py`.
+  - **E10-T2:** asignación por Coordinación.
+  - **E10-T3:** avisos dirigidos.
+- **Hallazgo:** `app_api` no podía marcar avisos obsoletos. La migración ahora le da solo `UPDATE (obsoleta)` y el [contrato técnico](docs/contrato-tecnico-agenda.md) pasó a la versión 1.2.
+- **Verificación en el producto:**
+  - 1.733 pruebas aprobadas;
+  - mutaciones del objetivo `agenda`: 46/46;
+  - ruff, mypy e import-linter en verde.
+- **Incidente controlado:** una corrida de mutaciones se cortó por el límite de tiempo del comando. El runner del producto restauró los 7 archivos desde su respaldo y la corrida completa se repitió sin límite.
+- **Publicación:** la rama `etapa-10-agenda` se actualizó en el PR [ANavas07/GRUPO2_SEGUIMIENTO#1](https://github.com/ANavas07/GRUPO2_SEGUIMIENTO/pull/1) hacia `MVP`. HARNESS_UTI sigue sin publicar, por decisión del usuario.
+- **Sigue:** la fase 10.B y la maqueta para Bienestar antes de 10.D.
+
+### 3.18 Loop de mejora, iteración 1 — 29 de octubre de 2026
+
+El CI del PR quedó en verde, con 4/4 checks y 1.733 pruebas en Linux, después de corregir el permiso de gitleaks, el lint sobre `build/`, el socket de PostgreSQL y una prueba de PDF dependiente de la plataforma.
+
+Se aplicó el loop observar → diagnosticar → corregir → medir a los 8 fallos del agente durante la fase 10.A ([loop-mejora.md](docs/loop-mejora.md)):
+
+- **Hechas y medidas:** 2 correcciones (la prueba de regresión de F1 y la reparación del CI de F7).
+- **Propuestas con su métrica:** 3 líneas de AGENTS.md, el fixture `con_api`, una fábrica de datos de prueba, una prueba contra mutaciones a medias y 3 prácticas del agente.
+- **Brecha detectada:** no se miden los tokens del agente de desarrollo.
+
+### 3.19 Lab de evals: tres tareas y pass@5 — 29 de octubre de 2026
+
+Tres evals sobre el producto, uno por pieza del harness: L1 contexto, L2 entorno y L3 herramientas ([evals-lab.md](docs/evals-lab.md)). El runner ganó `--preparar` y `--calificar` para calificar el trabajo de un agente externo sobre una copia limpia del commit base, el paso `copiar` para inyectar pruebas ocultas y `entorno.ignorar` para los artefactos generados. Controles negativo y positivo en verde para los tres.
+
+- **Resultado:** 14/15 (L1 5/5, L2 5/5, L3 4/5) con los graders v2. Con los v1 habría sido 9/15: dos graders rechazaban trabajo correcto.
+- **Único fallo real:** L3-r5 no registró la herramienta en las trazas, y ninguna prueba del producto lo exige.
+- **Bug del producto encontrado por los agentes:** el `Literal` de `Aviso` no admitía los avisos de agenda. Corregido en el PR #1 (commit `e43df1c`).
+- **HTML:** vista 07 «Evals del lab», con el resultado de cada intento y las lecciones.
+
+### 3.20 SPEC cerrado con las preguntas del lab — 29 de octubre de 2026
+
+Se cerraron con el usuario las tres decisiones que los agentes preguntaron en el lab. Quedaron en el SPEC (§23 y §34), en el contrato técnico v1.3 (§1) y en el SPEC_REFINADO del producto (v1.11, Etapa 10, decisiones 13–15):
+
+- **Modo de la política por entorno:** `desarrollo` → `demo`, `pruebas` → `piloto_interno`, `produccion` → `produccion`.
+- **Conteo de citas de un día:** se cuentan `reservada` y `finalizada`, por la hora de inicio en la zona de la agenda.
+- **Modo básico del chat:** sin herramientas de agenda; remite a la pantalla Agenda.
+
 ## 4. Verificaciones realizadas y alcance
 
 | Verificación | Resultado registrado | Qué demuestra |
@@ -219,6 +276,23 @@ Siguen pendientes dentro de G1 la implementación de P3, P5 y P7 (fase 10.A) y l
 | Concurrencia, carga, restauración y dominio LLM | Pendientes | No existe evidencia operativa de esas garantías. |
 
 ## 5. Trabajo pendiente, en orden de dependencia
+
+### 5.1 Siguiente bloque de trabajo (29 de octubre de 2026)
+
+Pendientes acordados al cerrar el SPEC con las preguntas del lab. Se retoman en este orden:
+
+1. **Publicación:** commit y push de HARNESS_UTI (runner, evals del lab, `evals-lab.md`, `loop-mejora.md`, vista 07, SPEC, contrato v1.3 y esta bitácora). Queda a decisión del usuario.
+2. **PR #1 (fase 10.A):** confirmar el CI verde del último commit, revisarlo y mergearlo a `MVP`.
+3. **Aplicar las decisiones del 29 de octubre en el código:** el modo por entorno (hoy solo existe `cargar_demo` para desarrollo) en la fase 10.B. El conteo por día y el modo básico entran en la fase 10.E.
+4. **Correcciones del loop de mejora en el producto:**
+   - una prueba de arquitectura: toda herramienta del chat está en `ENUMS["herramienta"]` de `shared/trazas.py`;
+   - en AGENTS.md: cómo regenerar los tipos del frontend y la política de migraciones ya aplicadas;
+   - el fixture `con_api`, una fábrica de datos y una prueba contra mutaciones a medias.
+5. **Fase 10.B** (disponibilidad, solicitudes y reserva automática) con TDD y su puerta G10.B.
+6. **Maqueta de la pantalla Agenda** revisada con Bienestar, antes de la fase 10.D.
+7. **Medición 2 del lab:** tareas más difíciles y pass@5 otra vez después de aplicar el punto 4, para comparar la tendencia. Medir tokens y tiempo cuando haya una CLI de agente.
+
+### 5.2 Pendientes generales
 
 1. Incorporar la [Etapa 10](docs/propuesta-etapa-10-agenda.md) al SPEC_REFINADO del producto (v1.10) y empezar la fase 10.A con TDD. Antes de un piloto, obtener la aprobación o excepción firmada del modelo activo (G1).
 2. Añadir al runner una opción de repositorio de origen para ejecutar evals sobre el producto (D01).

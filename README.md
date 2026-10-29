@@ -20,7 +20,8 @@ Harnes Calendario/
 │   ├── auditoria-logica.md            Riesgos de diseño y su resolución
 │   ├── propuesta-etapa-10-agenda.md   Etapa 10 para el SPEC_REFINADO del producto, por fases
 │   ├── contrato-tecnico-agenda.md     Esquema SQL, endpoints, errores, algoritmos y datos de prueba
-│   └── calidad-evals.md               Tests, evals del agente, métricas y tiempos
+│   ├── calidad-evals.md               Tests, evals del agente, métricas y tiempos
+│   └── loop-mejora.md                 Iteraciones de mejora del harness a partir de los fallos
 ├── evals/                            Definiciones de evals (tarea, entorno, grader)
 │   ├── desarrollo/                   Agente que construye el repositorio
 │   └── runtime/                      Agente de calendario con Qwen
@@ -52,6 +53,7 @@ Harnes Calendario/
 - [Auditoría de lógica](docs/auditoria-logica.md): revisión de riesgos, cuellos de botella y dependencias de activación.
 - [Política de demostración](config/politica.demo.json): valores explícitos para desarrollar con datos sintéticos; pendientes de aprobación para un piloto real.
 - [Contrato técnico de la agenda](docs/contrato-tecnico-agenda.md): migración `0011_agenda` validada, endpoints con errores, política, algoritmos, herramientas y datos sintéticos.
+- [Loop de mejora](docs/loop-mejora.md): iteraciones observar → diagnosticar → corregir → medir sobre los fallos del agente.
 - [Calidad, tiempos y evals](docs/calidad-evals.md): tests de código, evals del agente con grader automático, señales del harness y métricas del equipo.
 - [Rutas y presupuestos](docs/rutas-por-costo.md): contexto efectivo de 8.192 tokens y límites por llamada/tarea.
 - [Evaluación A/B](docs/analisis-ab-harness.md): comparación controlada de desarrollo con y sin harness.

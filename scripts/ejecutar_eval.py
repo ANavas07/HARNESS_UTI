@@ -27,8 +27,9 @@ SIGNALS = ("intentos_hasta_verde", "comandos_fallidos", "preguntas_humano",
            "tokens_entrada", "tokens_salida", "llamadas_modelo",
            "hasta_primer_test_valido_s")
 STEP_KEYS = {"nombre", "run", "exit", "stderr_no_contiene", "archivo_existe",
-             "sin_cambios", "solo_modifica"}
-IGNORED_PARTS = {"__pycache__", ".pytest_cache"}
+             "sin_cambios", "solo_modifica", "copiar"}
+IGNORED_PARTS = {"__pycache__", ".pytest_cache", ".hypothesis", ".mypy_cache", ".ruff_cache",
+                 "node_modules", "build", ".import_linter_cache"}
 STEP_TIMEOUT_S = 300
 
 
@@ -45,8 +46,8 @@ def load_eval(path):
     return data
 
 
-def git(*args):
-    return subprocess.run(["git", *args], cwd=PROJECT_ROOT, capture_output=True,
+def git(*args, cwd=PROJECT_ROOT):
+    return subprocess.run(["git", *args], cwd=cwd, capture_output=True,
                           check=True).stdout
 
 
@@ -54,16 +55,27 @@ def excluded(rel, prefixes):
     return any(rel == p.rstrip("/") or rel.startswith(p.rstrip("/") + "/") for p in prefixes)
 
 
-def materialize(dest, origin, exclude):
-    """Copia el repositorio sin los prefijos excluidos; devuelve (commit, sucio)."""
+def extract(dest, archive, exclude):
+    with tarfile.open(fileobj=io.BytesIO(archive)) as tar:
+        members = [m for m in tar.getmembers() if not excluded(m.name, exclude)]
+        safe = {"filter": "data"} if hasattr(tarfile, "data_filter") else {}
+        tar.extractall(dest, members=members, **safe)
+
+
+def materialize(dest, origin, exclude, source=None):
+    """Copia el repositorio sin los prefijos excluidos; devuelve (commit, sucio).
+
+    `source` = campo `fuente` del eval ({ruta, commit}): otro repositorio en un commit fijo (p. ej. el producto)."""
+    dest.mkdir(parents=True)
+    if source:
+        ruta = Path(source["ruta"])
+        commit = git("rev-parse", source["commit"], cwd=ruta).decode().strip()
+        extract(dest, git("archive", "--format=tar", commit, cwd=ruta), exclude)
+        return commit, False
     commit = git("rev-parse", "HEAD").decode().strip()
     dirty = bool(git("status", "--porcelain").strip())
-    dest.mkdir(parents=True)
     if origin == "head":
-        with tarfile.open(fileobj=io.BytesIO(git("archive", "--format=tar", "HEAD"))) as tar:
-            members = [m for m in tar.getmembers() if not excluded(m.name, exclude)]
-            safe = {"filter": "data"} if hasattr(tarfile, "data_filter") else {}
-            tar.extractall(dest, members=members, **safe)
+        extract(dest, git("archive", "--format=tar", "HEAD"), exclude)
         return commit, False
     for rel in git("ls-files", "-co", "--exclude-standard", "-z").decode().split("\0"):
         if rel and not excluded(rel, exclude) and (PROJECT_ROOT / rel).is_file():
@@ -119,6 +131,17 @@ def grade(steps, repo, places, initial, agent_changes, env):
         unknown = set(step) - STEP_KEYS
         if unknown:
             result.update(ok=False, no_soportado=sorted(unknown))
+        if "copiar" in step and not unknown:                    # pruebas ocultas: entran después del agente
+            origen = EVALS_DIR / step["copiar"]["de"]
+            destino = repo / step["copiar"]["a"]
+            if not origen.exists():
+                result["ok"] = False
+                result["detalle"].append(f"no existe {origen}")
+            elif origen.is_dir():
+                shutil.copytree(origen, destino, dirs_exist_ok=True)
+            else:
+                destino.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copy2(origen, destino)
         if "run" in step and not unknown:
             code, out, err, timed_out = run_shell(expand(step["run"], places), repo, STEP_TIMEOUT_S, env)
             result["exit"] = code
@@ -179,7 +202,7 @@ def run_once(spec, mode, agent, origin, index, stamp):
         scratch.mkdir()
         try:
             record["commit_base"], record["arbol_sucio"] = materialize(
-                repo, origin, environment.get("excluir", ["evals/"]))
+                repo, origin, environment.get("excluir", ["evals/"]), spec.get("fuente"))
         except (subprocess.CalledProcessError, OSError) as exc:
             record.update(resultado="environment_error", error=str(exc))
             return record
@@ -206,7 +229,7 @@ def run_once(spec, mode, agent, origin, index, stamp):
             record["agente"] = {"exit": code, "supero_plazo": timed_out,
                                 "stdout_final": (out or "")[-800:], "stderr_final": (err or "")[-800:]}
             record["senales"] = read_signals(signals_file)
-        agent_changes = changed(initial, snapshot(repo))
+        agent_changes = [p for p in changed(initial, snapshot(repo)) if not excluded(p, environment.get("ignorar", []))]
         record["archivos_modificados"] = agent_changes
         grader_started = time.monotonic()
         steps = grade(spec["grader"], repo, places, initial, agent_changes, env)
@@ -226,6 +249,45 @@ def run_once(spec, mode, agent, origin, index, stamp):
     return record
 
 
+def prepare(spec, target):
+    """Copia limpia para un agente externo (p. ej. un subagente): el código del commit base y la tarea al lado."""
+    if target.exists():
+        raise SystemExit(f"{target} ya existe: cada corrida necesita una carpeta nueva")
+    commit, _ = materialize(target, "head", spec.get("entorno", {}).get("excluir", ["evals/"]), spec.get("fuente"))
+    task = target.parent / f"{target.name}.tarea.md"
+    task.write_text(spec["tarea"], encoding="utf-8")
+    return commit, task
+
+
+def grade_external(spec, target, signals, index, stamp):
+    """Califica una carpeta donde ya trabajó un agente externo, contra una copia nueva del commit base."""
+    run_id = f"{spec['id']}-{stamp}-{index:02d}"
+    environment = spec.get("entorno", {})
+    record = {"run_id": run_id, "eval_id": spec["id"], "capa": spec.get("capa"), "tipo": "agente_externo",
+              "carpeta": str(target), "red": "no_restringida_por_el_runner" if environment.get("red") else None,
+              "iniciado_utc": datetime.now(timezone.utc).isoformat(timespec="seconds")}
+    started = time.monotonic()
+    with tempfile.TemporaryDirectory(prefix="eval-") as tmp:
+        base, scratch = Path(tmp) / "base", Path(tmp) / "tmp"
+        scratch.mkdir()
+        record["commit_base"], _ = materialize(base, "head", environment.get("excluir", ["evals/"]), spec.get("fuente"))
+        initial = snapshot(base)
+        # artefactos que generan las pruebas o las herramientas (trazas, cachés): no son cambios del agente
+        agent_changes = [p for p in changed(initial, snapshot(target)) if not excluded(p, environment.get("ignorar", []))]
+        record["archivos_modificados"] = agent_changes
+        record["senales"] = read_signals(signals) if signals else dict.fromkeys(SIGNALS)
+        places = {"evals": EVALS_DIR.as_posix(), "tmp": scratch.as_posix(), "repo": target.as_posix()}
+        steps = grade(spec["grader"], target, places, initial, agent_changes, {**os.environ, "PYTHONDONTWRITEBYTECODE": "1"})
+    record["grader"] = steps
+    if any(s.get("no_soportado") for s in steps):
+        record["resultado"] = "environment_error"
+    else:
+        record["resultado"] = "accepted" if all(s["ok"] for s in steps) else "failed"
+    elapsed = round(time.monotonic() - started, 3)
+    record["tiempos_s"] = {"total": elapsed, "grader": elapsed}          # el tiempo del agente lo informa él mismo
+    return record
+
+
 def summarize(spec, mode, records):
     counts = {}
     for r in records:
@@ -238,7 +300,7 @@ def summarize(spec, mode, records):
     totals = [r["tiempos_s"]["total"] for r in records if "tiempos_s" in r]
     if totals:
         summary["mediana_tiempo_s"] = round(statistics.median(totals), 3)
-    if mode == "agente":
+    if mode in ("agente", "agente_externo"):
         threshold = 1.0 if spec.get("critico") else spec["umbral"]["tasa_minima"]
         summary.update(umbral=threshold, cumple=rate >= threshold)
         for key in SIGNALS:
@@ -255,6 +317,11 @@ def main(argv=None):
     group = parser.add_mutually_exclusive_group(required=True)
     group.add_argument("--agente", help="Comando del agente; recibe EVAL_TAREA, EVAL_SENALES y EVAL_REPO")
     group.add_argument("--control", choices=["negativo", "positivo"])
+    group.add_argument("--preparar", type=Path, metavar="DIR", help="Crea una copia limpia y su tarea para un agente externo")
+    group.add_argument("--calificar", type=Path, nargs="+", metavar="DIR",
+                       help="Califica carpetas donde ya trabajó un agente externo (una corrida por carpeta)")
+    parser.add_argument("--senales", type=Path, nargs="*", default=[],
+                        help="Con --calificar: JSON de señales de cada carpeta, en el mismo orden")
     parser.add_argument("--corridas", type=int, help="N; por defecto el del eval (controles: 1)")
     parser.add_argument("--origen", choices=["head", "trabajo"], default="head",
                         help="head: commit actual; trabajo: archivos locales sin commit (se marca sucio)")
@@ -270,15 +337,26 @@ def main(argv=None):
     if spec["estado"] != "ejecutable" and not args.forzar:
         print(f"{spec['id']}: estado '{spec['estado']}', no ejecutable", file=sys.stderr)
         return 2
-    mode = f"control_{args.control}" if args.control else "agente"
-    runs = args.corridas or (1 if args.control else spec.get("corridas", 5))
+    if args.preparar:
+        commit, task = prepare(spec, args.preparar)
+        print(json.dumps({"carpeta": str(args.preparar), "tarea": str(task), "commit_base": commit}, ensure_ascii=False))
+        return 0
+    if args.calificar and args.senales and len(args.senales) != len(args.calificar):
+        print("--senales debe tener una entrada por carpeta", file=sys.stderr)
+        return 2
+    mode = f"control_{args.control}" if args.control else "agente_externo" if args.calificar else "agente"
+    runs = len(args.calificar) if args.calificar else args.corridas or (1 if args.control else spec.get("corridas", 5))
     stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
     out_dir = args.salida / f"{stamp[:4]}-{stamp[4:6]}-{stamp[6:8]}"
     out_dir.mkdir(parents=True, exist_ok=True)
 
     records = []
     for index in range(1, runs + 1):
-        record = run_once(spec, mode, args.agente, args.origen, index, stamp)
+        if args.calificar:
+            signals = args.senales[index - 1] if args.senales else None
+            record = grade_external(spec, args.calificar[index - 1], signals, index, stamp)
+        else:
+            record = run_once(spec, mode, args.agente, args.origen, index, stamp)
         (out_dir / f"{record['run_id']}.json").write_text(
             json.dumps(record, ensure_ascii=False, indent=2), encoding="utf-8")
         failed = [s["paso"] for s in record.get("grader", []) if not s["ok"]]
@@ -287,7 +365,7 @@ def main(argv=None):
         records.append(record)
 
     summary = summarize(spec, mode, records)
-    kind = "" if mode == "agente" else f"-{mode.replace('_', '-')}"
+    kind = "" if mode in ("agente", "agente_externo") else f"-{mode.replace('_', '-')}"
     (out_dir / f"{spec['id']}{kind}-{stamp}-resumen.json").write_text(
         json.dumps(summary, ensure_ascii=False, indent=2), encoding="utf-8")
     print(json.dumps(summary, ensure_ascii=False, indent=2))

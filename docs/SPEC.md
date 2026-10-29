@@ -416,7 +416,7 @@ Las nueve mediciones de este proyecto miden consumo y latencia; no calidad, herr
 
 ## 23. Política ejecutable y condiciones de uso
 
-Separar `demo`, `piloto_interno` y `produccion`; el modo no cambia por un parámetro del cliente. Una política aprobada es inmutable y tiene `policy_id`, `version`, institución o sede, vigencia, estado y actor y fecha de aprobación. Cada operación conserva la versión usada.
+Separar `demo`, `piloto_interno` y `produccion`; el modo no cambia por un parámetro del cliente. Cada entorno de la instancia usa un modo fijo: `desarrollo` → `demo`, `pruebas` → `piloto_interno`, `produccion` → `produccion` (decisión del 29 de octubre de 2026). Una política aprobada es inmutable y tiene `policy_id`, `version`, institución o sede, vigencia, estado y actor y fecha de aprobación. Cada operación conserva la versión usada.
 
 | Configuración obligatoria | Contrato de validación | Si falta o es inválida |
 |---|---|---|
@@ -889,6 +889,19 @@ Las decisiones institucionales quedan **cerradas para el MVP** con los valores d
 | Horario y cupo | Lunes a viernes, 09:00–12:00 y 14:00–17:00; 20 citas diarias por profesional | Cada profesional y Coordinación |
 | Contacto con el estudiante | El profesional, por canales institucionales | Responsable institucional |
 | Desempate alfabético | Suspendido | Responsable de datos, si se aprueba una fuente de nombres |
+
+**Decisiones del usuario del 28 de octubre de 2026:**
+
+- **Asignación en el MVP:** la hace Coordinación de Bienestar.
+- **Política:** `mvp_local.py` la carga y aprueba automáticamente en modo demo.
+- **Pantalla:** antes de la fase 10.D se revisa con Bienestar una maqueta navegable.
+- **Publicación:** cada fase entra al producto con una rama y un PR hacia `MVP`.
+
+**Decisiones del usuario del 29 de octubre de 2026** (preguntas abiertas que encontró el [lab de evals](evals-lab.md)):
+
+- **Modo de la política por entorno:** `desarrollo` → `demo`, `pruebas` → `piloto_interno`, `produccion` → `produccion`. El modo sale del entorno de la instancia, nunca de la solicitud. Así el piloto se ensaya sin tocar la política de producción.
+- **Conteo de citas de un día:** cuenta las citas `reservada` y `finalizada`, como el cupo diario (§21); las `cancelada` no cuentan. Una cita pertenece al día local de su **hora de inicio** en la zona de la agenda (`America/Guayaquil` en el MVP), aunque termine después de medianoche. Rige para toda herramienta o reporte que cuente citas por día.
+- **Modo básico del chat:** las herramientas de agenda solo existen con LLM. Sin Qwen, el modo básico no interpreta preguntas ni fechas de agenda: responde que la consulta no está disponible y remite a la pantalla Agenda. La agenda sigue funcionando (A34).
 
 ### Definición de listo para empezar
 

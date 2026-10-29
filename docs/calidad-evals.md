@@ -4,6 +4,8 @@ Versión 0.2 — 28 de octubre de 2026. Estado: sistema de medición definido, r
 
 Este documento define **cómo se decide si algo funciona y cuánto tarda**. Complementa el [SPEC §31](SPEC.md#31-sistema-de-calidad-y-tiempos), el [protocolo A/B](analisis-ab-harness.md) y los [presupuestos por ruta](rutas-por-costo.md). Los umbrales numéricos son propuestas iniciales para calibrar con las primeras corridas, no resultados observados.
 
+Las iteraciones del loop de mejora (observar, diagnosticar, corregir, medir) se registran en [loop-mejora.md](loop-mejora.md).
+
 ## 1. Tres capas, tres sistemas bajo prueba
 
 | Capa | Sistema bajo prueba | Pregunta que responde | Quién la ejecuta |
