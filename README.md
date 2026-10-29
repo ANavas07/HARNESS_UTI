@@ -49,10 +49,12 @@ Harnes Calendario/
 ## Documentos principales
 
 - [Progreso del proyecto](progress.md): proceso realizado, decisiones, verificaciones, estado real y próximos pasos.
+- [Mapa del harness](docs/harness-mapa.md): qué vive en este repositorio (toda la lógica del harness) y qué piezas viven en el producto porque solo funcionan ahí.
 - [Spec](docs/SPEC.md): alcance, calendario interno, reglas, herramientas, fases y aceptación.
 - [Auditoría de lógica](docs/auditoria-logica.md): revisión de riesgos, cuellos de botella y dependencias de activación.
 - [Política de demostración](config/politica.demo.json): valores explícitos para desarrollar con datos sintéticos; pendientes de aprobación para un piloto real.
 - [Contrato técnico de la agenda](docs/contrato-tecnico-agenda.md): migración `0011_agenda` validada, endpoints con errores, política, algoritmos, herramientas y datos sintéticos.
+- [Lab de evals](docs/evals-lab.md): tres tareas, tres graders y pass@5 sobre el producto, con el registro de cada medición.
 - [Loop de mejora](docs/loop-mejora.md): iteraciones observar → diagnosticar → corregir → medir sobre los fallos del agente.
 - [Calidad, tiempos y evals](docs/calidad-evals.md): tests de código, evals del agente con grader automático, señales del harness y métricas del equipo.
 - [Rutas y presupuestos](docs/rutas-por-costo.md): contexto efectivo de 8.192 tokens y límites por llamada/tarea.
