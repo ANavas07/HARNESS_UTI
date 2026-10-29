@@ -281,10 +281,10 @@ Se cerraron con el usuario las tres decisiones que los agentes preguntaron en el
 
 Pendientes acordados al cerrar el SPEC con las preguntas del lab. Se retoman en este orden:
 
-1. **Publicación:** commit y push de HARNESS_UTI (runner, evals del lab, `evals-lab.md`, `loop-mejora.md`, vista 07, SPEC, contrato v1.3 y esta bitácora). Queda a decisión del usuario.
-2. **PR #1 (fase 10.A):** confirmar el CI verde del último commit, revisarlo y mergearlo a `MVP`.
+1. ✅ **Publicación:** HARNESS_UTI publicado en `main` (commit `481634e`).
+2. **PR #1 (fase 10.A):** CI 4/4 verde y sin conflictos con `MVP` (commit `2615dda`). ⏳ El merge lo hace el usuario: el agente no tiene permiso para mergear sin revisión.
 3. **Aplicar las decisiones del 29 de octubre en el código:** el modo por entorno (hoy solo existe `cargar_demo` para desarrollo) en la fase 10.B. El conteo por día y el modo básico entran en la fase 10.E.
-4. **Correcciones del loop de mejora en el producto:**
+4. ✅ **Correcciones del loop de mejora en el producto** (rama local `loop-mejora-1`, commit `4857104`; se publica cuando el PR #1 esté en `MVP`):
    - una prueba de arquitectura: toda herramienta del chat está en `ENUMS["herramienta"]` de `shared/trazas.py`;
    - en AGENTS.md: cómo regenerar los tipos del frontend y la política de migraciones ya aplicadas;
    - el fixture `con_api`, una fábrica de datos y una prueba contra mutaciones a medias.
