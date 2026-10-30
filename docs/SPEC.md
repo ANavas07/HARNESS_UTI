@@ -903,6 +903,13 @@ Las decisiones institucionales quedan **cerradas para el MVP** con los valores d
 - **Conteo de citas de un día:** cuenta las citas `reservada` y `finalizada`, como el cupo diario (§21); las `cancelada` no cuentan. Una cita pertenece al día local de su **hora de inicio** en la zona de la agenda (`America/Guayaquil` en el MVP), aunque termine después de medianoche. Rige para toda herramienta o reporte que cuente citas por día.
 - **Modo básico del chat:** las herramientas de agenda solo existen con LLM. Sin Qwen, el modo básico no interpreta preguntas ni fechas de agenda: responde que la consulta no está disponible y remite a la pantalla Agenda. La agenda sigue funcionando (A34).
 
+**Decisión del usuario del 30 de octubre de 2026:** la maqueta de la agenda ([web/maqueta-agenda.html](../web/maqueta-agenda.html)) queda **aprobada** como diseño de la pantalla de la fase 10.D:
+- calendario mensual como la imagen de referencia del usuario;
+- citas y tareas que se marcan como hechas;
+- una ficha con estado, resultado, indicaciones, observaciones, reprogramación e historial.
+
+El diseño incluye **tareas propias del profesional**, que la fase 10.D agrega con su tabla, permisos y contrato. Con esto la maqueta deja de bloquear la fase 10.D.
+
 ### Definición de listo para empezar
 
 | Requisito | Estado |
@@ -918,7 +925,7 @@ Las decisiones institucionales quedan **cerradas para el MVP** con los valores d
 | Datos sintéticos de prueba | ✅ Contrato técnico §10 |
 | Tareas, criterios, pruebas y gates | ✅ [Propuesta de la Etapa 10](propuesta-etapa-10-agenda.md) |
 | Aceptación del equipo del producto | ✅ Etapa 10 aceptada por el equipo del producto el 28 de octubre de 2026 (comunicado por el usuario) |
-| Maqueta de la pantalla revisada por Bienestar | ⏳ Pendiente: bloquea la fase 10.D, no 10.A–10.C |
+| Maqueta de la pantalla revisada | ✅ Aprobada por el usuario el 30 de octubre de 2026 |
 | Los 60 evals de runtime | ⏳ Se escriben al empezar la fase 10.E |
 
 La definición de listo está completa para las fases 10.A–10.C. El desarrollo empieza por 10.A y 10.B con TDD en el repositorio del producto, incorporando antes la Etapa 10 a su SPEC_REFINADO (v1.10).

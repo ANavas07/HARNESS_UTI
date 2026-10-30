@@ -309,7 +309,7 @@ Pendientes acordados al cerrar el SPEC con las preguntas del lab. Se retoman en 
    - una ficha con estado, resultado, indicaciones, observaciones, reprogramación e historial;
    - vencidas resaltadas, filtros y vista de lista en el celular.
 
-   Tiene 10 preguntas para Bienestar; 5 son nuevas, entre ellas si se aprueban las **tareas propias del profesional**, que no existen en la SPEC. ⏳ Falta la revisión con Bienestar, que bloquea la fase 10.D.
+   ✅ **Diseño aprobado por el usuario el 30-10**, con las tareas propias del profesional incluidas. Queda registrado como decisión 16 de la Etapa 10 en la SPEC_REFINADO v1.12 y en el SPEC §34. La fase 10.D ya no está bloqueada.
 7. **Medición 2 del lab:** tareas más difíciles y pass@5 otra vez después de aplicar el punto 4, para comparar la tendencia. Medir tokens y tiempo cuando haya una CLI de agente.
 
 ### 5.2 Pendientes generales
