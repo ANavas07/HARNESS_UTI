@@ -276,6 +276,22 @@ Se cerraron con el usuario las tres decisiones que los agentes preguntaron en el
 - **Contrato técnico v1.4:** códigos `fuera_de_ventana` y `datos_invalidos`, y decisiones de implementación de 10.B (§8).
 - **Eval D03** (`evals/desarrollo/D03-tipo-de-aviso.yaml`): el patrón del fallo F1, con su grader oculto y su solución de referencia (migración 0012). Controles del 30-10: con el código base falla en el paso 2 y con la referencia pasa.
 
+### 3.22 Diseño aprobado y fase 10.C — 30 de octubre de 2026
+
+- **Maqueta:** rediseñada como calendario mensual según la imagen de referencia del usuario, y **aprobada**. Quedó como decisión 16 de la Etapa 10 (SPEC_REFINADO v1.12). Las tareas propias del profesional entran en la fase 10.D.
+- **Fase 10.C** en el [PR #4](https://github.com/ANavas07/GRUPO2_SEGUIMIENTO/pull/4), rama `etapa-10c-ciclo`:
+  - resultado como intervención;
+  - cancelación por caso en la misma transacción;
+  - ronda del ciclo: finalizar, cita sin resultado y espera excedida;
+  - conciliación auditada e idempotente;
+  - ausencias por coordinación;
+  - IT-M9.C con dos ciclos por la API.
+- **Verificación local:**
+  - 1.863 pruebas del backend en verde;
+  - propiedad de la máquina de estados con Hypothesis;
+  - mutaciones `ciclo` 19/20 en la corrida completa; el sobreviviente se mató con una prueba más fuerte (verificado a mano);
+  - `reserva` sigue en 33/33.
+
 ## 4. Verificaciones realizadas y alcance
 
 | Verificación | Resultado registrado | Qué demuestra |
