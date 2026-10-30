@@ -261,6 +261,21 @@ Se cerraron con el usuario las tres decisiones que los agentes preguntaron en el
 - **Conteo de citas de un día:** se cuentan `reservada` y `finalizada`, por la hora de inicio en la zona de la agenda.
 - **Modo básico del chat:** sin herramientas de agenda; remite a la pantalla Agenda.
 
+### 3.21 Mapa del harness y fase 10.B en el producto — 29 de octubre de 2026
+
+- **Regla del usuario:** toda la lógica del harness vive en HARNESS_UTI; el producto solo lleva el código de la agenda y lo que tiene que correr dentro de él. Quedó en [harness-mapa.md](docs/harness-mapa.md).
+- **Fase 10.B** en el producto, [PR #3](https://github.com/ANavas07/GRUPO2_SEGUIMIENTO/pull/3) (rama `etapa-10b-reserva`):
+  - E10-T7 a E10-T13: solicitud al derivar, disponibilidad pura con oráculo, reserva transaccional, planificador y rondas, horarios y bloqueos, reprogramar y cancelar, e IT-M9.B por HTTP;
+  - el modo de la política sale del entorno (decisión del 29-10).
+- **Verificación local:**
+  - 1.837 pruebas del backend en verde;
+  - carreras reales estables en 20 vueltas;
+  - mutaciones del objetivo `reserva`: **33/33** en la corrida completa (la primera dio 31/33 y los 2 sobrevivientes recibieron su prueba);
+  - CI del PR #3: 4/4 en verde.
+- **Fallo que encontró la suite completa:** una prueba de 10.A dejaba una solicitud confirmada que la ronda periódica de otra prueba procesaba. Se corrigió con `borrar_confirmado` en la fábrica.
+- **Contrato técnico v1.4:** códigos `fuera_de_ventana` y `datos_invalidos`, y decisiones de implementación de 10.B (§8).
+- **Eval D03** (`evals/desarrollo/D03-tipo-de-aviso.yaml`): el patrón del fallo F1, con su grader oculto y su solución de referencia (migración 0012). Controles del 30-10: con el código base falla en el paso 2 y con la referencia pasa.
+
 ## 4. Verificaciones realizadas y alcance
 
 | Verificación | Resultado registrado | Qué demuestra |
@@ -283,13 +298,13 @@ Pendientes acordados al cerrar el SPEC con las preguntas del lab. Se retoman en 
 
 1. ✅ **Publicación:** HARNESS_UTI publicado en `main` (commit `481634e`).
 2. **PR #1 (fase 10.A):** CI 4/4 verde y sin conflictos con `MVP` (commit `2615dda`). ⏳ El merge lo hace el usuario: el agente no tiene permiso para mergear sin revisión.
-3. **Aplicar las decisiones del 29 de octubre en el código:** el modo por entorno (hoy solo existe `cargar_demo` para desarrollo) en la fase 10.B. El conteo por día y el modo básico entran en la fase 10.E.
+3. **Aplicar las decisiones del 29 de octubre en el código:** ✅ el modo por entorno y el conteo diario con finalizadas ya están en la fase 10.B (PR #3). El chat sin LLM entra en la fase 10.E.
 4. ✅ **Correcciones del loop de mejora en el producto** (rama local `loop-mejora-1`, commit `4857104`; se publica cuando el PR #1 esté en `MVP`):
    - una prueba de arquitectura: toda herramienta del chat está en `ENUMS["herramienta"]` de `shared/trazas.py`;
    - en AGENTS.md: cómo regenerar los tipos del frontend y la política de migraciones ya aplicadas;
    - el fixture `con_api`, una fábrica de datos y una prueba contra mutaciones a medias.
-5. **Fase 10.B** (disponibilidad, solicitudes y reserva automática) con TDD y su puerta G10.B.
-6. **Maqueta de la pantalla Agenda** revisada con Bienestar, antes de la fase 10.D.
+5. **Fase 10.B** (disponibilidad, solicitudes y reserva automática) con TDD y su puerta G10.B: implementada en el [PR #3](https://github.com/ANavas07/GRUPO2_SEGUIMIENTO/pull/3): CI 4/4 en verde, mutaciones 33/33 e IT-M9.B en verde. ⏳ Falta el merge.
+6. **Maqueta de la pantalla Agenda:** ✅ lista en [web/maqueta-agenda.html](web/maqueta-agenda.html), con 8 preguntas para Bienestar. ⏳ Falta la revisión con Bienestar, que bloquea la fase 10.D.
 7. **Medición 2 del lab:** tareas más difíciles y pass@5 otra vez después de aplicar el punto 4, para comparar la tendencia. Medir tokens y tiempo cuando haya una CLI de agente.
 
 ### 5.2 Pendientes generales

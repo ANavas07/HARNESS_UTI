@@ -29,9 +29,9 @@ Cada pieza que vive en el producto queda listada aquí, con su razón.
 |---|---|---|---|
 | Contexto del agente | `AGENTS.md` | El agente lo lee al trabajar en el repositorio del producto | Loop iteración 1 (F1, F4, F7) y lab, lección 1 |
 | Guardas del harness | `backend/tests/architecture/test_harness_desarrollo.py` | Tienen que fallar en el CI del producto, antes del merge | Lab L3-r5 y loop F4 |
-| Fábrica de datos de agenda | `backend/tests/fabricas_agenda.py` | Las pruebas del producto la importan | Loop F3 |
+| Fábrica de datos de agenda | `backend/tests/fabricas_agenda.py` (incluye `borrar_confirmado` para las pruebas con varias conexiones) | Las pruebas del producto la importan | Loop F3 y fase 10.B |
 | Fixture `con_api` | `backend/tests/integration/conftest.py` | La usan las pruebas de servicio del producto | Loop F2 |
-| Runner de mutaciones | `backend/scripts/correr_mutaciones.py` (objetivo `agenda`) | Muta el código del producto y corre sus pruebas | Gate de cada fase |
+| Runner de mutaciones | `backend/scripts/correr_mutaciones.py` (objetivos `agenda` y `reserva`) | Muta el código del producto y corre sus pruebas | Gate de cada fase |
 | Trazas de consumo | `backend/shared/trazas.py` | Las escribe el asistente en ejecución (fase 10.E) | SPEC §33.4 |
 
 Una pieza del harness nueva va **aquí** salvo que tenga que ejecutarse dentro del producto. En ese caso se agrega a esta tabla en el mismo cambio.

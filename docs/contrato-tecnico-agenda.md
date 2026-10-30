@@ -1,6 +1,6 @@
 # Contrato técnico de la agenda (Etapa 10)
 
-Versión 1.3 — 29 de octubre de 2026. Complementa el [SPEC v0.8](SPEC.md) y la [propuesta de la Etapa 10](propuesta-etapa-10-agenda.md). El SPEC dice **qué** debe pasar; este documento fija **cómo** se implementa en el producto de deserción (opción A): esquema de base, cambios en funciones existentes, eventos, endpoints, errores, política, algoritmos, herramientas y datos de prueba.
+Versión 1.4 — 29 de octubre de 2026. Complementa el [SPEC v0.8](SPEC.md) y la [propuesta de la Etapa 10](propuesta-etapa-10-agenda.md). El SPEC dice **qué** debe pasar; este documento fija **cómo** se implementa en el producto de deserción (opción A): esquema de base, cambios en funciones existentes, eventos, endpoints, errores, política, algoritmos, herramientas y datos de prueba.
 
 Se basa en el código del producto revisado el 28 de octubre de 2026 (commit `fd64df2`). Si el producto cambia esas piezas, este contrato se revisa antes de implementar. Los valores marcados **[MVP]** son los de la política demo; la institución debe aprobarlos o reemplazarlos antes de un piloto.
 
@@ -291,8 +291,9 @@ Formato: `{"detail": {"codigo": "<código>", "mensaje": "<texto para la persona>
 | 409 | `idempotencia_conflicto` | Misma clave con otro comando |
 | 409 | `caso_no_derivado` | El caso ya no está derivado o se cerró |
 | 409 | `cita_finalizada` | Se intenta cambiar una cita finalizada o cancelada |
-| 409 | `bloqueo_con_citas` | Un bloqueo u horario deja citas activas fuera |
-| 422 | `fuera_de_jornada`, `fuera_de_grilla`, `anticipacion_insuficiente`, `rango_invalido`, `politica_invalida` | Validaciones de dominio |
+| 409 | `bloqueo_con_citas` | Un bloqueo u horario deja citas activas fuera; el `detail` lleva `citas` con sus identificadores |
+| 422 | `fuera_de_jornada`, `fuera_de_grilla`, `anticipacion_insuficiente`, `fuera_de_ventana`, `rango_invalido`, `politica_invalida` | Validaciones de dominio |
+| 422 | `datos_invalidos` | Un texto libre (motivo) no pasa el filtro de datos personales del producto |
 | 428 | `falta_precondicion` | Falta `If-Match` o `Idempotency-Key` |
 | 503 | `sin_politica` | No hay política aprobada para el modo de la instancia |
 
@@ -385,6 +386,13 @@ Cada 15 minutos y al arrancar el consumidor:
 | Cita finalizada sin resultado tras el plazo | Aviso único `cita_sin_resultado` |
 
 Cada corrección queda en `eventos_cita` con actor `conciliacion` y en `audit.registro`.
+
+**Implementación de la fase 10.B (29 de octubre de 2026, v1.4).** Decisiones que el contrato dejaba abiertas:
+
+- `fuera_de_ventana`: código propio para una franja más allá de `search_business_days`, distinto de `rango_invalido`.
+- Reprogramar mueve la misma cita (`rango` y `version + 1`) en lugar de cancelar y crear otra. Así es atómico: si la franja nueva choca, la cita anterior queda intacta. Además, el historial de la cita no se parte en dos.
+- Cambiar horarios cierra los tramos vigentes con `vigente_hasta = ayer` y crea los nuevos desde hoy. Nada se borra.
+- La ronda la disparan `cita.solicitada` y el proceso periódico (`python -m api.app.agenda.rondas`, cada 15 min). Una cancelación o un bloqueo desactivado se aprovechan en la ronda siguiente, no en el mismo pedido.
 
 ## 9. Herramientas del asistente (fase 10.E)
 

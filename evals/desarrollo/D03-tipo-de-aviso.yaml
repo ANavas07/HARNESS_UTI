@@ -1,0 +1,47 @@
+# Eval de desarrollo · D03 · patrón del fallo F1 del loop de mejora (iteración 1): agregar un tipo de aviso sin perder los anteriores.
+# Mide si la línea de AGENTS.md «antes de reescribir una restricción existente, buscar la última migración que la tocó» evita que se
+# repita F1. Comparar pass@N con el AGENTS.md del commit base (que ya la tiene) y sin ella (variante sin_linea).
+id: D03-tipo-de-aviso
+capa: desarrollo
+estado: ejecutable
+critico: false
+solucion: desarrollo/soluciones/D03   # solo para el control positivo; el agente no la ve
+
+tarea: |
+  En el producto de permanencia (este repositorio), Bienestar quiere un aviso de recordatorio el día anterior a cada cita.
+  Agrega el tipo de aviso dirigido "cita_recordatorio" para que la agenda pueda crearlo con notificaciones.avisar_a y que se vea
+  en GET /notificaciones. Todavía no hace falta el proceso que lo envía: solo que el tipo exista de punta a punta.
+  Sigue las convenciones del proyecto (migraciones reversibles, contrato publicado) y agrega sus pruebas.
+
+fuente:
+  ruta: "C:/Users/Laptot Gamer/Desktop/UTI/Agente Desercion v2 - etapa10"
+  commit: 6d92567                    # MVP después de los PR #1 (fase 10.A) y #2 (correcciones del loop)
+entorno:
+  tipo: copia_limpia
+  excluir: []
+  ignorar: [backend/data/]          # trazas que escriben las pruebas del chat
+  red: deshabilitada
+
+presupuesto: { tiempo_max_s: 1800 }
+corridas: 10
+
+grader:
+  - nombre: prueba oculta de los tipos de aviso
+    copiar: { de: "desarrollo/graders/test_eval_d03_avisos.py", a: "backend/tests/integration/test_eval_d03_avisos.py" }
+  - nombre: el tipo nuevo existe de punta a punta y ningún tipo anterior se pierde
+    run: python -m pytest backend/tests/integration/test_eval_d03_avisos.py -q -p no:cacheprovider
+    exit: 0
+  - nombre: las migraciones siguen siendo reversibles y la agenda intacta
+    run: python -m pytest backend/tests/integration/test_migraciones.py backend/tests/integration/test_agenda_esquema.py -q -p no:cacheprovider
+    exit: 0
+  - nombre: el contrato OpenAPI publicado coincide con la API
+    run: python -m pytest backend/tests/architecture -q -p no:cacheprovider
+    exit: 0
+  - nombre: estilo
+    run: ruff check .
+    exit: 0
+  - nombre: solo toca migraciones, la API, sus pruebas, el contrato publicado y la documentación
+    solo_modifica: [backend/db/migrations/, backend/api/, backend/tests/, frontend/openapi.json, frontend/src/api/, frontend/src/__tests__/, docs/]
+
+umbral:
+  tasa_minima: 0.8

@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Maqueta de la agenda</title>
+<style>
+:root{--paper:#f6f7f4;--white:#fff;--ink:#172c36;--muted:#596b70;--line:#d8e0dd;--green:#176950;--soft:#e8f3ee;--orange:#a94e21;--sand:#fff0e5;--red:#a33135;--blue:#285c91;--nav:#132e36;--radius:14px;font-family:Inter,Segoe UI,system-ui,sans-serif;color:var(--ink);background:var(--paper);font-size:15px;line-height:1.5}
+*{box-sizing:border-box}body{margin:0;background:var(--paper)}button,input,select,textarea{font:inherit}button{cursor:pointer;border:0}button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid #dd853b;outline-offset:3px}
+h1,h2,h3,p{margin:0}h1{font-size:1.6rem;letter-spacing:-.03em;font-weight:650}h2{font-size:1.15rem;font-weight:650}h3{font-size:.95rem;font-weight:650}
+.review{background:var(--sand);color:#6b3a17;padding:10px 16px;font-size:.84rem;display:flex;gap:10px;justify-content:space-between;align-items:center;flex-wrap:wrap}.review b{font-weight:650}
+.shell{display:grid;grid-template-columns:220px minmax(0,1fr);min-height:calc(100vh - 42px)}
+.side{background:var(--nav);color:#d6e6e0;padding:22px 14px;display:flex;flex-direction:column;gap:22px}.brand{font-weight:600;padding:0 8px}.brand small{display:block;color:#9fbfb5;font-weight:400}
+.nav{display:grid;gap:5px}.nav button{background:transparent;color:#c4d7d3;text-align:left;padding:10px 12px;border-radius:8px;display:flex;justify-content:space-between;align-items:center}.nav button[aria-current=page]{background:#2d4b50;color:#fff}.nav .count{background:#a94e21;color:#fff;border-radius:10px;font-size:.7rem;padding:1px 7px}
+.who{margin-top:auto;font-size:.8rem;color:#a9c3bb;padding:0 8px}.who select{margin-top:6px;width:100%;padding:7px;border-radius:7px;border:0}
+.main{padding:24px clamp(16px,3vw,40px);min-width:0}.head{display:flex;justify-content:space-between;align-items:end;gap:14px;flex-wrap:wrap;margin-bottom:18px}.head p{color:var(--muted);font-size:.88rem;margin-top:4px}
+.panel{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:18px}.gap{margin-top:16px}
+.btn{background:var(--green);color:#fff;border-radius:8px;padding:8px 14px;font-size:.85rem;font-weight:550}.btn.sec{background:#fff;color:var(--ink);border:1px solid var(--line)}.btn.warn{background:var(--red)}
+.badge{display:inline-block;padding:2px 8px;border-radius:6px;font-size:.72rem;font-weight:600}.critico{background:#faeaeb;color:var(--red)}.alto{background:var(--sand);color:var(--orange)}.medio{background:#eaf1fa;color:var(--blue)}.ok{background:var(--soft);color:var(--green)}.gris{background:#edf0ee;color:var(--muted)}
+.week{display:grid;grid-template-columns:54px repeat(5,minmax(110px,1fr));overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:#fff}
+.week .h{position:sticky;top:0;background:#f3f6f4;padding:8px;font-size:.78rem;font-weight:600;border-bottom:1px solid var(--line);text-align:center}.week .t{font:400 .72rem Consolas,monospace;color:var(--muted);padding:2px 6px;border-top:1px solid #eef2ef;height:26px}
+.cell{border-top:1px solid #eef2ef;border-left:1px solid #eef2ef;height:26px;position:relative}.cell.off{background:repeating-linear-gradient(135deg,#f6f7f4,#f6f7f4 5px,#eef1ee 5px,#eef1ee 10px)}.cell.past{background:#f3f4f2}
+.cell .cita{position:absolute;inset:1px 3px;border-radius:5px;font-size:.7rem;padding:2px 6px;text-align:left;color:#fff;background:var(--green);overflow:hidden;white-space:nowrap;text-overflow:ellipsis}.cell .cita.critico{background:var(--red)}.cell .cita.alto{background:var(--orange)}.cell .cita.medio{background:var(--blue)}
+.cell .blq{position:absolute;inset:1px 3px;border-radius:5px;font-size:.68rem;padding:2px 6px;background:#e9dccf;color:#6d4b31}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:.76rem;color:var(--muted);margin-top:10px}.legend span{display:inline-flex;gap:6px;align-items:center}.sw{width:11px;height:11px;border-radius:3px;display:inline-block}
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:16px;align-items:start}.drawer{position:sticky;top:16px}
+table{border-collapse:collapse;width:100%;font-size:.85rem}th{font-size:.7rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);text-align:left;padding:9px 8px;border-bottom:1px solid var(--line);white-space:nowrap}td{padding:10px 8px;border-bottom:1px solid #edf1ee;vertical-align:middle}.tablewrap{overflow-x:auto}
+label{font-size:.78rem;color:var(--muted);font-weight:600;display:block;margin:10px 0 4px}select,input,textarea{width:100%;border:1px solid #bfcfc7;border-radius:8px;padding:8px;background:#fff;color:var(--ink)}textarea{min-height:64px}
+.slots{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}.slots button{background:#fff;border:1px solid var(--line);border-radius:7px;padding:5px 9px;font-size:.78rem}.slots button[aria-pressed=true]{background:var(--green);color:#fff;border-color:var(--green)}
+.msg{margin-top:10px;padding:10px 12px;border-radius:8px;font-size:.83rem;background:var(--soft);color:var(--green)}.msg.err{background:#faeaeb;color:var(--red)}
+.qa{display:grid;gap:10px}.qa details{border:1px solid var(--line);border-radius:10px;padding:10px 12px;background:#fff}.qa summary{cursor:pointer;font-weight:600;font-size:.9rem}.qa p{color:var(--muted);font-size:.85rem;margin-top:6px}
+.muted{color:var(--muted)}.small{font-size:.8rem}.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.view[hidden]{display:none}
+.aviso{display:flex;gap:10px;padding:11px 0;border-bottom:1px solid #edf1ee}.aviso:last-child{border:0}.aviso .dotn{width:8px;height:8px;border-radius:50%;background:var(--orange);margin-top:7px;flex:none}.aviso.leido .dotn{background:#cfd8d4}
+@media(max-width:900px){.shell{display:block}.side{flex-direction:row;flex-wrap:wrap;align-items:center;padding:12px}.nav{display:flex;overflow-x:auto}.who{margin:0}.layout{grid-template-columns:1fr}.drawer{position:static}}
+</style>
+</head>
+<body>
+<div class="review"><span><b>Maqueta para revisar con Bienestar</b> · datos sintéticos · no guarda nada ni contacta a nadie</span><span>Reloj fijo: lunes 2 de noviembre de 2026, 10:00 (Guayaquil)</span></div>
+<div class="shell">
+<aside class="side">
+  <div class="brand">Agenda de Bienestar<small>Producto de permanencia · Etapa 10</small></div>
+  <nav class="nav" aria-label="Pantallas">
+    <button data-v="semana" aria-current="page">Mi semana</button>
+    <button data-v="solicitudes">Derivaciones <span class="count" id="nSol">0</span></button>
+    <button data-v="horario">Horario y bloqueos</button>
+    <button data-v="avisos">Avisos <span class="count" id="nAvi">0</span></button>
+    <button data-v="preguntas">Preguntas para Bienestar</button>
+  </nav>
+  <div class="who">Ver como
+    <select id="rol"><option value="prof">Profesional (b.lopez)</option><option value="coord">Coordinación (c.ruiz)</option></select>
+  </div>
+</aside>
+<main class="main">
+
+<section class="view" id="semana">
+  <div class="head"><div><h1>Mi semana</h1><p>Las citas las reserva el sistema al derivar, en el orden de la bandeja. Tú las atiendes, reprogramas o cancelas.</p></div>
+    <div class="row"><button class="btn sec" id="prevW" aria-label="Semana anterior">←</button><strong id="wLabel"></strong><button class="btn sec" id="nextW" aria-label="Semana siguiente">→</button></div></div>
+  <div class="layout">
+    <div><div class="week" id="grid"></div>
+      <div class="legend"><span><i class="sw" style="background:var(--red)"></i>Crítico</span><span><i class="sw" style="background:var(--orange)"></i>Alto</span><span><i class="sw" style="background:var(--blue)"></i>Medio</span><span><i class="sw" style="background:#e9dccf"></i>Bloqueo</span><span><i class="sw" style="background:repeating-linear-gradient(135deg,#f6f7f4,#f6f7f4 3px,#eef1ee 3px,#eef1ee 6px)"></i>Fuera de jornada</span></div></div>
+    <div class="panel drawer" id="detalle"><h2>Detalle de la cita</h2><p class="muted small" style="margin-top:6px">Elige una cita en la semana.</p></div>
+  </div>
+</section>
+
+<section class="view" id="solicitudes" hidden>
+  <div class="head"><div><h1>Derivaciones</h1><p>Cada caso que Seguimiento deriva crea una solicitud. El orden es el de la bandeja: prioridad, luego fecha de derivación.</p></div>
+    <select id="filtro" style="width:auto"><option value="">Todas</option><option value="pendiente_asignacion">Sin profesional</option><option value="sin_disponibilidad">Sin disponibilidad</option><option value="agendada">Agendadas</option></select></div>
+  <div class="panel tablewrap"><table><thead><tr><th>#</th><th>Caso</th><th>Nivel</th><th>Prioridad</th><th>Espera</th><th>Estado</th><th>Cita</th><th></th></tr></thead><tbody id="tSol"></tbody></table></div>
+  <p class="small muted gap">La espera se cuenta en días hábiles. Si supera el plazo de su nivel (crítico 2, alto 5, medio 10), llega un aviso.</p>
+</section>
+
+<section class="view" id="horario" hidden>
+  <div class="head"><div><h1>Horario y bloqueos</h1><p>Tu horario semanal debe quedar dentro de la jornada de la política (lunes a viernes, 09:00–12:00 y 14:00–17:00).</p></div></div>
+  <div class="layout">
+    <div class="panel"><h2>Horario semanal</h2><div class="tablewrap gap"><table><thead><tr><th>Día</th><th>Mañana</th><th>Tarde</th></tr></thead><tbody id="tHor"></tbody></table></div>
+      <div class="row gap"><button class="btn" id="guardarHor">Guardar horario</button><span class="small muted">Versión <b id="verHor">3</b> · se envía con If-Match</span></div><div id="msgHor"></div></div>
+    <div class="panel"><h2>Nuevo bloqueo</h2>
+      <label for="bDia">Día</label><select id="bDia"></select>
+      <div class="row"><div style="flex:1"><label for="bIni">Desde</label><input id="bIni" type="time" step="900" value="10:00"></div><div style="flex:1"><label for="bFin">Hasta</label><input id="bFin" type="time" step="900" value="11:00"></div></div>
+      <label for="bMot">Motivo</label><input id="bMot" value="Capacitación">
+      <div class="row gap"><button class="btn" id="crearBlq">Bloquear</button></div><div id="msgBlq"></div>
+      <h3 class="gap">Bloqueos activos</h3><div id="lBlq" class="small"></div></div>
+  </div>
+</section>
+
+<section class="view" id="avisos" hidden>
+  <div class="head"><div><h1>Avisos</h1><p>Solo los tuyos: las citas nuevas, las que cambian y lo que espera tu acción.</p></div><button class="btn sec" id="leerTodo">Marcar todo como leído</button></div>
+  <div class="panel" id="lAvi"></div>
+</section>
+
+<section class="view" id="preguntas" hidden>
+  <div class="head"><div><h1>Preguntas para Bienestar</h1><p>Lo que esta maqueta propone y necesita confirmación antes de la fase 10.D.</p></div></div>
+  <div class="qa" id="qa"></div>
+</section>
+
+</main>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+const AHORA=new Date(2026,10,2,10,0);
+const DIAS=['Lun','Mar','Mié','Jue','Vie'];
+const NIVEL={critico:'Crítico',alto:'Alto',medio:'Medio'};
+const PLAZO={critico:2,alto:5,medio:10};
+const TIPOS=['Llamada telefónica','Entrevista presencial','Tutoría académica','Orientación psicológica','Otro'];
+const RESULTADOS=['Contactado','No se logró contactar','Aceptó el apoyo','Rechazó el apoyo','Derivado a un servicio externo'];
+let semana=0;
+const st={
+  horario:{1:[['09:00','12:00'],['14:00','17:00']],2:[['09:00','12:00'],['14:00','17:00']],3:[['09:00','12:00'],['14:00','17:00']],4:[['09:00','12:00'],['14:00','17:00']],5:[['09:00','12:00'],['14:00','17:00']]},
+  version:3,
+  bloqueos:[{id:'b1',dia:new Date(2026,10,5),ini:'09:15',fin:'09:30',motivo:'Reunión de equipo'}],
+  sol:[
+    {caso:'C-1038',nivel:'critico',prio:38,der:new Date(2026,9,29,9,10),estado:'agendada'},
+    {caso:'C-1030',nivel:'critico',prio:30,der:new Date(2026,9,28,15,0),estado:'agendada'},
+    {caso:'C-1025',nivel:'alto',prio:25,der:new Date(2026,9,27,11,0),estado:'agendada'},
+    {caso:'C-1020',nivel:'alto',prio:20,der:new Date(2026,9,26,10,0),estado:'agendada'},
+    {caso:'C-1021',nivel:'alto',prio:20,der:new Date(2026,9,27,16,30),estado:'agendada'},
+    {caso:'C-1010',nivel:'medio',prio:10,der:new Date(2026,9,20,12,0),estado:'sin_disponibilidad'},
+    {caso:'C-1044',nivel:'critico',prio:30,der:new Date(2026,10,2,8,40),estado:'pendiente_asignacion'}
+  ],
+  citas:[],avisos:[]
+};
+// citas iniciales: la ronda las reservó en orden, desde el martes 10:00 (un día de anticipación)
+const inicios=[[3,'10:00'],[3,'10:15'],[3,'10:30'],[3,'10:45'],[3,'11:00']];
+st.sol.filter(s=>s.estado==='agendada').forEach((s,i)=>{const[d,h]=inicios[i];st.citas.push({id:'c'+i,caso:s.caso,nivel:s.nivel,inicio:at(new Date(2026,10,d),h),version:1,estado:'reservada'});});
+st.citas.push({id:'c14',caso:'C-0998',nivel:'alto',inicio:at(new Date(2026,10,5),'10:00'),version:1,estado:'reservada'});
+st.sol.push({caso:'C-0998',nivel:'alto',prio:20,der:new Date(2026,9,23,9,0),estado:'agendada'});
+st.avisos=[
+  ...st.citas.map(c=>({t:`Tienes una cita nueva el ${fmtD(c.inicio)} a las ${hhmm(c.inicio)} (${c.caso}).`,leido:false,cita:c.id})),
+  {t:'Un caso derivado no tiene franjas libres en tu agenda dentro de la ventana de búsqueda (C-1010).',leido:false},
+  {t:'Un caso derivado espera que asignes un profesional para su cita (C-1044).',leido:false,coord:true}
+];
+function at(d,h){const[a,b]=h.split(':').map(Number);const x=new Date(d);x.setHours(a,b,0,0);return x}
+function hhmm(d){return d.toTimeString().slice(0,5)}
+function fmtD(d){return d.toLocaleDateString('es-EC',{weekday:'short',day:'numeric',month:'short'})}
+function lunes(n){const d=new Date(2026,10,2+7*n);return d}
+function mins(h){const[a,b]=h.split(':').map(Number);return a*60+b}
+function enHorario(d,h){const t=st.horario[d.getDay()]||[];const m=mins(h);return t.some(([a,b])=>m>=mins(a)&&m+15<=mins(b))}
+function bloqueado(d,h){const m=mins(h);return st.bloqueos.find(b=>b.dia.toDateString()===d.toDateString()&&m<mins(b.fin)&&m+15>mins(b.ini))}
+function citaEn(d,h){return st.citas.find(c=>c.estado==='reservada'&&c.inicio.getTime()===at(d,h).getTime())}
+function libres(desde,n=12,excepto){const out=[];for(let k=0;k<21&&out.length<n;k++){const d=new Date(desde);d.setDate(d.getDate()+k);if(d.getDay()<1||d.getDay()>5)continue;for(let m=9*60;m<17*60;m+=15){const h=String(Math.floor(m/60)).padStart(2,'0')+':'+String(m%60).padStart(2,'0');const x=at(d,h);if(x-AHORA<24*3600e3)continue;if(!enHorario(d,h)||bloqueado(d,h))continue;if(citaEn(d,h))continue;out.push(x);if(out.length>=n)break}}return out}
+function render(){
+  const rol=$('rol').value;
+  // semana
+  const l=lunes(semana);$('wLabel').textContent=`Semana del ${l.toLocaleDateString('es-EC',{day:'numeric',month:'long'})}`;
+  let g='<div class="h"></div>'+DIAS.map((n,i)=>{const d=new Date(l);d.setDate(l.getDate()+i);return `<div class="h">${n} ${d.getDate()}</div>`}).join('');
+  for(let m=9*60;m<17*60;m+=15){const h=String(Math.floor(m/60)).padStart(2,'0')+':'+String(m%60).padStart(2,'0');g+=`<div class="t">${m%60?'':h}</div>`;
+    for(let i=0;i<5;i++){const d=new Date(l);d.setDate(l.getDate()+i);const x=at(d,h);let cls='cell';if(!enHorario(d,h))cls+=' off';else if(x<AHORA)cls+=' past';
+      const c=citaEn(d,h),b=bloqueado(d,h);g+=`<div class="${cls}">${c?`<button class="cita ${c.nivel}" data-c="${c.id}" aria-label="Cita ${c.caso} ${h}">${h} · ${c.caso}</button>`:b&&b.ini===h?`<div class="blq" title="${b.motivo}">${b.motivo}</div>`:''}</div>`}}
+  $('grid').innerHTML=g;
+  $('grid').querySelectorAll('[data-c]').forEach(e=>e.onclick=()=>detalle(e.dataset.c));
+  // solicitudes
+  const f=$('filtro').value;const orden=[...st.sol].sort((a,b)=>b.prio-a.prio||a.der-b.der);
+  $('tSol').innerHTML=orden.filter(s=>!f||s.estado===f).map((s,i)=>{const c=st.citas.find(x=>x.caso===s.caso&&x.estado==='reservada');const espera=habiles(s.der,AHORA);
+    const est={agendada:'<span class="badge ok">Agendada</span>',pendiente:'<span class="badge gris">Pendiente</span>',sin_disponibilidad:'<span class="badge alto">Sin disponibilidad</span>',pendiente_asignacion:'<span class="badge critico">Sin profesional</span>',requiere_revision:'<span class="badge gris">Requiere revisión</span>'}[s.estado];
+    const acc=s.estado==='pendiente_asignacion'?(rol==='coord'?`<button class="btn" data-asig="${s.caso}">Asignar</button>`:'<span class="small muted">Coordinación asigna</span>'):'';
+    return `<tr><td class="muted">${i+1}</td><td><b>${s.caso}</b></td><td><span class="badge ${s.nivel}">${NIVEL[s.nivel]}</span></td><td>${s.prio}</td><td>${espera} d${espera>PLAZO[s.nivel]?' <span class="badge critico">supera plazo</span>':''}</td><td>${est}</td><td>${c?fmtD(c.inicio)+' '+hhmm(c.inicio):'—'}</td><td>${acc}</td></tr>`}).join('');
+  $('tSol').querySelectorAll('[data-asig]').forEach(b=>b.onclick=()=>asignar(b.dataset.asig));
+  $('nSol').textContent=st.sol.filter(s=>['pendiente_asignacion','sin_disponibilidad','requiere_revision'].includes(s.estado)).length;
+  // horario
+  $('tHor').innerHTML=[1,2,3,4,5].map(d=>{const t=st.horario[d]||[];const sel=(i,def)=>`<select data-d="${d}" data-i="${i}"><option value="">—</option>${def.map(([a,b])=>`<option value="${a}-${b}" ${t.some(x=>x[0]===a&&x[1]===b)?'selected':''}>${a}–${b}</option>`).join('')}</select>`;
+    return `<tr><td>${['','Lunes','Martes','Miércoles','Jueves','Viernes'][d]}</td><td>${sel(0,[['09:00','12:00'],['09:00','10:30'],['10:30','12:00']])}</td><td>${sel(1,[['14:00','17:00'],['14:00','15:30'],['15:30','17:00']])}</td></tr>`}).join('');
+  $('verHor').textContent=st.version;
+  $('bDia').innerHTML=[0,1,2,3,4,7,8,9,10,11].map(k=>{const d=new Date(2026,10,3+k);return d.getDay()>=1&&d.getDay()<=5?`<option value="${d.toISOString()}">${fmtD(d)}</option>`:''}).join('');
+  $('lBlq').innerHTML=st.bloqueos.length?st.bloqueos.map(b=>`<div class="row" style="justify-content:space-between;padding:6px 0;border-bottom:1px solid #edf1ee"><span>${fmtD(b.dia)} ${b.ini}–${b.fin} · ${b.motivo}</span><button class="btn sec" data-qb="${b.id}">Quitar</button></div>`).join(''):'<p class="muted">Sin bloqueos.</p>';
+  $('lBlq').querySelectorAll('[data-qb]').forEach(b=>b.onclick=()=>{st.bloqueos=st.bloqueos.filter(x=>x.id!==b.dataset.qb);render()});
+  // avisos
+  const mios=st.avisos.filter(a=>rol==='coord'?a.coord:!a.coord);
+  $('lAvi').innerHTML=mios.length?mios.map(a=>`<div class="aviso ${a.leido?'leido':''}"><span class="dotn"></span><span class="small">${a.t}</span></div>`).join(''):'<p class="muted">Sin avisos.</p>';
+  $('nAvi').textContent=mios.filter(a=>!a.leido).length;
+}
+function habiles(a,b){let n=0;const d=new Date(a);d.setHours(0,0,0,0);const fin=new Date(b);fin.setHours(0,0,0,0);while(d<fin){d.setDate(d.getDate()+1);if(d.getDay()>=1&&d.getDay()<=5)n++}return n}
+function detalle(id){const c=st.citas.find(x=>x.id===id);if(!c)return;const p=$('detalle');
+  const pasada=c.inicio<AHORA;
+  p.innerHTML=`<h2>${c.caso}</h2><p class="small muted" style="margin-top:4px">${fmtD(c.inicio)}, ${hhmm(c.inicio)}–${hhmm(new Date(c.inicio.getTime()+15*60e3))} · <span class="badge ${c.nivel}">${NIVEL[c.nivel]}</span> · versión ${c.version}</p>
+  <p class="small" style="margin-top:10px">Contacta a la persona por los canales institucionales. La identidad está en el detalle del caso, no en la agenda.</p>
+  <div class="row gap"><button class="btn sec" id="aRep">Reprogramar</button><button class="btn sec" id="aCan">Cancelar</button><button class="btn" id="aRes" ${pasada?'':'title="En el MVP se registra cuando la cita terminó"'}>Registrar resultado</button></div><div id="acc"></div>`;
+  $('aRep').onclick=()=>{const op=libres(AHORA,12,c.id);$('acc').innerHTML=`<label>Nueva franja (libres, con un día de anticipación)</label><div class="slots">${op.map((x,i)=>`<button data-i="${i}" aria-pressed="false">${fmtD(x)} ${hhmm(x)}</button>`).join('')}</div><label for="mRep">Motivo</label><input id="mRep" value="La persona pidió otra hora"><div class="row gap"><button class="btn" id="okRep" disabled>Confirmar</button></div>`;
+    let elegido=null;$('acc').querySelectorAll('[data-i]').forEach(b=>b.onclick=()=>{$('acc').querySelectorAll('[data-i]').forEach(z=>z.setAttribute('aria-pressed','false'));b.setAttribute('aria-pressed','true');elegido=op[+b.dataset.i];$('okRep').disabled=false});
+    $('okRep').onclick=()=>{c.inicio=elegido;c.version++;st.avisos.unshift({t:`Una cita pasó al ${fmtD(elegido)} a las ${hhmm(elegido)} (${c.caso}).`,leido:false});semana=Math.floor((elegido-lunes(0))/(7*864e5));render();detalle(c.id);$('acc').innerHTML='<div class="msg">Cita reprogramada. El aviso anterior queda obsoleto.</div>'}};
+  $('aCan').onclick=()=>{$('acc').innerHTML=`<label for="mCan">Motivo</label><input id="mCan" value="La persona no puede asistir"><label><input type="checkbox" id="reag" checked style="width:auto"> Volver a agendar automáticamente</label><div class="row gap"><button class="btn warn" id="okCan">Cancelar cita</button></div>`;
+    $('okCan').onclick=()=>{const re=$('reag').checked;c.estado='cancelada';const s=st.sol.find(x=>x.caso===c.caso);s.estado=re?'pendiente':'requiere_revision';
+      if(re){const x=libres(AHORA,1)[0];if(x){st.citas.push({id:c.id+'r',caso:c.caso,nivel:c.nivel,inicio:x,version:1,estado:'reservada'});s.estado='agendada';st.avisos.unshift({t:`Tienes una cita nueva el ${fmtD(x)} a las ${hhmm(x)} (${c.caso}).`,leido:false})}}
+      render();$('detalle').innerHTML=`<h2>${c.caso}</h2><div class="msg">${re?'Cita cancelada. La ronda siguiente la volvió a agendar en la primera franja libre.':'Cita cancelada. La derivación queda en «Requiere revisión».'}</div>`}};
+  $('aRes').onclick=()=>{$('acc').innerHTML=`<label for="rTipo">Tipo de acción</label><select id="rTipo">${TIPOS.map(t=>`<option>${t}</option>`).join('')}</select><label for="rRes">Resultado</label><select id="rRes">${RESULTADOS.map(t=>`<option>${t}</option>`).join('')}</select><label for="rObs">Observaciones (sin datos personales)</label><textarea id="rObs"></textarea><div class="row gap"><button class="btn" id="okRes">Guardar</button></div>`;
+    $('okRes').onclick=()=>{c.estado='finalizada';render();$('detalle').innerHTML=`<h2>${c.caso}</h2><div class="msg">Resultado registrado como intervención del caso: «${$('rRes')?.value||'registrado'}». El caso pasa a «en intervención».</div>`}};
+}
+function asignar(caso){const s=st.sol.find(x=>x.caso===caso);s.estado='agendada';const x=libres(AHORA,1)[0];st.citas.push({id:'n'+caso,caso,nivel:s.nivel,inicio:x,version:1,estado:'reservada'});
+  st.avisos.unshift({t:`Tienes una cita nueva el ${fmtD(x)} a las ${hhmm(x)} (${caso}).`,leido:false});st.avisos.forEach(a=>{if(a.coord&&a.t.includes(caso))a.leido=true});render()}
+$('guardarHor').onclick=()=>{const nuevo={};document.querySelectorAll('#tHor select').forEach(s=>{if(s.value){const[a,b]=s.value.split('-');(nuevo[s.dataset.d]=nuevo[s.dataset.d]||[]).push([a,b])}});
+  const fuera=st.citas.filter(c=>c.estado==='reservada'&&c.inicio>AHORA&&!(nuevo[c.inicio.getDay()]||[]).some(([a,b])=>mins(hhmm(c.inicio))>=mins(a)&&mins(hhmm(c.inicio))+15<=mins(b)));
+  if(fuera.length){$('msgHor').innerHTML=`<div class="msg err">409 · El horario nuevo deja ${fuera.length} cita(s) fuera de la jornada: ${fuera.map(c=>c.caso+' '+fmtD(c.inicio)+' '+hhmm(c.inicio)).join(', ')}. Reprográmalas primero.</div>`;return}
+  st.horario=nuevo;st.version++;$('msgHor').innerHTML='<div class="msg">Horario guardado desde hoy. El anterior queda en el historial.</div>';render()};
+$('crearBlq').onclick=()=>{const d=new Date($('bDia').value),ini=$('bIni').value,fin=$('bFin').value,mot=$('bMot').value.trim();
+  if(!mot||mins(ini)>=mins(fin)){$('msgBlq').innerHTML='<div class="msg err">422 · Revisa el rango y el motivo.</div>';return}
+  const choca=st.citas.filter(c=>c.estado==='reservada'&&c.inicio.toDateString()===d.toDateString()&&mins(hhmm(c.inicio))<mins(fin)&&mins(hhmm(c.inicio))+15>mins(ini));
+  if(choca.length){$('msgBlq').innerHTML=`<div class="msg err">409 · El bloqueo choca con ${choca.map(c=>c.caso+' '+hhmm(c.inicio)).join(', ')}. No se canceló nada: reprograma o cancela esas citas primero.</div>`;return}
+  st.bloqueos.push({id:'b'+Date.now(),dia:d,ini,fin,motivo:mot});$('msgBlq').innerHTML='<div class="msg">Bloqueo creado. Esas franjas ya no se ofrecen.</div>';render()};
+$('leerTodo').onclick=()=>{const rol=$('rol').value;st.avisos.forEach(a=>{if(rol==='coord'?a.coord:!a.coord)a.leido=true});render()};
+$('prevW').onclick=()=>{semana--;render()};$('nextW').onclick=()=>{semana++;render()};
+$('filtro').onchange=render;$('rol').onchange=render;
+document.querySelectorAll('.nav button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.nav button').forEach(x=>x.removeAttribute('aria-current'));b.setAttribute('aria-current','page');document.querySelectorAll('.view').forEach(v=>v.hidden=v.id!==b.dataset.v)});
+const PREG=[
+ ['¿La cita de 15 minutos alcanza para el primer contacto?','La política demo fija 15 min con grilla de 15. Si Bienestar necesita 30, cambia la política y la grilla, no el código.'],
+ ['¿Un día de anticipación es el mínimo correcto?','Hoy una derivación del lunes 10:00 no puede tener cita antes del martes 10:00. Da tiempo para contactar a la persona.'],
+ ['¿Qué debe ver el profesional en la agenda: nivel, código del caso o algo más?','La maqueta muestra solo código y nivel. La identidad está en el detalle del caso, con su auditoría.'],
+ ['Al cancelar, ¿volver a agendar automáticamente debe ser lo predeterminado?','Así está ahora. Sin esa opción, la derivación queda en «Requiere revisión» para que alguien decida.'],
+ ['¿Quién asigna el profesional cuando la derivación llega sin asignación?','En el MVP, Coordinación (decisión del 28-10). ¿Hace falta una regla por equipo para el piloto?'],
+ ['¿El resultado se registra solo después de la cita, o también antes (por ejemplo, si la persona ya fue contactada)?','En el MVP la cita pasa a «finalizada» cuando termina. Luego hay 2 días hábiles para registrar el resultado.'],
+ ['¿Qué avisos son útiles y cuáles serían ruido?','Hoy: cita nueva, reprogramada o cancelada, sin disponibilidad, sin asignación, espera excedida y sin resultado.'],
+ ['¿La vista semanal es la correcta, o se prefiere una lista del día?','La pantalla real (fase 10.D) puede tener ambas. Elegir la principal.']
+];
+$('qa').innerHTML=PREG.map(([q,a])=>`<details><summary>${q}</summary><p>${a}</p></details>`).join('');
+semana=0;render();
+</script>
+</body>
+</html>

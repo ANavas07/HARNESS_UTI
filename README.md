@@ -49,6 +49,7 @@ Harnes Calendario/
 ## Documentos principales
 
 - [Progreso del proyecto](progress.md): proceso realizado, decisiones, verificaciones, estado real y próximos pasos.
+- [Maqueta de la pantalla Agenda](web/maqueta-agenda.html): versión navegable con datos sintéticos para revisar con Bienestar antes de la fase 10.D (semana, derivaciones, horario y bloqueos, avisos y las preguntas abiertas).
 - [Mapa del harness](docs/harness-mapa.md): qué vive en este repositorio (toda la lógica del harness) y qué piezas viven en el producto porque solo funcionan ahí.
 - [Spec](docs/SPEC.md): alcance, calendario interno, reglas, herramientas, fases y aceptación.
 - [Auditoría de lógica](docs/auditoria-logica.md): revisión de riesgos, cuellos de botella y dependencias de activación.
