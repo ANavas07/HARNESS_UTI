@@ -903,6 +903,13 @@ Las decisiones institucionales quedan **cerradas para el MVP** con los valores d
 - **Conteo de citas de un día:** cuenta las citas `reservada` y `finalizada`, como el cupo diario (§21); las `cancelada` no cuentan. Una cita pertenece al día local de su **hora de inicio** en la zona de la agenda (`America/Guayaquil` en el MVP), aunque termine después de medianoche. Rige para toda herramienta o reporte que cuente citas por día.
 - **Modo básico del chat:** las herramientas de agenda solo existen con LLM. Sin Qwen, el modo básico no interpreta preguntas ni fechas de agenda: responde que la consulta no está disponible y remite a la pantalla Agenda. La agenda sigue funcionando (A34).
 
+**Decisiones del usuario del 30 de octubre de 2026 sobre el servidor del asistente (fase 10.E):**
+- **Servidor:** vLLM con `Qwen/Qwen3-8B-AWQ` en la red institucional, ventana de 8.192. Se configura por entorno (`VLLM_URL`) y no se escribe en los repositorios.
+- **Herramientas en modo JSON** (`VLLM_HERRAMIENTAS=json`). El servidor no tiene activadas las herramientas nativas (`--enable-auto-tool-choice`); `/tokenize` y `usage` sí funcionan.
+- **Evals de runtime:**
+  - durante el desarrollo, con un LLM controlado;
+  - la medición completa (60 × 10) contra el servidor real se corre **fuera de horario**, con concurrencia 2.
+
 **Decisión del usuario del 30 de octubre de 2026:** la maqueta de la agenda ([web/maqueta-agenda.html](../web/maqueta-agenda.html)) queda **aprobada** como diseño de la pantalla de la fase 10.D:
 - calendario mensual como la imagen de referencia del usuario;
 - citas y tareas que se marcan como hechas;
