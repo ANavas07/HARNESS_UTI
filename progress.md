@@ -305,6 +305,18 @@ Se cerraron con el usuario las tres decisiones que los agentes preguntaron en el
   - un borrador válido se aprueba con motivo y retira la versión anterior.
 - **Pendiente en 10.D:** el historial en la ficha, que necesita un endpoint.
 
+### 3.24 Fase 10.E, tramo 1: ejecutor de presupuestos (en curso) — 30 de octubre de 2026
+
+- **Servidor Qwen** (vLLM) disponible. Se usan herramientas en modo JSON y la medición completa se corre fuera de horario.
+- **Rama `etapa-10e-presupuestos`** (publicada, sin PR todavía):
+  - cliente LLM con `usage`, `finish_reason`, `/tokenize` y `llm_busy`; contra el servidor, lo contado coincide con lo medido (270 = 270);
+  - migración 0013 y ejecutor de presupuestos O1/O2 con reserva y liquidación (A53, A54, A58);
+  - compactación en dos pasos y trazas de consumo.
+- **Dónde se rompió:**
+  - al reabrir una tarea caída, la reserva huérfana se perdía; ya está corregido;
+  - el modelo inventó «2023-10-02» para «mañana», así que hace falta el normalizador de fechas del tramo 2.
+- **Mutaciones `presupuesto`:** 17/22. Faltan pruebas para 5: la ventana sin margen, la salida mínima útil, el contador de compactación, la compactación sin progreso y el par pendiente en el paso 1.
+
 ## 4. Verificaciones realizadas y alcance
 
 | Verificación | Resultado registrado | Qué demuestra |
