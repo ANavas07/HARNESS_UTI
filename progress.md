@@ -300,7 +300,10 @@ Se cerraron con el usuario las tres decisiones que los agentes preguntaron en el
 - **IT-M9.D** verificada en navegador contra la API real, con datos sintéticos (`backend/scripts/demo_agenda.py`). Registro en [reports/verificaciones/2026-10-30-it-m9d-agenda.md](reports/verificaciones/2026-10-30-it-m9d-agenda.md).
 - **Pruebas:** 86 del frontend y 15 nuevas del backend en verde; contrato sin deriva.
 - **HTML:** cada fase y cada eval muestra «Dónde se rompió» (pedido del usuario).
-- **Pendiente en 10.D:** E10-T26, configuración de política y profesionales para Administración; y el historial en la ficha, que necesita un endpoint.
+- **E10-T26** (configuración para Administración), agregada al mismo PR y verificada en navegador:
+  - una política inválida marca el campo, con el mensaje en español;
+  - un borrador válido se aprueba con motivo y retira la versión anterior.
+- **Pendiente en 10.D:** el historial en la ficha, que necesita un endpoint.
 
 ## 4. Verificaciones realizadas y alcance
 

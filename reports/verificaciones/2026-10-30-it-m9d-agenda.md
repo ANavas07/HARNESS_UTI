@@ -34,7 +34,16 @@ En la misma sesión también se comprobó:
 | El primer clic en la casilla de una tarea abrió la ficha | La casilla mide 0 hasta pasar el cursor (diseño aprobado); el clic sin cursor encima cae sobre el texto | No es un error. Con el cursor encima, la casilla aparece y marcar funciona. En pantallas táctiles siempre se ve |
 | En Derivaciones, dos solicitudes «Agendada» no mostraban su cita | La semilla dejaba en `pendiente` solicitudes con cita; además, una cita finalizada no se lista como próxima | Semilla corregida (`agendada`). La columna muestra solo citas reservadas, que es lo esperado |
 
+## E10-T26: configuración para Administración (misma fecha, `adm.uno`)
+
+| Paso | Resultado observado |
+|---|---|
+| Ventana de búsqueda en 99 → Crear borrador | 422 y «Revisa «Ventana de búsqueda»: debe ser como máximo 30»; el campo queda marcado y conserva el 99 |
+| Ventana en 12 → Crear borrador | «Borrador v2 … listo» |
+| Motivo «Ventana acordada con Bienestar» → Aprobar | La v2 queda vigente y la v1, retirada |
+
+**Dónde se rompió:** la primera vez, el mensaje salía en inglés (Pydantic) y repetía la ruta del campo. Se tradujo en el contrato de la política, con su prueba.
+
 ## Lo que no cubre
 
-- La configuración de política y profesionales para Administración (E10-T26) no está en esta verificación.
 - La vista en modo claro se revisó en la maqueta aprobada. Esta sesión corrió en el modo oscuro del producto.
