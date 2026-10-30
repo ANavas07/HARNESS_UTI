@@ -294,7 +294,7 @@ Se cerraron con el usuario las tres decisiones que los agentes preguntaron en el
 
 ### 3.23 Fase 10.D: pantalla Agenda — 30 de octubre de 2026
 
-- **[PR #5](https://github.com/ANavas07/GRUPO2_SEGUIMIENTO/pull/5)**, rama `etapa-10d-pantalla`:
+- **[PR #5](https://github.com/ANavas07/GRUPO2_SEGUIMIENTO/pull/5)**, rama `etapa-10d-pantalla`. ✅ Mergeado en `MVP` el 30-10 (commit `5dc34c3`), con CI 4/4 y 1.889 pruebas del backend en verde en local:
   - backend: migración 0012 con tareas propias y notas de la cita, calendario, tareas, derivaciones con asignación y la cita en el caso;
   - frontend: `Agenda.tsx` con el diseño aprobado, `Derivaciones.tsx` y la cita en el detalle del caso.
 - **IT-M9.D** verificada en navegador contra la API real, con datos sintéticos (`backend/scripts/demo_agenda.py`). Registro en [reports/verificaciones/2026-10-30-it-m9d-agenda.md](reports/verificaciones/2026-10-30-it-m9d-agenda.md).
