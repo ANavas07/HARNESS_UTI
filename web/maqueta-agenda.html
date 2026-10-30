@@ -119,7 +119,7 @@ const $=id=>document.getElementById(id);
 const AHORA=new Date(2026,9,30,10,0);                                  // viernes 30 de octubre de 2026, 10:00
 const NIVEL={critico:'Crítico',alto:'Alto',medio:'Medio'};
 const PLAZO={critico:2,alto:5,medio:10};
-const TIPOS=['Llamada telefónica','Entrevista presencial','Tutoría académica','Orientación psicológica','Visita a la facultad','Otro'];
+const TIPOS=['Contacto urgente','Tutoría académica','Acompañamiento al ingreso','Revisión de carga académica','Bienestar','Otro'];   // catálogo TipoAccion del producto
 const RESULTADOS=['Contactado','No se logró contactar','Aceptó el apoyo','Rechazó el apoyo','Derivado a un servicio externo'];
 const NIVELES_CASO={'C-1001':'critico','C-1002':'alto','C-1003':'medio','C-1004':'alto','C-1005':'critico','C-1006':'alto','C-1007':'medio','C-1009':'alto','C-1010':'medio','C-1011':'critico','C-1016':'alto','C-1020':'critico','C-1021':'alto','C-1025':'medio','C-1030':'critico','C-1038':'critico'};
 let mesVista=new Date(2026,9,1),filtro='todo';
@@ -132,17 +132,17 @@ function cita(caso,f,o={}){return {id:'i'+(++seq),tipo:'cita',caso,nivel:NIVELES
 function tarea(caso,f,titulo,o={}){return {id:'i'+(++seq),tipo:'tarea',caso,nivel:NIVELES_CASO[caso],fecha:f,titulo,estado:'pendiente',indicaciones:'',observaciones:'',hist:['Tarea creada por b.lopez'],...o}}
 function fmtCorto(d){return d.toLocaleDateString('es-EC',{day:'numeric',month:'short'})+' '+hhmm(d)}
 const st={items:[
-  cita('C-1001',at(2026,9,15,10),{estado:'completada',resultado:{tipo:'Entrevista presencial',res:'Aceptó el apoyo'},observaciones:'Acordó tutorías de Matemática.'}),
-  cita('C-1002',at(2026,9,16,9),{estado:'completada',resultado:{tipo:'Llamada telefónica',res:'Contactado'}}),
+  cita('C-1001',at(2026,9,15,10),{estado:'completada',resultado:{tipo:'Bienestar',res:'Aceptó el apoyo'},observaciones:'Acordó tutorías de Matemática.'}),
+  cita('C-1002',at(2026,9,16,9),{estado:'completada',resultado:{tipo:'Contacto urgente',res:'Contactado'}}),
   cita('C-1011',at(2026,9,16,10,30)),cita('C-1016',at(2026,9,16,11)),
   tarea('C-1005',at(2026,9,16,15),'Seguimiento telefónico'),
-  cita('C-1005',at(2026,9,17,9),{estado:'completada',resultado:{tipo:'Orientación psicológica',res:'Contactado'}}),
+  cita('C-1005',at(2026,9,17,9),{estado:'completada',resultado:{tipo:'Bienestar',res:'Contactado'}}),
   cita('C-1006',at(2026,9,19,10)),tarea('C-1007',at(2026,9,19,14),'Revisar asistencia con el docente'),
   tarea('C-1005',at(2026,9,19,16),'Seguimiento telefónico'),cita('C-1009',at(2026,9,20,9)),
   cita('C-1003',at(2026,9,20,10,15),{estado:'completada',resultado:{tipo:'Tutoría académica',res:'Contactado'}}),
   tarea('C-1001',at(2026,9,20,15),'Confirmar inscripción a tutorías'),
   cita('C-1010',at(2026,9,21,9,30)),tarea('C-1001',at(2026,9,21,14),'Seguimiento de tutorías'),
-  cita('C-1004',at(2026,9,22,10),{estado:'completada',resultado:{tipo:'Entrevista presencial',res:'Derivado a un servicio externo'}}),
+  cita('C-1004',at(2026,9,22,10),{estado:'completada',resultado:{tipo:'Bienestar',res:'Derivado a un servicio externo'}}),
   cita('C-1010',at(2026,9,22,11),{estado:'cancelada',observaciones:'La persona no pudo asistir; se reagendó.'}),
   tarea('C-1007',at(2026,9,23,9),'Llamar a la familia'),cita('C-1020',at(2026,9,23,10)),
   cita('C-1021',at(2026,9,27,9)),tarea('C-1006',at(2026,9,28,15),'Enviar material de apoyo'),
