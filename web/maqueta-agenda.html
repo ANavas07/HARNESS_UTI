@@ -25,16 +25,18 @@ h1,h2,h3,p{margin:0}h1{font-size:1.5rem;font-weight:650;letter-spacing:-.02em}h2
 .cal-head{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));background:var(--head)}.cal-head div{text-align:center;padding:9px 4px;font-size:.8rem;color:#4b4560}
 .cal-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr))}
 .day{min-height:122px;border-top:1px solid var(--line);border-left:1px solid var(--line);padding:6px;display:flex;flex-direction:column;gap:5px;min-width:0}
-.day:nth-child(7n+1){border-left:0}.day.other{background:var(--past);color:#a8a3b8}.day.weekend:not(.other){background:#fbfafd}
+.day:nth-child(7n+1){border-left:0}.day.other{background:var(--past);color:#a8a3b8}
 .dhead{display:flex;justify-content:space-between;align-items:center;font-size:.85rem;padding:2px 4px}
 .dnum{width:26px;height:26px;display:grid;place-items:center;border-radius:50%}.today .dnum{background:var(--brand);color:#fff;font-weight:650}
 .add{width:24px;height:24px;border-radius:6px;color:#4b4560;font-size:1.05rem;line-height:1;opacity:.55}.add:hover,.add:focus-visible{background:var(--head);opacity:1}
-.chip{display:flex;align-items:flex-start;gap:6px;border-radius:7px;padding:5px 6px;font-size:.76rem;line-height:1.3;border-left:3px solid transparent;min-width:0}
-.chip input{margin:1px 0 0;flex:none;width:14px;height:14px;accent-color:var(--ok)}
+/* chips como la imagen de referencia: fondo pálido por estado, texto «Estado · nombre», sin bordes; la casilla aparece al pasar el cursor */
+.chip{display:flex;align-items:flex-start;gap:0;border-radius:6px;padding:7px 8px;font-size:.76rem;line-height:1.3;min-width:0}
+.chip input{margin:1px 0 0;flex:none;width:0;height:14px;opacity:0;accent-color:var(--ok);transition:width .12s,opacity .12s,margin .12s}
+.chip:hover input,.chip:focus-within input{width:14px;opacity:1;margin-right:6px}
+@media(hover:none){.chip input{width:14px;opacity:1;margin-right:6px}}
 .chip .txt{text-align:left;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
-.chip.completada{background:var(--ok-bg);color:var(--ok)}.chip.completada .txt{text-decoration:line-through;text-decoration-thickness:1px}
+.chip.completada{background:var(--ok-bg);color:var(--ok)}
 .chip.vencida{background:var(--late-bg);color:var(--late)}.chip.pendiente{background:var(--plan-bg);color:var(--plan)}.chip.cancelada{background:var(--off-bg);color:var(--off)}.chip.cancelada .txt{text-decoration:line-through}
-.chip.n-critico{border-left-color:var(--critico)}.chip.n-alto{border-left-color:var(--alto)}.chip.n-medio{border-left-color:var(--medio)}
 .more{font-size:.74rem;color:var(--accent);text-align:left;padding:0 6px}
 .legend{display:flex;gap:14px;flex-wrap:wrap;font-size:.76rem;color:var(--muted);margin-top:10px}.legend span{display:inline-flex;gap:6px;align-items:center}.sw{width:12px;height:12px;border-radius:3px;display:inline-block}
 .panel{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:16px}.gap{margin-top:14px}
@@ -56,7 +58,7 @@ dialog{border:0;border-radius:14px;padding:0;width:min(560px,94vw);max-height:92
 .list{display:none}
 @media(max-width:860px){.shell{display:block}.side{flex-direction:row;flex-wrap:wrap;align-items:center;padding:10px;gap:10px}.nav{display:flex;overflow-x:auto}.who{margin:0}
   .cal{display:none}.list{display:block}.legend{margin-top:0}.two{grid-template-columns:1fr}}
-.lday{background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px;margin-bottom:8px}.lday.today{border-color:var(--brand)}.lday h3{display:flex;justify-content:space-between;align-items:center}.lday h3::first-letter{text-transform:uppercase}.lday .chip{margin-top:6px}
+.lday{background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px;margin-bottom:8px}.lday.today{border-color:var(--brand)}.lday h3{display:flex;justify-content:space-between;align-items:center}.lday .chip{margin-top:6px}
 </style>
 </head>
 <body>
@@ -85,8 +87,8 @@ dialog{border:0;border-radius:14px;padding:0;width:min(560px,94vw);max-height:92
   </div>
   <div class="cal" id="cal"><div class="cal-head"><div>Lun</div><div>Mar</div><div>Mié</div><div>Jue</div><div>Vie</div><div>Sáb</div><div>Dom</div></div><div class="cal-grid" id="grid"></div></div>
   <div class="list" id="lista"></div>
-  <div class="legend"><span><i class="sw" style="background:var(--ok-bg);border:1px solid #9cc9a6"></i>Completada</span><span><i class="sw" style="background:var(--late-bg);border:1px solid #e6b493"></i>Vencida: pasó y no tiene resultado</span><span><i class="sw" style="background:var(--plan-bg);border:1px solid #a9bde6"></i>Programada</span><span><i class="sw" style="background:var(--off-bg)"></i>Cancelada</span><span>Borde: <b style="color:var(--critico)">crítico</b> · <b style="color:var(--alto)">alto</b> · <b style="color:var(--medio)">medio</b></span></div>
-  <p class="small muted gap">Marca la casilla para dar por hecha una tarea. En una cita, completar pide el resultado (tipo de acción y resultado) porque queda como intervención del caso. Haz clic en el texto para abrir la ficha.</p>
+  <div class="legend"><span><i class="sw" style="background:var(--ok-bg);border:1px solid #9cc9a6"></i>Completada</span><span><i class="sw" style="background:var(--late-bg);border:1px solid #e6b493"></i>Vencida: pasó y no tiene resultado</span><span><i class="sw" style="background:var(--plan-bg);border:1px solid #a9bde6"></i>Programada</span><span><i class="sw" style="background:var(--off-bg)"></i>Cancelada</span></div>
+  <p class="small muted gap">Pasa el cursor sobre una tarea y marca su casilla para darla por hecha (en el celular la casilla siempre se ve). En una cita, completar pide el resultado (tipo de acción y resultado) porque queda como intervención del caso. Haz clic en el texto para abrir la ficha.</p>
 </section>
 
 <section class="view" id="derivaciones" hidden>
@@ -156,7 +158,7 @@ function fin(i){return new Date(i.fecha.getTime()+15*60e3)}
 function visual(i){if(i.estado!=='pendiente')return i.estado;const limite=i.tipo==='cita'?fin(i):new Date(i.fecha.getFullYear(),i.fecha.getMonth(),i.fecha.getDate()+1);return limite<AHORA?'vencida':'pendiente'}
 function etiqueta(i){const v={completada:'✓ Completada',vencida:'Vencida',pendiente:hhmm(i.fecha),cancelada:'Cancelada'}[visual(i)];return `${v} · ${i.tipo==='cita'?'Cita '+i.caso:i.titulo+' · '+i.caso}`}
 function pasa(i){if(filtro==='todo')return true;if(filtro==='vencida')return visual(i)==='vencida';return i.tipo===filtro}
-function chip(i){const v=visual(i);return `<div class="chip ${v} n-${i.nivel}"><input type="checkbox" data-chk="${i.id}" ${i.estado==='completada'?'checked':''} ${i.estado==='cancelada'?'disabled':''} aria-label="Marcar como hecha: ${etiqueta(i)}"><button class="txt" data-open="${i.id}" title="${etiqueta(i)}">${etiqueta(i)}</button></div>`}
+function chip(i){const v=visual(i);return `<div class="chip ${v}"><input type="checkbox" data-chk="${i.id}" ${i.estado==='completada'?'checked':''} ${i.estado==='cancelada'?'disabled':''} aria-label="Marcar como hecha: ${etiqueta(i)}"><button class="txt" data-open="${i.id}" title="${etiqueta(i)}">${etiqueta(i)}</button></div>`}
 function render(){
   $('reloj').textContent='Hoy: viernes 30 de octubre de 2026, 10:00 (Guayaquil)';
   const m=mesVista.toLocaleDateString('es-EC',{month:'long',year:'numeric'});$('mes').textContent=m[0].toUpperCase()+m.slice(1);
@@ -168,7 +170,7 @@ function render(){
     const cls=['day',otro?'other':'',mismoDia(d,AHORA)?'today':'',d.getDay()%6===0?'weekend':''].join(' ');
     const puedeAgregar=d>=new Date(AHORA.toDateString());
     g+=`<div class="${cls}"><div class="dhead"><span class="dnum">${d.getDate()}</span>${puedeAgregar?`<button class="add" data-add="${d.toISOString()}" aria-label="Agregar tarea el ${fmt(d)}">+</button>`:''}</div>${visibles.map(chip).join('')}${resto>0?`<button class="more" data-dia="${d.toISOString()}">+${resto} más</button>`:''}</div>`;
-    if(!otro&&(del.length||mismoDia(d,AHORA)))l+=`<div class="lday ${mismoDia(d,AHORA)?'today':''}"><h3>${fmt(d)}${puedeAgregar?`<button class="add" data-add="${d.toISOString()}" aria-label="Agregar tarea">+</button>`:''}</h3>${del.map(chip).join('')||'<p class="small muted">Sin citas ni tareas.</p>'}</div>`;
+    if(!otro&&(del.length||mismoDia(d,AHORA)))l+=`<div class="lday ${mismoDia(d,AHORA)?'today':''}"><h3>${fmt(d).replace(/^./,c=>c.toUpperCase())}${puedeAgregar?`<button class="add" data-add="${d.toISOString()}" aria-label="Agregar tarea">+</button>`:''}</h3>${del.map(chip).join('')||'<p class="small muted">Sin citas ni tareas.</p>'}</div>`;
   }
   $('grid').innerHTML=g;$('lista').innerHTML=l||'<p class="muted">Sin citas ni tareas este mes.</p>';
   document.querySelectorAll('[data-open]').forEach(b=>b.onclick=()=>abrir(b.dataset.open));
