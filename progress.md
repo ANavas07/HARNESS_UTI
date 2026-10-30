@@ -292,6 +292,16 @@ Se cerraron con el usuario las tres decisiones que los agentes preguntaron en el
   - mutaciones `ciclo` 19/20 en la corrida completa; el sobreviviente se mató con una prueba más fuerte (verificado a mano);
   - `reserva` sigue en 33/33.
 
+### 3.23 Fase 10.D: pantalla Agenda — 30 de octubre de 2026
+
+- **[PR #5](https://github.com/ANavas07/GRUPO2_SEGUIMIENTO/pull/5)**, rama `etapa-10d-pantalla`:
+  - backend: migración 0012 con tareas propias y notas de la cita, calendario, tareas, derivaciones con asignación y la cita en el caso;
+  - frontend: `Agenda.tsx` con el diseño aprobado, `Derivaciones.tsx` y la cita en el detalle del caso.
+- **IT-M9.D** verificada en navegador contra la API real, con datos sintéticos (`backend/scripts/demo_agenda.py`). Registro en [reports/verificaciones/2026-10-30-it-m9d-agenda.md](reports/verificaciones/2026-10-30-it-m9d-agenda.md).
+- **Pruebas:** 86 del frontend y 15 nuevas del backend en verde; contrato sin deriva.
+- **HTML:** cada fase y cada eval muestra «Dónde se rompió» (pedido del usuario).
+- **Pendiente en 10.D:** E10-T26, configuración de política y profesionales para Administración; y el historial en la ficha, que necesita un endpoint.
+
 ## 4. Verificaciones realizadas y alcance
 
 | Verificación | Resultado registrado | Qué demuestra |
