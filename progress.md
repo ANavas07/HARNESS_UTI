@@ -303,7 +303,7 @@ Pendientes acordados al cerrar el SPEC con las preguntas del lab. Se retoman en 
    - una prueba de arquitectura: toda herramienta del chat está en `ENUMS["herramienta"]` de `shared/trazas.py`;
    - en AGENTS.md: cómo regenerar los tipos del frontend y la política de migraciones ya aplicadas;
    - el fixture `con_api`, una fábrica de datos y una prueba contra mutaciones a medias.
-5. **Fase 10.B** (disponibilidad, solicitudes y reserva automática) con TDD y su puerta G10.B: implementada en el [PR #3](https://github.com/ANavas07/GRUPO2_SEGUIMIENTO/pull/3): CI 4/4 en verde, mutaciones 33/33 e IT-M9.B en verde. ⏳ Falta el merge.
+5. **Fase 10.B** (disponibilidad, solicitudes y reserva automática) con TDD y su puerta G10.B: implementada en el [PR #3](https://github.com/ANavas07/GRUPO2_SEGUIMIENTO/pull/3): CI 4/4 en verde, mutaciones 33/33 e IT-M9.B en verde. ✅ Mergeado en `MVP` el 30-10 (commit `cf7a515`).
 6. **Maqueta de la pantalla Agenda:** ✅ lista en [web/maqueta-agenda.html](web/maqueta-agenda.html), con 8 preguntas para Bienestar. ⏳ Falta la revisión con Bienestar, que bloquea la fase 10.D.
 7. **Medición 2 del lab:** tareas más difíciles y pass@5 otra vez después de aplicar el punto 4, para comparar la tendencia. Medir tokens y tiempo cuando haya una CLI de agente.
 
