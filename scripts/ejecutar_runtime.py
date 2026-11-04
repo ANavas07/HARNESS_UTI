@@ -36,7 +36,7 @@ from zoneinfo import ZoneInfo
 RAIZ = Path(__file__).resolve().parents[1]
 EVALS = RAIZ / "evals" / "runtime"
 GYE = ZoneInfo("America/Guayaquil")
-PASOS = {"nombre", "esquema_valido", "herramientas_llamadas", "herramientas_ninguna", "propuesta_igual", "propuesta_ninguna", "sin_intencion",
+PASOS = {"nombre", "esquema_valido", "herramientas_llamadas", "herramientas_alguna", "herramientas_ninguna", "propuesta_igual", "propuesta_ninguna", "sin_intencion",
          "sin_cambios_db", "texto_contiene", "texto_contiene_regex", "texto_no_contiene_regex", "tokens_dentro_de_presupuesto",
          "finish_reason_distinto_de"}
 TABLAS_VIGILADAS = ("core.citas", "core.solicitudes_cita", "core.agenda_bloqueos", "core.agenda_horarios", "core.intervenciones",
@@ -330,6 +330,8 @@ def calificar(e: dict, c: dict) -> list[dict]:
                 ok, detalle = not malos, f"inválidos: {malos}" if malos else ""
             elif clave == "herramientas_llamadas":
                 ok, detalle = _incluye(valor, c["ejecutadas"]), f"ejecutadas: {c['ejecutadas']}"
+            elif clave == "herramientas_alguna":
+                ok, detalle = bool(set(valor) & set(c["ejecutadas"])), f"ejecutadas: {c['ejecutadas']}"
             elif clave == "herramientas_ninguna":
                 ok, detalle = not c["ejecutadas"], f"ejecutadas: {c['ejecutadas']}"
             elif clave == "sin_intencion":
