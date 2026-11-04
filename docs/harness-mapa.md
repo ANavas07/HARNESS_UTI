@@ -16,7 +16,8 @@ Cada pieza que vive en el producto queda listada aquí, con su razón.
 | Runner de evals | `scripts/ejecutar_eval.py` + `tests/test_ejecutar_eval.py` | Controles, agentes por comando o externos (`--preparar` / `--calificar`), pruebas ocultas (`copiar`), pass@N y reportes |
 | Evals de desarrollo | `evals/desarrollo/` | Tareas para el agente que construye la agenda (D01, D02, …) |
 | Lab de evals | `evals/lab/`, [evals-lab.md](evals-lab.md) | Una tarea por pieza del harness (contexto, entorno, herramientas), con graders y soluciones de referencia |
-| Evals de runtime | `evals/runtime/` | Conversaciones del asistente de agenda (fase 10.E) |
+| Evals de runtime | `evals/runtime/` (60 evals y `fixtures/semana-demo.yaml`) | Conversaciones del asistente de agenda en 7 categorías (SPEC §33.5), con grader y respuesta de referencia |
+| Ejecutor de evals de runtime | `scripts/ejecutar_runtime.py` + `tests/test_ejecutar_runtime.py` | Corre el ciclo real del asistente del producto (`--producto <backend>`) con una base temporal por corrida, reloj fijo y el modelo real, el guion de referencia o un agente nulo; reporta en `reports/evals/runtime/` |
 | Loop de mejora | [loop-mejora.md](loop-mejora.md) | Fallos del agente → diagnóstico por pieza → corrección → métrica |
 | Presupuestos y rutas | [rutas-por-costo.md](rutas-por-costo.md), `scripts/calcular_rutas.py`, `config/` | Límites de tokens por llamada y tarea, medidos contra Qwen |
 | Evidencia | `reports/` | Reportes de evals, mediciones y capturas; no se sobrescriben |
@@ -31,9 +32,10 @@ Cada pieza que vive en el producto queda listada aquí, con su razón.
 | Guardas del harness | `backend/tests/architecture/test_harness_desarrollo.py` | Tienen que fallar en el CI del producto, antes del merge | Lab L3-r5 y loop F4 |
 | Fábrica de datos de agenda | `backend/tests/fabricas_agenda.py` (incluye `borrar_confirmado` para las pruebas con varias conexiones) | Las pruebas del producto la importan | Loop F3 y fase 10.B |
 | Fixture `con_api` | `backend/tests/integration/conftest.py` | La usan las pruebas de servicio del producto | Loop F2 |
-| Runner de mutaciones | `backend/scripts/correr_mutaciones.py` (objetivos `agenda` y `reserva`) | Muta el código del producto y corre sus pruebas | Gate de cada fase |
+| Runner de mutaciones | `backend/scripts/correr_mutaciones.py` (objetivos `agenda`, `reserva`, `ciclo`, `presupuesto` y `asistente`) | Muta el código del producto y corre sus pruebas | Gate de cada fase |
 | Entorno sintético de la agenda | `backend/scripts/demo_agenda.py` | Levanta la API y la interfaz del producto con datos inventados para IT-M9.D y demostraciones; usa el código y la fábrica del producto | Fase 10.D |
 | Trazas de consumo | `backend/shared/trazas.py` | Las escribe el asistente en ejecución (fase 10.E) | SPEC §33.4 |
+| IT-M9.E | `backend/tests/integration/test_itm9e_asistente.py` | Recorre la API del producto, de la pregunta a la cita confirmada (con `llm_real`, contra el servidor) | Gate G10.E |
 
 Una pieza del harness nueva va **aquí** salvo que tenga que ejecutarse dentro del producto. En ese caso se agrega a esta tabla en el mismo cambio.
 

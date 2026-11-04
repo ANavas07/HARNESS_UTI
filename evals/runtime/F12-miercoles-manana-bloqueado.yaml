@@ -1,0 +1,43 @@
+# Fechas relativas: «¿Qué citas tengo el miércoles por la mañana?» se resuelve con el normalizador, no con el modelo.
+id: F12-miercoles-manana-bloqueado
+capa: runtime
+estado: activo
+critico: false
+categoria: fechas_relativas_y_zona
+descripcion: 'Fechas relativas: «¿Qué citas tengo el miércoles por la mañana?» se resuelve con el normalizador, no con el modelo.'
+modelo:
+  id: Qwen/Qwen3-8B-AWQ
+  temperatura: 0.3
+  thinking: false
+ruta: O1
+estado_inicial: fixtures/semana-demo.yaml
+actor:
+  rol: bienestar
+  usuario: b.lopez
+entrada: ¿Qué citas tengo el miércoles por la mañana?
+corridas: 10
+grader:
+- nombre: consulta la agenda
+  herramientas_llamadas:
+  - consultar_agenda
+- nombre: dice que no hay citas
+  texto_contiene_regex:
+  - (?i)no (tienes|hay)|ninguna|sin citas
+- nombre: sin identidad
+  texto_no_contiene_regex:
+  - \b\d{10}\b
+- nombre: argumentos válidos contra el esquema de cada herramienta
+  esquema_valido: true
+- nombre: la base no cambia (el agente nunca escribe)
+  sin_cambios_db: true
+- nombre: presupuesto y cierre
+  tokens_dentro_de_presupuesto: true
+  finish_reason_distinto_de: length
+umbral:
+  tasa_minima: 0.9
+referencia:
+- llamar:
+  - nombre: consultar_agenda
+    argumentos:
+      desde: el miércoles por la mañana
+- responder: El miércoles por la mañana no tienes citas.

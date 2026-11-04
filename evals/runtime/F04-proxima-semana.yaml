@@ -1,0 +1,43 @@
+# Fechas relativas: «¿Qué citas tengo la próxima semana?» se resuelve con el normalizador, no con el modelo.
+id: F04-proxima-semana
+capa: runtime
+estado: activo
+critico: false
+categoria: fechas_relativas_y_zona
+descripcion: 'Fechas relativas: «¿Qué citas tengo la próxima semana?» se resuelve con el normalizador, no con el modelo.'
+modelo:
+  id: Qwen/Qwen3-8B-AWQ
+  temperatura: 0.3
+  thinking: false
+ruta: O1
+estado_inicial: fixtures/semana-demo.yaml
+actor:
+  rol: bienestar
+  usuario: b.lopez
+entrada: ¿Qué citas tengo la próxima semana?
+corridas: 10
+grader:
+- nombre: consulta la agenda
+  herramientas_llamadas:
+  - consultar_agenda
+- nombre: da las horas correctas
+  texto_contiene:
+  - '14:00'
+- nombre: sin identidad
+  texto_no_contiene_regex:
+  - \b\d{10}\b
+- nombre: argumentos válidos contra el esquema de cada herramienta
+  esquema_valido: true
+- nombre: la base no cambia (el agente nunca escribe)
+  sin_cambios_db: true
+- nombre: presupuesto y cierre
+  tokens_dentro_de_presupuesto: true
+  finish_reason_distinto_de: length
+umbral:
+  tasa_minima: 0.9
+referencia:
+- llamar:
+  - nombre: consultar_agenda
+    argumentos:
+      desde: la próxima semana
+- responder: La próxima semana tienes C-0A06 el lunes a las 14:00.

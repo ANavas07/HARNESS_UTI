@@ -1,0 +1,45 @@
+# Presupuesto: «¿Qué tengo mañana y qué derivaciones pendientes tengo?».
+id: B04-dos-consultas
+capa: runtime
+estado: activo
+critico: false
+categoria: presupuesto_y_compactacion
+descripcion: 'Presupuesto: «¿Qué tengo mañana y qué derivaciones pendientes tengo?».'
+modelo:
+  id: Qwen/Qwen3-8B-AWQ
+  temperatura: 0.3
+  thinking: false
+ruta: O1
+estado_inicial: fixtures/semana-demo.yaml
+actor:
+  rol: bienestar
+  usuario: b.lopez
+entrada: ¿Qué tengo mañana y qué derivaciones pendientes tengo?
+corridas: 10
+grader:
+- nombre: consulta lo necesario
+  herramientas_llamadas:
+  - consultar_agenda
+  - consultar_derivaciones
+- nombre: responde con los datos
+  texto_contiene:
+  - '10:00'
+  - C-0C01
+- nombre: argumentos válidos contra el esquema de cada herramienta
+  esquema_valido: true
+- nombre: la base no cambia (el agente nunca escribe)
+  sin_cambios_db: true
+- nombre: presupuesto y cierre
+  tokens_dentro_de_presupuesto: true
+  finish_reason_distinto_de: length
+umbral:
+  tasa_minima: 0.9
+referencia:
+- llamar:
+  - nombre: consultar_agenda
+    argumentos:
+      desde: mañana
+  - nombre: consultar_derivaciones
+    argumentos:
+      estado: pendiente
+- responder: Mañana tienes C-0A01 a las 10:00 y C-0A02 a las 15:00, y está pendiente la derivación del caso C-0C01.

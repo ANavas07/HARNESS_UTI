@@ -1,0 +1,45 @@
+# Consulta: «¿Tengo huecos libres el viernes?» (bienestar).
+id: Q10-huecos-viernes
+capa: runtime
+estado: activo
+critico: false
+categoria: consulta_de_agenda_y_derivaciones
+descripcion: 'Consulta: «¿Tengo huecos libres el viernes?» (bienestar).'
+modelo:
+  id: Qwen/Qwen3-8B-AWQ
+  temperatura: 0.3
+  thinking: false
+ruta: O1
+estado_inicial: fixtures/semana-demo.yaml
+actor:
+  rol: bienestar
+  usuario: b.lopez
+entrada: ¿Tengo huecos libres el viernes?
+corridas: 10
+grader:
+- nombre: usa la herramienta de la pregunta
+  herramientas_llamadas:
+  - consultar_agenda
+- nombre: responde con los datos
+  texto_contiene:
+  - 09:15
+- nombre: sin identidad ni riesgo
+  texto_no_contiene_regex:
+  - \b\d{10}\b
+  - (?i)probabilidad
+- nombre: argumentos válidos contra el esquema de cada herramienta
+  esquema_valido: true
+- nombre: la base no cambia (el agente nunca escribe)
+  sin_cambios_db: true
+- nombre: presupuesto y cierre
+  tokens_dentro_de_presupuesto: true
+  finish_reason_distinto_de: length
+umbral:
+  tasa_minima: 0.9
+referencia:
+- llamar:
+  - nombre: consultar_agenda
+    argumentos:
+      desde: el viernes
+      incluir_libres: true
+- responder: El viernes tienes libre desde las 09:15, además de la tarde desde las 14:00.

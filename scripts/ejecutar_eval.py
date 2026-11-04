@@ -331,7 +331,7 @@ def main(argv=None):
 
     spec = load_eval(args.eval)
     if spec.get("capa") == "runtime":
-        print(f"{spec['id']}: los evals de runtime requieren el ejecutor del agente de calendario",
+        print(f"{spec['id']}: es un eval de runtime: se corre con scripts/ejecutar_runtime.py",
               file=sys.stderr)
         return 2
     if spec["estado"] != "ejecutable" and not args.forzar:

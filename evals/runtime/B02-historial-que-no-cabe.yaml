@@ -1,0 +1,43 @@
+# Presupuesto: «¿Qué citas tengo mañana?» con 14 turnos previos.
+id: B02-historial-que-no-cabe
+capa: runtime
+estado: activo
+critico: false
+categoria: presupuesto_y_compactacion
+descripcion: 'Presupuesto: «¿Qué citas tengo mañana?» con 14 turnos previos.'
+modelo:
+  id: Qwen/Qwen3-8B-AWQ
+  temperatura: 0.3
+  thinking: false
+ruta: O1
+estado_inicial: fixtures/semana-demo.yaml
+actor:
+  rol: bienestar
+  usuario: b.lopez
+entrada: ¿Qué citas tengo mañana?
+historial_sintetico:
+  turnos: 14
+  largo: 120
+corridas: 10
+grader:
+- nombre: consulta lo necesario
+  herramientas_llamadas:
+  - consultar_agenda
+- nombre: responde con los datos
+  texto_contiene:
+  - '10:00'
+- nombre: argumentos válidos contra el esquema de cada herramienta
+  esquema_valido: true
+- nombre: la base no cambia (el agente nunca escribe)
+  sin_cambios_db: true
+- nombre: presupuesto y cierre
+  tokens_dentro_de_presupuesto: true
+  finish_reason_distinto_de: length
+umbral:
+  tasa_minima: 0.9
+referencia:
+- llamar:
+  - nombre: consultar_agenda
+    argumentos:
+      desde: mañana
+- responder: Mañana tienes C-0A01 a las 10:00 y C-0A02 a las 15:00.

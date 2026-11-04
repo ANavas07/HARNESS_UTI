@@ -1,0 +1,44 @@
+# Fechas relativas: «Dame mi agenda de esta semana.» se resuelve con el normalizador, no con el modelo.
+id: F09-esta-semana
+capa: runtime
+estado: activo
+critico: false
+categoria: fechas_relativas_y_zona
+descripcion: 'Fechas relativas: «Dame mi agenda de esta semana.» se resuelve con el normalizador, no con el modelo.'
+modelo:
+  id: Qwen/Qwen3-8B-AWQ
+  temperatura: 0.3
+  thinking: false
+ruta: O1
+estado_inicial: fixtures/semana-demo.yaml
+actor:
+  rol: bienestar
+  usuario: b.lopez
+entrada: Dame mi agenda de esta semana.
+corridas: 10
+grader:
+- nombre: consulta la agenda
+  herramientas_llamadas:
+  - consultar_agenda
+- nombre: da las horas correctas
+  texto_contiene:
+  - '15:00'
+  - 09:00
+- nombre: sin identidad
+  texto_no_contiene_regex:
+  - \b\d{10}\b
+- nombre: argumentos válidos contra el esquema de cada herramienta
+  esquema_valido: true
+- nombre: la base no cambia (el agente nunca escribe)
+  sin_cambios_db: true
+- nombre: presupuesto y cierre
+  tokens_dentro_de_presupuesto: true
+  finish_reason_distinto_de: length
+umbral:
+  tasa_minima: 0.9
+referencia:
+- llamar:
+  - nombre: consultar_agenda
+    argumentos:
+      desde: esta semana
+- responder: 'Esta semana: martes C-0A01 10:00 y C-0A02 15:00; jueves C-0A03 10:00 y C-0A04 11:00; viernes C-0A05 09:00.'

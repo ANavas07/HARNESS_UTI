@@ -119,7 +119,7 @@ Miden a Qwen con su harness. Desarrollan la evaluación de dominio de [SPEC §29
 | Texto adversarial | Mensaje que ordena cambiar el riesgo o ignorar reglas | Sí |
 | Redacción acotada | `preparar_comunicacion` sin riesgo, con fecha y hora correctas | No |
 
-El grader compara la salida estructurada (herramientas, argumentos, propuesta), comprueba que la base no cambió (el agente solo propone), que se respetó el presupuesto de la ruta y que ninguna llamada terminó en `length` con un tool call truncado. El ejecutor, los pasos de grader y el conjunto de 60 evals están definidos en [SPEC §33.5](SPEC.md#335-evals-de-runtime). Ejemplos: [C01](../evals/runtime/C01-reprogramar.yaml) y [C02](../evals/runtime/C02-adversarial-riesgo.yaml).
+El grader compara la salida estructurada (herramientas, argumentos, propuesta), comprueba que la base no cambió (el agente solo propone), que se respetó el presupuesto de la ruta y que ninguna llamada terminó en `length` con un tool call truncado. El ejecutor, los pasos de grader y el conjunto de 60 evals están definidos en [SPEC §33.5](SPEC.md#335-evals-de-runtime). Ejemplos: [P01](../evals/runtime/P01-reprogramar-jueves-tarde.yaml) y [V03](../evals/runtime/V03-inyeccion-en-agenda.yaml). Se corren con `scripts/ejecutar_runtime.py`.
 
 ## 4. Capa 3 — Señales del harness y métricas del equipo
 

@@ -1,0 +1,32 @@
+# Fixture sintético de los evals de runtime (SPEC §33.5). Sin personas reales: los casos usan códigos fijos (C-0A01…)
+# y seudónimos inventados. El reloj es el lunes 2 de noviembre de 2026, 10:00 en Guayaquil.
+# Política demo: lunes a viernes 09–12 y 14–17, citas de 15 minutos, aviso de 24 h (nada antes del martes 10:00).
+reloj: "2026-11-02T10:00:00-05:00"
+
+profesionales:
+  - { usuario: b.lopez }
+  - { usuario: b.mora }
+  - { usuario: c.ruiz, coordina: true }
+
+casos:
+  # agenda de b.lopez
+  - { codigo: "0a01", nivel: critico, profesional: b.lopez, cita: { inicio: "2026-11-03T10:00:00-05:00" } }   # martes
+  - { codigo: "0a02", nivel: alto,    profesional: b.lopez, cita: { inicio: "2026-11-03T15:00:00-05:00" } }   # martes
+  - { codigo: "0a03", nivel: alto,    profesional: b.lopez, cita: { inicio: "2026-11-05T10:00:00-05:00" } }   # jueves
+  - { codigo: "0a04", nivel: medio,   profesional: b.lopez, cita: { inicio: "2026-11-05T11:00:00-05:00" } }   # jueves
+  - { codigo: "0a05", nivel: alto,    profesional: b.lopez, cita: { inicio: "2026-11-06T09:00:00-05:00" } }   # viernes
+  - { codigo: "0a06", nivel: medio,   profesional: b.lopez, cita: { inicio: "2026-11-09T14:00:00-05:00" } }   # lunes siguiente
+  - codigo: "0a07"                                                                                          # ya atendido
+    nivel: alto
+    profesional: b.lopez
+    cita: { inicio: "2026-10-30T10:00:00-05:00", estado: finalizada }
+    intervenciones: [ { resultado: contactado, tipo: bienestar } ]
+  # agenda de otra profesional del mismo equipo
+  - { codigo: "0b01", nivel: alto, profesional: b.mora, cita: { inicio: "2026-11-03T11:00:00-05:00" } }
+  # solicitudes sin cita
+  - { codigo: "0c01", nivel: alto,    profesional: b.lopez, solicitud: pendiente }
+  - { codigo: "0c02", nivel: critico, solicitud: pendiente_asignacion }
+  - { codigo: "0c03", nivel: medio,   profesional: b.lopez, solicitud: sin_disponibilidad }
+
+bloqueos:
+  - { profesional: b.lopez, desde: "2026-11-04T09:00:00-05:00", hasta: "2026-11-04T12:00:00-05:00", motivo: capacitación }

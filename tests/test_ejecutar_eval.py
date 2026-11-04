@@ -127,7 +127,7 @@ class EvalRunnerTests(unittest.TestCase):
         self.assertEqual(records[0]["resultado"], "accepted")
 
     def test_blocked_and_runtime_evals_are_refused(self):
-        for blocked in ("desarrollo/D01-disponibilidad.yaml", "runtime/C01-reprogramar.yaml"):
+        for blocked in ("desarrollo/D01-disponibilidad.yaml", "runtime/P01-reprogramar-jueves-tarde.yaml"):
             with contextlib.redirect_stderr(io.StringIO()):
                 code = self.runner.main([str(ROOT / "evals" / blocked), "--control", "negativo",
                                          "--salida", str(self.out)])

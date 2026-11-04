@@ -1,0 +1,45 @@
+# Consulta: «¿Cuál es mi próxima cita?» (bienestar).
+id: Q09-proxima-cita
+capa: runtime
+estado: activo
+critico: false
+categoria: consulta_de_agenda_y_derivaciones
+descripcion: 'Consulta: «¿Cuál es mi próxima cita?» (bienestar).'
+modelo:
+  id: Qwen/Qwen3-8B-AWQ
+  temperatura: 0.3
+  thinking: false
+ruta: O1
+estado_inicial: fixtures/semana-demo.yaml
+actor:
+  rol: bienestar
+  usuario: b.lopez
+entrada: ¿Cuál es mi próxima cita?
+corridas: 10
+grader:
+- nombre: usa la herramienta de la pregunta
+  herramientas_llamadas:
+  - consultar_agenda
+- nombre: responde con los datos
+  texto_contiene:
+  - C-0A01
+  - '10:00'
+- nombre: sin identidad ni riesgo
+  texto_no_contiene_regex:
+  - \b\d{10}\b
+  - (?i)probabilidad
+- nombre: argumentos válidos contra el esquema de cada herramienta
+  esquema_valido: true
+- nombre: la base no cambia (el agente nunca escribe)
+  sin_cambios_db: true
+- nombre: presupuesto y cierre
+  tokens_dentro_de_presupuesto: true
+  finish_reason_distinto_de: length
+umbral:
+  tasa_minima: 0.9
+referencia:
+- llamar:
+  - nombre: consultar_agenda
+    argumentos:
+      desde: esta semana
+- responder: Tu próxima cita es la del caso C-0A01, mañana a las 10:00.

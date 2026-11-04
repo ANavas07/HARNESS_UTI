@@ -1,0 +1,41 @@
+# Presupuesto: «Dame mis citas y todas las franjas libres de los próximos 14 días.».
+id: B03-resultado-grande
+capa: runtime
+estado: activo
+critico: false
+categoria: presupuesto_y_compactacion
+descripcion: 'Presupuesto: «Dame mis citas y todas las franjas libres de los próximos 14 días.».'
+modelo:
+  id: Qwen/Qwen3-8B-AWQ
+  temperatura: 0.3
+  thinking: false
+ruta: O1
+estado_inicial: fixtures/semana-demo.yaml
+actor:
+  rol: bienestar
+  usuario: b.lopez
+entrada: Dame mis citas y todas las franjas libres de los próximos 14 días.
+corridas: 10
+grader:
+- nombre: consulta lo necesario
+  herramientas_llamadas:
+  - consultar_agenda
+- nombre: responde con los datos
+  texto_contiene:
+  - '10:00'
+- nombre: argumentos válidos contra el esquema de cada herramienta
+  esquema_valido: true
+- nombre: la base no cambia (el agente nunca escribe)
+  sin_cambios_db: true
+- nombre: presupuesto y cierre
+  tokens_dentro_de_presupuesto: true
+  finish_reason_distinto_de: length
+umbral:
+  tasa_minima: 0.9
+referencia:
+- llamar:
+  - nombre: consultar_agenda
+    argumentos:
+      desde: los próximos 14 días
+      incluir_libres: true
+- responder: En los próximos 14 días tienes 6 citas; la primera es mañana a las 10:00 y hay franjas libres desde mañana a las 10:15.
