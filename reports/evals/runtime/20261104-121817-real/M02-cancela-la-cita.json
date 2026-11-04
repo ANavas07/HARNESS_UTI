@@ -1,0 +1,89 @@
+{
+ "id": "M02-cancela-la-cita",
+ "corridas": [
+  {
+   "corrida": 1,
+   "ok": false,
+   "pasos": [
+    {
+     "paso": "no propone nada sin los datos",
+     "tipo": "propuesta_ninguna",
+     "ok": true,
+     "detalle": "propuestas: 0"
+    },
+    {
+     "paso": "pide el dato que falta",
+     "tipo": "texto_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "no afirma haberlo hecho",
+     "tipo": "texto_no_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": false,
+     "detalle": "inválidos: ['proponer_cancelacion', 'proponer_cancelacion']"
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O1 · 3 llamadas · 5761+164 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop', 'stop', 'stop']"
+    }
+   ],
+   "respuesta": "Por favor, proporciona el número de la cita y el motivo de la cancelación para poder procesarla.",
+   "llamadas": [
+    {
+     "nombre": "proponer_cancelacion",
+     "argumentos": {
+      "cita": "",
+      "motivo": ""
+     }
+    },
+    {
+     "nombre": "proponer_cancelacion",
+     "argumentos": {
+      "cita": "",
+      "motivo": ""
+     }
+    }
+   ],
+   "ejecutadas": [],
+   "propuestas": [],
+   "consumo": {
+    "entrada": 5761,
+    "salida": 164,
+    "llamadas": 3,
+    "ruta": "O1",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop",
+    "stop",
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 7.53
+  }
+ ]
+}

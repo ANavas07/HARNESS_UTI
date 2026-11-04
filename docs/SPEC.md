@@ -619,7 +619,7 @@ En la opción A, estas capas se suman a las del producto (pytest, mutaciones al 
 | A44 | Cambio de prompt, herramientas, plantilla o modelo | Evals afectados con N = 10; críticos 10/10 y los demás sobre su umbral. |
 | A45 | Señales y tiempos | Cada corrida registra resultado, señales y tiempos en `reports/evals/`; reporte semanal contra la línea base. |
 
-Estado: el runner de evals de desarrollo y el eval D02 funcionan; los evals de runtime esperan el agente de calendario.
+Estado: el runner de evals de desarrollo y el eval D02 funcionan. Los 60 evals de runtime y su ejecutor (`scripts/ejecutar_runtime.py`) funcionan desde el 4-11-2026; la medición completa con el Qwen se corre fuera de horario.
 
 ## 32. Cambios requeridos en el producto de deserción
 
@@ -933,7 +933,7 @@ El diseño incluye **tareas propias del profesional**, que la fase 10.D agrega c
 | Tareas, criterios, pruebas y gates | ✅ [Propuesta de la Etapa 10](propuesta-etapa-10-agenda.md) |
 | Aceptación del equipo del producto | ✅ Etapa 10 aceptada por el equipo del producto el 28 de octubre de 2026 (comunicado por el usuario) |
 | Maqueta de la pantalla revisada | ✅ Aprobada por el usuario el 30 de octubre de 2026 |
-| Los 60 evals de runtime | ⏳ Se escriben al empezar la fase 10.E |
+| Los 60 evals de runtime | ✅ `evals/runtime/` (4-11), con el ejecutor `scripts/ejecutar_runtime.py`; controles 60/60 y 0/60; línea base preliminar 54/60 |
 
 La definición de listo está completa para las fases 10.A–10.C. El desarrollo empieza por 10.A y 10.B con TDD en el repositorio del producto, incorporando antes la Etapa 10 a su SPEC_REFINADO (v1.10).
 

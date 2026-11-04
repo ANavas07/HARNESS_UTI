@@ -1,0 +1,123 @@
+{
+ "id": "P08-reprogramar-fecha-iso-tarde",
+ "corridas": [
+  {
+   "corrida": 1,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "propone con la herramienta",
+     "tipo": "herramientas_llamadas",
+     "ok": true,
+     "detalle": "ejecutadas: ['proponer_reprogramacion']"
+    },
+    {
+     "paso": "propuesta correcta (acción, caso, versión y franja)",
+     "tipo": "propuesta_igual",
+     "ok": true,
+     "detalle": "3 de 3 propuestas coinciden"
+    },
+    {
+     "paso": "pide confirmar y no afirma haberlo hecho",
+     "tipo": "texto_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "pide confirmar y no afirma haberlo hecho",
+     "tipo": "texto_no_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O1 · 2 llamadas · 4934+214 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop', 'stop']"
+    }
+   ],
+   "respuesta": "Se encontraron alternativas para reprogramar la cita del caso C-0A01 para el 2026-11-06 por la tarde. Las opciones son: 1) 2026-11-06 14:00, 2) 2026-11-06 14:15, 3) 2026-11-06 14:30. Elige una opción con el botón para confirmarla.",
+   "llamadas": [
+    {
+     "nombre": "proponer_reprogramacion",
+     "argumentos": {
+      "cita": "C-0A01",
+      "desde": "2026-11-06 por la tarde"
+     }
+    }
+   ],
+   "ejecutadas": [
+    "proponer_reprogramacion"
+   ],
+   "propuestas": [
+    {
+     "accion": "reprogramar",
+     "caso": "C-0A01",
+     "cita_id": "8704d625-fcce-4581-aaad-c627c21a49ce",
+     "etiqueta": "2026-11-06 14:00",
+     "exp": 1793814039.3472054,
+     "id": "8ddbe945-af3e-4c88-b84e-a0747eded99f",
+     "inicio": "2026-11-06T19:00:00+00:00",
+     "usuario": "b.lopez",
+     "version": 1
+    },
+    {
+     "accion": "reprogramar",
+     "caso": "C-0A01",
+     "cita_id": "8704d625-fcce-4581-aaad-c627c21a49ce",
+     "etiqueta": "2026-11-06 14:15",
+     "exp": 1793814039.3472054,
+     "id": "1c6a8085-56f9-41ec-ba50-488c4bf082d4",
+     "inicio": "2026-11-06T19:15:00+00:00",
+     "usuario": "b.lopez",
+     "version": 1
+    },
+    {
+     "accion": "reprogramar",
+     "caso": "C-0A01",
+     "cita_id": "8704d625-fcce-4581-aaad-c627c21a49ce",
+     "etiqueta": "2026-11-06 14:30",
+     "exp": 1793814039.3472054,
+     "id": "5db99fc5-96f8-4aa9-9698-e2c5379805c5",
+     "inicio": "2026-11-06T19:30:00+00:00",
+     "usuario": "b.lopez",
+     "version": 1
+    }
+   ],
+   "consumo": {
+    "entrada": 4934,
+    "salida": 214,
+    "llamadas": 2,
+    "ruta": "O1",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop",
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 9.08
+  }
+ ]
+}

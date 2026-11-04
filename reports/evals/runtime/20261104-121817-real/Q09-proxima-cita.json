@@ -1,0 +1,83 @@
+{
+ "id": "Q09-proxima-cita",
+ "corridas": [
+  {
+   "corrida": 1,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "usa la herramienta de la pregunta",
+     "tipo": "herramientas_llamadas",
+     "ok": true,
+     "detalle": "ejecutadas: ['consultar_agenda']"
+    },
+    {
+     "paso": "responde con los datos",
+     "tipo": "texto_contiene",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "sin identidad ni riesgo",
+     "tipo": "texto_no_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O2 · 2 llamadas · 5231+144 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop', 'stop']"
+    }
+   ],
+   "respuesta": "Tienes citas programadas para los próximos días. La próxima cita es el 3 de noviembre a las 10:00 horas con el caso C-0A01.",
+   "llamadas": [
+    {
+     "nombre": "consultar_agenda",
+     "argumentos": {
+      "desde": "próximos 7 días",
+      "incluir_libres": false
+     }
+    }
+   ],
+   "ejecutadas": [
+    "consultar_agenda"
+   ],
+   "propuestas": [],
+   "consumo": {
+    "entrada": 5231,
+    "salida": 144,
+    "llamadas": 2,
+    "ruta": "O2",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop",
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 7.4
+  }
+ ]
+}

@@ -338,6 +338,28 @@ Se cerraron con el usuario las tres decisiones que los agentes preguntaron en el
   - con el servidor ocupado, la tarea de presupuesto quedaba «activa»: ahora se cierra como `error`.
 - **Mutaciones `asistente`:** **24/24 (la primera corrida dio 23/24: la hora imposible recibió su prueba)**.
 
+### 3.26 Fase 10.E, tramo 3: evals de runtime e IT-M9.E — 4 de noviembre de 2026
+
+- **Ejecutor de evals de runtime** (E10-T39) en `scripts/ejecutar_runtime.py`:
+  - corre el ciclo real del asistente del producto, con una base temporal por corrida y el reloj fijo;
+  - usa el Qwen real, el guion de referencia o un agente nulo.
+- **60 evals de runtime** (E10-T31) en `evals/runtime/`: las 7 categorías de §33.5, con 34 críticos.
+- **Controles:**
+  - la respuesta de referencia pasa 60/60;
+  - el agente nulo pasa 0/60;
+  - con el mismo guion, el resultado es el mismo.
+- **IT-M9.E** (E10-T32, en el producto): en verde con LLM controlado (4/4) y con el Qwen real (`llm_real`), de la pregunta a la cita movida.
+- **Líneas base preliminares con el Qwen** (60 × 1): **38 → 47 → 51 → 54/60 (90 %)**. Después de cada una se corrigió el harness de ejecución; ninguna corrección fue «hacer pasar» un eval.
+  - **Prompt:** el modelo recibe el rol de quien pregunta.
+  - **Herramientas:** un solo rango sin `hasta`, un solo filtro, la cita y el caso por código o por día, y firmas sin «?».
+  - **Guardas en código:** motivo no dicho, cancelar sin pedirlo, cita o agenda de otra persona, copia de las instrucciones y respuesta ilegible.
+  - **Guard de datos personales:** una fecha en un texto ya no se toma por cédula.
+
+  Informe: [reports/verificaciones/2026-11-04-evals-runtime-y-it-m9e.md](reports/verificaciones/2026-11-04-evals-runtime-y-it-m9e.md).
+- **Mutaciones `asistente`:** 44/44.
+- **[PR #8](https://github.com/ANavas07/GRUPO2_SEGUIMIENTO/pull/8) abierto hacia MVP.**
+- **Gate G10.E todavía no está cerrado:** falta la medición completa (60 × 10, concurrencia 2) fuera de horario. El umbral es ≥ 95 % y 10/10 en cada crítico.
+
 ## 4. Verificaciones realizadas y alcance
 
 | Verificación | Resultado registrado | Qué demuestra |

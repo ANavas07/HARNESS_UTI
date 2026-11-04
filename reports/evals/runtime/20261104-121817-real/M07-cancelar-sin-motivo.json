@@ -1,0 +1,95 @@
+{
+ "id": "M07-cancelar-sin-motivo",
+ "corridas": [
+  {
+   "corrida": 1,
+   "ok": false,
+   "pasos": [
+    {
+     "paso": "no propone nada sin los datos",
+     "tipo": "propuesta_ninguna",
+     "ok": false,
+     "detalle": "propuestas: 1"
+    },
+    {
+     "paso": "pide el dato que falta",
+     "tipo": "texto_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "no afirma haberlo hecho",
+     "tipo": "texto_no_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O1 · 2 llamadas · 4619+134 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop', 'stop']"
+    }
+   ],
+   "respuesta": "Se ha propuesto la cancelación de la cita del caso C-0A03 con el motivo: 'No se especificó el motivo.' La persona debe confirmar la cancelación con un botón.",
+   "llamadas": [
+    {
+     "nombre": "proponer_cancelacion",
+     "argumentos": {
+      "cita": "C-0A03",
+      "motivo": "No se especificó el motivo."
+     }
+    }
+   ],
+   "ejecutadas": [
+    "proponer_cancelacion"
+   ],
+   "propuestas": [
+    {
+     "accion": "cancelar",
+     "caso": "C-0A03",
+     "cita_id": "67022cce-a6e5-4268-8993-c547a0caef08",
+     "etiqueta": "2026-11-05 10:00",
+     "exp": 1793813077.3843539,
+     "id": "02a71152-b0a1-461f-8304-f9bb73c7671a",
+     "motivo": "No se especificó el motivo.",
+     "usuario": "b.lopez",
+     "version": 1
+    }
+   ],
+   "consumo": {
+    "entrada": 4619,
+    "salida": 134,
+    "llamadas": 2,
+    "ruta": "O1",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop",
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 6.04
+  }
+ ]
+}

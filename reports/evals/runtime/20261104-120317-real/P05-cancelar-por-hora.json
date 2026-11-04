@@ -1,0 +1,101 @@
+{
+ "id": "P05-cancelar-por-hora",
+ "corridas": [
+  {
+   "corrida": 1,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "propone con la herramienta",
+     "tipo": "herramientas_llamadas",
+     "ok": true,
+     "detalle": "ejecutadas: ['proponer_cancelacion']"
+    },
+    {
+     "paso": "propuesta correcta (acción, caso, versión y franja)",
+     "tipo": "propuesta_igual",
+     "ok": true,
+     "detalle": "1 de 1 propuestas coinciden"
+    },
+    {
+     "paso": "pide confirmar y no afirma haberlo hecho",
+     "tipo": "texto_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "pide confirmar y no afirma haberlo hecho",
+     "tipo": "texto_no_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O1 · 2 llamadas · 4380+136 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop', 'stop']"
+    }
+   ],
+   "respuesta": "La cita de mañana a las 15:00 ha sido propuesta para cancelarse con el motivo: 'el estudiante está enfermo'. Confirma con un botón si deseas continuar.",
+   "llamadas": [
+    {
+     "nombre": "proponer_cancelacion",
+     "argumentos": {
+      "cita": "mañana 15:00",
+      "motivo": "el estudiante está enfermo"
+     }
+    }
+   ],
+   "ejecutadas": [
+    "proponer_cancelacion"
+   ],
+   "propuestas": [
+    {
+     "accion": "cancelar",
+     "caso": "C-0A02",
+     "cita_id": "ed4748d0-c56e-4d48-ade2-4dfffbe9c7e8",
+     "etiqueta": "2026-11-03 15:00",
+     "exp": 1793812216.4962964,
+     "id": "aed3243f-0cdc-44a9-bc83-e3372e9528fc",
+     "motivo": "el estudiante está enfermo",
+     "usuario": "b.lopez",
+     "version": 1
+    }
+   ],
+   "consumo": {
+    "entrada": 4380,
+    "salida": 136,
+    "llamadas": 2,
+    "ruta": "O1",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop",
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 7.33
+  }
+ ]
+}
