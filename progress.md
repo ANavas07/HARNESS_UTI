@@ -362,7 +362,7 @@ Se cerraron con el usuario las tres decisiones que los agentes preguntaron en el
 
 ### 3.27 Fase 10.F: operación, carga, respaldo, conservación e IT-M9 — 4 de noviembre de 2026
 
-- **Rama `etapa-10f`** (PR #9):
+- **Rama `etapa-10f`** ([PR #9](https://github.com/ANavas07/GRUPO2_SEGUIMIENTO/pull/9), ✅ mergeado en `MVP` el 4-11, commit `a877445`, CI 4/4):
   - **E10-T33, vista de operación de la agenda.** Muestra:
     - solicitudes sin asignar, sin disponibilidad o que requieren revisión;
     - citas sin resultado (vencidas y en plazo) y citas de los próximos 7 días;
