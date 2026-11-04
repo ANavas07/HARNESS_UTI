@@ -316,7 +316,7 @@ Se cerraron con el usuario las tres decisiones que los agentes preguntaron en el
   - al reabrir una tarea caída, la reserva huérfana se perdía; ya está corregido;
   - el modelo inventó «2023-10-02» para «mañana», así que hace falta el normalizador de fechas del tramo 2.
 - **Mutaciones `presupuesto`:** **22/22** en la corrida completa. La primera dio 17/22 y los 5 sobrevivientes recibieron su prueba. La ventana con margen solo se puede alcanzar con una ruta más grande que las de hoy, así que se prueba con una.
-- **[PR #6](https://github.com/ANavas07/GRUPO2_SEGUIMIENTO/pull/6)** abierto hacia `MVP`.
+- **[PR #6](https://github.com/ANavas07/GRUPO2_SEGUIMIENTO/pull/6)** ✅ mergeado en `MVP` el 4-11 (commit `2f6a1fe`), con CI 4/4 en verde.
 - **Tramo 2 en curso** (rama `etapa-10e-herramientas`): ya están el normalizador determinista de fechas (24 casos) y los tokens firmados de propuesta (8 casos).
 
 ### 3.25 Fase 10.E, tramo 2: herramientas de agenda y propuestas firmadas — 4 de noviembre de 2026
