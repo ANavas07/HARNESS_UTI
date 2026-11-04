@@ -319,6 +319,25 @@ Se cerraron con el usuario las tres decisiones que los agentes preguntaron en el
 - **[PR #6](https://github.com/ANavas07/GRUPO2_SEGUIMIENTO/pull/6)** abierto hacia `MVP`.
 - **Tramo 2 en curso** (rama `etapa-10e-herramientas`): ya están el normalizador determinista de fechas (24 casos) y los tokens firmados de propuesta (8 casos).
 
+### 3.25 Fase 10.E, tramo 2: herramientas de agenda y propuestas firmadas — 4 de noviembre de 2026
+
+- **Rama `etapa-10e-herramientas`** ([PR #7](https://github.com/ANavas07/GRUPO2_SEGUIMIENTO/pull/7)), sobre el tramo 1:
+  - cinco herramientas de agenda con `app_chat_ro`: consultar derivaciones y agenda, proponer reprogramación y cancelación, y preparar una nota. Todas devuelven el sobre `{status, data, error_code, retryable}` con resultados acotados y sin seudónimo;
+  - la persona nombra la cita como la conoce: código del caso, «mañana 10:00» o su id. La versión viaja firmada en el token;
+  - `POST /agenda/propuestas/confirmar`: verifica firma, dueño y caducidad, y ejecuta el comando normal con el id de la propuesta como clave de idempotencia (409 si la propuesta es caducada, ajena o alterada);
+  - la clave de firma va por entorno (`PROPUESTAS_CLAVE`); sin ella, el asistente no propone;
+  - el agente ofrece las herramientas de agenda solo sabiendo quién pregunta, saca los tokens del contexto del modelo y de la memoria, y pasa por el ejecutor de presupuestos: compacta, escala de O1 a O2 o responde «presupuesto agotado»; con el servidor saturado responde «ocupado»;
+  - el chat básico sigue sin agenda (decisión 15);
+  - en la interfaz, botones de propuesta que confirman con el token y el consumo de cada pregunta;
+  - migración 0014: el chat puede leer la política aprobada.
+- **Verificación en el navegador** con `demo_agenda.py` y el Qwen real: «¿qué citas tengo mañana?» y «mueve la cita de mañana a las 10:00 al viernes por la tarde» → tres franjas → botón → la cita quedó el viernes 14:15 (versión 2), en O1 y con 2 llamadas. Sin datos personales en la URL, el almacenamiento ni la consola.
+- **Dónde se rompió** (en el navegador, con el modelo real):
+  - una pregunta simple escalaba a O2: el catálogo de 11 herramientas en JSON ocupaba ~1.900 tokens. Las firmas compactas lo bajan 900 tokens;
+  - «Ver proceso de la consulta» respondía 500: los eventos de la tarea usaban `estado` (activa/terminada) y la traza solo admite ok/error. Pasó a `estado_tarea`;
+  - el modelo pedía el id de la cita a la persona: la herramienta exigía `cita_id` y `version`. Ahora acepta la cita como la dice la persona y los argumentos inválidos dicen qué campos;
+  - con el servidor ocupado, la tarea de presupuesto quedaba «activa»: ahora se cierra como `error`.
+- **Mutaciones `asistente`:** **24/24 (la primera corrida dio 23/24: la hora imposible recibió su prueba)**.
+
 ## 4. Verificaciones realizadas y alcance
 
 | Verificación | Resultado registrado | Qué demuestra |
