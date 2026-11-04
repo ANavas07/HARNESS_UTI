@@ -321,7 +321,7 @@ Se cerraron con el usuario las tres decisiones que los agentes preguntaron en el
 
 ### 3.25 Fase 10.E, tramo 2: herramientas de agenda y propuestas firmadas — 4 de noviembre de 2026
 
-- **Rama `etapa-10e-herramientas`** ([PR #7](https://github.com/ANavas07/GRUPO2_SEGUIMIENTO/pull/7)), sobre el tramo 1:
+- **Rama `etapa-10e-herramientas`** ([PR #7](https://github.com/ANavas07/GRUPO2_SEGUIMIENTO/pull/7), ✅ mergeado en `MVP` el 4-11, commit `a28421f`, CI 4/4), sobre el tramo 1:
   - cinco herramientas de agenda con `app_chat_ro`: consultar derivaciones y agenda, proponer reprogramación y cancelación, y preparar una nota. Todas devuelven el sobre `{status, data, error_code, retryable}` con resultados acotados y sin seudónimo;
   - la persona nombra la cita como la conoce: código del caso, «mañana 10:00» o su id. La versión viaja firmada en el token;
   - `POST /agenda/propuestas/confirmar`: verifica firma, dueño y caducidad, y ejecuta el comando normal con el id de la propuesta como clave de idempotencia (409 si la propuesta es caducada, ajena o alterada);
