@@ -360,6 +360,32 @@ Se cerraron con el usuario las tres decisiones que los agentes preguntaron en el
 - **[PR #8](https://github.com/ANavas07/GRUPO2_SEGUIMIENTO/pull/8)** ✅ mergeado en `MVP` el 4-11 (commit `6ff960e`), CI 4/4.
 - **Gate G10.E todavía no está cerrado:** falta la medición completa (60 × 10, concurrencia 2) fuera de horario. El umbral es ≥ 95 % y 10/10 en cada crítico.
 
+### 3.27 Fase 10.F: operación, carga, respaldo, conservación e IT-M9 — 4 de noviembre de 2026
+
+- **Rama `etapa-10f`** (PR #9):
+  - **E10-T33, vista de operación de la agenda.** Muestra:
+    - solicitudes sin asignar, sin disponibilidad o que requieren revisión;
+    - citas sin resultado (vencidas y en plazo) y citas de los próximos 7 días;
+    - espera por nivel contra el plazo en días hábiles;
+    - divergencias que la próxima conciliación corrige.
+
+    Solo trae conteos, sin casos ni personas. Administración la ve en Operación y la coordinación, limitada a su equipo, en Derivaciones (`/agenda/operacion`).
+  - **E10-T35, respaldo y restauración.** El respaldo ya volcaba toda la base, la agenda incluida; ahora está probado. Restaurar deja los mismos conteos, y reanudar las rondas, incluso desde un respaldo tomado a mitad de la reserva, no duplica citas ni avisos.
+  - **E10-T36, conservación.** **Dónde se rompió:** al depurar identidades, `core.citas.persona_ref` conservaba el seudónimo de la identidad borrada. Ahora la cita se anonimiza con su caso.
+  - **E10-T34, carga.** Con 50 profesionales, 1000 solicitudes, 10 000 citas históricas y 10 clientes:
+    - la ronda confirma cada reserva en 15 ms;
+    - la disponibilidad tiene p95 de 67 ms;
+    - en reprogramaciones concurrentes por la misma franja gana una sola, con p95 de 257 ms;
+    - las bandejas tienen p95 menor que 200 ms;
+    - no hay ninguna doble reserva.
+  - **E10-T37, IT-M9.** Recorrido punta a punta por la API, con dos cortes: derivar, asignar, reservar, cerrar (la cita se cancela), finalizar, registrar el resultado, el corte 2 sin duplicados, la operación, y restaurar y reanudar. No sale ningún dato personal.
+- **Mutaciones:** `operacion10f` 10/10 (y la etapa al 100 %: agenda 46/46, reserva 33/33, ciclo 20/20, presupuesto 22/22, asistente 44/44). **Dónde se rompió:** la primera corrida dio 7/10. Faltaban pruebas para el borde del plazo, una cita de un caso abierto y la operación sin política aprobada.
+
+- **Dónde se rompió, además:** IT-M9 no podía restaurar la base de pruebas. `restaurar.py` ahora muestra el error de `pg_restore`, que dijo: un bloqueo huérfano de un profesional borrado. `borrar_confirmado` borraba con las llaves desactivadas, pero no tocaba los bloqueos ni las tareas. Se corrigió, con su prueba, e IT-M9 pasó a su propia base.
+- **Navegador** (`demo_agenda.py`): el panel de coordinación en Derivaciones y la sección en Operación muestran las cifras de la semilla, sin errores en la consola.
+- **Suite:** 2092 pruebas del backend y 97 del frontend en verde.
+- **Gate G10 (hito M9):** IT-M9 en verde, mutaciones de la etapa al 100 %, carga medida, restauración probada y verificación en el navegador. Antes del piloto con estudiantes reales faltan G1, G2 y G3, y la medición completa de los evals de runtime (G10.E).
+
 ## 4. Verificaciones realizadas y alcance
 
 | Verificación | Resultado registrado | Qué demuestra |
