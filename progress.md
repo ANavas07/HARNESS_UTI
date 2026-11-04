@@ -305,7 +305,7 @@ Se cerraron con el usuario las tres decisiones que los agentes preguntaron en el
   - un borrador válido se aprueba con motivo y retira la versión anterior.
 - **Pendiente en 10.D:** el historial en la ficha, que necesita un endpoint.
 
-### 3.24 Fase 10.E, tramo 1: ejecutor de presupuestos (en curso) — 30 de octubre de 2026
+### 3.24 Fase 10.E, tramo 1: ejecutor de presupuestos — 30 de octubre de 2026
 
 - **Servidor Qwen** (vLLM) disponible. Se usan herramientas en modo JSON y la medición completa se corre fuera de horario.
 - **Rama `etapa-10e-presupuestos`** (publicada, sin PR todavía):
@@ -315,7 +315,9 @@ Se cerraron con el usuario las tres decisiones que los agentes preguntaron en el
 - **Dónde se rompió:**
   - al reabrir una tarea caída, la reserva huérfana se perdía; ya está corregido;
   - el modelo inventó «2023-10-02» para «mañana», así que hace falta el normalizador de fechas del tramo 2.
-- **Mutaciones `presupuesto`:** 17/22. Faltan pruebas para 5: la ventana sin margen, la salida mínima útil, el contador de compactación, la compactación sin progreso y el par pendiente en el paso 1.
+- **Mutaciones `presupuesto`:** **22/22** en la corrida completa. La primera dio 17/22 y los 5 sobrevivientes recibieron su prueba. La ventana con margen solo se puede alcanzar con una ruta más grande que las de hoy, así que se prueba con una.
+- **[PR #6](https://github.com/ANavas07/GRUPO2_SEGUIMIENTO/pull/6)** abierto hacia `MVP`.
+- **Tramo 2 en curso** (rama `etapa-10e-herramientas`): ya están el normalizador determinista de fechas (24 casos) y los tokens firmados de propuesta (8 casos).
 
 ## 4. Verificaciones realizadas y alcance
 
