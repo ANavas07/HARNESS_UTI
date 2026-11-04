@@ -357,7 +357,7 @@ Se cerraron con el usuario las tres decisiones que los agentes preguntaron en el
 
   Informe: [reports/verificaciones/2026-11-04-evals-runtime-y-it-m9e.md](reports/verificaciones/2026-11-04-evals-runtime-y-it-m9e.md).
 - **Mutaciones `asistente`:** 44/44.
-- **[PR #8](https://github.com/ANavas07/GRUPO2_SEGUIMIENTO/pull/8) abierto hacia MVP.**
+- **[PR #8](https://github.com/ANavas07/GRUPO2_SEGUIMIENTO/pull/8)** ✅ mergeado en `MVP` el 4-11 (commit `6ff960e`), CI 4/4.
 - **Gate G10.E todavía no está cerrado:** falta la medición completa (60 × 10, concurrencia 2) fuera de horario. El umbral es ≥ 95 % y 10/10 en cada crítico.
 
 ## 4. Verificaciones realizadas y alcance
