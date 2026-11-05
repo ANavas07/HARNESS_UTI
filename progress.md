@@ -434,6 +434,25 @@ Se cerraron con el usuario las tres decisiones que los agentes preguntaron en el
   - la primera corrida con razón la traía vacía: el Qwen copia la plantilla JSON y omitía lo agregado al final. Ahora va dentro de la plantilla, y la corrida se invalidó y guardó aparte;
   - la primera hipótesis (la tilde) era falsa: se verificó con el JSON crudo de una llamada real.
 
+### 3.31 Loop ReAct, fase C: circuit breaker y reintento — 5 de noviembre de 2026
+
+- **Producto ([PR #13](https://github.com/ANavas07/GRUPO2_SEGUIMIENTO/pull/13), rama `loop-fase-c`, sobre el #12):**
+  - **circuit breaker** en `AgenteChat`. Una llamada se identifica por herramienta y argumentos normalizados:
+    - la misma llamada que ya falló no se ejecuta: el modelo recibe `bloqueada_por_repeticion` y cuenta como fallo;
+    - la que ya funcionó tampoco: recibe `repetida` y se le recuerda que el resultado está en el contexto;
+    - con 3 fallos en la tarea no se ofrecen más herramientas y la última iteración lleva `corte = breaker`;
+  - **reintento transitorio** en `ClienteLLM` (`ErrorTransitorio`):
+    - timeout, conexión o 5xx: un reintento tras 1 s, con el evento `llm.reintento`;
+    - nunca ante 4xx ni con el servidor ocupado;
+    - solo si el plazo de la ruta alcanza: el ejecutor de presupuestos le pasa lo que queda del plazo;
+  - mutaciones `asistente` 66/66 (12 nuevas del breaker, el reintento y el plazo).
+- **Dónde se rompió:**
+  - la prueba «como mucho cuatro rondas» repetía la misma llamada 4 veces y el breaker ya no la ejecutaba. La prueba usa ahora una llamada distinta en cada vuelta. Se detectó con la suite; `sin_perfil` no es un perfil válido;
+  - la primera corrida de mutaciones dejó vivo «repetir una llamada fallida no cuenta como fallo». Se agregó la prueba que lo mata;
+  - al cortar esa corrida (las pruebas nuevas del plazo estaban en rojo e invalidaban el resultado) quedó `agente.py` mutado. Se detectó buscando el texto original de cada mutación;
+  - en la corrida siguiente el runner restauró `shared/llm.py` desde su respaldo y borró el código del plazo, escrito después. Se detectó porque la suite base no estaba en verde y se reaplicó. **Lección:** no editar los archivos objetivo mientras corre una mutación, ni después de cortarla sin limpiar `.mutaciones_respaldo`.
+- **Pendiente (fase D):** el escalado del nivel 4 con lo que se intentó y los evals de rotura (herramienta que siempre falla, tarea imposible y timeout transitorio) con sus controles.
+
 ## 4. Verificaciones realizadas y alcance
 
 | Verificación | Resultado registrado | Qué demuestra |

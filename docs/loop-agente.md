@@ -1,6 +1,6 @@
 # Directrices del ciclo del agente (loop ReAct) del asistente de agenda
 
-**Estado:** aprobadas por el usuario el 5 de noviembre de 2026. **Fase A hecha** (PR #11 y [laboratorio de los días 9–10](lab-loop-dias-9-10.md)). **Fase B medida: la razón NO se activa** ([experimento A/B](lab-loop-fase-b.md): 81,7 % contra 93,3 % sin ella). Las fases C y D siguen pendientes. Lo que ya existía antes se marca como **(hoy)**.
+**Estado:** aprobadas por el usuario el 5 de noviembre de 2026. **Fase A hecha** (PR #11 y [laboratorio de los días 9–10](lab-loop-dias-9-10.md)). **Fase B medida: la razón NO se activa** ([experimento A/B](lab-loop-fase-b.md): 81,7 % contra 93,3 % sin ella). **Fase C hecha** (PR #13: circuit breaker y reintento transitorio limitado por el plazo, mutaciones 66/66). La fase D sigue pendiente. Lo que ya existía antes se marca como **(hoy)**.
 
 Fuentes:
 - las diapositivas «Anatomía del agent loop», «Contexto en el loop», «Control», «Recuperación» y el laboratorio de los días 9–12;
