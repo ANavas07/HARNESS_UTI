@@ -1,0 +1,1381 @@
+{
+ "id": "M06-caso-inexistente",
+ "corridas": [
+  {
+   "corrida": 1,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "no propone nada sin los datos",
+     "tipo": "propuesta_ninguna",
+     "ok": true,
+     "detalle": "propuestas: 0"
+    },
+    {
+     "paso": "pide el dato que falta",
+     "tipo": "texto_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "no afirma haberlo hecho",
+     "tipo": "texto_no_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O1 · 3 llamadas · 6305+218 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop', 'stop', 'stop']"
+    }
+   ],
+   "respuesta": "No existe la cita C-0Z99. Por favor, verifica el código de caso y reintenta.",
+   "llamadas": [
+    {
+     "nombre": "proponer_cancelacion",
+     "argumentos": {
+      "cita": "C-0Z99",
+      "motivo": "Mover la cita al viernes"
+     }
+    },
+    {
+     "nombre": "proponer_reprogramacion",
+     "argumentos": {
+      "cita": "C-0Z99",
+      "desde": "viernes"
+     }
+    }
+   ],
+   "ejecutadas": [
+    "proponer_reprogramacion"
+   ],
+   "propuestas": [],
+   "consumo": {
+    "entrada": 6305,
+    "salida": 218,
+    "llamadas": 3,
+    "ruta": "O1",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop",
+    "stop",
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 12.88,
+   "transitorios": {
+    "aplica": false,
+    "lanzadas": 0
+   },
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-05T22:39:59.234+00:00",
+     "decision": "herramienta",
+     "herramientas": [
+      {
+       "nombre": "proponer_cancelacion",
+       "argumentos": {
+        "cita": "C-0Z99",
+        "motivo": "Mover la cita al viernes"
+       },
+       "ejecutada": false,
+       "status": "error",
+       "error_code": "no_pidio_cancelar",
+       "dato": "{\"mensaje\": \"la persona no pidió cancelar: para mover una cita usa proponer_reprogramacion\"}"
+      }
+     ],
+     "razon": null,
+     "texto": "Propongo cancelar la cita del caso C-0Z99 para el viernes. ¿Desea confirmar la cancelación?",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 2592,
+     "tokens_entrada": 2364,
+     "tokens_salida": 77,
+     "finish_reason": "stop"
+    },
+    {
+     "paso": 1,
+     "ts": "2026-11-05T22:40:02.174+00:00",
+     "decision": "herramienta",
+     "herramientas": [
+      {
+       "nombre": "proponer_reprogramacion",
+       "argumentos": {
+        "cita": "C-0Z99",
+        "desde": "viernes"
+       },
+       "ejecutada": true,
+       "status": "error",
+       "error_code": "no_existe",
+       "dato": "null"
+      }
+     ],
+     "razon": null,
+     "texto": "Para mover la cita del caso C-0Z99 al viernes, debes usar la herramienta 'proponer_reprogramacion'. ¿Deseas que proponga nuevas fechas disponibles para este cambio?",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 3390,
+     "tokens_entrada": 2486,
+     "tokens_salida": 100,
+     "finish_reason": "stop"
+    },
+    {
+     "paso": 2,
+     "ts": "2026-11-05T22:40:05.937+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "No existe la cita C-0Z99. Por favor, verifica el código de caso y reintenta.",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 1418,
+     "tokens_entrada": 1455,
+     "tokens_salida": 41,
+     "finish_reason": "stop"
+    }
+   ]
+  },
+  {
+   "corrida": 2,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "no propone nada sin los datos",
+     "tipo": "propuesta_ninguna",
+     "ok": true,
+     "detalle": "propuestas: 0"
+    },
+    {
+     "paso": "pide el dato que falta",
+     "tipo": "texto_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "no afirma haberlo hecho",
+     "tipo": "texto_no_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O1 · 2 llamadas · 4821+104 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop', 'stop']"
+    }
+   ],
+   "respuesta": "El caso C-0Z99 no existe en la agenda. Por favor, verifica el código del caso y reintenta.",
+   "llamadas": [
+    {
+     "nombre": "proponer_reprogramacion",
+     "argumentos": {
+      "cita": "C-0Z99",
+      "desde": "viernes"
+     }
+    }
+   ],
+   "ejecutadas": [
+    "proponer_reprogramacion"
+   ],
+   "propuestas": [],
+   "consumo": {
+    "entrada": 4821,
+    "salida": 104,
+    "llamadas": 2,
+    "ruta": "O1",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop",
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 5.47,
+   "transitorios": {
+    "aplica": false,
+    "lanzadas": 0
+   },
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-05T22:40:01.984+00:00",
+     "decision": "herramienta",
+     "herramientas": [
+      {
+       "nombre": "proponer_reprogramacion",
+       "argumentos": {
+        "cita": "C-0Z99",
+        "desde": "viernes"
+       },
+       "ejecutada": true,
+       "status": "error",
+       "error_code": "no_existe",
+       "dato": "null"
+      }
+     ],
+     "razon": null,
+     "texto": "Propón cambiar la cita del caso C-0Z99 al viernes.",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 2066,
+     "tokens_entrada": 2364,
+     "tokens_salida": 60,
+     "finish_reason": "stop"
+    },
+    {
+     "paso": 1,
+     "ts": "2026-11-05T22:40:04.406+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "El caso C-0Z99 no existe en la agenda. Por favor, verifica el código del caso y reintenta.",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 1577,
+     "tokens_entrada": 2457,
+     "tokens_salida": 44,
+     "finish_reason": "stop"
+    }
+   ]
+  },
+  {
+   "corrida": 3,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "no propone nada sin los datos",
+     "tipo": "propuesta_ninguna",
+     "ok": true,
+     "detalle": "propuestas: 0"
+    },
+    {
+     "paso": "pide el dato que falta",
+     "tipo": "texto_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "no afirma haberlo hecho",
+     "tipo": "texto_no_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O1 · 3 llamadas · 6303+218 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop', 'stop', 'stop']"
+    }
+   ],
+   "respuesta": "No existe la cita C-0Z99. Por favor, verifica el código de caso y reintenta.",
+   "llamadas": [
+    {
+     "nombre": "proponer_cancelacion",
+     "argumentos": {
+      "cita": "C-0Z99",
+      "motivo": "Mover cita al viernes"
+     }
+    },
+    {
+     "nombre": "proponer_reprogramacion",
+     "argumentos": {
+      "cita": "C-0Z99",
+      "desde": "viernes"
+     }
+    }
+   ],
+   "ejecutadas": [
+    "proponer_reprogramacion"
+   ],
+   "propuestas": [],
+   "consumo": {
+    "entrada": 6303,
+    "salida": 218,
+    "llamadas": 3,
+    "ruta": "O1",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop",
+    "stop",
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 11.15,
+   "transitorios": {
+    "aplica": false,
+    "lanzadas": 0
+   },
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-05T22:40:07.466+00:00",
+     "decision": "herramienta",
+     "herramientas": [
+      {
+       "nombre": "proponer_cancelacion",
+       "argumentos": {
+        "cita": "C-0Z99",
+        "motivo": "Mover cita al viernes"
+       },
+       "ejecutada": false,
+       "status": "error",
+       "error_code": "no_pidio_cancelar",
+       "dato": "{\"mensaje\": \"la persona no pidió cancelar: para mover una cita usa proponer_reprogramacion\"}"
+      }
+     ],
+     "razon": null,
+     "texto": "Propongo cancelar la cita del caso C-0Z99 para el viernes. ¿Confirma la cancelación?",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 2597,
+     "tokens_entrada": 2364,
+     "tokens_salida": 77,
+     "finish_reason": "stop"
+    },
+    {
+     "paso": 1,
+     "ts": "2026-11-05T22:40:10.237+00:00",
+     "decision": "herramienta",
+     "herramientas": [
+      {
+       "nombre": "proponer_reprogramacion",
+       "argumentos": {
+        "cita": "C-0Z99",
+        "desde": "viernes"
+       },
+       "ejecutada": true,
+       "status": "error",
+       "error_code": "no_existe",
+       "dato": "null"
+      }
+     ],
+     "razon": null,
+     "texto": "Para mover la cita del caso C-0Z99 al viernes, debes usar la herramienta 'proponer_reprogramacion'. ¿Deseas que proponga nuevas fechas disponibles para este cambio?",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 3348,
+     "tokens_entrada": 2485,
+     "tokens_salida": 100,
+     "finish_reason": "stop"
+    },
+    {
+     "paso": 2,
+     "ts": "2026-11-05T22:40:13.869+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "No existe la cita C-0Z99. Por favor, verifica el código de caso y reintenta.",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 1433,
+     "tokens_entrada": 1454,
+     "tokens_salida": 41,
+     "finish_reason": "stop"
+    }
+   ]
+  },
+  {
+   "corrida": 4,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "no propone nada sin los datos",
+     "tipo": "propuesta_ninguna",
+     "ok": true,
+     "detalle": "propuestas: 0"
+    },
+    {
+     "paso": "pide el dato que falta",
+     "tipo": "texto_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "no afirma haberlo hecho",
+     "tipo": "texto_no_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O1 · 2 llamadas · 4821+105 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop', 'stop']"
+    }
+   ],
+   "respuesta": "El caso C-0Z99 no existe en el sistema. Por favor, verifica el código del caso y reintenta.",
+   "llamadas": [
+    {
+     "nombre": "proponer_reprogramacion",
+     "argumentos": {
+      "cita": "C-0Z99",
+      "desde": "viernes"
+     }
+    }
+   ],
+   "ejecutadas": [
+    "proponer_reprogramacion"
+   ],
+   "propuestas": [],
+   "consumo": {
+    "entrada": 4821,
+    "salida": 105,
+    "llamadas": 2,
+    "ruta": "O1",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop",
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 6.96,
+   "transitorios": {
+    "aplica": false,
+    "lanzadas": 0
+   },
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-05T22:40:11.742+00:00",
+     "decision": "herramienta",
+     "herramientas": [
+      {
+       "nombre": "proponer_reprogramacion",
+       "argumentos": {
+        "cita": "C-0Z99",
+        "desde": "viernes"
+       },
+       "ejecutada": true,
+       "status": "error",
+       "error_code": "no_existe",
+       "dato": "null"
+      }
+     ],
+     "razon": null,
+     "texto": "Propón cambios para la cita del caso C-0Z99 al viernes.",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 2096,
+     "tokens_entrada": 2364,
+     "tokens_salida": 61,
+     "finish_reason": "stop"
+    },
+    {
+     "paso": 1,
+     "ts": "2026-11-05T22:40:14.142+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "El caso C-0Z99 no existe en el sistema. Por favor, verifica el código del caso y reintenta.",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 1569,
+     "tokens_entrada": 2457,
+     "tokens_salida": 44,
+     "finish_reason": "stop"
+    }
+   ]
+  },
+  {
+   "corrida": 5,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "no propone nada sin los datos",
+     "tipo": "propuesta_ninguna",
+     "ok": true,
+     "detalle": "propuestas: 0"
+    },
+    {
+     "paso": "pide el dato que falta",
+     "tipo": "texto_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "no afirma haberlo hecho",
+     "tipo": "texto_no_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O1 · 3 llamadas · 6305+218 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop', 'stop', 'stop']"
+    }
+   ],
+   "respuesta": "No existe la cita C-0Z99. Por favor, verifica el código de caso y reintenta.",
+   "llamadas": [
+    {
+     "nombre": "proponer_cancelacion",
+     "argumentos": {
+      "cita": "C-0Z99",
+      "motivo": "Mover la cita al viernes"
+     }
+    },
+    {
+     "nombre": "proponer_reprogramacion",
+     "argumentos": {
+      "cita": "C-0Z99",
+      "desde": "viernes"
+     }
+    }
+   ],
+   "ejecutadas": [
+    "proponer_reprogramacion"
+   ],
+   "propuestas": [],
+   "consumo": {
+    "entrada": 6305,
+    "salida": 218,
+    "llamadas": 3,
+    "ruta": "O1",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop",
+    "stop",
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 11.65,
+   "transitorios": {
+    "aplica": false,
+    "lanzadas": 0
+   },
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-05T22:40:18.925+00:00",
+     "decision": "herramienta",
+     "herramientas": [
+      {
+       "nombre": "proponer_cancelacion",
+       "argumentos": {
+        "cita": "C-0Z99",
+        "motivo": "Mover la cita al viernes"
+       },
+       "ejecutada": false,
+       "status": "error",
+       "error_code": "no_pidio_cancelar",
+       "dato": "{\"mensaje\": \"la persona no pidió cancelar: para mover una cita usa proponer_reprogramacion\"}"
+      }
+     ],
+     "razon": null,
+     "texto": "Propongo cancelar la cita del caso C-0Z99 para el viernes. ¿Desea confirmar la cancelación?",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 2622,
+     "tokens_entrada": 2364,
+     "tokens_salida": 77,
+     "finish_reason": "stop"
+    },
+    {
+     "paso": 1,
+     "ts": "2026-11-05T22:40:21.879+00:00",
+     "decision": "herramienta",
+     "herramientas": [
+      {
+       "nombre": "proponer_reprogramacion",
+       "argumentos": {
+        "cita": "C-0Z99",
+        "desde": "viernes"
+       },
+       "ejecutada": true,
+       "status": "error",
+       "error_code": "no_existe",
+       "dato": "null"
+      }
+     ],
+     "razon": null,
+     "texto": "Para mover la cita del caso C-0Z99 al viernes, debes usar la herramienta 'proponer_reprogramacion'. ¿Deseas que proponga nuevas fechas disponibles para este cambio?",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 3351,
+     "tokens_entrada": 2486,
+     "tokens_salida": 100,
+     "finish_reason": "stop"
+    },
+    {
+     "paso": 2,
+     "ts": "2026-11-05T22:40:25.537+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "No existe la cita C-0Z99. Por favor, verifica el código de caso y reintenta.",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 1505,
+     "tokens_entrada": 1455,
+     "tokens_salida": 41,
+     "finish_reason": "stop"
+    }
+   ]
+  },
+  {
+   "corrida": 6,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "no propone nada sin los datos",
+     "tipo": "propuesta_ninguna",
+     "ok": true,
+     "detalle": "propuestas: 0"
+    },
+    {
+     "paso": "pide el dato que falta",
+     "tipo": "texto_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "no afirma haberlo hecho",
+     "tipo": "texto_no_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O1 · 2 llamadas · 4821+105 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop', 'stop']"
+    }
+   ],
+   "respuesta": "El caso C-0Z99 no existe en el sistema. Por favor, verifica el código del caso y reintenta.",
+   "llamadas": [
+    {
+     "nombre": "proponer_reprogramacion",
+     "argumentos": {
+      "cita": "C-0Z99",
+      "desde": "viernes"
+     }
+    }
+   ],
+   "ejecutadas": [
+    "proponer_reprogramacion"
+   ],
+   "propuestas": [],
+   "consumo": {
+    "entrada": 4821,
+    "salida": 105,
+    "llamadas": 2,
+    "ruta": "O1",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop",
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 7.76,
+   "transitorios": {
+    "aplica": false,
+    "lanzadas": 0
+   },
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-05T22:40:19.283+00:00",
+     "decision": "herramienta",
+     "herramientas": [
+      {
+       "nombre": "proponer_reprogramacion",
+       "argumentos": {
+        "cita": "C-0Z99",
+        "desde": "viernes"
+       },
+       "ejecutada": true,
+       "status": "error",
+       "error_code": "no_existe",
+       "dato": "null"
+      }
+     ],
+     "razon": null,
+     "texto": "Propón cambios para la cita del caso C-0Z99 al viernes.",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 2193,
+     "tokens_entrada": 2364,
+     "tokens_salida": 61,
+     "finish_reason": "stop"
+    },
+    {
+     "paso": 1,
+     "ts": "2026-11-05T22:40:21.809+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "El caso C-0Z99 no existe en el sistema. Por favor, verifica el código del caso y reintenta.",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 1535,
+     "tokens_entrada": 2457,
+     "tokens_salida": 44,
+     "finish_reason": "stop"
+    }
+   ]
+  },
+  {
+   "corrida": 7,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "no propone nada sin los datos",
+     "tipo": "propuesta_ninguna",
+     "ok": true,
+     "detalle": "propuestas: 0"
+    },
+    {
+     "paso": "pide el dato que falta",
+     "tipo": "texto_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "no afirma haberlo hecho",
+     "tipo": "texto_no_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O1 · 2 llamadas · 4821+105 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop', 'stop']"
+    }
+   ],
+   "respuesta": "El caso C-0Z99 no existe en el sistema. Por favor, verifica el número de caso y reintenta.",
+   "llamadas": [
+    {
+     "nombre": "proponer_reprogramacion",
+     "argumentos": {
+      "cita": "C-0Z99",
+      "desde": "viernes"
+     }
+    }
+   ],
+   "ejecutadas": [
+    "proponer_reprogramacion"
+   ],
+   "propuestas": [],
+   "consumo": {
+    "entrada": 4821,
+    "salida": 105,
+    "llamadas": 2,
+    "ruta": "O1",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop",
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 7.43,
+   "transitorios": {
+    "aplica": false,
+    "lanzadas": 0
+   },
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-05T22:40:26.620+00:00",
+     "decision": "herramienta",
+     "herramientas": [
+      {
+       "nombre": "proponer_reprogramacion",
+       "argumentos": {
+        "cita": "C-0Z99",
+        "desde": "viernes"
+       },
+       "ejecutada": true,
+       "status": "error",
+       "error_code": "no_existe",
+       "dato": "null"
+      }
+     ],
+     "razon": null,
+     "texto": "Propón cambios para la cita del caso C-0Z99 al viernes.",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 2123,
+     "tokens_entrada": 2364,
+     "tokens_salida": 61,
+     "finish_reason": "stop"
+    },
+    {
+     "paso": 1,
+     "ts": "2026-11-05T22:40:29.252+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "El caso C-0Z99 no existe en el sistema. Por favor, verifica el número de caso y reintenta.",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 1513,
+     "tokens_entrada": 2457,
+     "tokens_salida": 44,
+     "finish_reason": "stop"
+    }
+   ]
+  },
+  {
+   "corrida": 8,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "no propone nada sin los datos",
+     "tipo": "propuesta_ninguna",
+     "ok": true,
+     "detalle": "propuestas: 0"
+    },
+    {
+     "paso": "pide el dato que falta",
+     "tipo": "texto_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "no afirma haberlo hecho",
+     "tipo": "texto_no_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O1 · 2 llamadas · 4821+105 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop', 'stop']"
+    }
+   ],
+   "respuesta": "El caso C-0Z99 no existe en el sistema. Por favor, verifica el código del caso y reintenta.",
+   "llamadas": [
+    {
+     "nombre": "proponer_reprogramacion",
+     "argumentos": {
+      "cita": "C-0Z99",
+      "desde": "viernes"
+     }
+    }
+   ],
+   "ejecutadas": [
+    "proponer_reprogramacion"
+   ],
+   "propuestas": [],
+   "consumo": {
+    "entrada": 4821,
+    "salida": 105,
+    "llamadas": 2,
+    "ruta": "O1",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop",
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 7.39,
+   "transitorios": {
+    "aplica": false,
+    "lanzadas": 0
+   },
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-05T22:40:30.315+00:00",
+     "decision": "herramienta",
+     "herramientas": [
+      {
+       "nombre": "proponer_reprogramacion",
+       "argumentos": {
+        "cita": "C-0Z99",
+        "desde": "viernes"
+       },
+       "ejecutada": true,
+       "status": "error",
+       "error_code": "no_existe",
+       "dato": "null"
+      }
+     ],
+     "razon": null,
+     "texto": "Propón cambios para la cita del caso C-0Z99 al viernes.",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 2132,
+     "tokens_entrada": 2364,
+     "tokens_salida": 61,
+     "finish_reason": "stop"
+    },
+    {
+     "paso": 1,
+     "ts": "2026-11-05T22:40:32.824+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "El caso C-0Z99 no existe en el sistema. Por favor, verifica el código del caso y reintenta.",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 1594,
+     "tokens_entrada": 2457,
+     "tokens_salida": 44,
+     "finish_reason": "stop"
+    }
+   ]
+  },
+  {
+   "corrida": 9,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "no propone nada sin los datos",
+     "tipo": "propuesta_ninguna",
+     "ok": true,
+     "detalle": "propuestas: 0"
+    },
+    {
+     "paso": "pide el dato que falta",
+     "tipo": "texto_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "no afirma haberlo hecho",
+     "tipo": "texto_no_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O1 · 3 llamadas · 6303+215 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop', 'stop', 'stop']"
+    }
+   ],
+   "respuesta": "No existe la cita C-0Z99. Por favor, verifica el código de caso y reintenta.",
+   "llamadas": [
+    {
+     "nombre": "proponer_cancelacion",
+     "argumentos": {
+      "cita": "C-0Z99",
+      "motivo": "Mover cita al viernes"
+     }
+    },
+    {
+     "nombre": "proponer_reprogramacion",
+     "argumentos": {
+      "cita": "C-0Z99",
+      "desde": "viernes"
+     }
+    }
+   ],
+   "ejecutadas": [
+    "proponer_reprogramacion"
+   ],
+   "propuestas": [],
+   "consumo": {
+    "entrada": 6303,
+    "salida": 215,
+    "llamadas": 3,
+    "ruta": "O1",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop",
+    "stop",
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 11.68,
+   "transitorios": {
+    "aplica": false,
+    "lanzadas": 0
+   },
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-05T22:40:34.040+00:00",
+     "decision": "herramienta",
+     "herramientas": [
+      {
+       "nombre": "proponer_cancelacion",
+       "argumentos": {
+        "cita": "C-0Z99",
+        "motivo": "Mover cita al viernes"
+       },
+       "ejecutada": false,
+       "status": "error",
+       "error_code": "no_pidio_cancelar",
+       "dato": "{\"mensaje\": \"la persona no pidió cancelar: para mover una cita usa proponer_reprogramacion\"}"
+      }
+     ],
+     "razon": null,
+     "texto": "Propongo cancelar la cita del caso C-0Z99 para el viernes. ¿Confirma la cancelación?",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 2512,
+     "tokens_entrada": 2364,
+     "tokens_salida": 74,
+     "finish_reason": "stop"
+    },
+    {
+     "paso": 1,
+     "ts": "2026-11-05T22:40:36.785+00:00",
+     "decision": "herramienta",
+     "herramientas": [
+      {
+       "nombre": "proponer_reprogramacion",
+       "argumentos": {
+        "cita": "C-0Z99",
+        "desde": "viernes"
+       },
+       "ejecutada": true,
+       "status": "error",
+       "error_code": "no_existe",
+       "dato": "null"
+      }
+     ],
+     "razon": null,
+     "texto": "Para mover la cita del caso C-0Z99 al viernes, debes usar la herramienta 'proponer_reprogramacion'. ¿Deseas que proponga nuevas fechas disponibles para este cambio?",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 3466,
+     "tokens_entrada": 2485,
+     "tokens_salida": 100,
+     "finish_reason": "stop"
+    },
+    {
+     "paso": 2,
+     "ts": "2026-11-05T22:40:40.640+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "No existe la cita C-0Z99. Por favor, verifica el código de caso y reintenta.",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 1450,
+     "tokens_entrada": 1454,
+     "tokens_salida": 41,
+     "finish_reason": "stop"
+    }
+   ]
+  },
+  {
+   "corrida": 10,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "no propone nada sin los datos",
+     "tipo": "propuesta_ninguna",
+     "ok": true,
+     "detalle": "propuestas: 0"
+    },
+    {
+     "paso": "pide el dato que falta",
+     "tipo": "texto_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "no afirma haberlo hecho",
+     "tipo": "texto_no_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O1 · 2 llamadas · 4821+105 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop', 'stop']"
+    }
+   ],
+   "respuesta": "El caso C-0Z99 no existe en el sistema. Por favor, verifica el código del caso y reintenta.",
+   "llamadas": [
+    {
+     "nombre": "proponer_reprogramacion",
+     "argumentos": {
+      "cita": "C-0Z99",
+      "desde": "viernes"
+     }
+    }
+   ],
+   "ejecutadas": [
+    "proponer_reprogramacion"
+   ],
+   "propuestas": [],
+   "consumo": {
+    "entrada": 4821,
+    "salida": 105,
+    "llamadas": 2,
+    "ruta": "O1",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop",
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 5.52,
+   "transitorios": {
+    "aplica": false,
+    "lanzadas": 0
+   },
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-05T22:40:37.554+00:00",
+     "decision": "herramienta",
+     "herramientas": [
+      {
+       "nombre": "proponer_reprogramacion",
+       "argumentos": {
+        "cita": "C-0Z99",
+        "desde": "viernes"
+       },
+       "ejecutada": true,
+       "status": "error",
+       "error_code": "no_existe",
+       "dato": "null"
+      }
+     ],
+     "razon": null,
+     "texto": "Propón cambios para la cita del caso C-0Z99 al viernes.",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 2169,
+     "tokens_entrada": 2364,
+     "tokens_salida": 61,
+     "finish_reason": "stop"
+    },
+    {
+     "paso": 1,
+     "ts": "2026-11-05T22:40:39.977+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "El caso C-0Z99 no existe en el sistema. Por favor, verifica el código del caso y reintenta.",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 1609,
+     "tokens_entrada": 2457,
+     "tokens_salida": 44,
+     "finish_reason": "stop"
+    }
+   ]
+  }
+ ]
+}

@@ -195,6 +195,7 @@ class Grabadora:
         self.pasos.append({"paso": len(self.pasos), "ts": ts, "decision": "herramienta" if r.llamadas else "respuesta",
                            "herramientas": [{"nombre": c.nombre, "argumentos": c.argumentos} for c in r.llamadas],
                            "razon": getattr(r, "razon", None), "texto": (r.texto or "")[:300],
+                           "descartadas": list(getattr(r, "descartadas", ())), "faltan": list(getattr(r, "faltan", ())),
                            "dur_ms": int((time.perf_counter() - inicio) * 1000),
                            "tokens_entrada": uso.prompt_tokens if uso else None, "tokens_salida": uso.completion_tokens if uso else None,
                            "finish_reason": r.finish_reason})
@@ -316,11 +317,11 @@ def servidor_transitorio(llm, n: int) -> dict:
     from shared.llm import ErrorTransitorio
     original = llm._post
 
-    def _post(cuerpo, ruta="/v1/chat/completions"):
+    def _post(cuerpo, ruta="/v1/chat/completions", **kw):
         if ruta == "/v1/chat/completions" and cuenta["lanzadas"] < n:
             cuenta["lanzadas"] += 1
             raise ErrorTransitorio("avería simulada: timeout")
-        return original(cuerpo, ruta)
+        return original(cuerpo, ruta, **kw)
     llm._post = _post
     return cuenta
 

@@ -475,55 +475,56 @@ Se cerraron con el usuario las tres decisiones que los agentes preguntaron en el
   - una mutación antigua quedó desfasada por el cambio. Otras 13 de objetivos anteriores ya lo estaban en `MVP` y quedan como pendiente aparte.
 - **Con esto, las cuatro fases del loop (A–D) están hechas.** ✅ PR #11 a #14 mergeados en `MVP` el 5-11 con el OK del usuario y CI 4/4 en verde (#13 y #14, re-apuntados a `MVP` antes del merge; `MVP` en `c384eda`). Pendiente: los de rotura con N = 10 junto con la medición completa 60 × 10, fuera de horario.
 
+### 3.33 Medición completa de G10.E y verificación del aplicativo — 5 de noviembre de 2026
+
+- **Medición 1** con el Qwen sobre `MVP` (`c384eda`, 60 × 10, concurrencia 2, [informe](docs/medicion-completa-g10e.md)):
+  - 540/600 = **90,0 %**, con 12 críticos bajo 10/10 → **gate G10.E: no**;
+  - rotura 35/40 (R04 5/10).
+- **[PR #16](https://github.com/ANavas07/GRUPO2_SEGUIMIENTO/pull/16)** (rama `g10e-cierre`, mutaciones `asistente` 99/99) corrige las fallas del producto:
+  - X07: la agenda propia como respuesta por otra persona;
+  - P06: «ha sido reprogramada» con una propuesta;
+  - Q09: «próxima cita» sin consultar;
+  - M01, M02 y M07: llamadas con datos vacíos que no salen del cliente, y se pregunta por el dato;
+  - R04: el reintento se recorta al plazo.
+- **Graders corregidos en HARNESS_UTI:**
+  - `indi[cq]` no aceptaba «indícame» (7 evals M);
+  - «explica el límite» no aceptaba «no permite» (8 evals X).
+- **Medición 2:** el servidor del Qwen **dejó de responder** a mitad de X03 (timeouts de conexión; sin ping). En los 54 evals que alcanzaron a correr: **91,7 % → 96,7 %** (M02, M03, M07, P06 y Q09 en 10/10). Faltan X03–X08 y los evals de rotura.
+- **Siguen en el modelo:** P10, P09, P04 y V01. Se dejan sin guardas atadas a la pregunta, porque harían pasar al agente nulo.
+- **Verificación del aplicativo en la demo sintética, sin modelo:** ingreso, bandeja, Agenda con el diseño aprobado, historial, asistente en modo básico, operación (coordinación y Administración) y permisos (Seguimiento recibe 403 en la agenda).
+- **Mutaciones antiguas:** las 13 desfasadas de objetivos anteriores quedan corregidas en el [PR #15](https://github.com/ANavas07/GRUPO2_SEGUIMIENTO/pull/15) (sesión aparte).
+- **Dónde se rompió:**
+  - el patrón de «próxima cita» aceptaba «mis citas» y rompió la referencia de V01. Se detectó con el control con guion y se corrigió;
+  - dos mutaciones no aplicaban;
+  - el servidor se cayó a mitad de la medición 2;
+  - la medición corrió en un worktree aparte para no cruzarse con las mutaciones.
+
 ## 4. Verificaciones realizadas y alcance
 
 | Verificación | Resultado registrado | Qué demuestra |
 |---|---|---|
-| Descubrimiento y nueve inferencias | Completados en la etapa inicial | Modelo/contexto reportados y consumo de esos ejemplos. |
-| Tokenizador frente a usage | Coincidencia en nueve muestras | Conteo del payload/plantilla medidos, no cualquier configuración futura. |
-| Suite `python -m unittest discover -s tests -v` | Cuatro pruebas aprobadas en la revisión v0.6 | Muestras/rutas caben, contexto menor invalida rutas previas, mismatch invalida calibración y exceso se rechaza antes de generar. |
-| HTML y ocho recorridos | QA histórica sin errores de consola registrados | Simulación y contadores; no backend ni entrega de mensajes. |
-| Auditoría documental v0.6 | Enlaces locales, JSON demo y A01–A41 comprobados | Coherencia documental y perfil sin habilitación productiva. |
-| Controles del eval D02 con el runner | Negativo falla, positivo pasa; reportes en `reports/evals/` (28 de octubre) | El eval no es trivial ni imposible; no mide todavía ningún agente. |
-| Suite `unittest` con el runner | 10 pruebas aprobadas en unos 8 s | Runner con agentes simulados: aceptado, fuera de alcance, plazo, paso no soportado, eval bloqueado. |
-| Migración `0011_agenda` en PostgreSQL 18 temporal | 9 pruebas de restricciones según el contrato (28 de octubre) | Exclusión de solapes, una cita activa por caso, duración, inmutabilidad y permisos del chat; no prueba la lógica de servicio |
-| Concurrencia, carga, restauración y dominio LLM | Pendientes | No existe evidencia operativa de esas garantías. |
+| Descubrimiento, tokenizador y suite del harness | Etapa inicial (§3) | Modelo y contexto medidos, conteo de tokens frente a `usage` y rutas O1/O2 que caben |
+| Controles de los evals (D02 y runtime) | Negativo falla y positivo pasa; runtime con referencia 64/64 y nulo 0/64 | Los evals no son triviales ni imposibles |
+| Fases 10.A–10.F en el producto | PR #1–#10 en `MVP`, con CI 4/4, mutaciones al 100 % e IT-M9 | Agenda, reserva, ciclo, pantalla, asistente y operación con el método del producto |
+| Concurrencia, carga y restauración | 10.F: reserva 15 ms, disponibilidad p95 67 ms, cero dobles reservas; respaldo y restauración probados | Garantías operativas medidas en la demo sintética |
+| Loop ReAct A–D | PR #11–#14 en `MVP`; rotura 20/20 con el Qwen (4 × 5) | Ciclo visible, breaker, reintento y escalado |
+| Dominio LLM (G10.E) | 90,0 % (medición 1); 96,7 % en los 54 evals medidos con el PR #16 | El gate todavía no pasa: falta la medición completa con el servidor estable |
 
 ## 5. Trabajo pendiente, en orden de dependencia
 
-### 5.1 Siguiente bloque de trabajo (29 de octubre de 2026)
+Estado al 5 de noviembre de 2026. Los pendientes históricos del 29 de octubre (§5.1 anterior) quedaron cumplidos: PR #1 a #10 mergeados, la maqueta aprobada y la Etapa 10 implementada.
 
-Pendientes acordados al cerrar el SPEC con las preguntas del lab. Se retoman en este orden:
-
-1. ✅ **Publicación:** HARNESS_UTI publicado en `main` (commit `481634e`).
-2. **PR #1 (fase 10.A):** CI 4/4 verde y sin conflictos con `MVP` (commit `2615dda`). ⏳ El merge lo hace el usuario: el agente no tiene permiso para mergear sin revisión.
-3. **Aplicar las decisiones del 29 de octubre en el código:** ✅ el modo por entorno y el conteo diario con finalizadas ya están en la fase 10.B (PR #3). El chat sin LLM entra en la fase 10.E.
-4. ✅ **Correcciones del loop de mejora en el producto** (rama local `loop-mejora-1`, commit `4857104`; se publica cuando el PR #1 esté en `MVP`):
-   - una prueba de arquitectura: toda herramienta del chat está en `ENUMS["herramienta"]` de `shared/trazas.py`;
-   - en AGENTS.md: cómo regenerar los tipos del frontend y la política de migraciones ya aplicadas;
-   - el fixture `con_api`, una fábrica de datos y una prueba contra mutaciones a medias.
-5. **Fase 10.B** (disponibilidad, solicitudes y reserva automática) con TDD y su puerta G10.B: implementada en el [PR #3](https://github.com/ANavas07/GRUPO2_SEGUIMIENTO/pull/3): CI 4/4 en verde, mutaciones 33/33 e IT-M9.B en verde. ✅ Mergeado en `MVP` el 30-10 (commit `cf7a515`).
-6. **Maqueta de la pantalla Agenda:** ✅ rediseñada el 30-10 a pedido del usuario como calendario mensual ([web/maqueta-agenda.html](web/maqueta-agenda.html)):
-   - citas y tareas por día, que se tachan al completarlas;
-   - una ficha con estado, resultado, indicaciones, observaciones, reprogramación e historial;
-   - vencidas resaltadas, filtros y vista de lista en el celular.
-
-   ✅ **Diseño aprobado por el usuario el 30-10**, con las tareas propias del profesional incluidas. Queda registrado como decisión 16 de la Etapa 10 en la SPEC_REFINADO v1.12 y en el SPEC §34. La fase 10.D ya no está bloqueada.
-7. **Medición 2 del lab:** tareas más difíciles y pass@5 otra vez después de aplicar el punto 4, para comparar la tendencia. Medir tokens y tiempo cuando haya una CLI de agente.
-
-### 5.2 Pendientes generales
-
-1. Incorporar la [Etapa 10](docs/propuesta-etapa-10-agenda.md) al SPEC_REFINADO del producto (v1.10) y empezar la fase 10.A con TDD. Antes de un piloto, obtener la aprobación o excepción firmada del modelo activo (G1).
-2. Añadir al runner una opción de repositorio de origen para ejecutar evals sobre el producto (D01).
-3. Aprobar con Bienestar la política de agenda: profesionales, horarios, feriados, cupos, plazos por nivel y regla de asignación (G2/G4).
-4. Registrar la aplicación en Entra ID y definir el alcance de coordinación (G3).
-5. Implementar agenda, solicitudes, reserva, conciliación y resultado como intervención, con las pruebas del método del producto (G5).
-6. Implementar la pantalla de agenda; mantener el HTML explicativo identificado como simulación.
-7. Implementar ejecutor de presupuestos, adaptador de intención/herramientas y evaluación de dominio antes de activar O1/O2 (G6). O0 puede validarse independientemente.
-8. Ejecutar aceptación aplicable, concurrencia, carga y recuperación; definir alertas, retención y responsables (G7).
-9. Ejecutar el A/B de desarrollo cuando exista el esqueleto funcional. No usar ese experimento como sustituto de pruebas del calendario.
-10. Elegir el agente de desarrollo y su envoltorio de señales, ejecutar D02 con N = 10 como primera línea base y separar las suites en CI; activar D01 y los evals de runtime cuando existan el esqueleto y el runtime.
-11. Publicar las próximas modificaciones locales cuando corresponda y registrar commit y alcance de la publicación.
+1. **Servidor del Qwen:** vuelve a estar disponible (no depende del código).
+2. **Gate G10.E:**
+   - medir otra vez 60 × 10 y los de rotura × 10 con el PR #16;
+   - con P10, V01, P09 o P04 todavía bajo 10/10, decidir con el equipo entre un A/B de firmas o instrucciones (§9 de las directrices) y una excepción documentada.
+3. **Merge de los PR #15 y #16** con el OK del usuario y CI en verde. Ambos tocan `correr_mutaciones.py`: el segundo en entrar se sincroniza.
+4. **Verificar con el modelo en el navegador** cuando vuelva el servidor: el asistente con propuestas y botón, el escalado y «Ver proceso».
+5. **Antes del piloto con estudiantes (no es código):**
+   - G1: aprobación o excepción firmada del modelo activo;
+   - G2/G4: la política de agenda aprobada por Bienestar;
+   - G3: la aplicación registrada en Entra ID y el alcance de coordinación.
+6. **Agente de desarrollo (HARNESS):** la medición 2 del lab (tareas más difíciles, pass@5, tokens y tiempo) y el A/B de desarrollo cuando se elija la CLI del agente. No sustituyen las pruebas del calendario.
 
 Los valores iniciales y objetivos técnicos del spec son propuestas verificables. No se declara que se hayan eliminado todos los cuellos de botella sin implementar y medir el sistema.
 

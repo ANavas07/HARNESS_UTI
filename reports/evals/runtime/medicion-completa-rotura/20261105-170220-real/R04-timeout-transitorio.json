@@ -1,0 +1,905 @@
+{
+ "id": "R04-timeout-transitorio",
+ "corridas": [
+  {
+   "corrida": 1,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "el timeout se reintentó una vez",
+     "tipo": "reintento_transparente",
+     "ok": true,
+     "detalle": "fallas simuladas: 1"
+    },
+    {
+     "paso": "consulta la agenda",
+     "tipo": "herramientas_llamadas",
+     "ok": true,
+     "detalle": "ejecutadas: ['consultar_agenda']"
+    },
+    {
+     "paso": "da las horas correctas",
+     "tipo": "texto_contiene",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto, plazo y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O1 · 2 llamadas · 5098+94 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto, plazo y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop', 'stop']"
+    }
+   ],
+   "respuesta": "Tienes dos citas mañana: C-0A01 a las 10:00 y C-0A02 a las 15:00.",
+   "llamadas": [
+    {
+     "nombre": "consultar_agenda",
+     "argumentos": {
+      "desde": "mañana"
+     }
+    }
+   ],
+   "ejecutadas": [
+    "consultar_agenda"
+   ],
+   "propuestas": [],
+   "consumo": {
+    "entrada": 5098,
+    "salida": 94,
+    "llamadas": 2,
+    "ruta": "O1",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop",
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 10.94,
+   "transitorios": {
+    "aplica": true,
+    "lanzadas": 1
+   },
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-05T22:01:33.222+00:00",
+     "decision": "herramienta",
+     "herramientas": [
+      {
+       "nombre": "consultar_agenda",
+       "argumentos": {
+        "desde": "mañana"
+       },
+       "ejecutada": true,
+       "status": "ok",
+       "error_code": null,
+       "dato": "{\"agenda_de\": \"b.lopez\", \"zona\": \"America/Guayaquil\", \"desde\": \"2026-11-03\", \"hasta\": \"2026-11-03\", \"citas\": [{\"cita_id\": \"b7896995-a27b-4948-8b05-23221203a139\", \"caso_id\": \"0a010000-0000-4000-8000-000000002561\", \"caso\": \"C-0A01\", \"inicio\": \"2026-11-03 10:00\", \"estado\": \"reservada\", \"version\": 1}, {"
+      }
+     ],
+     "razon": null,
+     "texto": "Buscando tus citas para mañana...",
+     "dur_ms": 2463,
+     "tokens_entrada": 2353,
+     "tokens_salida": 40,
+     "finish_reason": "stop"
+    },
+    {
+     "paso": 1,
+     "ts": "2026-11-05T22:01:36.189+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "Tienes dos citas mañana: C-0A01 a las 10:00 y C-0A02 a las 15:00.",
+     "dur_ms": 2018,
+     "tokens_entrada": 2745,
+     "tokens_salida": 54,
+     "finish_reason": "stop"
+    }
+   ]
+  },
+  {
+   "corrida": 2,
+   "ok": false,
+   "pasos": [
+    {
+     "paso": "el timeout se reintentó una vez",
+     "tipo": "reintento_transparente",
+     "ok": false,
+     "detalle": "ErrorTransitorio: avería simulada: timeout"
+    },
+    {
+     "paso": "consulta la agenda",
+     "tipo": "herramientas_llamadas",
+     "ok": false,
+     "detalle": "ErrorTransitorio: avería simulada: timeout"
+    },
+    {
+     "paso": "da las horas correctas",
+     "tipo": "texto_contiene",
+     "ok": false,
+     "detalle": "ErrorTransitorio: avería simulada: timeout"
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": false,
+     "detalle": "ErrorTransitorio: avería simulada: timeout"
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": false,
+     "detalle": "ErrorTransitorio: avería simulada: timeout"
+    },
+    {
+     "paso": "presupuesto, plazo y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": false,
+     "detalle": "ErrorTransitorio: avería simulada: timeout"
+    },
+    {
+     "paso": "presupuesto, plazo y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": false,
+     "detalle": "ErrorTransitorio: avería simulada: timeout"
+    }
+   ],
+   "respuesta": "",
+   "llamadas": [],
+   "ejecutadas": [],
+   "propuestas": [],
+   "consumo": null,
+   "finish_reason": [],
+   "cambio_db": false,
+   "error": "ErrorTransitorio: avería simulada: timeout",
+   "duracion_s": 10.95,
+   "transitorios": {
+    "aplica": true,
+    "lanzadas": 1
+   },
+   "trayectoria": []
+  },
+  {
+   "corrida": 3,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "el timeout se reintentó una vez",
+     "tipo": "reintento_transparente",
+     "ok": true,
+     "detalle": "fallas simuladas: 1"
+    },
+    {
+     "paso": "consulta la agenda",
+     "tipo": "herramientas_llamadas",
+     "ok": true,
+     "detalle": "ejecutadas: ['consultar_agenda']"
+    },
+    {
+     "paso": "da las horas correctas",
+     "tipo": "texto_contiene",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto, plazo y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O1 · 2 llamadas · 5098+100 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto, plazo y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop', 'stop']"
+    }
+   ],
+   "respuesta": "Tienes dos citas mañana: C-0A01 a las 10:00 y C-0A02 a las 15:00.",
+   "llamadas": [
+    {
+     "nombre": "consultar_agenda",
+     "argumentos": {
+      "desde": "mañana"
+     }
+    }
+   ],
+   "ejecutadas": [
+    "consultar_agenda"
+   ],
+   "propuestas": [],
+   "consumo": {
+    "entrada": 5098,
+    "salida": 100,
+    "llamadas": 2,
+    "ruta": "O1",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop",
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 10.03,
+   "transitorios": {
+    "aplica": true,
+    "lanzadas": 1
+   },
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-05T22:01:43.435+00:00",
+     "decision": "herramienta",
+     "herramientas": [
+      {
+       "nombre": "consultar_agenda",
+       "argumentos": {
+        "desde": "mañana"
+       },
+       "ejecutada": true,
+       "status": "ok",
+       "error_code": null,
+       "dato": "{\"agenda_de\": \"b.lopez\", \"zona\": \"America/Guayaquil\", \"desde\": \"2026-11-03\", \"hasta\": \"2026-11-03\", \"citas\": [{\"cita_id\": \"b7896995-a27b-4948-8b05-23221203a139\", \"caso_id\": \"0a010000-0000-4000-8000-000000002561\", \"caso\": \"C-0A01\", \"inicio\": \"2026-11-03 10:00\", \"estado\": \"reservada\", \"version\": 1}, {"
+      }
+     ],
+     "razon": null,
+     "texto": "Buscando tus citas para mañana. Por favor, espera...",
+     "dur_ms": 2638,
+     "tokens_entrada": 2353,
+     "tokens_salida": 46,
+     "finish_reason": "stop"
+    },
+    {
+     "paso": 1,
+     "ts": "2026-11-05T22:01:46.549+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "Tienes dos citas mañana: C-0A01 a las 10:00 y C-0A02 a las 15:00.",
+     "dur_ms": 1866,
+     "tokens_entrada": 2745,
+     "tokens_salida": 54,
+     "finish_reason": "stop"
+    }
+   ]
+  },
+  {
+   "corrida": 4,
+   "ok": false,
+   "pasos": [
+    {
+     "paso": "el timeout se reintentó una vez",
+     "tipo": "reintento_transparente",
+     "ok": false,
+     "detalle": "ErrorTransitorio: avería simulada: timeout"
+    },
+    {
+     "paso": "consulta la agenda",
+     "tipo": "herramientas_llamadas",
+     "ok": false,
+     "detalle": "ErrorTransitorio: avería simulada: timeout"
+    },
+    {
+     "paso": "da las horas correctas",
+     "tipo": "texto_contiene",
+     "ok": false,
+     "detalle": "ErrorTransitorio: avería simulada: timeout"
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": false,
+     "detalle": "ErrorTransitorio: avería simulada: timeout"
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": false,
+     "detalle": "ErrorTransitorio: avería simulada: timeout"
+    },
+    {
+     "paso": "presupuesto, plazo y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": false,
+     "detalle": "ErrorTransitorio: avería simulada: timeout"
+    },
+    {
+     "paso": "presupuesto, plazo y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": false,
+     "detalle": "ErrorTransitorio: avería simulada: timeout"
+    }
+   ],
+   "respuesta": "",
+   "llamadas": [],
+   "ejecutadas": [],
+   "propuestas": [],
+   "consumo": null,
+   "finish_reason": [],
+   "cambio_db": false,
+   "error": "ErrorTransitorio: avería simulada: timeout",
+   "duracion_s": 9.93,
+   "transitorios": {
+    "aplica": true,
+    "lanzadas": 1
+   },
+   "trayectoria": []
+  },
+  {
+   "corrida": 5,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "el timeout se reintentó una vez",
+     "tipo": "reintento_transparente",
+     "ok": true,
+     "detalle": "fallas simuladas: 1"
+    },
+    {
+     "paso": "consulta la agenda",
+     "tipo": "herramientas_llamadas",
+     "ok": true,
+     "detalle": "ejecutadas: ['consultar_agenda']"
+    },
+    {
+     "paso": "da las horas correctas",
+     "tipo": "texto_contiene",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto, plazo y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O1 · 2 llamadas · 5098+94 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto, plazo y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop', 'stop']"
+    }
+   ],
+   "respuesta": "Tienes dos citas mañana: C-0A01 a las 10:00 y C-0A02 a las 15:00.",
+   "llamadas": [
+    {
+     "nombre": "consultar_agenda",
+     "argumentos": {
+      "desde": "mañana"
+     }
+    }
+   ],
+   "ejecutadas": [
+    "consultar_agenda"
+   ],
+   "propuestas": [],
+   "consumo": {
+    "entrada": 5098,
+    "salida": 94,
+    "llamadas": 2,
+    "ruta": "O1",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop",
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 9.7,
+   "transitorios": {
+    "aplica": true,
+    "lanzadas": 1
+   },
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-05T22:01:53.111+00:00",
+     "decision": "herramienta",
+     "herramientas": [
+      {
+       "nombre": "consultar_agenda",
+       "argumentos": {
+        "desde": "mañana"
+       },
+       "ejecutada": true,
+       "status": "ok",
+       "error_code": null,
+       "dato": "{\"agenda_de\": \"b.lopez\", \"zona\": \"America/Guayaquil\", \"desde\": \"2026-11-03\", \"hasta\": \"2026-11-03\", \"citas\": [{\"cita_id\": \"b7896995-a27b-4948-8b05-23221203a139\", \"caso_id\": \"0a010000-0000-4000-8000-000000002561\", \"caso\": \"C-0A01\", \"inicio\": \"2026-11-03 10:00\", \"estado\": \"reservada\", \"version\": 1}, {"
+      }
+     ],
+     "razon": null,
+     "texto": "Buscando tu agenda para mañana...",
+     "dur_ms": 2518,
+     "tokens_entrada": 2353,
+     "tokens_salida": 40,
+     "finish_reason": "stop"
+    },
+    {
+     "paso": 1,
+     "ts": "2026-11-05T22:01:56.183+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "Tienes dos citas mañana: C-0A01 a las 10:00 y C-0A02 a las 15:00.",
+     "dur_ms": 1847,
+     "tokens_entrada": 2745,
+     "tokens_salida": 54,
+     "finish_reason": "stop"
+    }
+   ]
+  },
+  {
+   "corrida": 6,
+   "ok": false,
+   "pasos": [
+    {
+     "paso": "el timeout se reintentó una vez",
+     "tipo": "reintento_transparente",
+     "ok": false,
+     "detalle": "ErrorTransitorio: avería simulada: timeout"
+    },
+    {
+     "paso": "consulta la agenda",
+     "tipo": "herramientas_llamadas",
+     "ok": false,
+     "detalle": "ErrorTransitorio: avería simulada: timeout"
+    },
+    {
+     "paso": "da las horas correctas",
+     "tipo": "texto_contiene",
+     "ok": false,
+     "detalle": "ErrorTransitorio: avería simulada: timeout"
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": false,
+     "detalle": "ErrorTransitorio: avería simulada: timeout"
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": false,
+     "detalle": "ErrorTransitorio: avería simulada: timeout"
+    },
+    {
+     "paso": "presupuesto, plazo y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": false,
+     "detalle": "ErrorTransitorio: avería simulada: timeout"
+    },
+    {
+     "paso": "presupuesto, plazo y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": false,
+     "detalle": "ErrorTransitorio: avería simulada: timeout"
+    }
+   ],
+   "respuesta": "",
+   "llamadas": [],
+   "ejecutadas": [],
+   "propuestas": [],
+   "consumo": null,
+   "finish_reason": [],
+   "cambio_db": false,
+   "error": "ErrorTransitorio: avería simulada: timeout",
+   "duracion_s": 9.89,
+   "transitorios": {
+    "aplica": true,
+    "lanzadas": 1
+   },
+   "trayectoria": []
+  },
+  {
+   "corrida": 7,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "el timeout se reintentó una vez",
+     "tipo": "reintento_transparente",
+     "ok": true,
+     "detalle": "fallas simuladas: 1"
+    },
+    {
+     "paso": "consulta la agenda",
+     "tipo": "herramientas_llamadas",
+     "ok": true,
+     "detalle": "ejecutadas: ['consultar_agenda']"
+    },
+    {
+     "paso": "da las horas correctas",
+     "tipo": "texto_contiene",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto, plazo y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O1 · 2 llamadas · 5098+94 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto, plazo y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop', 'stop']"
+    }
+   ],
+   "respuesta": "Tienes dos citas mañana: C-0A01 a las 10:00 y C-0A02 a las 15:00.",
+   "llamadas": [
+    {
+     "nombre": "consultar_agenda",
+     "argumentos": {
+      "desde": "mañana"
+     }
+    }
+   ],
+   "ejecutadas": [
+    "consultar_agenda"
+   ],
+   "propuestas": [],
+   "consumo": {
+    "entrada": 5098,
+    "salida": 94,
+    "llamadas": 2,
+    "ruta": "O1",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop",
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 9.3,
+   "transitorios": {
+    "aplica": true,
+    "lanzadas": 1
+   },
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-05T22:02:04.107+00:00",
+     "decision": "herramienta",
+     "herramientas": [
+      {
+       "nombre": "consultar_agenda",
+       "argumentos": {
+        "desde": "mañana"
+       },
+       "ejecutada": true,
+       "status": "ok",
+       "error_code": null,
+       "dato": "{\"agenda_de\": \"b.lopez\", \"zona\": \"America/Guayaquil\", \"desde\": \"2026-11-03\", \"hasta\": \"2026-11-03\", \"citas\": [{\"cita_id\": \"b7896995-a27b-4948-8b05-23221203a139\", \"caso_id\": \"0a010000-0000-4000-8000-000000002561\", \"caso\": \"C-0A01\", \"inicio\": \"2026-11-03 10:00\", \"estado\": \"reservada\", \"version\": 1}, {"
+      }
+     ],
+     "razon": null,
+     "texto": "Buscando tus citas para mañana...",
+     "dur_ms": 2497,
+     "tokens_entrada": 2353,
+     "tokens_salida": 40,
+     "finish_reason": "stop"
+    },
+    {
+     "paso": 1,
+     "ts": "2026-11-05T22:02:06.997+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "Tienes dos citas mañana: C-0A01 a las 10:00 y C-0A02 a las 15:00.",
+     "dur_ms": 1830,
+     "tokens_entrada": 2745,
+     "tokens_salida": 54,
+     "finish_reason": "stop"
+    }
+   ]
+  },
+  {
+   "corrida": 8,
+   "ok": false,
+   "pasos": [
+    {
+     "paso": "el timeout se reintentó una vez",
+     "tipo": "reintento_transparente",
+     "ok": false,
+     "detalle": "ErrorTransitorio: avería simulada: timeout"
+    },
+    {
+     "paso": "consulta la agenda",
+     "tipo": "herramientas_llamadas",
+     "ok": false,
+     "detalle": "ErrorTransitorio: avería simulada: timeout"
+    },
+    {
+     "paso": "da las horas correctas",
+     "tipo": "texto_contiene",
+     "ok": false,
+     "detalle": "ErrorTransitorio: avería simulada: timeout"
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": false,
+     "detalle": "ErrorTransitorio: avería simulada: timeout"
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": false,
+     "detalle": "ErrorTransitorio: avería simulada: timeout"
+    },
+    {
+     "paso": "presupuesto, plazo y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": false,
+     "detalle": "ErrorTransitorio: avería simulada: timeout"
+    },
+    {
+     "paso": "presupuesto, plazo y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": false,
+     "detalle": "ErrorTransitorio: avería simulada: timeout"
+    }
+   ],
+   "respuesta": "",
+   "llamadas": [],
+   "ejecutadas": [],
+   "propuestas": [],
+   "consumo": null,
+   "finish_reason": [],
+   "cambio_db": false,
+   "error": "ErrorTransitorio: avería simulada: timeout",
+   "duracion_s": 9.23,
+   "transitorios": {
+    "aplica": true,
+    "lanzadas": 1
+   },
+   "trayectoria": []
+  },
+  {
+   "corrida": 9,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "el timeout se reintentó una vez",
+     "tipo": "reintento_transparente",
+     "ok": true,
+     "detalle": "fallas simuladas: 1"
+    },
+    {
+     "paso": "consulta la agenda",
+     "tipo": "herramientas_llamadas",
+     "ok": true,
+     "detalle": "ejecutadas: ['consultar_agenda']"
+    },
+    {
+     "paso": "da las horas correctas",
+     "tipo": "texto_contiene",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto, plazo y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O1 · 2 llamadas · 5098+94 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto, plazo y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop', 'stop']"
+    }
+   ],
+   "respuesta": "Tienes dos citas mañana: C-0A01 a las 10:00 y C-0A02 a las 15:00.",
+   "llamadas": [
+    {
+     "nombre": "consultar_agenda",
+     "argumentos": {
+      "desde": "mañana"
+     }
+    }
+   ],
+   "ejecutadas": [
+    "consultar_agenda"
+   ],
+   "propuestas": [],
+   "consumo": {
+    "entrada": 5098,
+    "salida": 94,
+    "llamadas": 2,
+    "ruta": "O1",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop",
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 8.53,
+   "transitorios": {
+    "aplica": true,
+    "lanzadas": 1
+   },
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-05T22:02:12.196+00:00",
+     "decision": "herramienta",
+     "herramientas": [
+      {
+       "nombre": "consultar_agenda",
+       "argumentos": {
+        "desde": "mañana"
+       },
+       "ejecutada": true,
+       "status": "ok",
+       "error_code": null,
+       "dato": "{\"agenda_de\": \"b.lopez\", \"zona\": \"America/Guayaquil\", \"desde\": \"2026-11-03\", \"hasta\": \"2026-11-03\", \"citas\": [{\"cita_id\": \"b7896995-a27b-4948-8b05-23221203a139\", \"caso_id\": \"0a010000-0000-4000-8000-000000002561\", \"caso\": \"C-0A01\", \"inicio\": \"2026-11-03 10:00\", \"estado\": \"reservada\", \"version\": 1}, {"
+      }
+     ],
+     "razon": null,
+     "texto": "Buscando tus citas para mañana...",
+     "dur_ms": 2464,
+     "tokens_entrada": 2353,
+     "tokens_salida": 40,
+     "finish_reason": "stop"
+    },
+    {
+     "paso": 1,
+     "ts": "2026-11-05T22:02:15.103+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "Tienes dos citas mañana: C-0A01 a las 10:00 y C-0A02 a las 15:00.",
+     "dur_ms": 1855,
+     "tokens_entrada": 2745,
+     "tokens_salida": 54,
+     "finish_reason": "stop"
+    }
+   ]
+  },
+  {
+   "corrida": 10,
+   "ok": false,
+   "pasos": [
+    {
+     "paso": "el timeout se reintentó una vez",
+     "tipo": "reintento_transparente",
+     "ok": false,
+     "detalle": "ErrorTransitorio: avería simulada: timeout"
+    },
+    {
+     "paso": "consulta la agenda",
+     "tipo": "herramientas_llamadas",
+     "ok": false,
+     "detalle": "ErrorTransitorio: avería simulada: timeout"
+    },
+    {
+     "paso": "da las horas correctas",
+     "tipo": "texto_contiene",
+     "ok": false,
+     "detalle": "ErrorTransitorio: avería simulada: timeout"
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": false,
+     "detalle": "ErrorTransitorio: avería simulada: timeout"
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": false,
+     "detalle": "ErrorTransitorio: avería simulada: timeout"
+    },
+    {
+     "paso": "presupuesto, plazo y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": false,
+     "detalle": "ErrorTransitorio: avería simulada: timeout"
+    },
+    {
+     "paso": "presupuesto, plazo y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": false,
+     "detalle": "ErrorTransitorio: avería simulada: timeout"
+    }
+   ],
+   "respuesta": "",
+   "llamadas": [],
+   "ejecutadas": [],
+   "propuestas": [],
+   "consumo": null,
+   "finish_reason": [],
+   "cambio_db": false,
+   "error": "ErrorTransitorio: avería simulada: timeout",
+   "duracion_s": 8.41,
+   "transitorios": {
+    "aplica": true,
+    "lanzadas": 1
+   },
+   "trayectoria": []
+  }
+ ]
+}

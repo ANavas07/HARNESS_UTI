@@ -1,0 +1,1307 @@
+{
+ "id": "B04-dos-consultas",
+ "corridas": [
+  {
+   "corrida": 1,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "consulta lo necesario",
+     "tipo": "herramientas_llamadas",
+     "ok": true,
+     "detalle": "ejecutadas: ['consultar_agenda', 'consultar_derivaciones']"
+    },
+    {
+     "paso": "responde con los datos",
+     "tipo": "texto_contiene",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O2 · 2 llamadas · 6110+200 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop', 'stop']"
+    }
+   ],
+   "respuesta": "Mañana tienes dos citas: C-0A01 a las 10:00 y C-0A02 a las 15:00. Tienes derivaciones pendientes para los casos C-0A01, C-0A02, C-0A03, C-0A05, C-0A07, C-0C01, C-0A04, C-0A06 y C-0C03. Algunas tienen días de espera y otras están pendientes de agendamiento.",
+   "llamadas": [
+    {
+     "nombre": "consultar_agenda",
+     "argumentos": {
+      "desde": "mañana"
+     }
+    },
+    {
+     "nombre": "consultar_derivaciones",
+     "argumentos": {}
+    }
+   ],
+   "ejecutadas": [
+    "consultar_agenda",
+    "consultar_derivaciones"
+   ],
+   "propuestas": [],
+   "consumo": {
+    "entrada": 6110,
+    "salida": 200,
+    "llamadas": 2,
+    "ruta": "O2",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop",
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 13.49,
+   "transitorios": {
+    "aplica": false,
+    "lanzadas": 0
+   },
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-05T22:27:30.208+00:00",
+     "decision": "herramienta",
+     "herramientas": [
+      {
+       "nombre": "consultar_agenda",
+       "argumentos": {
+        "desde": "mañana"
+       },
+       "ejecutada": true,
+       "status": "ok",
+       "error_code": null,
+       "dato": "{\"agenda_de\": \"b.lopez\", \"zona\": \"America/Guayaquil\", \"desde\": \"2026-11-03\", \"hasta\": \"2026-11-03\", \"citas\": [{\"cita_id\": \"34bba4bb-f364-472c-9bb0-3c77d84ee2dd\", \"caso_id\": \"0a010000-0000-4000-8000-000000002561\", \"caso\": \"C-0A01\", \"inicio\": \"2026-11-03 10:00\", \"estado\": \"reservada\", \"version\": 1}, {"
+      },
+      {
+       "nombre": "consultar_derivaciones",
+       "argumentos": {},
+       "ejecutada": true,
+       "status": "ok",
+       "error_code": null,
+       "dato": "{\"solicitudes\": [{\"caso_id\": \"0a010000-0000-4000-8000-000000002561\", \"nivel\": \"critico\", \"prioridad\": 30, \"estado\": \"agendada\", \"dias_espera\": 10, \"cita\": \"2026-11-03 10:00\", \"caso\": \"C-0A01\"}, {\"caso_id\": \"0a020000-0000-4000-8000-000000002562\", \"nivel\": \"alto\", \"prioridad\": 20, \"estado\": \"agendada\""
+      }
+     ],
+     "razon": null,
+     "texto": "Buscando tu agenda y derivaciones pendientes...",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 2327,
+     "tokens_entrada": 2359,
+     "tokens_salida": 56,
+     "finish_reason": "stop"
+    },
+    {
+     "paso": 1,
+     "ts": "2026-11-05T22:27:34.207+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "Mañana tienes dos citas: C-0A01 a las 10:00 y C-0A02 a las 15:00. Tienes derivaciones pendientes para los casos C-0A01, C-0A02, C-0A03, C-0A05, C-0A07, C-0C01, C-0A04, C-0A06 y C-0C03. Algunas tienen días de espera y otras están pendientes de agendamiento.",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 5934,
+     "tokens_entrada": 3751,
+     "tokens_salida": 144,
+     "finish_reason": "stop"
+    }
+   ]
+  },
+  {
+   "corrida": 2,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "consulta lo necesario",
+     "tipo": "herramientas_llamadas",
+     "ok": true,
+     "detalle": "ejecutadas: ['consultar_agenda', 'consultar_derivaciones']"
+    },
+    {
+     "paso": "responde con los datos",
+     "tipo": "texto_contiene",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O1 · 2 llamadas · 5262+143 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop', 'stop']"
+    }
+   ],
+   "respuesta": "Mañana tienes dos citas reservadas: C-0A01 a las 10:00 y C-0A02 a las 15:00. Tienes una derivación pendiente con el caso C-0C01 en nivel alto con 10 días de espera.",
+   "llamadas": [
+    {
+     "nombre": "consultar_agenda",
+     "argumentos": {
+      "desde": "mañana"
+     }
+    },
+    {
+     "nombre": "consultar_derivaciones",
+     "argumentos": {
+      "estado": "pendiente"
+     }
+    }
+   ],
+   "ejecutadas": [
+    "consultar_agenda",
+    "consultar_derivaciones"
+   ],
+   "propuestas": [],
+   "consumo": {
+    "entrada": 5262,
+    "salida": 143,
+    "llamadas": 2,
+    "ruta": "O1",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop",
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 9.76,
+   "transitorios": {
+    "aplica": false,
+    "lanzadas": 0
+   },
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-05T22:27:40.338+00:00",
+     "decision": "herramienta",
+     "herramientas": [
+      {
+       "nombre": "consultar_agenda",
+       "argumentos": {
+        "desde": "mañana"
+       },
+       "ejecutada": true,
+       "status": "ok",
+       "error_code": null,
+       "dato": "{\"agenda_de\": \"b.lopez\", \"zona\": \"America/Guayaquil\", \"desde\": \"2026-11-03\", \"hasta\": \"2026-11-03\", \"citas\": [{\"cita_id\": \"34bba4bb-f364-472c-9bb0-3c77d84ee2dd\", \"caso_id\": \"0a010000-0000-4000-8000-000000002561\", \"caso\": \"C-0A01\", \"inicio\": \"2026-11-03 10:00\", \"estado\": \"reservada\", \"version\": 1}, {"
+      },
+      {
+       "nombre": "consultar_derivaciones",
+       "argumentos": {
+        "estado": "pendiente"
+       },
+       "ejecutada": true,
+       "status": "ok",
+       "error_code": null,
+       "dato": "{\"solicitudes\": [{\"caso_id\": \"0c010000-0000-4000-8000-000000003073\", \"nivel\": \"alto\", \"prioridad\": 20, \"estado\": \"pendiente\", \"dias_espera\": 10, \"cita\": null, \"caso\": \"C-0C01\"}]}"
+      }
+     ],
+     "razon": null,
+     "texto": "Buscando tu agenda y derivaciones pendientes...",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 2351,
+     "tokens_entrada": 2359,
+     "tokens_salida": 60,
+     "finish_reason": "stop"
+    },
+    {
+     "paso": 1,
+     "ts": "2026-11-05T22:27:43.371+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "Mañana tienes dos citas reservadas: C-0A01 a las 10:00 y C-0A02 a las 15:00. Tienes una derivación pendiente con el caso C-0C01 en nivel alto con 10 días de espera.",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 3381,
+     "tokens_entrada": 2903,
+     "tokens_salida": 83,
+     "finish_reason": "stop"
+    }
+   ]
+  },
+  {
+   "corrida": 3,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "consulta lo necesario",
+     "tipo": "herramientas_llamadas",
+     "ok": true,
+     "detalle": "ejecutadas: ['consultar_agenda', 'consultar_derivaciones']"
+    },
+    {
+     "paso": "responde con los datos",
+     "tipo": "texto_contiene",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O2 · 2 llamadas · 6110+199 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop', 'stop']"
+    }
+   ],
+   "respuesta": "Mañana tienes dos citas: C-0A01 a las 10:00 y C-0A02 a las 15:00. Tienes derivaciones pendientes para los casos C-0A01, C-0A02, C-0A03, C-0A05, C-0A07, C-0C01, C-0A04, C-0A06 y C-0C03. Algunas tienen días de espera y otras están en estado pendiente.",
+   "llamadas": [
+    {
+     "nombre": "consultar_agenda",
+     "argumentos": {
+      "desde": "mañana"
+     }
+    },
+    {
+     "nombre": "consultar_derivaciones",
+     "argumentos": {}
+    }
+   ],
+   "ejecutadas": [
+    "consultar_agenda",
+    "consultar_derivaciones"
+   ],
+   "propuestas": [],
+   "consumo": {
+    "entrada": 6110,
+    "salida": 199,
+    "llamadas": 2,
+    "ruta": "O2",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop",
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 12.71,
+   "transitorios": {
+    "aplica": false,
+    "lanzadas": 0
+   },
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-05T22:27:43.452+00:00",
+     "decision": "herramienta",
+     "herramientas": [
+      {
+       "nombre": "consultar_agenda",
+       "argumentos": {
+        "desde": "mañana"
+       },
+       "ejecutada": true,
+       "status": "ok",
+       "error_code": null,
+       "dato": "{\"agenda_de\": \"b.lopez\", \"zona\": \"America/Guayaquil\", \"desde\": \"2026-11-03\", \"hasta\": \"2026-11-03\", \"citas\": [{\"cita_id\": \"34bba4bb-f364-472c-9bb0-3c77d84ee2dd\", \"caso_id\": \"0a010000-0000-4000-8000-000000002561\", \"caso\": \"C-0A01\", \"inicio\": \"2026-11-03 10:00\", \"estado\": \"reservada\", \"version\": 1}, {"
+      },
+      {
+       "nombre": "consultar_derivaciones",
+       "argumentos": {},
+       "ejecutada": true,
+       "status": "ok",
+       "error_code": null,
+       "dato": "{\"solicitudes\": [{\"caso_id\": \"0a010000-0000-4000-8000-000000002561\", \"nivel\": \"critico\", \"prioridad\": 30, \"estado\": \"agendada\", \"dias_espera\": 10, \"cita\": \"2026-11-03 10:00\", \"caso\": \"C-0A01\"}, {\"caso_id\": \"0a020000-0000-4000-8000-000000002562\", \"nivel\": \"alto\", \"prioridad\": 20, \"estado\": \"agendada\""
+      }
+     ],
+     "razon": null,
+     "texto": "Buscando tu agenda y derivaciones pendientes...",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 2387,
+     "tokens_entrada": 2359,
+     "tokens_salida": 57,
+     "finish_reason": "stop"
+    },
+    {
+     "paso": 1,
+     "ts": "2026-11-05T22:27:47.209+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "Mañana tienes dos citas: C-0A01 a las 10:00 y C-0A02 a las 15:00. Tienes derivaciones pendientes para los casos C-0A01, C-0A02, C-0A03, C-0A05, C-0A07, C-0C01, C-0A04, C-0A06 y C-0C03. Algunas tienen días de espera y otras están en estado pendiente.",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 5483,
+     "tokens_entrada": 3751,
+     "tokens_salida": 142,
+     "finish_reason": "stop"
+    }
+   ]
+  },
+  {
+   "corrida": 4,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "consulta lo necesario",
+     "tipo": "herramientas_llamadas",
+     "ok": true,
+     "detalle": "ejecutadas: ['consultar_agenda', 'consultar_derivaciones']"
+    },
+    {
+     "paso": "responde con los datos",
+     "tipo": "texto_contiene",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O2 · 2 llamadas · 6110+212 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop', 'stop']"
+    }
+   ],
+   "respuesta": "Mañana tienes dos citas: C-0A01 a las 10:00 y C-0A02 a las 15:00. Las derivaciones pendientes son: C-0A01 (nivel crítico), C-0A02 (nivel alto), C-0A03 (nivel alto), C-0A05 (nivel alto), C-0A07 (nivel alto), C-0C01 (nivel alto), C-0A04 (nivel medio), C-0A06 (nivel medio) y C-0C03 (nivel medio).",
+   "llamadas": [
+    {
+     "nombre": "consultar_agenda",
+     "argumentos": {
+      "desde": "mañana"
+     }
+    },
+    {
+     "nombre": "consultar_derivaciones",
+     "argumentos": {}
+    }
+   ],
+   "ejecutadas": [
+    "consultar_agenda",
+    "consultar_derivaciones"
+   ],
+   "propuestas": [],
+   "consumo": {
+    "entrada": 6110,
+    "salida": 212,
+    "llamadas": 2,
+    "ruta": "O2",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop",
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 13.16,
+   "transitorios": {
+    "aplica": false,
+    "lanzadas": 0
+   },
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-05T22:27:50.103+00:00",
+     "decision": "herramienta",
+     "herramientas": [
+      {
+       "nombre": "consultar_agenda",
+       "argumentos": {
+        "desde": "mañana"
+       },
+       "ejecutada": true,
+       "status": "ok",
+       "error_code": null,
+       "dato": "{\"agenda_de\": \"b.lopez\", \"zona\": \"America/Guayaquil\", \"desde\": \"2026-11-03\", \"hasta\": \"2026-11-03\", \"citas\": [{\"cita_id\": \"34bba4bb-f364-472c-9bb0-3c77d84ee2dd\", \"caso_id\": \"0a010000-0000-4000-8000-000000002561\", \"caso\": \"C-0A01\", \"inicio\": \"2026-11-03 10:00\", \"estado\": \"reservada\", \"version\": 1}, {"
+      },
+      {
+       "nombre": "consultar_derivaciones",
+       "argumentos": {},
+       "ejecutada": true,
+       "status": "ok",
+       "error_code": null,
+       "dato": "{\"solicitudes\": [{\"caso_id\": \"0a010000-0000-4000-8000-000000002561\", \"nivel\": \"critico\", \"prioridad\": 30, \"estado\": \"agendada\", \"dias_espera\": 10, \"cita\": \"2026-11-03 10:00\", \"caso\": \"C-0A01\"}, {\"caso_id\": \"0a020000-0000-4000-8000-000000002562\", \"nivel\": \"alto\", \"prioridad\": 20, \"estado\": \"agendada\""
+      }
+     ],
+     "razon": null,
+     "texto": "Buscando tu agenda y derivaciones pendientes...",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 2282,
+     "tokens_entrada": 2359,
+     "tokens_salida": 57,
+     "finish_reason": "stop"
+    },
+    {
+     "paso": 1,
+     "ts": "2026-11-05T22:27:53.587+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "Mañana tienes dos citas: C-0A01 a las 10:00 y C-0A02 a las 15:00. Las derivaciones pendientes son: C-0A01 (nivel crítico), C-0A02 (nivel alto), C-0A03 (nivel alto), C-0A05 (nivel alto), C-0A07 (nivel alto), C-0C01 (nivel alto), C-0A04 (nivel medio), C-0A06 (nivel medio) y C-0C03 (nivel medio).",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 5932,
+     "tokens_entrada": 3751,
+     "tokens_salida": 155,
+     "finish_reason": "stop"
+    }
+   ]
+  },
+  {
+   "corrida": 5,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "consulta lo necesario",
+     "tipo": "herramientas_llamadas",
+     "ok": true,
+     "detalle": "ejecutadas: ['consultar_agenda', 'consultar_derivaciones']"
+    },
+    {
+     "paso": "responde con los datos",
+     "tipo": "texto_contiene",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O1 · 2 llamadas · 5262+143 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop', 'stop']"
+    }
+   ],
+   "respuesta": "Mañana tienes dos citas reservadas: C-0A01 a las 10:00 y C-0A02 a las 15:00. Tienes una derivación pendiente con el caso C-0C01 en nivel alto con 10 días de espera.",
+   "llamadas": [
+    {
+     "nombre": "consultar_agenda",
+     "argumentos": {
+      "desde": "mañana"
+     }
+    },
+    {
+     "nombre": "consultar_derivaciones",
+     "argumentos": {
+      "estado": "pendiente"
+     }
+    }
+   ],
+   "ejecutadas": [
+    "consultar_agenda",
+    "consultar_derivaciones"
+   ],
+   "propuestas": [],
+   "consumo": {
+    "entrada": 5262,
+    "salida": 143,
+    "llamadas": 2,
+    "ruta": "O1",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop",
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 9.91,
+   "transitorios": {
+    "aplica": false,
+    "lanzadas": 0
+   },
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-05T22:27:56.392+00:00",
+     "decision": "herramienta",
+     "herramientas": [
+      {
+       "nombre": "consultar_agenda",
+       "argumentos": {
+        "desde": "mañana"
+       },
+       "ejecutada": true,
+       "status": "ok",
+       "error_code": null,
+       "dato": "{\"agenda_de\": \"b.lopez\", \"zona\": \"America/Guayaquil\", \"desde\": \"2026-11-03\", \"hasta\": \"2026-11-03\", \"citas\": [{\"cita_id\": \"34bba4bb-f364-472c-9bb0-3c77d84ee2dd\", \"caso_id\": \"0a010000-0000-4000-8000-000000002561\", \"caso\": \"C-0A01\", \"inicio\": \"2026-11-03 10:00\", \"estado\": \"reservada\", \"version\": 1}, {"
+      },
+      {
+       "nombre": "consultar_derivaciones",
+       "argumentos": {
+        "estado": "pendiente"
+       },
+       "ejecutada": true,
+       "status": "ok",
+       "error_code": null,
+       "dato": "{\"solicitudes\": [{\"caso_id\": \"0c010000-0000-4000-8000-000000003073\", \"nivel\": \"alto\", \"prioridad\": 20, \"estado\": \"pendiente\", \"dias_espera\": 10, \"cita\": null, \"caso\": \"C-0C01\"}]}"
+      }
+     ],
+     "razon": null,
+     "texto": "Buscando tu agenda y derivaciones pendientes...",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 2487,
+     "tokens_entrada": 2359,
+     "tokens_salida": 60,
+     "finish_reason": "stop"
+    },
+    {
+     "paso": 1,
+     "ts": "2026-11-05T22:27:59.352+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "Mañana tienes dos citas reservadas: C-0A01 a las 10:00 y C-0A02 a las 15:00. Tienes una derivación pendiente con el caso C-0C01 en nivel alto con 10 días de espera.",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 3300,
+     "tokens_entrada": 2903,
+     "tokens_salida": 83,
+     "finish_reason": "stop"
+    }
+   ]
+  },
+  {
+   "corrida": 6,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "consulta lo necesario",
+     "tipo": "herramientas_llamadas",
+     "ok": true,
+     "detalle": "ejecutadas: ['consultar_agenda', 'consultar_derivaciones']"
+    },
+    {
+     "paso": "responde con los datos",
+     "tipo": "texto_contiene",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O2 · 2 llamadas · 6110+191 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop', 'stop']"
+    }
+   ],
+   "respuesta": "Mañana tienes dos citas: C-0A01 a las 10:00 y C-0A02 a las 15:00. Las derivaciones pendientes son: C-0A01 (nivel crítico), C-0A02 (nivel alto), C-0A03 (nivel alto), C-0A05 (nivel alto), C-0A07 (nivel alto), C-0C01 (nivel alto) y C-0C03 (nivel medio).",
+   "llamadas": [
+    {
+     "nombre": "consultar_agenda",
+     "argumentos": {
+      "desde": "mañana"
+     }
+    },
+    {
+     "nombre": "consultar_derivaciones",
+     "argumentos": {}
+    }
+   ],
+   "ejecutadas": [
+    "consultar_agenda",
+    "consultar_derivaciones"
+   ],
+   "propuestas": [],
+   "consumo": {
+    "entrada": 6110,
+    "salida": 191,
+    "llamadas": 2,
+    "ruta": "O2",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop",
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 12.11,
+   "transitorios": {
+    "aplica": false,
+    "lanzadas": 0
+   },
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-05T22:28:03.229+00:00",
+     "decision": "herramienta",
+     "herramientas": [
+      {
+       "nombre": "consultar_agenda",
+       "argumentos": {
+        "desde": "mañana"
+       },
+       "ejecutada": true,
+       "status": "ok",
+       "error_code": null,
+       "dato": "{\"agenda_de\": \"b.lopez\", \"zona\": \"America/Guayaquil\", \"desde\": \"2026-11-03\", \"hasta\": \"2026-11-03\", \"citas\": [{\"cita_id\": \"34bba4bb-f364-472c-9bb0-3c77d84ee2dd\", \"caso_id\": \"0a010000-0000-4000-8000-000000002561\", \"caso\": \"C-0A01\", \"inicio\": \"2026-11-03 10:00\", \"estado\": \"reservada\", \"version\": 1}, {"
+      },
+      {
+       "nombre": "consultar_derivaciones",
+       "argumentos": {},
+       "ejecutada": true,
+       "status": "ok",
+       "error_code": null,
+       "dato": "{\"solicitudes\": [{\"caso_id\": \"0a010000-0000-4000-8000-000000002561\", \"nivel\": \"critico\", \"prioridad\": 30, \"estado\": \"agendada\", \"dias_espera\": 10, \"cita\": \"2026-11-03 10:00\", \"caso\": \"C-0A01\"}, {\"caso_id\": \"0a020000-0000-4000-8000-000000002562\", \"nivel\": \"alto\", \"prioridad\": 20, \"estado\": \"agendada\""
+      }
+     ],
+     "razon": null,
+     "texto": "Buscando tu agenda y derivaciones pendientes...",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 2224,
+     "tokens_entrada": 2359,
+     "tokens_salida": 56,
+     "finish_reason": "stop"
+    },
+    {
+     "paso": 1,
+     "ts": "2026-11-05T22:28:06.717+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "Mañana tienes dos citas: C-0A01 a las 10:00 y C-0A02 a las 15:00. Las derivaciones pendientes son: C-0A01 (nivel crítico), C-0A02 (nivel alto), C-0A03 (nivel alto), C-0A05 (nivel alto), C-0A07 (nivel alto), C-0C01 (nivel alto) y C-0C03 (nivel medio).",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 5317,
+     "tokens_entrada": 3751,
+     "tokens_salida": 135,
+     "finish_reason": "stop"
+    }
+   ]
+  },
+  {
+   "corrida": 7,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "consulta lo necesario",
+     "tipo": "herramientas_llamadas",
+     "ok": true,
+     "detalle": "ejecutadas: ['consultar_agenda', 'consultar_derivaciones']"
+    },
+    {
+     "paso": "responde con los datos",
+     "tipo": "texto_contiene",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O2 · 2 llamadas · 6110+198 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop', 'stop']"
+    }
+   ],
+   "respuesta": "Mañana tienes dos citas: C-0A01 a las 10:00 y C-0A02 a las 15:00. Tienes derivaciones pendientes para los casos C-0A01, C-0A02, C-0A03, C-0A05, C-0A07, C-0C01, C-0A04, C-0A06 y C-0C03. Algunas tienen días de espera y otras están en estado pendiente.",
+   "llamadas": [
+    {
+     "nombre": "consultar_agenda",
+     "argumentos": {
+      "desde": "mañana"
+     }
+    },
+    {
+     "nombre": "consultar_derivaciones",
+     "argumentos": {}
+    }
+   ],
+   "ejecutadas": [
+    "consultar_agenda",
+    "consultar_derivaciones"
+   ],
+   "propuestas": [],
+   "consumo": {
+    "entrada": 6110,
+    "salida": 198,
+    "llamadas": 2,
+    "ruta": "O2",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop",
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 12.04,
+   "transitorios": {
+    "aplica": false,
+    "lanzadas": 0
+   },
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-05T22:28:05.979+00:00",
+     "decision": "herramienta",
+     "herramientas": [
+      {
+       "nombre": "consultar_agenda",
+       "argumentos": {
+        "desde": "mañana"
+       },
+       "ejecutada": true,
+       "status": "ok",
+       "error_code": null,
+       "dato": "{\"agenda_de\": \"b.lopez\", \"zona\": \"America/Guayaquil\", \"desde\": \"2026-11-03\", \"hasta\": \"2026-11-03\", \"citas\": [{\"cita_id\": \"34bba4bb-f364-472c-9bb0-3c77d84ee2dd\", \"caso_id\": \"0a010000-0000-4000-8000-000000002561\", \"caso\": \"C-0A01\", \"inicio\": \"2026-11-03 10:00\", \"estado\": \"reservada\", \"version\": 1}, {"
+      },
+      {
+       "nombre": "consultar_derivaciones",
+       "argumentos": {},
+       "ejecutada": true,
+       "status": "ok",
+       "error_code": null,
+       "dato": "{\"solicitudes\": [{\"caso_id\": \"0a010000-0000-4000-8000-000000002561\", \"nivel\": \"critico\", \"prioridad\": 30, \"estado\": \"agendada\", \"dias_espera\": 10, \"cita\": \"2026-11-03 10:00\", \"caso\": \"C-0A01\"}, {\"caso_id\": \"0a020000-0000-4000-8000-000000002562\", \"nivel\": \"alto\", \"prioridad\": 20, \"estado\": \"agendada\""
+      }
+     ],
+     "razon": null,
+     "texto": "Buscando tu agenda y derivaciones pendientes...",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 2224,
+     "tokens_entrada": 2359,
+     "tokens_salida": 56,
+     "finish_reason": "stop"
+    },
+    {
+     "paso": 1,
+     "ts": "2026-11-05T22:28:09.061+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "Mañana tienes dos citas: C-0A01 a las 10:00 y C-0A02 a las 15:00. Tienes derivaciones pendientes para los casos C-0A01, C-0A02, C-0A03, C-0A05, C-0A07, C-0C01, C-0A04, C-0A06 y C-0C03. Algunas tienen días de espera y otras están en estado pendiente.",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 5583,
+     "tokens_entrada": 3751,
+     "tokens_salida": 142,
+     "finish_reason": "stop"
+    }
+   ]
+  },
+  {
+   "corrida": 8,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "consulta lo necesario",
+     "tipo": "herramientas_llamadas",
+     "ok": true,
+     "detalle": "ejecutadas: ['consultar_agenda', 'consultar_derivaciones']"
+    },
+    {
+     "paso": "responde con los datos",
+     "tipo": "texto_contiene",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O1 · 2 llamadas · 5262+141 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop', 'stop']"
+    }
+   ],
+   "respuesta": "Mañana tienes dos citas: C-0A01 a las 10:00 y C-0A02 a las 15:00. Tienes una derivación pendiente de alto nivel para el caso C-0C01 con 10 días de espera.",
+   "llamadas": [
+    {
+     "nombre": "consultar_agenda",
+     "argumentos": {
+      "desde": "mañana"
+     }
+    },
+    {
+     "nombre": "consultar_derivaciones",
+     "argumentos": {
+      "estado": "pendiente"
+     }
+    }
+   ],
+   "ejecutadas": [
+    "consultar_agenda",
+    "consultar_derivaciones"
+   ],
+   "propuestas": [],
+   "consumo": {
+    "entrada": 5262,
+    "salida": 141,
+    "llamadas": 2,
+    "ruta": "O1",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop",
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 9.64,
+   "transitorios": {
+    "aplica": false,
+    "lanzadas": 0
+   },
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-05T22:28:15.253+00:00",
+     "decision": "herramienta",
+     "herramientas": [
+      {
+       "nombre": "consultar_agenda",
+       "argumentos": {
+        "desde": "mañana"
+       },
+       "ejecutada": true,
+       "status": "ok",
+       "error_code": null,
+       "dato": "{\"agenda_de\": \"b.lopez\", \"zona\": \"America/Guayaquil\", \"desde\": \"2026-11-03\", \"hasta\": \"2026-11-03\", \"citas\": [{\"cita_id\": \"34bba4bb-f364-472c-9bb0-3c77d84ee2dd\", \"caso_id\": \"0a010000-0000-4000-8000-000000002561\", \"caso\": \"C-0A01\", \"inicio\": \"2026-11-03 10:00\", \"estado\": \"reservada\", \"version\": 1}, {"
+      },
+      {
+       "nombre": "consultar_derivaciones",
+       "argumentos": {
+        "estado": "pendiente"
+       },
+       "ejecutada": true,
+       "status": "ok",
+       "error_code": null,
+       "dato": "{\"solicitudes\": [{\"caso_id\": \"0c010000-0000-4000-8000-000000003073\", \"nivel\": \"alto\", \"prioridad\": 20, \"estado\": \"pendiente\", \"dias_espera\": 10, \"cita\": null, \"caso\": \"C-0C01\"}]}"
+      }
+     ],
+     "razon": null,
+     "texto": "Buscando tu agenda y derivaciones pendientes...",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 2375,
+     "tokens_entrada": 2359,
+     "tokens_salida": 60,
+     "finish_reason": "stop"
+    },
+    {
+     "paso": 1,
+     "ts": "2026-11-05T22:28:18.177+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "Mañana tienes dos citas: C-0A01 a las 10:00 y C-0A02 a las 15:00. Tienes una derivación pendiente de alto nivel para el caso C-0C01 con 10 días de espera.",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 3232,
+     "tokens_entrada": 2903,
+     "tokens_salida": 81,
+     "finish_reason": "stop"
+    }
+   ]
+  },
+  {
+   "corrida": 9,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "consulta lo necesario",
+     "tipo": "herramientas_llamadas",
+     "ok": true,
+     "detalle": "ejecutadas: ['consultar_agenda', 'consultar_derivaciones']"
+    },
+    {
+     "paso": "responde con los datos",
+     "tipo": "texto_contiene",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O2 · 2 llamadas · 6110+212 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop', 'stop']"
+    }
+   ],
+   "respuesta": "Mañana tienes dos citas: C-0A01 a las 10:00 y C-0A02 a las 15:00. Las derivaciones pendientes son: C-0A01 (nivel crítico), C-0A02 (nivel alto), C-0A03 (nivel alto), C-0A05 (nivel alto), C-0A07 (nivel alto), C-0C01 (nivel alto), C-0A04 (nivel medio), C-0A06 (nivel medio) y C-0C03 (nivel medio).",
+   "llamadas": [
+    {
+     "nombre": "consultar_agenda",
+     "argumentos": {
+      "desde": "mañana"
+     }
+    },
+    {
+     "nombre": "consultar_derivaciones",
+     "argumentos": {}
+    }
+   ],
+   "ejecutadas": [
+    "consultar_agenda",
+    "consultar_derivaciones"
+   ],
+   "propuestas": [],
+   "consumo": {
+    "entrada": 6110,
+    "salida": 212,
+    "llamadas": 2,
+    "ruta": "O2",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop",
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 13.35,
+   "transitorios": {
+    "aplica": false,
+    "lanzadas": 0
+   },
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-05T22:28:17.961+00:00",
+     "decision": "herramienta",
+     "herramientas": [
+      {
+       "nombre": "consultar_agenda",
+       "argumentos": {
+        "desde": "mañana"
+       },
+       "ejecutada": true,
+       "status": "ok",
+       "error_code": null,
+       "dato": "{\"agenda_de\": \"b.lopez\", \"zona\": \"America/Guayaquil\", \"desde\": \"2026-11-03\", \"hasta\": \"2026-11-03\", \"citas\": [{\"cita_id\": \"34bba4bb-f364-472c-9bb0-3c77d84ee2dd\", \"caso_id\": \"0a010000-0000-4000-8000-000000002561\", \"caso\": \"C-0A01\", \"inicio\": \"2026-11-03 10:00\", \"estado\": \"reservada\", \"version\": 1}, {"
+      },
+      {
+       "nombre": "consultar_derivaciones",
+       "argumentos": {},
+       "ejecutada": true,
+       "status": "ok",
+       "error_code": null,
+       "dato": "{\"solicitudes\": [{\"caso_id\": \"0a010000-0000-4000-8000-000000002561\", \"nivel\": \"critico\", \"prioridad\": 30, \"estado\": \"agendada\", \"dias_espera\": 10, \"cita\": \"2026-11-03 10:00\", \"caso\": \"C-0A01\"}, {\"caso_id\": \"0a020000-0000-4000-8000-000000002562\", \"nivel\": \"alto\", \"prioridad\": 20, \"estado\": \"agendada\""
+      }
+     ],
+     "razon": null,
+     "texto": "Buscando tu agenda y derivaciones pendientes...",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 2342,
+     "tokens_entrada": 2359,
+     "tokens_salida": 57,
+     "finish_reason": "stop"
+    },
+    {
+     "paso": 1,
+     "ts": "2026-11-05T22:28:21.918+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "Mañana tienes dos citas: C-0A01 a las 10:00 y C-0A02 a las 15:00. Las derivaciones pendientes son: C-0A01 (nivel crítico), C-0A02 (nivel alto), C-0A03 (nivel alto), C-0A05 (nivel alto), C-0A07 (nivel alto), C-0C01 (nivel alto), C-0A04 (nivel medio), C-0A06 (nivel medio) y C-0C03 (nivel medio).",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 5947,
+     "tokens_entrada": 3751,
+     "tokens_salida": 155,
+     "finish_reason": "stop"
+    }
+   ]
+  },
+  {
+   "corrida": 10,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "consulta lo necesario",
+     "tipo": "herramientas_llamadas",
+     "ok": true,
+     "detalle": "ejecutadas: ['consultar_agenda', 'consultar_derivaciones']"
+    },
+    {
+     "paso": "responde con los datos",
+     "tipo": "texto_contiene",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O2 · 2 llamadas · 6110+201 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop', 'stop']"
+    }
+   ],
+   "respuesta": "Mañana tienes dos citas: C-0A01 a las 10:00 y C-0A02 a las 15:00. Tienes derivaciones pendientes para los casos C-0A01, C-0A02, C-0A03, C-0A05, C-0A07, C-0C01, C-0A04, C-0A06 y C-0C03. Algunas tienen días de espera y otras están pendientes de agendamiento.",
+   "llamadas": [
+    {
+     "nombre": "consultar_agenda",
+     "argumentos": {
+      "desde": "mañana"
+     }
+    },
+    {
+     "nombre": "consultar_derivaciones",
+     "argumentos": {}
+    }
+   ],
+   "ejecutadas": [
+    "consultar_agenda",
+    "consultar_derivaciones"
+   ],
+   "propuestas": [],
+   "consumo": {
+    "entrada": 6110,
+    "salida": 201,
+    "llamadas": 2,
+    "ruta": "O2",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop",
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 12.52,
+   "transitorios": {
+    "aplica": false,
+    "lanzadas": 0
+   },
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-05T22:28:24.897+00:00",
+     "decision": "herramienta",
+     "herramientas": [
+      {
+       "nombre": "consultar_agenda",
+       "argumentos": {
+        "desde": "mañana"
+       },
+       "ejecutada": true,
+       "status": "ok",
+       "error_code": null,
+       "dato": "{\"agenda_de\": \"b.lopez\", \"zona\": \"America/Guayaquil\", \"desde\": \"2026-11-03\", \"hasta\": \"2026-11-03\", \"citas\": [{\"cita_id\": \"34bba4bb-f364-472c-9bb0-3c77d84ee2dd\", \"caso_id\": \"0a010000-0000-4000-8000-000000002561\", \"caso\": \"C-0A01\", \"inicio\": \"2026-11-03 10:00\", \"estado\": \"reservada\", \"version\": 1}, {"
+      },
+      {
+       "nombre": "consultar_derivaciones",
+       "argumentos": {},
+       "ejecutada": true,
+       "status": "ok",
+       "error_code": null,
+       "dato": "{\"solicitudes\": [{\"caso_id\": \"0a010000-0000-4000-8000-000000002561\", \"nivel\": \"critico\", \"prioridad\": 30, \"estado\": \"agendada\", \"dias_espera\": 10, \"cita\": \"2026-11-03 10:00\", \"caso\": \"C-0A01\"}, {\"caso_id\": \"0a020000-0000-4000-8000-000000002562\", \"nivel\": \"alto\", \"prioridad\": 20, \"estado\": \"agendada\""
+      }
+     ],
+     "razon": null,
+     "texto": "Buscando tu agenda y derivaciones pendientes...",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 2347,
+     "tokens_entrada": 2359,
+     "tokens_salida": 57,
+     "finish_reason": "stop"
+    },
+    {
+     "paso": 1,
+     "ts": "2026-11-05T22:28:28.676+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "Mañana tienes dos citas: C-0A01 a las 10:00 y C-0A02 a las 15:00. Tienes derivaciones pendientes para los casos C-0A01, C-0A02, C-0A03, C-0A05, C-0A07, C-0C01, C-0A04, C-0A06 y C-0C03. Algunas tienen días de espera y otras están pendientes de agendamiento.",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 5562,
+     "tokens_entrada": 3751,
+     "tokens_salida": 144,
+     "finish_reason": "stop"
+    }
+   ]
+  }
+ ]
+}
