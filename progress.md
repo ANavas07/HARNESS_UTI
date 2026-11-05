@@ -388,7 +388,7 @@ Se cerraron con el usuario las tres decisiones que los agentes preguntaron en el
 
 ### 3.28 Pendientes menores de la Etapa 10 y directrices del loop — 5 de noviembre de 2026
 
-- **[PR #10](https://github.com/ANavas07/GRUPO2_SEGUIMIENTO/pull/10)** (rama `etapa-10-pendientes`):
+- **[PR #10](https://github.com/ANavas07/GRUPO2_SEGUIMIENTO/pull/10)** (rama `etapa-10-pendientes`, ✅ mergeado en `MVP` el 5-11, commit `04834e9`, CI 4/4):
   - historial de la ficha de cita (`GET /agenda/citas/{id}/historial`, como la maqueta aprobada);
   - prueba determinista del orden de bloqueos persona → profesional → caso, con 2 mutaciones nuevas (reserva 35/35);
   - semáforo del LLM entre procesos con PostgreSQL (`VLLM_SEMAFORO=postgres`);
@@ -403,7 +403,7 @@ Se cerraron con el usuario las tres decisiones que los agentes preguntaron en el
 ### 3.29 Loop ReAct, fase A: hacer visible el ciclo — 5 de noviembre de 2026
 
 - **Directrices aprobadas por el usuario:** [docs/loop-agente.md](docs/loop-agente.md).
-- **En el producto ([PR #11](https://github.com/ANavas07/GRUPO2_SEGUIMIENTO/pull/11), sobre el #10):**
+- **En el producto ([PR #11](https://github.com/ANavas07/GRUPO2_SEGUIMIENTO/pull/11); el #10 ya está en `MVP`):**
   - evento `agente.iteracion` por vuelta, solo con metadatos (A56), que «Ver proceso» no muestra como paso;
   - mutaciones `asistente` **49/49**, con 5 nuevas del evento.
 - **En HARNESS_UTI:**
