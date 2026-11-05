@@ -386,6 +386,20 @@ Se cerraron con el usuario las tres decisiones que los agentes preguntaron en el
 - **Suite:** 2092 pruebas del backend y 97 del frontend en verde.
 - **Gate G10 (hito M9):** IT-M9 en verde, mutaciones de la etapa al 100 %, carga medida, restauración probada y verificación en el navegador. Antes del piloto con estudiantes reales faltan G1, G2 y G3, y la medición completa de los evals de runtime (G10.E).
 
+### 3.28 Pendientes menores de la Etapa 10 y directrices del loop — 5 de noviembre de 2026
+
+- **[PR #10](https://github.com/ANavas07/GRUPO2_SEGUIMIENTO/pull/10)** (rama `etapa-10-pendientes`):
+  - historial de la ficha de cita (`GET /agenda/citas/{id}/historial`, como la maqueta aprobada);
+  - prueba determinista del orden de bloqueos persona → profesional → caso, con 2 mutaciones nuevas (reserva 35/35);
+  - semáforo del LLM entre procesos con PostgreSQL (`VLLM_SEMAFORO=postgres`);
+  - aviso diario a Administración cuando más del 5 % de las consultas agota su presupuesto (migración 0015; presupuesto 26/26);
+  - 2110 pruebas del backend y 99 del frontend.
+- **Dónde se rompió:**
+  - el historial mostraba como hora de la reserva la hora actual de una cita ya reprogramada; el evento de reserva ahora guarda su hora;
+  - la sesión se cortó con las mutaciones a medias y `shared/llm.py` quedó mutado; se detectó con `git diff` y se restauró antes de seguir.
+- **Medición completa de los evals de runtime (60 × 10):** no corrió. Estaba programada a las 19:00 del 4-11 como tarea de la sesión, y la sesión se cortó antes. Hay que reprogramarla fuera de horario, idealmente con el programador de tareas de Windows, para que no dependa de la sesión.
+- **Directrices del ciclo del agente (ReAct):** [docs/loop-agente.md](docs/loop-agente.md), propuesta para validar, a partir de las diapositivas del agent loop y del paper de ReAct.
+
 ## 4. Verificaciones realizadas y alcance
 
 | Verificación | Resultado registrado | Qué demuestra |
