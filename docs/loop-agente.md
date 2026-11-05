@@ -1,6 +1,6 @@
 # Directrices del ciclo del agente (loop ReAct) del asistente de agenda
 
-**Estado: propuesta para validar (5 de noviembre de 2026).** Nada de esto está implementado todavía; lo que ya existe se marca como **(hoy)**.
+**Estado:** aprobadas por el usuario el 5 de noviembre de 2026. **Fase A hecha** (PR #11 y [laboratorio de los días 9–10](lab-loop-dias-9-10.md)); las fases B–D siguen pendientes. Lo que ya existía antes se marca como **(hoy)**.
 
 Fuentes:
 - las diapositivas «Anatomía del agent loop», «Contexto en el loop», «Control», «Recuperación» y el laboratorio de los días 9–12;

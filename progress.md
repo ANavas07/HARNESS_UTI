@@ -400,6 +400,23 @@ Se cerraron con el usuario las tres decisiones que los agentes preguntaron en el
 - **Medición completa de los evals de runtime (60 × 10):** no corrió. Estaba programada a las 19:00 del 4-11 como tarea de la sesión, y la sesión se cortó antes. Hay que reprogramarla fuera de horario, idealmente con el programador de tareas de Windows, para que no dependa de la sesión.
 - **Directrices del ciclo del agente (ReAct):** [docs/loop-agente.md](docs/loop-agente.md), propuesta para validar, a partir de las diapositivas del agent loop y del paper de ReAct.
 
+### 3.29 Loop ReAct, fase A: hacer visible el ciclo — 5 de noviembre de 2026
+
+- **Directrices aprobadas por el usuario:** [docs/loop-agente.md](docs/loop-agente.md).
+- **En el producto ([PR #11](https://github.com/ANavas07/GRUPO2_SEGUIMIENTO/pull/11), sobre el #10):**
+  - evento `agente.iteracion` por vuelta, solo con metadatos (A56), que «Ver proceso» no muestra como paso;
+  - mutaciones `asistente` **49/49**, con 5 nuevas del evento.
+- **En HARNESS_UTI:**
+  - trayectoria JSONL por corrida en `ejecutar_runtime.py`, con argumentos y resultado por paso (datos sintéticos);
+  - `scripts/linea_de_tiempo.py`, que muestra tabla y HTML, los pasos sin aporte y el paso más caro.
+- **[Laboratorio de los días 9–10](docs/lab-loop-dias-9-10.md)** con el Qwen real: F01, B04 y P02 en 2 pasos cada una.
+  - El costo fijo (~2.350 tokens de sistema y herramientas) es entre el 75 y el 90 % de la entrada de cada paso.
+  - El modelo ya «piensa en voz alta» en `texto` al pedir herramientas, con 40–80 tokens; la fase B lo ordena como `razon`.
+  - En B04 omitió el filtro «pendientes».
+- **Dónde se rompió:**
+  - la línea de tiempo fallaba en la consola de Windows al imprimir «→» (cp1252); ahora fuerza UTF-8;
+  - el evento nuevo traía `resultado: ejecutada` y «Ver proceso» lo mostraba como un paso duplicado; ahora lo excluye, con su prueba.
+
 ## 4. Verificaciones realizadas y alcance
 
 | Verificación | Resultado registrado | Qué demuestra |
