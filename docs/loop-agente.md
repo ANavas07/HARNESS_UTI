@@ -1,6 +1,6 @@
 # Directrices del ciclo del agente (loop ReAct) del asistente de agenda
 
-**Estado:** aprobadas por el usuario el 5 de noviembre de 2026. **Fase A hecha** (PR #11 y [laboratorio de los días 9–10](lab-loop-dias-9-10.md)). **Fase B medida: la razón NO se activa** ([experimento A/B](lab-loop-fase-b.md): 81,7 % contra 93,3 % sin ella). **Fase C hecha** (PR #13: circuit breaker y reintento transitorio limitado por el plazo, mutaciones 66/66). **Fase D hecha** (PR #14: herramienta caída como fallo, escalado del nivel 4 y [evals de rotura](lab-loop-fase-d.md): 20/20 con el Qwen; mutaciones 83/83). Lo que ya existía antes se marca como **(hoy)**.
+**Estado:** aprobadas por el usuario el 5 de noviembre de 2026. **Las cuatro fases están mergeadas en `MVP`** (PR #11 a #14, `c384eda`). **Fase A hecha** (PR #11 y [laboratorio de los días 9–10](lab-loop-dias-9-10.md)). **Fase B medida: la razón NO se activa** ([experimento A/B](lab-loop-fase-b.md): 81,7 % contra 93,3 % sin ella). **Fase C hecha** (PR #13: circuit breaker y reintento transitorio limitado por el plazo, mutaciones 66/66). **Fase D hecha** (PR #14: herramienta caída como fallo, escalado del nivel 4 y [evals de rotura](lab-loop-fase-d.md): 20/20 con el Qwen; mutaciones 83/83). Lo que ya existía antes se marca como **(hoy)**.
 
 Fuentes:
 - las diapositivas «Anatomía del agent loop», «Contexto en el loop», «Control», «Recuperación» y el laboratorio de los días 9–12;

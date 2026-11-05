@@ -473,7 +473,7 @@ Se cerraron con el usuario las tres decisiones que los agentes preguntaron en el
   - R02 dio 0/5 en la primera corrida: con la agenda caída, el modelo respondió solo con las derivaciones y no dijo que faltaba la agenda. Ahora una herramienta caída siempre se escala;
   - el grader de R02 tomaba como inventados los códigos de las derivaciones. Se corrigió;
   - una mutación antigua quedó desfasada por el cambio. Otras 13 de objetivos anteriores ya lo estaban en `MVP` y quedan como pendiente aparte.
-- **Con esto, las cuatro fases del loop (A–D) están hechas.** Pendiente: los de rotura con N = 10 junto con la medición completa 60 × 10, fuera de horario.
+- **Con esto, las cuatro fases del loop (A–D) están hechas.** ✅ PR #11 a #14 mergeados en `MVP` el 5-11 con el OK del usuario y CI 4/4 en verde (#13 y #14, re-apuntados a `MVP` antes del merge; `MVP` en `c384eda`). Pendiente: los de rotura con N = 10 junto con la medición completa 60 × 10, fuera de horario.
 
 ## 4. Verificaciones realizadas y alcance
 
