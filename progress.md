@@ -419,7 +419,7 @@ Se cerraron con el usuario las tres decisiones que los agentes preguntaron en el
 
 ### 3.30 Loop ReAct, fase B: la razón, medida y descartada — 5 de noviembre de 2026
 
-- **Producto (rama `loop-fase-b`):**
+- **Producto ([PR #12](https://github.com/ANavas07/GRUPO2_SEGUIMIENTO/pull/12), rama `loop-fase-b`, sobre el #11; mutaciones `asistente` 54/54):
   - campo `razon` en modo JSON detrás de `VLLM_RAZON=1`, apagado por defecto;
   - la razón vuelve al contexto de la tarea y no se guarda (memoria, trazas);
   - se recorta y pasa el control de datos personales;
