@@ -172,18 +172,42 @@ def huella(dsn_admin: str, psycopg) -> str:
 
 # ---------------------------------------------------------------- modelos
 class Grabadora:
-    """Envuelve el LLM: guarda cada pedido de herramienta (con sus argumentos) y cada finish_reason."""
+    """Envuelve el LLM: guarda cada pedido de herramienta (con sus argumentos), cada finish_reason y un paso de la trayectoria por
+    llamada al modelo (loop ReAct, fase A: hora, duración, tokens, herramientas pedidas y texto). Solo en evals: datos sintéticos."""
     def __init__(self, llm):
-        self.llm, self.llamadas, self.finish = llm, [], []
+        self.llm, self.llamadas, self.finish, self.pasos = llm, [], [], []
         self.modelo = getattr(llm, "modelo", "?")
         if callable(getattr(llm, "contar", None)):
             self.contar = llm.contar
 
     def conversar(self, mensajes, herramientas=None, max_tokens=None):
+        inicio, ts = time.perf_counter(), datetime.now(timezone.utc).isoformat(timespec="milliseconds")
         r = self.llm.conversar(mensajes, herramientas, max_tokens=max_tokens) if max_tokens else self.llm.conversar(mensajes, herramientas)
         self.llamadas += [{"nombre": c.nombre, "argumentos": c.argumentos} for c in r.llamadas]
         self.finish.append(r.finish_reason)
+        uso = getattr(r, "uso", None)
+        self.pasos.append({"paso": len(self.pasos), "ts": ts, "decision": "herramienta" if r.llamadas else "respuesta",
+                           "herramientas": [{"nombre": c.nombre, "argumentos": c.argumentos} for c in r.llamadas],
+                           "razon": getattr(r, "razon", None), "texto": (r.texto or "")[:300],
+                           "dur_ms": int((time.perf_counter() - inicio) * 1000),
+                           "tokens_entrada": uso.prompt_tokens if uso else None, "tokens_salida": uso.completion_tokens if uso else None,
+                           "finish_reason": r.finish_reason})
         return r
+
+
+def trayectoria(pasos: list[dict], registros: list[dict]) -> list[dict]:
+    """Une cada herramienta pedida con su resultado, en orden: status y error_code del sobre, y un extracto del dato."""
+    resultados = iter(registros)
+    for p in pasos:
+        for h in p["herramientas"]:
+            reg = next(resultados, None)
+            try:
+                sobre = json.loads(reg["resultado"]) if reg else {}
+            except (TypeError, ValueError):
+                sobre = {}
+            h.update({"ejecutada": bool(reg and reg["ejecutada"]), "status": sobre.get("status") or ("error" if "error" in sobre else None),
+                      "error_code": sobre.get("error_code"), "dato": json.dumps(sobre.get("data"), ensure_ascii=False, default=str)[:300]})
+    return pasos
 
 
 class Guion:
@@ -286,7 +310,8 @@ def correr(e: dict, base: Base, nombre_modelo: str, clave: bytes, reloj: datetim
                 propuestas.append({"invalida": ex.codigo})
     return {"respuesta": r["respuesta"], "llamadas": llm.llamadas, "ejecutadas": [x["herramienta"] for x in r.get("registros", []) if x["ejecutada"]],
             "propuestas": propuestas, "consumo": r.get("consumo"), "finish_reason": llm.finish, "cambio_db": antes != despues,
-            "error": error, "duracion_s": round(time.monotonic() - inicio, 2)}
+            "error": error, "duracion_s": round(time.monotonic() - inicio, 2),
+            "trayectoria": trayectoria(llm.pasos, r.get("registros", []))}
 
 
 @contextmanager
@@ -423,6 +448,10 @@ def main(argv=None) -> int:
         carpeta = Path(a.salida) / f"{datetime.now():%Y%m%d-%H%M%S}-{a.modelo}"
         carpeta.mkdir(parents=True, exist_ok=True)
         for e in evals:
+            (carpeta / "trayectorias").mkdir(exist_ok=True)
+            for c in e["_corridas"]:                                          # una línea por paso, como el laboratorio (días 9–10)
+                (carpeta / "trayectorias" / f"{e['id']}-{c['corrida']}.jsonl").write_text(
+                    "".join(json.dumps(p, ensure_ascii=False, default=str) + "\n" for p in c["trayectoria"]), encoding="utf-8")
             (carpeta / f"{e['id']}.json").write_text(json.dumps({"id": e["id"], "corridas": e["_corridas"]}, ensure_ascii=False, indent=1,
                                                                 default=str), encoding="utf-8")
         (carpeta / "resumen.json").write_text(json.dumps(resumen, ensure_ascii=False, indent=1), encoding="utf-8")

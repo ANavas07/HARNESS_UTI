@@ -56,6 +56,18 @@ class EjecutorRuntime(unittest.TestCase):
         self.assertIn("propuesta_igual", {p["tipo"] for p in corrida["pasos"]})
 
 
+    def test_loop_fase_a_cada_corrida_deja_su_trayectoria_jsonl(self):
+        """docs/loop-agente.md §8: en los evals (datos sintéticos) la trayectoria lleva argumentos y resultado por paso."""
+        with tempfile.TemporaryDirectory() as tmp:
+            correr("--modelo", "guion", "--corridas", "1", "--salida", tmp)
+            [carpeta] = Path(tmp).iterdir()
+            pasos = [json.loads(l) for l in (carpeta / "trayectorias" / "P01-reprogramar-jueves-tarde-1.jsonl").read_text(encoding="utf-8").splitlines()]
+        assert [p["paso"] for p in pasos] == [0, 1] and [p["decision"] for p in pasos] == ["herramienta", "respuesta"]
+        [h] = pasos[0]["herramientas"]
+        assert (h["nombre"], h["argumentos"]["cita"], h["status"]) == ("proponer_reprogramacion", "C-0A03", "ok")
+        assert all(p["dur_ms"] >= 0 and p["tokens_entrada"] > 0 for p in pasos)
+
+
 @unittest.skipUnless(HAY_EVALS, "requiere evals/")
 class FormatoDeLosEvals(unittest.TestCase):
     """Sin producto: el conjunto cumple §33.5 (60 evals, categorías y críticos) y cada uno tiene su referencia."""
