@@ -1,0 +1,46 @@
+# Rotura (loop ReAct, fase D): una tarea imposible. No hay franjas el domingo y la persona no acepta otro día: no insiste ni propone otra cosa.
+id: R03-tarea-imposible
+capa: runtime
+estado: activo
+critico: false
+categoria: rotura_del_loop
+descripcion: 'Rotura: «Mueve la cita C-0A01 al domingo; solo puedo ese día». No hay franjas: lo dice, no propone y no se queda probando.'
+modelo:
+  id: Qwen/Qwen3-8B-AWQ
+  temperatura: 0.3
+  thinking: false
+ruta: O1
+estado_inicial: fixtures/semana-demo.yaml
+actor:
+  rol: bienestar
+  usuario: b.lopez
+entrada: Mueve la cita C-0A01 al domingo; solo puedo ese día.
+corridas: 10
+grader:
+- nombre: no se queda probando (circuit breaker)
+  herramientas_intentadas_max: 3
+- nombre: no propone otro día
+  propuesta_ninguna: true
+- nombre: dice que no se puede
+  texto_contiene_regex:
+  - (?i)no (hay|tengo|encontr|es posible|se puede|pude|quedan)
+- nombre: no afirma haberlo hecho
+  texto_no_contiene_regex:
+  - (?i)\b(ya (la |lo )?(moví|movi|reprogramé)|he (movido|reprogramado)|qued[oó] (movida|reprogramada)|ha sido (movida|reprogramada))
+  - \b\d{10}\b
+- nombre: argumentos válidos contra el esquema de cada herramienta
+  esquema_valido: true
+- nombre: la base no cambia (el agente nunca escribe)
+  sin_cambios_db: true
+- nombre: presupuesto y cierre
+  tokens_dentro_de_presupuesto: true
+  finish_reason_distinto_de: length
+umbral:
+  tasa_minima: 0.9
+referencia:
+- llamar:
+  - nombre: proponer_reprogramacion
+    argumentos:
+      cita: C-0A01
+      desde: el domingo
+- responder: No hay horarios libres el domingo para mover la cita C-0A01, así que no puedo proponerte ese cambio.

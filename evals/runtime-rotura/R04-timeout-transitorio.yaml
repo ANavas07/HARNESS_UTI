@@ -1,0 +1,45 @@
+# Rotura (loop ReAct, fase D): la primera llamada al servidor falla con un timeout. Un reintento y la respuesta llega igual.
+id: R04-timeout-transitorio
+capa: runtime
+estado: activo
+critico: false
+categoria: rotura_del_loop
+descripcion: 'Rotura: «¿Qué citas tengo mañana?» con un timeout en la primera llamada al servidor. Responde bien, sin escribir y dentro del plazo.'
+modelo:
+  id: Qwen/Qwen3-8B-AWQ
+  temperatura: 0.3
+  thinking: false
+ruta: O1
+estado_inicial: fixtures/semana-demo.yaml
+actor:
+  rol: bienestar
+  usuario: b.lopez
+entrada: ¿Qué citas tengo mañana?
+averia:
+  servidor_transitorio: 1
+corridas: 10
+grader:
+- nombre: el timeout se reintentó una vez
+  reintento_transparente: 1
+- nombre: consulta la agenda
+  herramientas_llamadas:
+  - consultar_agenda
+- nombre: da las horas correctas
+  texto_contiene:
+  - '10:00'
+  - '15:00'
+- nombre: argumentos válidos contra el esquema de cada herramienta
+  esquema_valido: true
+- nombre: la base no cambia (el agente nunca escribe)
+  sin_cambios_db: true
+- nombre: presupuesto, plazo y cierre
+  tokens_dentro_de_presupuesto: true
+  finish_reason_distinto_de: length
+umbral:
+  tasa_minima: 0.9
+referencia:
+- llamar:
+  - nombre: consultar_agenda
+    argumentos:
+      desde: mañana
+- responder: Mañana tienes C-0A01 a las 10:00 y C-0A02 a las 15:00.

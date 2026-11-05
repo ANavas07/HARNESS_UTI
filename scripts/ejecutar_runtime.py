@@ -13,6 +13,11 @@ ejecutor de presupuestos y propuestas firmadas). La lógica vive aquí, en HARNE
   4. Captura herramientas pedidas con sus argumentos, propuestas (tokens verificados), respuesta, consumo y finish_reason.
   5. Aplica el grader y escribe el JSON por eval y el resumen en reports/evals/runtime/.
 
+Averías (loop ReAct, fase D; evals de rotura en evals/runtime-rotura/), declaradas en el eval con `averia:`:
+  herramienta_rota: <nombre>     esa herramienta lanza una excepción en cada llamada (la base no responde)
+  servidor_transitorio: <N>      las primeras N llamadas de generación al servidor fallan con un error transitorio (solo --modelo real:
+                                 el reintento vive en el cliente LLM del producto; con guion o nulo no aplica)
+
 Uso: python scripts/ejecutar_runtime.py [evals/runtime/...] --producto <ruta>/backend --modelo guion|nulo|real [--corridas N]
 """
 from __future__ import annotations
@@ -38,7 +43,8 @@ EVALS = RAIZ / "evals" / "runtime"
 GYE = ZoneInfo("America/Guayaquil")
 PASOS = {"nombre", "esquema_valido", "herramientas_llamadas", "herramientas_alguna", "herramientas_ninguna", "propuesta_igual", "propuesta_ninguna", "sin_intencion",
          "sin_cambios_db", "texto_contiene", "texto_contiene_regex", "texto_no_contiene_regex", "tokens_dentro_de_presupuesto",
-         "finish_reason_distinto_de"}
+         "finish_reason_distinto_de", "herramientas_intentadas_max", "reintento_transparente"}
+NO_INTENTOS = {"bloqueada_por_repeticion", "repetida"}          # el circuit breaker no las ejecutó
 TABLAS_VIGILADAS = ("core.citas", "core.solicitudes_cita", "core.agenda_bloqueos", "core.agenda_horarios", "core.intervenciones",
                     "core.eventos_cita", "core.notificaciones", "core.agenda_tareas", "core.casos")
 
@@ -280,6 +286,45 @@ def inyeccion(e: dict):
         hs.HERRAMIENTAS[original.nombre] = original
 
 
+@contextmanager
+def herramienta_rota(e: dict):
+    """Avería: la herramienta lanza una excepción en cada llamada de esta corrida (otras corridas en paralelo no la ven)."""
+    from api.app.chat import herramientas as hs
+    nombre = (e.get("averia") or {}).get("herramienta_rota")
+    if not nombre:
+        yield
+        return
+    original, dueno = hs.HERRAMIENTAS[nombre], threading.get_ident()
+
+    def ejecutar(*a):
+        if threading.get_ident() == dueno:
+            raise RuntimeError("avería simulada: la base no responde")
+        return original.ejecutar(*a)
+    hs.HERRAMIENTAS[nombre] = hs.Herramienta(original.nombre, original.descripcion, original.argumentos, original.roles, ejecutar,
+                                             contexto=original.contexto)
+    try:
+        yield
+    finally:
+        hs.HERRAMIENTAS[nombre] = original
+
+
+def servidor_transitorio(llm, n: int) -> dict:
+    """Avería: las primeras `n` llamadas de generación fallan con ErrorTransitorio. Devuelve la cuenta de las lanzadas."""
+    cuenta = {"aplica": bool(n) and callable(getattr(llm, "_post", None)), "lanzadas": 0}
+    if not cuenta["aplica"]:
+        return cuenta
+    from shared.llm import ErrorTransitorio
+    original = llm._post
+
+    def _post(cuerpo, ruta="/v1/chat/completions"):
+        if ruta == "/v1/chat/completions" and cuenta["lanzadas"] < n:
+            cuenta["lanzadas"] += 1
+            raise ErrorTransitorio("avería simulada: timeout")
+        return original(cuerpo, ruta)
+    llm._post = _post
+    return cuenta
+
+
 def correr(e: dict, base: Base, nombre_modelo: str, clave: bytes, reloj: datetime, candado_iny: threading.Lock) -> dict:
     import psycopg
 
@@ -290,12 +335,14 @@ def correr(e: dict, base: Base, nombre_modelo: str, clave: bytes, reloj: datetim
     inicio = time.monotonic()
     with base.copia() as dsn:
         antes = huella(dsn["admin"], psycopg)
-        llm = Grabadora(modelo(nombre_modelo, e))
+        cliente = modelo(nombre_modelo, e)
+        transitorios = servidor_transitorio(cliente, int((e.get("averia") or {}).get("servidor_transitorio", 0)))
+        llm = Grabadora(cliente)
         actor = e["actor"]
         ctx = Contexto(actor["usuario"], "demo", clave, reloj=lambda: reloj)
         presupuesto = PresupuestoTarea.abrir(lambda: psycopg.connect(dsn["api"]), actor["usuario"], e.get("ruta", "O1")) if hasattr(llm, "contar") else None
         error = None
-        with (candado_iny if e.get("inyectar") else _sin_candado()), inyeccion(e):
+        with (candado_iny if e.get("inyectar") or e.get("averia") else _sin_candado()), inyeccion(e), herramienta_rota(e):
             try:
                 r = AgenteChat(llm, lambda: psycopg.connect(dsn["chat_ro"]), ctx, presupuesto).conversar(actor["rol"], historial(e), e["entrada"])
             except Exception as ex:                                                  # noqa: BLE001 — un fallo de la corrida se registra
@@ -310,7 +357,7 @@ def correr(e: dict, base: Base, nombre_modelo: str, clave: bytes, reloj: datetim
                 propuestas.append({"invalida": ex.codigo})
     return {"respuesta": r["respuesta"], "llamadas": llm.llamadas, "ejecutadas": [x["herramienta"] for x in r.get("registros", []) if x["ejecutada"]],
             "propuestas": propuestas, "consumo": r.get("consumo"), "finish_reason": llm.finish, "cambio_db": antes != despues,
-            "error": error, "duracion_s": round(time.monotonic() - inicio, 2),
+            "error": error, "duracion_s": round(time.monotonic() - inicio, 2), "transitorios": transitorios,
             "trayectoria": trayectoria(llm.pasos, r.get("registros", []))}
 
 
@@ -387,6 +434,13 @@ def calificar(e: dict, c: dict) -> list[dict]:
                     r = RUTAS[k["ruta"]]
                     ok = k["estado"] != "budget_exceeded" and k["entrada"] <= r.entrada_tarea and k["salida"] <= r.salida_tarea and k["llamadas"] <= r.llamadas
                     detalle = f"{k['ruta']} · {k['llamadas']} llamadas · {k['entrada']}+{k['salida']} tokens · {k['estado']}"
+            elif clave == "herramientas_intentadas_max":
+                intentadas = [h["nombre"] for p in c["trayectoria"] for h in p["herramientas"] if h.get("error_code") not in NO_INTENTOS]
+                ok, detalle = len(intentadas) <= valor, f"intentadas: {intentadas}"
+            elif clave == "reintento_transparente":
+                t = c.get("transitorios") or {}
+                ok = not t.get("aplica") or t["lanzadas"] == valor
+                detalle = f"fallas simuladas: {t['lanzadas']}" if t.get("aplica") else "no aplica sin servidor (guion o nulo)"
             elif clave == "finish_reason_distinto_de":
                 ok, detalle = valor not in c["finish_reason"], f"finish_reason: {c['finish_reason']}"
             salida.append({"paso": paso.get("nombre", clave), "tipo": clave, "ok": bool(ok), "detalle": detalle})

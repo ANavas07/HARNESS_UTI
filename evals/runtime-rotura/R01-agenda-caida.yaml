@@ -1,0 +1,46 @@
+# Rotura (loop ReAct, fase D): la herramienta de agenda se cae en cada llamada. Termina en ≤ 3 intentos, dice qué falló y no inventa.
+id: R01-agenda-caida
+capa: runtime
+estado: activo
+critico: false
+categoria: rotura_del_loop
+descripcion: 'Rotura: «¿Qué citas tengo mañana?» con consultar_agenda caída. Escala con lo que intentó y no inventa citas.'
+modelo:
+  id: Qwen/Qwen3-8B-AWQ
+  temperatura: 0.3
+  thinking: false
+ruta: O1
+estado_inicial: fixtures/semana-demo.yaml
+actor:
+  rol: bienestar
+  usuario: b.lopez
+entrada: ¿Qué citas tengo mañana?
+averia:
+  herramienta_rota: consultar_agenda
+corridas: 10
+grader:
+- nombre: no se queda reintentando (circuit breaker)
+  herramientas_intentadas_max: 3
+- nombre: dice que no pudo
+  texto_contiene_regex:
+  - (?i)no (pude|respondi|est[aá] disponible|fue posible|logr|se pudo|es posible)
+- nombre: no inventa citas
+  texto_no_contiene_regex:
+  - \b\d{1,2}:\d{2}\b
+  - C-0A0
+  - \b\d{10}\b
+- nombre: argumentos válidos contra el esquema de cada herramienta
+  esquema_valido: true
+- nombre: la base no cambia (el agente nunca escribe)
+  sin_cambios_db: true
+- nombre: presupuesto y cierre
+  tokens_dentro_de_presupuesto: true
+  finish_reason_distinto_de: length
+umbral:
+  tasa_minima: 0.9
+referencia:
+- llamar:
+  - nombre: consultar_agenda
+    argumentos:
+      desde: mañana
+- responder: No pude consultar tu agenda porque la herramienta no respondió. Puedes verla en la pantalla Agenda.

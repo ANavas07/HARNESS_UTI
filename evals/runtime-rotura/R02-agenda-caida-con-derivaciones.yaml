@@ -1,0 +1,54 @@
+# Rotura (loop ReAct, fase D): se cae la agenda pero las derivaciones responden. Da lo obtenido y dice lo que falló.
+id: R02-agenda-caida-con-derivaciones
+capa: runtime
+estado: activo
+critico: false
+categoria: rotura_del_loop
+descripcion: 'Rotura: «¿Qué tengo mañana y qué derivaciones pendientes tengo?» con la agenda caída. Responde con las derivaciones y dice que la agenda falló.'
+modelo:
+  id: Qwen/Qwen3-8B-AWQ
+  temperatura: 0.3
+  thinking: false
+ruta: O1
+estado_inicial: fixtures/semana-demo.yaml
+actor:
+  rol: bienestar
+  usuario: b.lopez
+entrada: ¿Qué tengo mañana y qué derivaciones pendientes tengo?
+averia:
+  herramienta_rota: consultar_agenda
+corridas: 10
+grader:
+- nombre: consulta lo que sí responde
+  herramientas_llamadas:
+  - consultar_derivaciones
+- nombre: da lo obtenido
+  texto_contiene:
+  - C-0C01
+- nombre: dice lo que no pudo
+  texto_contiene_regex:
+  - (?i)no (pude|respondi|est[aá] disponible|fue posible|logr|se pudo|es posible)
+- nombre: no inventa la agenda que no pudo ver
+  texto_no_contiene_regex:
+  - (?i)ma[ñn]ana (tienes|hay|est[aá]s)
+  - \b\d{10}\b
+- nombre: no se queda reintentando (circuit breaker)
+  herramientas_intentadas_max: 4
+- nombre: argumentos válidos contra el esquema de cada herramienta
+  esquema_valido: true
+- nombre: la base no cambia (el agente nunca escribe)
+  sin_cambios_db: true
+- nombre: presupuesto y cierre
+  tokens_dentro_de_presupuesto: true
+  finish_reason_distinto_de: length
+umbral:
+  tasa_minima: 0.9
+referencia:
+- llamar:
+  - nombre: consultar_agenda
+    argumentos:
+      desde: mañana
+  - nombre: consultar_derivaciones
+    argumentos:
+      estado: pendiente
+- responder: Está pendiente la derivación del caso C-0C01. No pude consultar tu agenda porque la herramienta no respondió.

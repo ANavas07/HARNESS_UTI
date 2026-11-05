@@ -453,6 +453,28 @@ Se cerraron con el usuario las tres decisiones que los agentes preguntaron en el
   - en la corrida siguiente el runner restauró `shared/llm.py` desde su respaldo y borró el código del plazo, escrito después. Se detectó porque la suite base no estaba en verde y se reaplicó. **Lección:** no editar los archivos objetivo mientras corre una mutación, ni después de cortarla sin limpiar `.mutaciones_respaldo`.
 - **Pendiente (fase D):** el escalado del nivel 4 con lo que se intentó y los evals de rotura (herramienta que siempre falla, tarea imposible y timeout transitorio) con sus controles.
 
+### 3.32 Loop ReAct, fase D: recuperar y evals de rotura — 5 de noviembre de 2026
+
+- **Producto ([PR #14](https://github.com/ANavas07/GRUPO2_SEGUIMIENTO/pull/14), rama `loop-fase-d`, sobre el #13; mutaciones `asistente` 83/83):**
+  - una herramienta que lanza una excepción ya no tumba la conversación: es `herramienta_no_responde` y cuenta como fallo;
+  - **escalado del nivel 4**, con frases fijas que nunca llevan argumentos ni el error técnico:
+    - con el breaker o una herramienta caída, la persona sabe qué se intentó y qué falló;
+    - sin ningún dato, el texto del modelo se descarta;
+    - el presupuesto agotado y la caída del servidor dicen lo que se alcanzó a hacer;
+  - «Ver proceso» muestra la herramienta que no respondió y el reintento del servidor.
+- **HARNESS_UTI:**
+  - averías en el runner (`herramienta_rota`, `servidor_transitorio`);
+  - graders `herramientas_intentadas_max` y `reintento_transparente`;
+  - 4 evals de rotura en `evals/runtime-rotura/` (R01–R04), aparte de los 60 del gate;
+  - pruebas del runner con sus controles (guion 4/4 y nulo 0/4).
+- **Con el Qwen ([informe](docs/lab-loop-fase-d.md)): 20/20** (4 evals × 5). Con la herramienta caída, el modelo no insiste: se detiene al primer fallo. El reintento absorbió el timeout simulado.
+- **Dónde se rompió:**
+  - la excepción de una herramienta tumbaba la conversación. Se detectó leyendo `_herramientas` al preparar los evals;
+  - R02 dio 0/5 en la primera corrida: con la agenda caída, el modelo respondió solo con las derivaciones y no dijo que faltaba la agenda. Ahora una herramienta caída siempre se escala;
+  - el grader de R02 tomaba como inventados los códigos de las derivaciones. Se corrigió;
+  - una mutación antigua quedó desfasada por el cambio. Otras 13 de objetivos anteriores ya lo estaban en `MVP` y quedan como pendiente aparte.
+- **Con esto, las cuatro fases del loop (A–D) están hechas.** Pendiente: los de rotura con N = 10 junto con la medición completa 60 × 10, fuera de horario.
+
 ## 4. Verificaciones realizadas y alcance
 
 | Verificación | Resultado registrado | Qué demuestra |
