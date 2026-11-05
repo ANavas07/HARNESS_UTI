@@ -417,6 +417,23 @@ Se cerraron con el usuario las tres decisiones que los agentes preguntaron en el
   - la línea de tiempo fallaba en la consola de Windows al imprimir «→» (cp1252); ahora fuerza UTF-8;
   - el evento nuevo traía `resultado: ejecutada` y «Ver proceso» lo mostraba como un paso duplicado; ahora lo excluye, con su prueba.
 
+### 3.30 Loop ReAct, fase B: la razón, medida y descartada — 5 de noviembre de 2026
+
+- **Producto (rama `loop-fase-b`):**
+  - campo `razon` en modo JSON detrás de `VLLM_RAZON=1`, apagado por defecto;
+  - la razón vuelve al contexto de la tarea y no se guarda (memoria, trazas);
+  - se recorta y pasa el control de datos personales;
+  - mutaciones del código de la razón en el objetivo `asistente`.
+- **HARNESS_UTI:** `scripts/comparar_corridas.py`, que aplica los criterios de §9 a dos corridas.
+- **[Experimento A/B](docs/lab-loop-fase-b.md)** con el Qwen, 60 × 1:
+  - sin razón 56/60 (93,3 %, la mejor línea base hasta ahora);
+  - con razón 49/60 (81,7 %), con 4 críticos más fallando y +1,3 % de tokens.
+  - Las trayectorias muestran que, con la razón, el modelo **decide antes de observar** (F08 inventó una regla y no consultó).
+  - **Decisión: no se activa.**
+- **Dónde se rompió:**
+  - la primera corrida con razón la traía vacía: el Qwen copia la plantilla JSON y omitía lo agregado al final. Ahora va dentro de la plantilla, y la corrida se invalidó y guardó aparte;
+  - la primera hipótesis (la tilde) era falsa: se verificó con el JSON crudo de una llamada real.
+
 ## 4. Verificaciones realizadas y alcance
 
 | Verificación | Resultado registrado | Qué demuestra |

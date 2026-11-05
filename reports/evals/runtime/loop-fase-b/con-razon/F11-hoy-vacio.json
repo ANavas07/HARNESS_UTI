@@ -1,0 +1,119 @@
+{
+ "id": "F11-hoy-vacio",
+ "corridas": [
+  {
+   "corrida": 1,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "consulta la agenda",
+     "tipo": "herramientas_llamadas",
+     "ok": true,
+     "detalle": "ejecutadas: ['consultar_agenda']"
+    },
+    {
+     "paso": "dice que no hay citas",
+     "tipo": "texto_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "sin identidad",
+     "tipo": "texto_no_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O1 · 2 llamadas · 4929+81 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop', 'stop']"
+    }
+   ],
+   "respuesta": "No tienes citas programadas para hoy.",
+   "llamadas": [
+    {
+     "nombre": "consultar_agenda",
+     "argumentos": {
+      "desde": "hoy"
+     }
+    }
+   ],
+   "ejecutadas": [
+    "consultar_agenda"
+   ],
+   "propuestas": [],
+   "consumo": {
+    "entrada": 4929,
+    "salida": 81,
+    "llamadas": 2,
+    "ruta": "O1",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop",
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 4.69,
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-05T15:46:32.161+00:00",
+     "decision": "herramienta",
+     "herramientas": [
+      {
+       "nombre": "consultar_agenda",
+       "argumentos": {
+        "desde": "hoy"
+       },
+       "ejecutada": true,
+       "status": "ok",
+       "error_code": null,
+       "dato": "{\"agenda_de\": \"b.lopez\", \"zona\": \"America/Guayaquil\", \"desde\": \"2026-11-02\", \"hasta\": \"2026-11-02\", \"citas\": []}"
+      }
+     ],
+     "razon": "Verificar si hay citas programadas para hoy en la agenda del usuario.",
+     "texto": "",
+     "dur_ms": 1610,
+     "tokens_entrada": 2388,
+     "tokens_salida": 48,
+     "finish_reason": "stop"
+    },
+    {
+     "paso": 1,
+     "ts": "2026-11-05T15:46:34.097+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": "No hay citas programadas para hoy.",
+     "texto": "No tienes citas programadas para hoy.",
+     "dur_ms": 1130,
+     "tokens_entrada": 2541,
+     "tokens_salida": 33,
+     "finish_reason": "stop"
+    }
+   ]
+  }
+ ]
+}

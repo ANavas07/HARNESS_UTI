@@ -1,0 +1,121 @@
+{
+ "id": "F04-proxima-semana",
+ "corridas": [
+  {
+   "corrida": 1,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "consulta la agenda",
+     "tipo": "herramientas_llamadas",
+     "ok": true,
+     "detalle": "ejecutadas: ['consultar_agenda']"
+    },
+    {
+     "paso": "da las horas correctas",
+     "tipo": "texto_contiene",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "sin identidad",
+     "tipo": "texto_no_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O1 · 2 llamadas · 5052+92 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop', 'stop']"
+    }
+   ],
+   "respuesta": "Tienes una cita reservada el miércoles 9 de noviembre a las 14:00 horas con el caso C-0A06.",
+   "llamadas": [
+    {
+     "nombre": "consultar_agenda",
+     "argumentos": {
+      "desde": "la próxima semana",
+      "incluir_libres": false
+     }
+    }
+   ],
+   "ejecutadas": [
+    "consultar_agenda"
+   ],
+   "propuestas": [],
+   "consumo": {
+    "entrada": 5052,
+    "salida": 92,
+    "llamadas": 2,
+    "ruta": "O1",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop",
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 6.26,
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-05T15:36:51.486+00:00",
+     "decision": "herramienta",
+     "herramientas": [
+      {
+       "nombre": "consultar_agenda",
+       "argumentos": {
+        "desde": "la próxima semana",
+        "incluir_libres": false
+       },
+       "ejecutada": true,
+       "status": "ok",
+       "error_code": null,
+       "dato": "{\"agenda_de\": \"b.lopez\", \"zona\": \"America/Guayaquil\", \"desde\": \"2026-11-09\", \"hasta\": \"2026-11-15\", \"citas\": [{\"cita_id\": \"af51f0cd-a696-41de-864c-de40e2e1afee\", \"caso_id\": \"0a060000-0000-4000-8000-000000002566\", \"caso\": \"C-0A06\", \"inicio\": \"2026-11-09 14:00\", \"estado\": \"reservada\", \"version\": 1}]}"
+      }
+     ],
+     "razon": null,
+     "texto": "",
+     "dur_ms": 1709,
+     "tokens_entrada": 2393,
+     "tokens_salida": 40,
+     "finish_reason": "stop"
+    },
+    {
+     "paso": 1,
+     "ts": "2026-11-05T15:36:54.053+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "Tienes una cita reservada el miércoles 9 de noviembre a las 14:00 horas con el caso C-0A06.",
+     "dur_ms": 1796,
+     "tokens_entrada": 2659,
+     "tokens_salida": 52,
+     "finish_reason": "stop"
+    }
+   ]
+  }
+ ]
+}

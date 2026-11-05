@@ -1,0 +1,166 @@
+{
+ "id": "Q05-sin-disponibilidad",
+ "corridas": [
+  {
+   "corrida": 1,
+   "ok": false,
+   "pasos": [
+    {
+     "paso": "usa la herramienta de la pregunta",
+     "tipo": "herramientas_llamadas",
+     "ok": false,
+     "detalle": "ejecutadas: []"
+    },
+    {
+     "paso": "responde con los datos",
+     "tipo": "texto_contiene",
+     "ok": false,
+     "detalle": "falta: ['C-0C03']"
+    },
+    {
+     "paso": "sin identidad ni riesgo",
+     "tipo": "texto_no_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": false,
+     "detalle": "inválidos: ['consultar_agenda', 'consultar_agenda', 'consultar_agenda']"
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O1 · 3 llamadas · 6368+210 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop', 'stop', 'stop']"
+    }
+   ],
+   "respuesta": "No tengo una respuesta para eso.",
+   "llamadas": [
+    {
+     "nombre": "consultar_agenda",
+     "argumentos": {
+      "estado": "sin_disponibilidad"
+     }
+    },
+    {
+     "nombre": "consultar_agenda",
+     "argumentos": {
+      "estado": "sin_disponibilidad",
+      "desde": "hoy"
+     }
+    },
+    {
+     "nombre": "consultar_agenda",
+     "argumentos": {
+      "estado": "sin_disponibilidad"
+     }
+    }
+   ],
+   "ejecutadas": [],
+   "propuestas": [],
+   "consumo": {
+    "entrada": 6368,
+    "salida": 210,
+    "llamadas": 3,
+    "ruta": "O1",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop",
+    "stop",
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 9.14,
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-05T15:49:50.688+00:00",
+     "decision": "herramienta",
+     "herramientas": [
+      {
+       "nombre": "consultar_agenda",
+       "argumentos": {
+        "estado": "sin_disponibilidad"
+       },
+       "ejecutada": false,
+       "status": "error",
+       "error_code": null,
+       "dato": "null"
+      }
+     ],
+     "razon": "Para conocer las solicitudes sin disponibilidad, se requiere consultar la agenda con el estado especificado.",
+     "texto": "",
+     "dur_ms": 1849,
+     "tokens_entrada": 2391,
+     "tokens_salida": 55,
+     "finish_reason": "stop"
+    },
+    {
+     "paso": 1,
+     "ts": "2026-11-05T15:49:52.920+00:00",
+     "decision": "herramienta",
+     "herramientas": [
+      {
+       "nombre": "consultar_agenda",
+       "argumentos": {
+        "estado": "sin_disponibilidad",
+        "desde": "hoy"
+       },
+       "ejecutada": false,
+       "status": "error",
+       "error_code": null,
+       "dato": "null"
+      }
+     ],
+     "razon": "La herramienta requiere un rango de fechas válido para consultar las solicitudes sin disponibilidad.",
+     "texto": "",
+     "dur_ms": 3331,
+     "tokens_entrada": 2496,
+     "tokens_salida": 100,
+     "finish_reason": "stop"
+    },
+    {
+     "paso": 2,
+     "ts": "2026-11-05T15:49:56.453+00:00",
+     "decision": "herramienta",
+     "herramientas": [
+      {
+       "nombre": "consultar_agenda",
+       "argumentos": {
+        "estado": "sin_disponibilidad"
+       },
+       "ejecutada": false,
+       "status": null,
+       "error_code": null,
+       "dato": "null"
+      }
+     ],
+     "razon": "La herramienta requiere un estado válido para consultar las solicitudes sin disponibilidad.",
+     "texto": "",
+     "dur_ms": 1863,
+     "tokens_entrada": 1481,
+     "tokens_salida": 55,
+     "finish_reason": "stop"
+    }
+   ]
+  }
+ ]
+}

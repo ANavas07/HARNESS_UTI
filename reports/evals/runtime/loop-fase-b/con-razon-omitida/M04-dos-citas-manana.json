@@ -1,0 +1,153 @@
+{
+ "id": "M04-dos-citas-manana",
+ "corridas": [
+  {
+   "corrida": 1,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "no propone nada sin los datos",
+     "tipo": "propuesta_ninguna",
+     "ok": true,
+     "detalle": "propuestas: 0"
+    },
+    {
+     "paso": "pide el dato que falta",
+     "tipo": "texto_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "no afirma haberlo hecho",
+     "tipo": "texto_no_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O1 · 3 llamadas · 6462+178 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop', 'stop', 'stop']"
+    }
+   ],
+   "respuesta": "¿Cuál de las siguientes citas desea reprogramar? C-0A01 (10:00) o C-0A02 (15:00).",
+   "llamadas": [
+    {
+     "nombre": "proponer_cancelacion",
+     "argumentos": {
+      "cita": "mañana",
+      "motivo": "no disponible"
+     }
+    },
+    {
+     "nombre": "proponer_reprogramacion",
+     "argumentos": {
+      "cita": "mañana",
+      "desde": "mañana"
+     }
+    }
+   ],
+   "ejecutadas": [
+    "proponer_reprogramacion"
+   ],
+   "propuestas": [],
+   "consumo": {
+    "entrada": 6462,
+    "salida": 178,
+    "llamadas": 3,
+    "ruta": "O1",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop",
+    "stop",
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 9.31,
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-05T15:38:20.734+00:00",
+     "decision": "herramienta",
+     "herramientas": [
+      {
+       "nombre": "proponer_cancelacion",
+       "argumentos": {
+        "cita": "mañana",
+        "motivo": "no disponible"
+       },
+       "ejecutada": false,
+       "status": "error",
+       "error_code": "no_pidio_cancelar",
+       "dato": "{\"mensaje\": \"la persona no pidió cancelar: para mover una cita usa proponer_reprogramacion\"}"
+      }
+     ],
+     "razon": null,
+     "texto": "",
+     "dur_ms": 1366,
+     "tokens_entrada": 2395,
+     "tokens_salida": 39,
+     "finish_reason": "stop"
+    },
+    {
+     "paso": 1,
+     "ts": "2026-11-05T15:38:22.759+00:00",
+     "decision": "herramienta",
+     "herramientas": [
+      {
+       "nombre": "proponer_reprogramacion",
+       "argumentos": {
+        "cita": "mañana",
+        "desde": "mañana"
+       },
+       "ejecutada": true,
+       "status": "error",
+       "error_code": "cita_ambigua",
+       "dato": "{\"mensaje\": \"hay varias citas: pregunta a la persona cuál\", \"opciones\": [{\"caso\": \"C-0A01\", \"inicio\": \"2026-11-03 10:00\"}, {\"caso\": \"C-0A02\", \"inicio\": \"2026-11-03 15:00\"}]}"
+      }
+     ],
+     "razon": null,
+     "texto": "",
+     "dur_ms": 2722,
+     "tokens_entrada": 2508,
+     "tokens_salida": 81,
+     "finish_reason": "stop"
+    },
+    {
+     "paso": 2,
+     "ts": "2026-11-05T15:38:25.954+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "¿Cuál de las siguientes citas desea reprogramar? C-0A01 (10:00) o C-0A02 (15:00).",
+     "dur_ms": 2267,
+     "tokens_entrada": 1559,
+     "tokens_salida": 58,
+     "finish_reason": "stop"
+    }
+   ]
+  }
+ ]
+}

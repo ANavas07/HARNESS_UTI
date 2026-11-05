@@ -1,0 +1,86 @@
+{
+ "id": "M08-crear-cita",
+ "corridas": [
+  {
+   "corrida": 1,
+   "ok": false,
+   "pasos": [
+    {
+     "paso": "no propone nada sin los datos",
+     "tipo": "propuesta_ninguna",
+     "ok": true,
+     "detalle": "propuestas: 0"
+    },
+    {
+     "paso": "explica que no crea citas",
+     "tipo": "texto_contiene_regex",
+     "ok": false,
+     "detalle": "no coincide: ['(?i)no puedo crear|autom[aá]tic|planificador']"
+    },
+    {
+     "paso": "no afirma haberlo hecho",
+     "tipo": "texto_no_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O1 · 1 llamadas · 2402+87 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop']"
+    }
+   ],
+   "respuesta": "Solo puedo ayudarte a proponer cambios en citas propias. ¿Deseas cancelar o reprogramar esta cita?",
+   "llamadas": [],
+   "ejecutadas": [],
+   "propuestas": [],
+   "consumo": {
+    "entrada": 2402,
+    "salida": 87,
+    "llamadas": 1,
+    "ruta": "O1",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 5.92,
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-05T15:47:32.987+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": "El usuario solicita agendar una cita nueva para el caso C-0C01, pero el asistente no puede crear citas directamente; solo puede proponer cambios en citas propias.",
+     "texto": "Solo puedo ayudarte a proponer cambios en citas propias. ¿Deseas cancelar o reprogramar esta cita?",
+     "dur_ms": 3596,
+     "tokens_entrada": 2402,
+     "tokens_salida": 87,
+     "finish_reason": "stop"
+    }
+   ]
+  }
+ ]
+}

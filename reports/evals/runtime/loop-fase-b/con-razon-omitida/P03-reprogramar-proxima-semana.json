@@ -1,0 +1,161 @@
+{
+ "id": "P03-reprogramar-proxima-semana",
+ "corridas": [
+  {
+   "corrida": 1,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "propone con la herramienta",
+     "tipo": "herramientas_llamadas",
+     "ok": true,
+     "detalle": "ejecutadas: ['proponer_reprogramacion']"
+    },
+    {
+     "paso": "propuesta correcta (acción, caso, versión y franja)",
+     "tipo": "propuesta_igual",
+     "ok": true,
+     "detalle": "3 de 3 propuestas coinciden"
+    },
+    {
+     "paso": "pide confirmar y no afirma haberlo hecho",
+     "tipo": "texto_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "pide confirmar y no afirma haberlo hecho",
+     "tipo": "texto_no_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O1 · 2 llamadas · 5055+124 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop', 'stop']"
+    }
+   ],
+   "respuesta": "Se encontraron 3 opciones para reprogramar la cita del caso C-0A05 para la próxima semana: 09:00, 09:15 y 09:30 del 09 de noviembre de 2026. Elige una opción con el botón para confirmarla.",
+   "llamadas": [
+    {
+     "nombre": "proponer_reprogramacion",
+     "argumentos": {
+      "cita": "C-0A05",
+      "desde": "próxima semana"
+     }
+    }
+   ],
+   "ejecutadas": [
+    "proponer_reprogramacion"
+   ],
+   "propuestas": [
+    {
+     "accion": "reprogramar",
+     "caso": "C-0A05",
+     "cita_id": "983bae17-f379-401a-940e-a3139f8e272c",
+     "etiqueta": "2026-11-09 09:00",
+     "exp": 1793893746.07003,
+     "id": "91975802-8452-45f9-afd9-927569795c21",
+     "inicio": "2026-11-09T14:00:00+00:00",
+     "usuario": "b.lopez",
+     "version": 1
+    },
+    {
+     "accion": "reprogramar",
+     "caso": "C-0A05",
+     "cita_id": "983bae17-f379-401a-940e-a3139f8e272c",
+     "etiqueta": "2026-11-09 09:15",
+     "exp": 1793893746.07003,
+     "id": "cdb1a070-4ac4-419b-b9e6-e1e03ad7de6c",
+     "inicio": "2026-11-09T14:15:00+00:00",
+     "usuario": "b.lopez",
+     "version": 1
+    },
+    {
+     "accion": "reprogramar",
+     "caso": "C-0A05",
+     "cita_id": "983bae17-f379-401a-940e-a3139f8e272c",
+     "etiqueta": "2026-11-09 09:30",
+     "exp": 1793893746.07003,
+     "id": "aab916ec-e929-4839-8c1f-c94628e3b339",
+     "inicio": "2026-11-09T14:30:00+00:00",
+     "usuario": "b.lopez",
+     "version": 1
+    }
+   ],
+   "consumo": {
+    "entrada": 5055,
+    "salida": 124,
+    "llamadas": 2,
+    "ruta": "O1",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop",
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 6.65,
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-05T15:39:04.038+00:00",
+     "decision": "herramienta",
+     "herramientas": [
+      {
+       "nombre": "proponer_reprogramacion",
+       "argumentos": {
+        "cita": "C-0A05",
+        "desde": "próxima semana"
+       },
+       "ejecutada": true,
+       "status": "ok",
+       "error_code": null,
+       "dato": "{\"cita_id\": \"983bae17-f379-401a-940e-a3139f8e272c\", \"caso\": \"C-0A05\", \"actual\": \"2026-11-06 09:00\", \"alternativas\": [{\"n\": 1, \"inicio\": \"2026-11-09 09:00\"}, {\"n\": 2, \"inicio\": \"2026-11-09 09:15\"}, {\"n\": 3, \"inicio\": \"2026-11-09 09:30\"}]}"
+      }
+     ],
+     "razon": null,
+     "texto": "",
+     "dur_ms": 1565,
+     "tokens_entrada": 2403,
+     "tokens_salida": 46,
+     "finish_reason": "stop"
+    },
+    {
+     "paso": 1,
+     "ts": "2026-11-05T15:39:06.325+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "Se encontraron 3 opciones para reprogramar la cita del caso C-0A05 para la próxima semana: 09:00, 09:15 y 09:30 del 09 de noviembre de 2026.",
+     "dur_ms": 2639,
+     "tokens_entrada": 2652,
+     "tokens_salida": 78,
+     "finish_reason": "stop"
+    }
+   ]
+  }
+ ]
+}

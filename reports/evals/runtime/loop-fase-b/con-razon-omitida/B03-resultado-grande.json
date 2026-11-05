@@ -1,0 +1,115 @@
+{
+ "id": "B03-resultado-grande",
+ "corridas": [
+  {
+   "corrida": 1,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "consulta lo necesario",
+     "tipo": "herramientas_llamadas",
+     "ok": true,
+     "detalle": "ejecutadas: ['consultar_agenda']"
+    },
+    {
+     "paso": "responde con los datos",
+     "tipo": "texto_contiene",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O2 · 2 llamadas · 6090+413 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop', 'stop']"
+    }
+   ],
+   "respuesta": "Tus citas y franjas libres de los próximos 14 días:\n\nCitas:\nC-0A01: 2026-11-03 10:00\nC-0A02: 2026-11-03 15:00\nC-0A03: 2026-11-05 10:00\nC-0A04: 2026-11-05 11:00\nC-0A05: 2026-11-06 09:00\nC-0A06: 2026-11-09 14:00\n\nFranjas libres:\n2026-11-03 10:15, 10:30, 10:45, 11:00, 11:15, 11:30, 11:45, 14:00, 14:15, 14:30, 14:45, 15:15, 15:30, 15:45, 16:00, 16:15, 16:30, 16:45\n2026-11-04 14:00, 14:15",
+   "llamadas": [
+    {
+     "nombre": "consultar_agenda",
+     "argumentos": {
+      "desde": "próximos 14 días",
+      "incluir_libres": true
+     }
+    }
+   ],
+   "ejecutadas": [
+    "consultar_agenda"
+   ],
+   "propuestas": [],
+   "consumo": {
+    "entrada": 6090,
+    "salida": 413,
+    "llamadas": 2,
+    "ruta": "O2",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop",
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 19.92,
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-05T15:35:59.981+00:00",
+     "decision": "herramienta",
+     "herramientas": [
+      {
+       "nombre": "consultar_agenda",
+       "argumentos": {
+        "desde": "próximos 14 días",
+        "incluir_libres": true
+       },
+       "ejecutada": true,
+       "status": "ok",
+       "error_code": null,
+       "dato": "{\"agenda_de\": \"b.lopez\", \"zona\": \"America/Guayaquil\", \"desde\": \"2026-11-02\", \"hasta\": \"2026-11-15\", \"citas\": [{\"cita_id\": \"64f4ac4f-c118-45a0-a9da-6d57c50f6de9\", \"caso_id\": \"0a010000-0000-4000-8000-000000002561\", \"caso\": \"C-0A01\", \"inicio\": \"2026-11-03 10:00\", \"estado\": \"reservada\", \"version\": 1}, {"
+      }
+     ],
+     "razon": null,
+     "texto": "",
+     "dur_ms": 1516,
+     "tokens_entrada": 2406,
+     "tokens_salida": 44,
+     "finish_reason": "stop"
+    },
+    {
+     "paso": 1,
+     "ts": "2026-11-05T15:36:05.236+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "Tus citas y franjas libres de los próximos 14 días:\n\nCitas:\n- C-0A01: 2026-11-03 10:00\n- C-0A02: 2026-11-03 15:00\n- C-0A03: 2026-11-05 10:00\n- C-0A04: 2026-11-05 11:00\n- C-0A05: 2026-11-06 09:00\n- C-0A06: 2026-11-09 14:00\n\nFranjas libres:\n- 2026-11-03 10:15, 10:30, 10:45, 11:00, 11:15, 11:30, 11:45,",
+     "dur_ms": 12922,
+     "tokens_entrada": 3684,
+     "tokens_salida": 369,
+     "finish_reason": "stop"
+    }
+   ]
+  }
+ ]
+}

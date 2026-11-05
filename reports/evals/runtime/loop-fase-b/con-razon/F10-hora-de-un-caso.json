@@ -1,0 +1,121 @@
+{
+ "id": "F10-hora-de-un-caso",
+ "corridas": [
+  {
+   "corrida": 1,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "consulta la agenda",
+     "tipo": "herramientas_llamadas",
+     "ok": true,
+     "detalle": "ejecutadas: ['consultar_agenda']"
+    },
+    {
+     "paso": "da las horas correctas",
+     "tipo": "texto_contiene",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "sin identidad",
+     "tipo": "texto_no_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O2 · 2 llamadas · 5632+150 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop', 'stop']"
+    }
+   ],
+   "respuesta": "Tu cita para el caso C-0A05 está programada para el viernes 2026-11-06 a las 09:00.",
+   "llamadas": [
+    {
+     "nombre": "consultar_agenda",
+     "argumentos": {
+      "desde": "esta semana",
+      "incluir_libres": false
+     }
+    }
+   ],
+   "ejecutadas": [
+    "consultar_agenda"
+   ],
+   "propuestas": [],
+   "consumo": {
+    "entrada": 5632,
+    "salida": 150,
+    "llamadas": 2,
+    "ruta": "O2",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop",
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 8.35,
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-05T15:46:23.860+00:00",
+     "decision": "herramienta",
+     "herramientas": [
+      {
+       "nombre": "consultar_agenda",
+       "argumentos": {
+        "desde": "esta semana",
+        "incluir_libres": false
+       },
+       "ejecutada": true,
+       "status": "ok",
+       "error_code": null,
+       "dato": "{\"agenda_de\": \"b.lopez\", \"zona\": \"America/Guayaquil\", \"desde\": \"2026-11-02\", \"hasta\": \"2026-11-08\", \"citas\": [{\"cita_id\": \"6b561373-d743-4986-bc95-f33083030891\", \"caso_id\": \"0a010000-0000-4000-8000-000000002561\", \"caso\": \"C-0A01\", \"inicio\": \"2026-11-03 10:00\", \"estado\": \"reservada\", \"version\": 1}, {"
+      }
+     ],
+     "razon": "La persona pregunta por la hora de su cita del caso C-0A05 esta semana, por lo que se debe consultar su agenda para obtener la información precisa.",
+     "texto": "",
+     "dur_ms": 2494,
+     "tokens_entrada": 2400,
+     "tokens_salida": 74,
+     "finish_reason": "stop"
+    },
+    {
+     "paso": 1,
+     "ts": "2026-11-05T15:46:27.617+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": "Se encontró la cita del caso C-0A05 en la agenda de la semana actual.",
+     "texto": "Tu cita para el caso C-0A05 está programada para el viernes 2026-11-06 a las 09:00.",
+     "dur_ms": 2807,
+     "tokens_entrada": 3232,
+     "tokens_salida": 76,
+     "finish_reason": "stop"
+    }
+   ]
+  }
+ ]
+}

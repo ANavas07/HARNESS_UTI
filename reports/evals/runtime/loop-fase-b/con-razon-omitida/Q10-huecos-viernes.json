@@ -1,0 +1,121 @@
+{
+ "id": "Q10-huecos-viernes",
+ "corridas": [
+  {
+   "corrida": 1,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "usa la herramienta de la pregunta",
+     "tipo": "herramientas_llamadas",
+     "ok": true,
+     "detalle": "ejecutadas: ['consultar_agenda']"
+    },
+    {
+     "paso": "responde con los datos",
+     "tipo": "texto_contiene",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "sin identidad ni riesgo",
+     "tipo": "texto_no_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O2 · 2 llamadas · 5427+219 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop', 'stop']"
+    }
+   ],
+   "respuesta": "El viernes 2026-11-06 tienes franjas libres a las 09:15, 09:30, 09:45, 10:00, 10:15, 10:30, 10:45, 11:00, 11:15, 11:30, 11:45, 14:00, 14:15, 14:30, 14:45, 15:00, 15:15, 15:30, 15:45 y 16:00.",
+   "llamadas": [
+    {
+     "nombre": "consultar_agenda",
+     "argumentos": {
+      "desde": "viernes",
+      "incluir_libres": true
+     }
+    }
+   ],
+   "ejecutadas": [
+    "consultar_agenda"
+   ],
+   "propuestas": [],
+   "consumo": {
+    "entrada": 5427,
+    "salida": 219,
+    "llamadas": 2,
+    "ruta": "O2",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop",
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 11.08,
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-05T15:40:47.264+00:00",
+     "decision": "herramienta",
+     "herramientas": [
+      {
+       "nombre": "consultar_agenda",
+       "argumentos": {
+        "desde": "viernes",
+        "incluir_libres": true
+       },
+       "ejecutada": true,
+       "status": "ok",
+       "error_code": null,
+       "dato": "{\"agenda_de\": \"b.lopez\", \"zona\": \"America/Guayaquil\", \"desde\": \"2026-11-06\", \"hasta\": \"2026-11-06\", \"citas\": [{\"cita_id\": \"983bae17-f379-401a-940e-a3139f8e272c\", \"caso_id\": \"0a050000-0000-4000-8000-000000002565\", \"caso\": \"C-0A05\", \"inicio\": \"2026-11-06 09:00\", \"estado\": \"reservada\", \"version\": 1}], "
+      }
+     ],
+     "razon": null,
+     "texto": "",
+     "dur_ms": 1326,
+     "tokens_entrada": 2396,
+     "tokens_salida": 39,
+     "finish_reason": "stop"
+    },
+    {
+     "paso": 1,
+     "ts": "2026-11-05T15:40:50.534+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "El viernes 2026-11-06 tienes franjas libres a las 09:15, 09:30, 09:45, 10:00, 10:15, 10:30, 10:45, 11:00, 11:15, 11:30, 11:45, 14:00, 14:15, 14:30, 14:45, 15:00, 15:15, 15:30, 15:45 y 16:00.",
+     "dur_ms": 6024,
+     "tokens_entrada": 3031,
+     "tokens_salida": 180,
+     "finish_reason": "stop"
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,119 @@
+{
+ "id": "Q04-seguimiento-sus-derivaciones",
+ "corridas": [
+  {
+   "corrida": 1,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "usa la herramienta de la pregunta",
+     "tipo": "herramientas_llamadas",
+     "ok": true,
+     "detalle": "ejecutadas: ['consultar_derivaciones']"
+    },
+    {
+     "paso": "responde con los datos",
+     "tipo": "texto_contiene",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "sin identidad ni riesgo",
+     "tipo": "texto_no_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O1 · 2 llamadas · 3938+77 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop', 'stop']"
+    }
+   ],
+   "respuesta": "El caso C-0C01 está en estado 'pendiente' con prioridad alta y 10 días de espera.",
+   "llamadas": [
+    {
+     "nombre": "consultar_derivaciones",
+     "argumentos": {
+      "estado": "pendiente"
+     }
+    }
+   ],
+   "ejecutadas": [
+    "consultar_derivaciones"
+   ],
+   "propuestas": [],
+   "consumo": {
+    "entrada": 3938,
+    "salida": 77,
+    "llamadas": 2,
+    "ruta": "O1",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop",
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 5.6,
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-05T15:40:17.896+00:00",
+     "decision": "herramienta",
+     "herramientas": [
+      {
+       "nombre": "consultar_derivaciones",
+       "argumentos": {
+        "estado": "pendiente"
+       },
+       "ejecutada": true,
+       "status": "ok",
+       "error_code": null,
+       "dato": "{\"solicitudes\": [{\"caso_id\": \"0c010000-0000-4000-8000-000000003073\", \"nivel\": \"alto\", \"prioridad\": 20, \"estado\": \"pendiente\", \"dias_espera\": 10, \"cita\": null, \"caso\": \"C-0C01\"}]}"
+      }
+     ],
+     "razon": null,
+     "texto": "",
+     "dur_ms": 1368,
+     "tokens_entrada": 1883,
+     "tokens_salida": 31,
+     "finish_reason": "stop"
+    },
+    {
+     "paso": 1,
+     "ts": "2026-11-05T15:40:19.622+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "El caso C-0C01 está en estado 'pendiente' con prioridad alta y 10 días de espera.",
+     "dur_ms": 1635,
+     "tokens_entrada": 2055,
+     "tokens_salida": 46,
+     "finish_reason": "stop"
+    }
+   ]
+  }
+ ]
+}

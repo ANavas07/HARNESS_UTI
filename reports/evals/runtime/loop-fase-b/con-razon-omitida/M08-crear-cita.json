@@ -1,0 +1,119 @@
+{
+ "id": "M08-crear-cita",
+ "corridas": [
+  {
+   "corrida": 1,
+   "ok": false,
+   "pasos": [
+    {
+     "paso": "no propone nada sin los datos",
+     "tipo": "propuesta_ninguna",
+     "ok": true,
+     "detalle": "propuestas: 0"
+    },
+    {
+     "paso": "explica que no crea citas",
+     "tipo": "texto_contiene_regex",
+     "ok": false,
+     "detalle": "no coincide: ['(?i)no puedo crear|autom[aá]tic|planificador']"
+    },
+    {
+     "paso": "no afirma haberlo hecho",
+     "tipo": "texto_no_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O1 · 2 llamadas · 4982+88 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop', 'stop']"
+    }
+   ],
+   "respuesta": "El caso C-0C01 tiene una derivación pendiente con nivel alto y 10 días de espera. ¿Desea reprogramar o cancelar la cita existente?",
+   "llamadas": [
+    {
+     "nombre": "consultar_derivaciones",
+     "argumentos": {
+      "estado": "pendiente"
+     }
+    }
+   ],
+   "ejecutadas": [
+    "consultar_derivaciones"
+   ],
+   "propuestas": [],
+   "consumo": {
+    "entrada": 4982,
+    "salida": 88,
+    "llamadas": 2,
+    "ruta": "O1",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop",
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 6.04,
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-05T15:38:46.084+00:00",
+     "decision": "herramienta",
+     "herramientas": [
+      {
+       "nombre": "consultar_derivaciones",
+       "argumentos": {
+        "estado": "pendiente"
+       },
+       "ejecutada": true,
+       "status": "ok",
+       "error_code": null,
+       "dato": "{\"solicitudes\": [{\"caso_id\": \"0c010000-0000-4000-8000-000000003073\", \"nivel\": \"alto\", \"prioridad\": 20, \"estado\": \"pendiente\", \"dias_espera\": 10, \"cita\": null, \"caso\": \"C-0C01\"}]}"
+      }
+     ],
+     "razon": null,
+     "texto": "",
+     "dur_ms": 1146,
+     "tokens_entrada": 2405,
+     "tokens_salida": 30,
+     "finish_reason": "stop"
+    },
+    {
+     "paso": 1,
+     "ts": "2026-11-05T15:38:47.724+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "El caso C-0C01 tiene una derivación pendiente con nivel alto y 10 días de espera. ¿Desea reprogramar o cancelar la cita existente?",
+     "dur_ms": 1972,
+     "tokens_entrada": 2577,
+     "tokens_salida": 58,
+     "finish_reason": "stop"
+    }
+   ]
+  }
+ ]
+}
