@@ -532,7 +532,7 @@ Se cerraron con el usuario las tres decisiones que los agentes preguntaron en el
   - una corrida de mutaciones cortada dejó `agenda.py` mutado y 9 respaldos (se restauraron desde git y se borraron los respaldos);
   - quedó una mutación sobreviviente, cubierta con una prueba nueva;
   - el patrón de negativas atrapaba la de V01 y se limitó a permisos.
-- **Pendiente:** el merge del PR #17 con el OK del usuario y CI en verde. Antes del piloto siguen G1, G2 y G3 (no son código).
+- ✅ **PR #17 mergeado en `MVP`** el 6-11 con el OK del usuario y CI 4/4 (`f7aa68f`). Antes del piloto siguen G1, G2 y G3 (no son código).
 
 ## 4. Verificaciones realizadas y alcance
 
@@ -550,7 +550,7 @@ Se cerraron con el usuario las tres decisiones que los agentes preguntaron en el
 Estado al 5 de noviembre de 2026. Los pendientes históricos del 29 de octubre (§5.1 anterior) quedaron cumplidos: PR #1 a #10 mergeados, la maqueta aprobada y la Etapa 10 implementada.
 
 1. ✅ **Servidor del Qwen** disponible otra vez y medición final hecha (98,0 %, rotura 40/40).
-2. ✅ **Gate G10.E en verde** (600/600) con el PR #17, incluidos los hallazgos de varios turnos y de la API de trazas. Falta el merge del PR #17, con el OK del usuario y CI en verde.
+2. ✅ **Gate G10.E en verde** (600/600) con el PR #17, ya en `MVP` (`f7aa68f`), incluidos los hallazgos de varios turnos y de la API de trazas.
 3. ✅ **PR #15 y #16 mergeados en `MVP`** el 5-11 con el OK del usuario y CI 4/4 (`0903bfc`). Al sincronizar el #16 aparecieron dos mutaciones de `chat` que el #15 había corregido sobre un `MVP` anterior al loop; se actualizaron (`chat` 20/20).
 4. ✅ **Verificado con el modelo en el navegador:** propuesta, botón, idempotencia, historial y traza sin textos.
 5. **Antes del piloto con estudiantes (no es código):**

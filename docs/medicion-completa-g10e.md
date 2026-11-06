@@ -6,7 +6,7 @@
 
 ## 00. Gate G10.E en verde — 6 de noviembre de 2026
 
-[PR #17](https://github.com/ANavas07/GRUPO2_SEGUIMIENTO/pull/17) (rama `g10e-criticos`, mutaciones `asistente` 126/126, `chat2` 11/11):
+[PR #17](https://github.com/ANavas07/GRUPO2_SEGUIMIENTO/pull/17) (mergeado en `MVP`, `f7aa68f`; rama `g10e-criticos`, mutaciones `asistente` 126/126, `chat2` 11/11):
 
 | Medición (60 × 10 con el Qwen, concurrencia 2) | Tasa | Críticos bajo 10/10 | Tokens por tarea | Llamadas | Segundos |
 |---|---|---|---|---|---|
