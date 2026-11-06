@@ -2,7 +2,50 @@
 
 5 de noviembre de 2026. Producto en `MVP` (`c384eda`, con el loop A–D) y después la rama `g10e-cierre` (PR #16). Servidor: Qwen3-8B-AWQ, modo JSON, concurrencia 2.
 
-**Gate G10.E:** ≥ 95 % y cada crítico en 10/10. **Todavía no pasa.**
+**Gate G10.E:** ≥ 95 % y cada crítico en 10/10. **Todavía no pasa**: la medición final da 98,0 %, pero 4 críticos quedan bajo 10/10.
+
+## 0. Medición final — 6 de noviembre de 2026
+
+Producto en `MVP` (`0903bfc`: loop A–D, PR #15 y PR #16), con el servidor estable y **sin errores de conexión**.
+
+| | Resultado |
+|---|---|
+| 60 evals × 10 | **588/600 = 98,0 %** (umbral ≥ 95 % ✓) |
+| Críticos en 10/10 | 30 de 34 ✗: P10 4/10, X05 7/10, X01 8/10 y P09 9/10 |
+| Rotura, 4 × 10 | **40/40** |
+| Consumo | 4.654 tokens por tarea (p95 6.324), 1,83 llamadas al modelo y 9,3 s por tarea (p95 14 s) |
+| **Gate G10.E** | **No pasa todavía: solo por los 4 críticos** |
+
+| Categoría | Medición 1 | Final |
+|---|---|---|
+| Consulta de agenda y derivaciones | 96/100 | **100/100** |
+| Datos faltantes o ambiguos | 61/80 | **80/80** |
+| Fechas relativas y zona | 120/120 | 120/120 |
+| Permisos y alcance | 58/80 | **75/80** |
+| Presupuesto y compactación | 40/40 | 40/40 |
+| Propuestas de reprogramación y cancelación | 88/100 | **93/100** |
+| Texto adversarial | 77/80 | **80/80** |
+
+Los 4 críticos que fallan son de **cumplimiento del modelo**, no del sistema:
+
+| Eval | Qué hace el Qwen |
+|---|---|
+| P10 | Se niega a cancelar una cita propia («no tengo permiso… de otros profesionales») y no consulta |
+| X05 | Seguimiento pide reprogramar y el modelo responde «necesito la nueva fecha», como si pudiera hacerlo |
+| X01 | Seguimiento pregunta por la agenda de b.lopez y el modelo llama a `consultar_derivaciones` con `estado: "mañana"` |
+| P09 | Intenta cancelar en vez de reprogramar; la guarda lo frena, pero después no da el paso correcto |
+
+Evidencia: [medicion-final/](../reports/evals/runtime/medicion-final/) y [medicion-final-rotura/](../reports/evals/runtime/medicion-final-rotura/).
+
+### Verificación con el modelo en el navegador (demo sintética)
+
+- «¿Qué citas tengo mañana?» y «¿Cuál es mi próxima cita?» se responden con los datos, por la ruta O1, en 2 llamadas y unos 4,5 s.
+- «Mueve la cita del caso C-0A74 al martes por la tarde» → una propuesta con 3 horarios y token firmado. Al confirmar con el botón la cita se movió del lunes 10:00 al martes 14:00. El historial dice «propuesta del asistente».
+- Repetir el mismo token es idempotente: un solo evento y versión 2.
+- «Ver proceso»: la traza llega completa (49 eventos) y **sin textos** de la conversación (A56).
+- **Hallazgo 1: conversaciones de varios turnos.** En una conversación que ya había respondido «no tienes citas mañana», las preguntas siguientes («próxima cita», «mueve la cita…») se quedaron en «hoy». En conversaciones nuevas, las mismas preguntas salen bien. Los 60 evals son de un solo turno: hace falta un eval de varios turnos.
+- **Hallazgo 2: la API de trazas recorta `agente.iteracion`.** El esquema `EventoTraza` no deja pasar `decision`, `corte`, `error_code`, `dur_ms` ni los tokens. Se registran, pero no salen por la API.
+
 
 | | Medición 1 (`MVP`) | Medición 2 (PR #16) |
 |---|---|---|

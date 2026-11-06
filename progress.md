@@ -499,6 +499,26 @@ Se cerraron con el usuario las tres decisiones que los agentes preguntaron en el
   - el servidor se cayó a mitad de la medición 2;
   - la medición corrió en un worktree aparte para no cruzarse con las mutaciones.
 
+### 3.34 Medición final de G10.E y verificación con el modelo — 6 de noviembre de 2026
+
+- La red institucional volvió y se repitió la medición completa sobre `MVP` (`0903bfc`), sin errores de conexión ([informe](docs/medicion-completa-g10e.md)):
+  - **588/600 = 98,0 %**;
+  - **rotura 40/40**;
+  - 30 de 34 críticos en 10/10.
+- **El gate G10.E no pasa por 4 críticos de cumplimiento del modelo:**
+  - P10 4/10: se niega a cancelar una cita propia;
+  - X05 7/10: le ofrece a Seguimiento reprogramar;
+  - X01 8/10: argumentos inválidos;
+  - P09 9/10: intenta cancelar en vez de reprogramar.
+- **Con el modelo en el navegador (demo sintética):**
+  - consulta, próxima cita, propuesta, confirmación con el botón y token idempotente funcionan;
+  - el historial dice «propuesta del asistente»;
+  - la traza llega sin textos.
+- **Dónde se rompió:**
+  - en una conversación de **varios turnos**, después de «no tienes citas mañana», el modelo se quedó en «hoy» para las preguntas siguientes. En conversaciones nuevas salen bien, y no hay evals de varios turnos;
+  - la **API de trazas** (`EventoTraza`) no deja pasar los campos de `agente.iteracion` (`decision`, `corte`, `dur_ms`, tokens). Se detectó al leer «Ver proceso» de una propuesta real.
+- **HTML:** vista nueva «Loop y contexto», para explicar el ciclo y el control de contexto de forma sencilla, con un simulador paso a paso.
+
 ## 4. Verificaciones realizadas y alcance
 
 | Verificación | Resultado registrado | Qué demuestra |
@@ -508,18 +528,20 @@ Se cerraron con el usuario las tres decisiones que los agentes preguntaron en el
 | Fases 10.A–10.F en el producto | PR #1–#10 en `MVP`, con CI 4/4, mutaciones al 100 % e IT-M9 | Agenda, reserva, ciclo, pantalla, asistente y operación con el método del producto |
 | Concurrencia, carga y restauración | 10.F: reserva 15 ms, disponibilidad p95 67 ms, cero dobles reservas; respaldo y restauración probados | Garantías operativas medidas en la demo sintética |
 | Loop ReAct A–D | PR #11–#14 en `MVP`; rotura 20/20 con el Qwen (4 × 5) | Ciclo visible, breaker, reintento y escalado |
-| Dominio LLM (G10.E) | 90,0 % (medición 1); 96,7 % en los 54 evals medidos con el PR #16 | El gate todavía no pasa: falta la medición completa con el servidor estable |
+| Dominio LLM (G10.E) | Medición final 98,0 % (588/600) y rotura 40/40; 30 de 34 críticos en 10/10 | Supera el umbral de tasa; el gate no pasa por 4 críticos de cumplimiento del modelo |
 
 ## 5. Trabajo pendiente, en orden de dependencia
 
 Estado al 5 de noviembre de 2026. Los pendientes históricos del 29 de octubre (§5.1 anterior) quedaron cumplidos: PR #1 a #10 mergeados, la maqueta aprobada y la Etapa 10 implementada.
 
-1. **Servidor del Qwen:** vuelve a estar disponible (no depende del código).
-2. **Gate G10.E:**
-   - medir otra vez 60 × 10 y los de rotura × 10 con el PR #16;
-   - con P10, V01, P09 o P04 todavía bajo 10/10, decidir con el equipo entre un A/B de firmas o instrucciones (§9 de las directrices) y una excepción documentada.
+1. ✅ **Servidor del Qwen** disponible otra vez y medición final hecha (98,0 %, rotura 40/40).
+2. **Gate G10.E:** con P10, X05, X01 y P09 todavía bajo 10/10, decidir con el equipo:
+   - correcciones que dependan del texto o de la acción del modelo (así el agente nulo sigue fallando);
+   - un A/B de firmas o instrucciones (§9 de las directrices);
+   - o una excepción documentada.
+2b. **Hallazgos de la verificación con el modelo:** un eval de varios turnos (el contexto anterior arrastra «hoy») y los campos de `agente.iteracion` en la API de trazas.
 3. ✅ **PR #15 y #16 mergeados en `MVP`** el 5-11 con el OK del usuario y CI 4/4 (`0903bfc`). Al sincronizar el #16 aparecieron dos mutaciones de `chat` que el #15 había corregido sobre un `MVP` anterior al loop; se actualizaron (`chat` 20/20).
-4. **Verificar con el modelo en el navegador** cuando vuelva el servidor: el asistente con propuestas y botón, el escalado y «Ver proceso».
+4. ✅ **Verificado con el modelo en el navegador:** propuesta, botón, idempotencia, historial y traza sin textos.
 5. **Antes del piloto con estudiantes (no es código):**
    - G1: aprobación o excepción firmada del modelo activo;
    - G2/G4: la política de agenda aprobada por Bienestar;
