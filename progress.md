@@ -518,7 +518,7 @@ Estado al 5 de noviembre de 2026. Los pendientes históricos del 29 de octubre (
 2. **Gate G10.E:**
    - medir otra vez 60 × 10 y los de rotura × 10 con el PR #16;
    - con P10, V01, P09 o P04 todavía bajo 10/10, decidir con el equipo entre un A/B de firmas o instrucciones (§9 de las directrices) y una excepción documentada.
-3. **Merge de los PR #15 y #16** con el OK del usuario y CI en verde. Ambos tocan `correr_mutaciones.py`: el segundo en entrar se sincroniza.
+3. ✅ **PR #15 y #16 mergeados en `MVP`** el 5-11 con el OK del usuario y CI 4/4 (`0903bfc`). Al sincronizar el #16 aparecieron dos mutaciones de `chat` que el #15 había corregido sobre un `MVP` anterior al loop; se actualizaron (`chat` 20/20).
 4. **Verificar con el modelo en el navegador** cuando vuelva el servidor: el asistente con propuestas y botón, el escalado y «Ver proceso».
 5. **Antes del piloto con estudiantes (no es código):**
    - G1: aprobación o excepción firmada del modelo activo;
