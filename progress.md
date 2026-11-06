@@ -534,6 +534,18 @@ Se cerraron con el usuario las tres decisiones que los agentes preguntaron en el
   - el patrón de negativas atrapaba la de V01 y se limitó a permisos.
 - ✅ **PR #17 mergeado en `MVP`** el 6-11 con el OK del usuario y CI 4/4 (`f7aa68f`). Antes del piloto siguen G1, G2 y G3 (no son código).
 
+### 3.36 Demostración del MVP y la ficha de la Agenda — 6 de noviembre de 2026
+
+- La demo sintética de `MVP` (`f7aa68f`) quedó corriendo con el Qwen en `http://localhost:8011` para que el usuario la probara.
+- **Dónde se rompió (lo encontró el usuario en la demo):** al reprogramar desde la ficha solo aparecían horarios de un día.
+  - La disponibilidad llega en páginas de 20 franjas con un `cursor`, y la ficha mostraba solo la primera página.
+  - Las pruebas simulaban una sola página, y la verificación de la fase 10.D revisó que hubiera franjas, no que fueran de varios días.
+- **[PR #18](https://github.com/ANavas07/GRUPO2_SEGUIMIENTO/pull/18)** (rama `agenda-franjas-por-dia`):
+  - las franjas se agrupan por día y «Ver más días» pide la página siguiente;
+  - prueba que reproduce la falla;
+  - objetivo de mutaciones `web10` 5/5, vitest 102/102;
+  - verificado en la demo: lunes 9 (22 horarios) y martes 10 (18).
+
 ## 4. Verificaciones realizadas y alcance
 
 | Verificación | Resultado registrado | Qué demuestra |
