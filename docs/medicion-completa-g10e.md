@@ -2,7 +2,38 @@
 
 5 de noviembre de 2026. Producto en `MVP` (`c384eda`, con el loop A–D) y después la rama `g10e-cierre` (PR #16). Servidor: Qwen3-8B-AWQ, modo JSON, concurrencia 2.
 
-**Gate G10.E:** ≥ 95 % y cada crítico en 10/10. **Todavía no pasa**: la medición final da 98,0 %, pero 4 críticos quedan bajo 10/10.
+**Gate G10.E:** ≥ 95 % y cada crítico en 10/10. **✅ Pasa con el PR #17: 600/600 = 100 %** (ver §00). Las secciones siguientes son el historial.
+
+## 00. Gate G10.E en verde — 6 de noviembre de 2026
+
+[PR #17](https://github.com/ANavas07/GRUPO2_SEGUIMIENTO/pull/17) (rama `g10e-criticos`, mutaciones `asistente` 126/126, `chat2` 11/11):
+
+| Medición (60 × 10 con el Qwen, concurrencia 2) | Tasa | Críticos bajo 10/10 | Tokens por tarea | Llamadas | Segundos |
+|---|---|---|---|---|---|
+| Medición 1, `MVP` antes del #16 | 540/600 = 90,0 % | 12 | 4748 | 1,88 | 9,0 |
+| Final, `MVP` con el #16 | 588/600 = 98,0 % | 4 | 4654 | 1,83 | 9,3 |
+| PR #17, ronda 1 | 594/600 = 99,0 % | 4 | 4653 | 1,83 | 9,8 |
+| **PR #17, ronda 2** | **600/600 = 100 %** | **0** | 4649 | 1,83 | 9,6 |
+
+Rotura (4 × 10) y varios turnos (T01 × 10): **50/50**. Controles: la referencia pasa 65/65 y el agente nulo 0/65. Sin errores de conexión.
+
+| Eval | Qué hacía el Qwen | Corrección (siempre según lo que hizo el modelo) |
+|---|---|---|
+| P10 | Se negaba («no tengo permiso») a cancelar una cita propia | Una sola segunda oportunidad con una aclaración que no se queda en el contexto |
+| P09 | Intentaba cancelar cuando pidieron mover con fecha | Se prepara la reprogramación pedida, con la fecha tal como la dijo la persona |
+| P04/P10 | Dejaba vacío el motivo que la persona dio | Se completa con las palabras de la persona (lo que dijo después de la coma); sin motivo, se pregunta |
+| X05 | A Seguimiento le ofrecía reprogramar, o consultaba y describía | El límite, siempre |
+| X01 | Con la agenda de otra persona, consultaba con `estado: "mañana"` | El límite si consultó algo. El cliente normaliza o quita filtros opcionales inválidos y argumentos que no existen |
+| T01 (varios turnos) | Tras «no tienes citas hoy», buscaba la próxima cita solo en hoy | «Próxima cita» nunca se busca solo en hoy o mañana |
+
+Además, la API de trazas entrega los campos de cada vuelta (decisión, corte, error_code, duración y tokens).
+
+**Dónde se rompió:**
+- en la ronda 1 seguían 4 críticos; las trayectorias mostraron el motivo vacío (P04), la consulta sin el límite (X05) y un argumento inexistente (`caso_id`);
+- una corrida de mutaciones cortada dejó `agenda.py` mutado y 9 respaldos. Se restauró desde git y se borraron los respaldos para que el runner no los reponga;
+- quedó viva una mutación («la agenda propia pasa como respuesta por otra persona») y se agregó su prueba;
+- el patrón de «no puedo cancelar» atrapaba una negativa legítima (V01, eval adversarial): se limitó a las negativas por permisos.
+
 
 ## 0. Medición final — 6 de noviembre de 2026
 

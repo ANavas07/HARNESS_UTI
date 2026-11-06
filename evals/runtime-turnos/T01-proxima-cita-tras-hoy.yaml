@@ -1,0 +1,47 @@
+# Varios turnos (verificación con el Qwen en el navegador, 6-11-2026): después de «no tienes citas hoy», el modelo se quedaba en «hoy»
+# para las preguntas siguientes de la misma conversación. Los 60 evals de G10.E son de un turno; este mide el arrastre del contexto.
+id: T01-proxima-cita-tras-hoy
+capa: runtime
+estado: activo
+critico: false
+categoria: varios_turnos
+descripcion: 'Varios turnos: tras «¿Qué tengo hoy?» → «No tienes citas hoy», la pregunta «¿Y cuál es mi próxima cita?» busca hacia adelante.'
+modelo:
+  id: Qwen/Qwen3-8B-AWQ
+  temperatura: 0.3
+  thinking: false
+ruta: O1
+estado_inicial: fixtures/semana-demo.yaml
+actor:
+  rol: bienestar
+  usuario: b.lopez
+historial:
+- role: user
+  content: ¿Qué citas tengo hoy?
+- role: assistant
+  content: No tienes citas programadas para hoy.
+entrada: ¿Y cuál es mi próxima cita?
+corridas: 10
+grader:
+- nombre: consulta la agenda
+  herramientas_llamadas:
+  - consultar_agenda
+- nombre: responde con la próxima, no con hoy
+  texto_contiene:
+  - C-0A01
+  - '10:00'
+- nombre: argumentos válidos contra el esquema de cada herramienta
+  esquema_valido: true
+- nombre: la base no cambia (el agente nunca escribe)
+  sin_cambios_db: true
+- nombre: presupuesto y cierre
+  tokens_dentro_de_presupuesto: true
+  finish_reason_distinto_de: length
+umbral:
+  tasa_minima: 0.9
+referencia:
+- llamar:
+  - nombre: consultar_agenda
+    argumentos:
+      desde: los próximos 7 días
+- responder: Tu próxima cita es la del caso C-0A01, mañana a las 10:00.

@@ -519,6 +519,21 @@ Se cerraron con el usuario las tres decisiones que los agentes preguntaron en el
   - la **API de trazas** (`EventoTraza`) no deja pasar los campos de `agente.iteracion` (`decision`, `corte`, `dur_ms`, tokens). Se detectó al leer «Ver proceso» de una propuesta real.
 - **HTML:** vista nueva «Loop y contexto», para explicar el ciclo y el control de contexto de forma sencilla, con un simulador paso a paso.
 
+### 3.35 Gate G10.E en verde — 6 de noviembre de 2026
+
+- **[PR #17](https://github.com/ANavas07/GRUPO2_SEGUIMIENTO/pull/17)** (rama `g10e-criticos`) corrige los críticos de cumplimiento del Qwen en dos rondas:
+  - **ronda 1** (99,0 %): P10 con una segunda oportunidad, P09 reconducido a reprogramar y X05/X01 con su límite. El cliente normaliza los filtros inválidos, «próxima cita» nunca se busca solo en hoy y la API de trazas entrega los campos de la vuelta;
+  - **ronda 2** (**600/600 = 100 %**, los 34 críticos en 10/10): el motivo se completa con las palabras de la persona (P04/P10), X05 tiene su límite cuando el modelo consultó y el cliente quita los argumentos que no existen.
+- Rotura más varios turnos, con el eval nuevo `evals/runtime-turnos/T01`: **50/50**. Controles: 65/65 y 0/65.
+- El costo no subió: unos 4.650 tokens, 1,83 llamadas y 9,6 s por pregunta.
+- Mutaciones: `asistente` 126/126 y `chat2` 11/11.
+- **Dónde se rompió:**
+  - la ronda 1 dejó 4 críticos;
+  - una corrida de mutaciones cortada dejó `agenda.py` mutado y 9 respaldos (se restauraron desde git y se borraron los respaldos);
+  - quedó una mutación sobreviviente, cubierta con una prueba nueva;
+  - el patrón de negativas atrapaba la de V01 y se limitó a permisos.
+- **Pendiente:** el merge del PR #17 con el OK del usuario y CI en verde. Antes del piloto siguen G1, G2 y G3 (no son código).
+
 ## 4. Verificaciones realizadas y alcance
 
 | Verificación | Resultado registrado | Qué demuestra |
@@ -528,18 +543,14 @@ Se cerraron con el usuario las tres decisiones que los agentes preguntaron en el
 | Fases 10.A–10.F en el producto | PR #1–#10 en `MVP`, con CI 4/4, mutaciones al 100 % e IT-M9 | Agenda, reserva, ciclo, pantalla, asistente y operación con el método del producto |
 | Concurrencia, carga y restauración | 10.F: reserva 15 ms, disponibilidad p95 67 ms, cero dobles reservas; respaldo y restauración probados | Garantías operativas medidas en la demo sintética |
 | Loop ReAct A–D | PR #11–#14 en `MVP`; rotura 20/20 con el Qwen (4 × 5) | Ciclo visible, breaker, reintento y escalado |
-| Dominio LLM (G10.E) | Medición final 98,0 % (588/600) y rotura 40/40; 30 de 34 críticos en 10/10 | Supera el umbral de tasa; el gate no pasa por 4 críticos de cumplimiento del modelo |
+| Dominio LLM (G10.E) | **600/600 = 100 %**, con los 34 críticos en 10/10 (PR #17); rotura y varios turnos 50/50 | **Gate G10.E en verde** con el Qwen3-8B-AWQ |
 
 ## 5. Trabajo pendiente, en orden de dependencia
 
 Estado al 5 de noviembre de 2026. Los pendientes históricos del 29 de octubre (§5.1 anterior) quedaron cumplidos: PR #1 a #10 mergeados, la maqueta aprobada y la Etapa 10 implementada.
 
 1. ✅ **Servidor del Qwen** disponible otra vez y medición final hecha (98,0 %, rotura 40/40).
-2. **Gate G10.E:** con P10, X05, X01 y P09 todavía bajo 10/10, decidir con el equipo:
-   - correcciones que dependan del texto o de la acción del modelo (así el agente nulo sigue fallando);
-   - un A/B de firmas o instrucciones (§9 de las directrices);
-   - o una excepción documentada.
-2b. **Hallazgos de la verificación con el modelo:** un eval de varios turnos (el contexto anterior arrastra «hoy») y los campos de `agente.iteracion` en la API de trazas.
+2. ✅ **Gate G10.E en verde** (600/600) con el PR #17, incluidos los hallazgos de varios turnos y de la API de trazas. Falta el merge del PR #17, con el OK del usuario y CI en verde.
 3. ✅ **PR #15 y #16 mergeados en `MVP`** el 5-11 con el OK del usuario y CI 4/4 (`0903bfc`). Al sincronizar el #16 aparecieron dos mutaciones de `chat` que el #15 había corregido sobre un `MVP` anterior al loop; se actualizaron (`chat` 20/20).
 4. ✅ **Verificado con el modelo en el navegador:** propuesta, botón, idempotencia, historial y traza sin textos.
 5. **Antes del piloto con estudiantes (no es código):**
