@@ -26,12 +26,13 @@
     <button data-view="resumen"><b>↳</b> Arquitectura y detalle</button>
     <button data-view="recorrido"><b>02</b> Simular derivaciones</button>
     <button data-view="harness"><b>03</b> Harness de ejecución</button>
+    <button data-view="loop"><b>↳</b> Loop y contexto</button>
     <button data-view="tokens"><b>04</b> Contexto y tokens</button>
     <button data-view="fases"><b>05</b> Cómo construirlo</button>
     <button data-view="validacion"><b>06</b> Cómo validarlo</button>
     <button data-view="evals"><b>07</b> Evals del lab</button>
   </nav></div>
-  <div class="sidefoot small"><strong>Documento interactivo</strong><br>Basado en SPEC.md · v0.9<br>Actualizado el 30 de octubre de 2026<br><br>Simulación local con datos ficticios. Sin conexiones al modelo, al producto ni a la agenda.</div>
+  <div class="sidefoot small"><strong>Documento interactivo</strong><br>Basado en SPEC.md · v0.9<br>Actualizado el 6 de noviembre de 2026<br><br>Simulación local con datos ficticios. Sin conexiones al modelo, al producto ni a la agenda.</div>
 </aside>
 <main class="main" id="contenido">
 <div class="topbar"><span class="small">Producto de deserción <span aria-hidden="true">/</span> Módulo de agenda (opción A)</span><span class="badge green"><span class="dot"></span> SPEC v0.9 · Etapa 10 en desarrollo</span></div>
@@ -69,6 +70,177 @@
  <div class="twocol gap"><div class="panel"><h2>Trazas de consumo (§33.4)</h2><div class="tablewrap"><table><thead><tr><th>Tramo</th><th>Qué registra</th></tr></thead><tbody><tr><td><code>agenda.tarea</code></td><td>Ruta, escalado, estado final, llamadas, compactaciones, consumo y presupuesto restante</td></tr><tr><td><code>agenda.contexto</code></td><td>Tokens por bloque y bloques recortados</td></tr><tr><td><code>llm.cola</code></td><td>Espera en el semáforo global y <code>llm_busy</code></td></tr><tr><td><code>llm.llamada</code></td><td>Entrada contada y de <code>usage</code>, salida, <code>finish_reason</code>, ocupación de ventana, TTFT y generación</td></tr><tr><td><code>agenda.herramienta</code></td><td>Herramienta, resultado, elementos y tokens del resultado recortado</td></tr><tr><td><code>agenda.compactacion</code></td><td>Paso, tokens antes y después, costo del resumen</td></tr><tr><td><code>agenda.propuesta</code></td><td>Propuesta confirmada o caducada y resultado del comando</td></tr></tbody></table></div><p class="small muted gap">Nunca guarda prompts, respuestas, argumentos, cédula ni seudónimo. Cada valor indica si es medido (<code>usage</code>) o estimado (tokenizador).</p></div><div class="panel"><h2>Evals de runtime (§33.5)</h2><div class="tablewrap"><table><thead><tr><th>Categoría</th><th>Evals</th><th>Crítico</th></tr></thead><tbody><tr><td>Fechas relativas y zona</td><td>12</td><td>No</td></tr><tr><td>Consulta de agenda y derivaciones</td><td>10</td><td>No</td></tr><tr><td>Propuestas de reprogramación y cancelación</td><td>10</td><td><strong>Sí</strong></td></tr><tr><td>Datos faltantes o ambiguos</td><td>8</td><td><strong>Sí</strong></td></tr><tr><td>Permisos y alcance</td><td>8</td><td><strong>Sí</strong></td></tr><tr><td>Texto adversarial</td><td>8</td><td><strong>Sí</strong></td></tr><tr><td>Presupuesto y compactación</td><td>4</td><td>No</td></tr></tbody></table></div><ul class="bullets"><li>Base temporal con fixture, reloj fijo, sesión por rol y ciclo real del agente.</li><li>10 corridas por eval: ≥ 95 % en el conjunto y 10/10 en los críticos.</li><li>Cada eval falla con un agente nulo y pasa con una respuesta guionada.</li></ul></div></div>
 </section>
 
+<section class="view" id="loop" hidden aria-labelledby="title-loop">
+ <style>
+  #loop .lp-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:18px}
+  #loop .lp-step{border:1px solid var(--line);border-radius:12px;padding:16px;background:var(--white);position:relative}
+  #loop .lp-step b{display:block;font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--green);margin-bottom:6px}
+  #loop .lp-step h3{margin:0 0 6px;font-size:1rem}
+  #loop .lp-step p{margin:0;color:var(--muted);font-size:.86rem}
+  #loop .lp-step:not(:last-child)::after{content:"→";position:absolute;right:-12px;top:42%;color:var(--muted);font-weight:700}
+  #loop .lp-who{display:inline-block;margin-top:10px;font-size:.72rem;font-weight:600;padding:3px 8px;border-radius:6px}
+  #loop .lp-who.m{background:var(--sand);color:var(--orange)}
+  #loop .lp-who.c{background:var(--soft);color:var(--green)}
+  #loop .lp-sim{display:grid;grid-template-columns:260px 1fr;gap:20px;margin-top:16px}
+  #loop .lp-sim select{width:100%}
+  #loop .lp-meter{margin-top:14px}
+  #loop .lp-bar{height:10px;border-radius:6px;background:#edf0ee;overflow:hidden;margin:6px 0 2px}
+  #loop .lp-bar i{display:block;height:100%;background:var(--green);transition:width .35s}
+  #loop .lp-bar i.alto{background:var(--orange)}
+  #loop .lp-tl{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+  #loop .lp-tl li{border:1px solid var(--line);border-left:4px solid var(--green);border-radius:8px;padding:10px 14px;background:var(--white);opacity:.35;transition:opacity .3s}
+  #loop .lp-tl li.on{opacity:1}
+  #loop .lp-tl li.fallo{border-left-color:var(--orange)}
+  #loop .lp-tl li.para{border-left-color:var(--red)}
+  #loop .lp-tl li small{color:var(--muted);display:block}
+  #loop .lp-final{margin-top:12px;padding:12px 14px;border-radius:8px;background:var(--soft);font-size:.9rem;display:none}
+  #loop .lp-final.on{display:block}
+  #loop .lp-embudo{display:grid;gap:8px;margin-top:16px}
+  #loop .lp-capa{display:grid;grid-template-columns:44px 1fr;gap:14px;align-items:start;border:1px solid var(--line);border-radius:10px;padding:14px;background:var(--white)}
+  #loop .lp-capa span{display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:var(--soft);color:var(--green);font-weight:700}
+  #loop .lp-capa h3{margin:0 0 4px;font-size:.98rem}
+  #loop .lp-capa p{margin:0;color:var(--muted);font-size:.86rem}
+  #loop .lp-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+  #loop .lp-tags em{font-style:normal;font-size:.74rem;background:#eff3f0;border-radius:6px;padding:2px 8px;color:var(--ink)}
+  #loop .lp-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:16px}
+  #loop .lp-kpi{border:1px solid var(--line);border-radius:12px;padding:14px;background:var(--white)}
+  #loop .lp-kpi strong{display:block;font-size:1.5rem;line-height:1.2}
+  #loop .lp-kpi span{color:var(--muted);font-size:.8rem}
+  #loop .lp-msg{font-family:inherit;background:#eff3f0;border-radius:8px;padding:10px 12px;font-size:.86rem;margin:6px 0 0}
+  #loop .lp-30s{font-size:1.02rem;line-height:1.7}
+  @media(max-width:1050px){#loop .lp-steps,#loop .lp-kpis{grid-template-columns:1fr 1fr}#loop .lp-sim{grid-template-columns:1fr}#loop .lp-step:not(:last-child)::after{display:none}}
+  @media(max-width:700px){#loop .lp-steps,#loop .lp-kpis{grid-template-columns:1fr}}
+ </style>
+ <header class="hero"><div class="eyebrow">03 ↳ / Ciclo del agente y control de contexto · fases A–D</div><h1 id="title-loop">Cómo piensa, cuántas vueltas<br>da y qué ve el asistente.</h1><p class="lead">El asistente de agenda funciona en un ciclo: lee la pregunta, decide, consulta una herramienta, mira el resultado y vuelve a decidir. El modelo propone, pero <strong>las reglas las pone el código</strong>: cuántas vueltas puede dar, qué entra en su memoria de trabajo, qué hacer si algo falla y qué nunca puede hacer.</p></header>
+
+ <div class="panel"><div class="sectionhead"><div><h2>En 30 segundos</h2><p>Para explicarlo de palabra.</p></div><span class="badge green">Resumen</span></div>
+  <p class="lp-30s">«El asistente no responde de memoria: <strong>consulta</strong> la agenda y responde con esos datos. Da <strong>como mucho 3 llamadas al modelo</strong> por pregunta (en promedio, menos de 2). Si una herramienta falla, <strong>no insiste</strong> en lo mismo y te dice qué intentó. Si la conversación crece, <strong>la resume</strong> en vez de cortarla. Y <strong>nunca cambia nada solo</strong>: te propone y tú confirmas con un botón.»</p>
+ </div>
+
+ <div class="panel gap"><div class="sectionhead"><div><h2>1 · Una vuelta del ciclo</h2><p>El patrón ReAct (razonar, actuar, observar), con el control en el código.</p></div><span class="badge green">En el producto</span></div>
+  <div class="lp-steps">
+   <div class="lp-step"><b>Paso 1</b><h3>Arma el contexto</h3><p>Instrucciones, rol de quien pregunta, últimas preguntas y las herramientas que ese rol puede usar.</p><span class="lp-who c">Código</span></div>
+   <div class="lp-step"><b>Paso 2</b><h3>Decide</h3><p>El modelo elige: pedir una herramienta (por ejemplo, consultar la agenda de mañana) o responder.</p><span class="lp-who m">Modelo</span></div>
+   <div class="lp-step"><b>Paso 3</b><h3>Actúa</h3><p>El código valida permisos y datos y ejecuta la herramienta. Si es mover o cancelar, solo <em>prepara una propuesta</em>.</p><span class="lp-who c">Código</span></div>
+   <div class="lp-step"><b>Paso 4</b><h3>Observa</h3><p>El resultado vuelve al modelo como dato (nunca como instrucción). Con eso responde u otra vuelta.</p><span class="lp-who m">Modelo</span> <span class="lp-who c">Código revisa</span></div>
+  </div>
+  <div class="note gap">Antes de que la respuesta llegue a la persona, el código la revisa: sin datos personales, sin hablar de la agenda de otra persona, sin decir «ya la moví» cuando solo propuso, y siempre recordando que se confirma con el botón.</div>
+ </div>
+
+ <div class="panel gap"><div class="sectionhead"><div><h2>2 · Míralo paso a paso</h2><p>Elige una pregunta y avanza vuelta por vuelta. Los números son los límites reales de la ruta O1; los tokens, aproximados.</p></div><span class="badge amber">Simulación</span></div>
+  <div class="lp-sim">
+   <div>
+    <label for="lp-esc" class="small">Pregunta</label>
+    <select id="lp-esc" autocomplete="off">
+     <option value="normal">«¿Qué citas tengo mañana?»</option>
+     <option value="mover">«Pasa la cita del C-0A02 al viernes»</option>
+     <option value="caida">«¿Qué tengo mañana?» con la agenda caída</option>
+     <option value="falta">«Cancela la cita.» (sin datos)</option>
+     <option value="larga">Conversación muy larga</option>
+    </select>
+    <div class="gap" style="display:flex;gap:8px"><button class="btn" id="lp-next">Siguiente vuelta</button><button class="btn secondary" id="lp-reset">Reiniciar</button></div>
+    <div class="lp-meter"><span class="small">Llamadas al modelo: <strong id="lp-llam">0</strong> de 3</span><div class="lp-bar"><i id="lp-bar-llam" style="width:0"></i></div></div>
+    <div class="lp-meter"><span class="small">Tokens de entrada: <strong id="lp-tok">0</strong> de 9.000</span><div class="lp-bar"><i id="lp-bar-tok" style="width:0"></i></div></div>
+    <div class="lp-meter"><span class="small">Fallos de herramientas: <strong id="lp-fal">0</strong> de 3</span><div class="lp-bar"><i id="lp-bar-fal" class="alto" style="width:0"></i></div></div>
+   </div>
+   <div><ol class="lp-tl" id="lp-tl"></ol><div class="lp-final" id="lp-final"></div></div>
+  </div>
+ </div>
+
+ <div class="twocol gap">
+  <div class="panel"><h2>3 · ¿Cuántas vueltas da?</h2><p class="small">No es un número fijo: el código decide en cada vuelta si el modelo puede seguir consultando. Manda el primer límite que se alcance.</p>
+   <div class="tablewrap gap"><table><thead><tr><th>Límite</th><th>Valor</th><th>Al llegar</th></tr></thead><tbody>
+    <tr><td><strong>Llamadas por pregunta</strong></td><td>3 (ruta O1)<br>4 (ruta O2)</td><td>La última siempre es para responder</td></tr>
+    <tr><td>Rondas de herramientas</td><td>4</td><td>Responde con lo que tiene (red de seguridad)</td></tr>
+    <tr><td>Fallos de herramientas</td><td>3</td><td>Deja de consultar y explica qué falló</td></tr>
+    <tr><td>Tokens por pregunta</td><td>9.000 (O1)</td><td>Pide acotar la pregunta</td></tr>
+    <tr><td>Tiempo</td><td>45 s (O1)</td><td>Igual</td></tr>
+   </tbody></table></div>
+   <div class="note gap">En la práctica: <strong>una vuelta que consulta y otra que responde</strong>. Promedio medido con el Qwen real: <strong>1,88 llamadas por pregunta</strong>.</div>
+  </div>
+  <div class="panel"><h2>4 · Cuando algo falla</h2><p class="small">Cuatro niveles, del más barato al más caro.</p>
+   <ul class="bullets">
+    <li><strong>El servidor tarda o se corta:</strong> reintenta <em>una</em> vez tras 1 s, solo si cabe en el tiempo que queda. Si está ocupado, no insiste.</li>
+    <li><strong>Datos mal pedidos:</strong> la herramienta devuelve qué campo falta y el modelo corrige; si dejó la cita o el motivo vacíos, el asistente pregunta por ese dato.</li>
+    <li><strong>No hay lo pedido</strong> (fecha ambigua, sin horarios): pregunta o cambia de camino. La <strong>misma consulta que ya falló no se repite</strong> (circuit breaker).</li>
+    <li><strong>No se puede:</strong> dice qué intentó y qué falló, con frases fijas, sin inventar:</li>
+   </ul>
+   <p class="lp-msg">«No pude completar tu consulta: consulté tu agenda y no respondió. Puedes verlo en la pantalla Agenda o preguntarme de otra forma.»</p>
+   <p class="small gap">Si una herramienta se cae, la conversación sigue: el modelo recibe «no respondió», nunca el error técnico.</p>
+  </div>
+ </div>
+
+ <div class="panel gap"><div class="sectionhead"><div><h2>5 · Control de contexto: qué ve el modelo</h2><p>La memoria de trabajo del modelo es de 8.192 tokens. Cinco capas, de la más barata a la más cara, la mantienen pequeña y útil.</p></div><span class="badge green">En el producto</span></div>
+  <div class="lp-embudo">
+   <div class="lp-capa"><span>1</span><div><h3>Entra solo lo necesario</h3><p>Las últimas 12 preguntas y respuestas (no los resultados viejos), solo las herramientas del rol, escritas en forma compacta, y cada resultado recortado a ~600 tokens («faltan 3 citas»).</p><div class="lp-tags"><em>últimos 12 mensajes</em><em>firmas compactas: −900 tokens</em><em>resultado ≤ 600 tokens</em></div></div></div>
+   <div class="lp-capa"><span>2</span><div><h3>Nunca entra lo que no debe</h3><p>Cédulas, nombres, teléfonos o correos (si aparecen, se retiene el resultado), los códigos firmados de las propuestas y el detalle técnico de un error.</p><div class="lp-tags"><em>sin datos personales</em><em>sin tokens de propuesta</em><em>resultados = datos, no órdenes</em></div></div></div>
+   <div class="lp-capa"><span>3</span><div><h3>No se repite lo ya obtenido</h3><p>Si el modelo pide otra vez la misma consulta, no se ejecuta: se le recuerda que el resultado ya está en la conversación.</p><div class="lp-tags"><em>circuit breaker</em></div></div></div>
+   <div class="lp-capa"><span>4</span><div><h3>Se cuenta antes de enviar</h3><p>Antes de cada llamada se cuentan los tokens con el mismo tokenizador del servidor y se reserva lo que el modelo puede responder. Siempre queda un margen libre.</p><div class="lp-tags"><em>entrada + salida + 820 ≤ 8.192</em><em>entrada ≤ 5.734</em></div></div></div>
+   <div class="lp-capa"><span>5</span><div><h3>Si no cabe, se resume; si aún no cabe, se escala</h3><p>Primero se quitan consultas repetidas (gratis); luego se resume lo antiguo en un solo mensaje. Nunca se pierden las instrucciones ni la pregunta actual. Si con eso no alcanza, pasa a la ruta O2 (más espacio); si tampoco, pide acotar.</p><div class="lp-tags"><em>máx. 2 resúmenes por pregunta</em><em>O1 → O2, nunca al revés</em></div></div></div>
+  </div>
+  <div class="note gap">Medido con el Qwen real: <strong>~4.750 tokens por pregunta</strong> (de ellos ~2.350 son fijos: instrucciones y herramientas). Los evals de compactación (historial largo, historial que no cabe, resultado grande) salieron <strong>40/40</strong>.</div>
+ </div>
+
+ <div class="twocol gap">
+  <div class="panel"><h2>6 · Cómo se construyó (fases A–D)</h2>
+   <div class="tablewrap"><table><thead><tr><th>Fase</th><th>Qué agregó</th></tr></thead><tbody>
+    <tr><td><strong>A · Ver</strong></td><td>Un registro por vuelta (solo números, sin textos ni datos personales) y la línea de tiempo de cada prueba</td></tr>
+    <tr><td><strong>B · Pensar</strong></td><td>Se probó pedirle al modelo que explicara su razón antes de actuar. <strong>Empeoró</strong> (81,7 % contra 93,3 %): decidía antes de mirar los datos. <strong>Se descartó</strong></td></tr>
+    <tr><td><strong>C · Controlar</strong></td><td>Circuit breaker (no repetir, parar con 3 fallos) y un reintento ante cortes del servidor</td></tr>
+    <tr><td><strong>D · Recuperar</strong></td><td>Una herramienta caída ya no rompe la conversación, y la persona siempre sabe qué se intentó</td></tr>
+   </tbody></table></div>
+   <p class="small gap">El «modo pensar» del Qwen está apagado siempre: gasta tokens que no hay en una ventana de 8k.</p>
+  </div>
+  <div class="panel"><h2>7 · Cómo se comprueba</h2><p class="small">60 preguntas de prueba × 10 intentos con el modelo real, más 4 de «rotura» que simulan fallas. Cada prueba tiene su control: la respuesta de referencia debe pasar y un asistente que no hace nada debe fallar.</p>
+   <div class="lp-kpis" style="grid-template-columns:1fr 1fr">
+    <div class="lp-kpi"><strong>90,0 %</strong><span>Primera medición completa (540/600)</span></div>
+    <div class="lp-kpi"><strong id="lp-kpi-final">96,7 %</strong><span id="lp-kpi-final-txt">Con las correcciones, en los 54 evals medidos</span></div>
+    <div class="lp-kpi"><strong>20/20</strong><span>Rotura: agenda caída, caída parcial, tarea imposible, timeout</span></div>
+    <div class="lp-kpi"><strong>64/0</strong><span>Controles: referencia pasa 64, nulo pasa 0</span></div>
+   </div>
+   <p class="small gap" id="lp-gate">Meta para el piloto (gate G10.E): ≥ 95 % y cada pregunta crítica 10/10. Medición final con el servidor estable: en curso.</p>
+  </div>
+ </div>
+</section>
+<script>
+(function(){
+ const E={
+  normal:{v:[
+   ['Vuelta 1 · el modelo pide una herramienta','consultar_agenda(desde="mañana") → 2 citas',2400,0,''],
+   ['Vuelta 2 · responde con los datos','«Mañana tienes C-0A01 a las 10:00 y C-0A02 a las 15:00.»',2650,0,'']],
+   fin:'Terminó en 2 llamadas. El código revisó la respuesta (sin datos personales) y la entregó.'},
+  mover:{v:[
+   ['Vuelta 1 · pide una propuesta','proponer_reprogramacion(cita="C-0A02", desde="viernes") → 3 horarios',2500,0,''],
+   ['Vuelta 2 · responde','El modelo escribe «La cita ha sido reprogramada…». El código lo corrige: «Preparé la propuesta; todavía no cambió nada.»',2800,0,'']],
+   fin:'Nada cambió en la agenda: la persona ve los horarios como botones y confirma uno. Solo ahí se mueve la cita.'},
+  caida:{v:[
+   ['Vuelta 1 · consulta la agenda','consultar_agenda → la base no responde. El modelo recibe solo «no respondió».',2400,1,'fallo'],
+   ['Vuelta 2 · el modelo intenta responder','Sin ningún dato, lo que diga sería inventado: el código lo reemplaza por el escalado.',2550,0,'para']],
+   fin:'«No pude completar tu consulta: consulté tu agenda y no respondió. Puedes verlo en la pantalla Agenda o preguntarme de otra forma.»'},
+  falta:{v:[
+   ['Vuelta 1 · el modelo pide cancelar sin datos','proponer_cancelacion(cita="", motivo="") → el cliente no la deja salir: nunca se ejecutaría.',2350,0,'fallo']],
+   fin:'El asistente pregunta: «Para hacerlo necesito que me digas qué cita (el código del caso o el día y la hora) y el motivo.» Una sola llamada.'},
+  larga:{v:[
+   ['Antes de llamar · se cuenta','El historial ya ocupa ~6.300 tokens: no cabe con la respuesta en 8.192.',0,0,'fallo'],
+   ['Compactación · paso 1 y 2','Se quitan consultas repetidas y se resume lo antiguo en un mensaje. Quedan ~3.100 tokens.',0,0,''],
+   ['Vuelta 1 · ahora sí cabe','El modelo consulta y responde con el contexto resumido.',3400,0,'']],
+   fin:'La conversación no se cortó: se resumió. Si aun así no cupiera, pasaría a la ruta O2 y, en último caso, pediría acotar la pregunta.'}};
+ const $=id=>document.getElementById(id);
+ let n=0,tok=0,llam=0,fal=0;
+ function pintar(){const e=E[$('lp-esc').value];
+  $('lp-tl').innerHTML=e.v.map((x,i)=>`<li class="${i<n?'on ':''}${x[4]}"><strong>${x[0]}</strong><small>${x[1]}</small></li>`).join('');
+  $('lp-llam').textContent=llam;$('lp-bar-llam').style.width=(100*llam/3)+'%';
+  $('lp-tok').textContent=tok.toLocaleString('es');$('lp-bar-tok').style.width=Math.min(100,100*tok/9000)+'%';
+  $('lp-fal').textContent=fal;$('lp-bar-fal').style.width=(100*fal/3)+'%';
+  $('lp-final').textContent=e.fin;$('lp-final').classList.toggle('on',n>=e.v.length);
+  $('lp-next').disabled=n>=e.v.length;}
+ function reiniciar(){n=tok=llam=fal=0;pintar();}
+ $('lp-next').addEventListener('click',()=>{const e=E[$('lp-esc').value];if(n>=e.v.length)return;const x=e.v[n];
+  if(!/^(Antes|Compactación)/.test(x[0]))llam++;tok+=x[2];fal+=x[3];n++;pintar();});
+ $('lp-reset').addEventListener('click',reiniciar);$('lp-esc').addEventListener('change',reiniciar);
+ reiniciar();
+})();
+</script>
 <section class="view" id="tokens" hidden aria-labelledby="title-tokens">
  <header class="hero"><div class="eyebrow">04 / Contexto, rutas y mediciones</div><h1 id="title-tokens">Cada llamada<br>debe caber.</h1><p class="lead">El servidor confirmó una ventana efectiva de 8.192 tokens. El historial y los resultados reenviados vuelven a contar como entrada en cada solicitud. Reservar una agenda no requiere ninguna llamada al modelo.</p></header>
  <div class="twocol"><div class="panel"><h2>Explorar el presupuesto</h2><p class="small muted" style="margin-top:8px">Ajusta cantidades de tokens. Este control no tokeniza texto ni envía solicitudes.</p><div class="control gap"><label for="token-route">Ruta</label><select id="token-route"><option value="O1">O1 · Interpretación normal</option><option value="O2">O2 · Excepción</option><option value="R0">R0 · Cambio localizado</option><option value="R1">R1 · Desarrollo normal</option><option value="R2">R2 · Cambio complejo</option></select></div><div class="twocol gap"><div class="control"><label for="input-tokens">Entrada completa (tokens)</label><input type="number" id="input-tokens" min="0" max="20000" step="1" value="3000"></div><div class="control"><label for="output-tokens">Salida reservada (tokens)</label><input type="number" id="output-tokens" min="1" max="10000" step="1" value="256"></div></div><div class="meter" aria-hidden="true"><span class="m-in" id="meter-in"></span><span class="m-out" id="meter-out"></span><span class="m-margin" id="meter-margin"></span></div><div class="legend"><span><i class="swatch m-in"></i>Entrada</span><span><i class="swatch m-out"></i>Salida</span><span><i class="swatch m-margin"></i>Margen: 820</span><span>Ventana: 8.192</span></div><div class="budgetresult" id="token-result" aria-live="polite"></div><p class="small muted gap" id="route-detail"></p></div><div class="panel"><h2>Antes de enviar al modelo</h2><div class="formula gap">entrada completa<br>+ salida máxima<br>+ 820 de margen<br>≤ 8.192 tokens</div><ul class="bullets"><li>Contar con el tokenizador y la plantilla reales, incluyendo los esquemas de herramientas.</li><li>Aplicar el tope de la ruta y el techo global de entrada: 5.734.</li><li>Si no cabe: compactar primero sin LLM; después, como máximo, un resumen cuyo costo también cuenta.</li><li>Reservar salida con <code>max_tokens</code> y liquidar con <code>usage</code>.</li><li>Al agotar presupuesto: <code>budget_exceeded</code>, respondiendo con lo ya obtenido.</li></ul><div class="note amber gap">Los contadores no se reinician al escalar, compactar o reintentar. Una cita confirmada se conserva aunque se agote el presupuesto del asistente.</div></div></div>
