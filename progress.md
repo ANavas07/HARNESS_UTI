@@ -564,7 +564,7 @@ Se cerraron con el usuario las tres decisiones que los agentes preguntaron en el
   - `faltan_franjas` hizo que el Qwen dejara de listar horas y se quitó;
   - el grader no aceptaba «verifique» y se corrigió;
   - al agregar la Trazabilidad al menú, una prueba existente lo detectó como decisión de producto y se revirtió;
-  - una escritura por heredoc perdió el `` de una expresión regular, se detectó con una prueba roja y se revisó todo el código buscando caracteres de control;
+  - una escritura por heredoc perdió el `\b` de una expresión regular, se detectó con una prueba roja y se revisó todo el código buscando caracteres de control;
   - la suspensión de la máquina cortó una corrida de controles y se repitió;
   - quedó un archivo creado por error, `C:\LAPTOT~1\placeholder.txt`, que debe borrar el usuario porque el borrado automático fue bloqueado.
 
