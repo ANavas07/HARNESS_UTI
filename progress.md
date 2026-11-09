@@ -546,6 +546,28 @@ Se cerraron con el usuario las tres decisiones que los agentes preguntaron en el
   - objetivo de mutaciones `web10` 5/5, vitest 102/102;
   - verificado en la demo: lunes 9 (22 horarios) y martes 10 (18).
 
+### 3.37 Auditoría general del MVP — 6 al 9 de noviembre de 2026
+
+- **PR #18 mergeado** (`d40fc21`): la ficha de la Agenda reprograma a otro día.
+- **[Auditoría](docs/auditoria-mvp.md)** de la misma clase de falla (paginación y topes), de las pruebas que solo simulan el caso fácil, y recorrido de todas las pantallas por rol en la demo.
+- **[PR #19](https://github.com/ANavas07/GRUPO2_SEGUIMIENTO/pull/19):**
+  - A1: los topes de las herramientas ya no pasan por «son todas» (el código lo dice);
+  - A2: el total de conversaciones;
+  - A3: prueba de la Trazabilidad con dos páginas;
+  - A4: el código C-XXXX también en la bandeja y el detalle;
+  - mutaciones `asistente` 132/132, `chat2` 12/12 y `web10` 8/8.
+- **Se mantienen** la Trazabilidad fuera del menú (decisión de producto, A5) y A6/A7 como observaciones.
+- **Medición con el Qwen: 591/600 (98,5 %)**, rotura y varios turnos 50/50.
+- **A8: el 600/600 del gate no es estable.** P10 y V01 varían con el mismo producto, porque reciben exactamente lo mismo que en la medición en verde.
+- **Dónde se rompió:**
+  - la regla del prompt bajó a 579/600 y se quitó;
+  - `faltan_franjas` hizo que el Qwen dejara de listar horas y se quitó;
+  - el grader no aceptaba «verifique» y se corrigió;
+  - al agregar la Trazabilidad al menú, una prueba existente lo detectó como decisión de producto y se revirtió;
+  - una escritura por heredoc perdió el `` de una expresión regular, se detectó con una prueba roja y se revisó todo el código buscando caracteres de control;
+  - la suspensión de la máquina cortó una corrida de controles y se repitió;
+  - quedó un archivo creado por error, `C:\LAPTOT~1\placeholder.txt`, que debe borrar el usuario porque el borrado automático fue bloqueado.
+
 ## 4. Verificaciones realizadas y alcance
 
 | Verificación | Resultado registrado | Qué demuestra |

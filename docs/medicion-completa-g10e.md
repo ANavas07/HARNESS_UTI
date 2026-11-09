@@ -2,7 +2,7 @@
 
 5 de noviembre de 2026. Producto en `MVP` (`c384eda`, con el loop A–D) y después la rama `g10e-cierre` (PR #16). Servidor: Qwen3-8B-AWQ, modo JSON, concurrencia 2.
 
-**Gate G10.E:** ≥ 95 % y cada crítico en 10/10. **✅ Pasa con el PR #17: 600/600 = 100 %** (ver §00). Las secciones siguientes son el historial.
+**Gate G10.E:** ≥ 95 % y cada crítico en 10/10. **✅ Pasó con el PR #17: 600/600 = 100 %** (ver §00). **⚠ Advertencia (auditoría del 9-11, [A8](auditoria-mvp.md)):** con el mismo producto, otra medición dio 591/600 (98,5 %), con P10 4/10 y V01 8/10. El 600/600 no es estable en esas dos preguntas. Las secciones siguientes son el historial.
 
 ## 00. Gate G10.E en verde — 6 de noviembre de 2026
 
