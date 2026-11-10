@@ -1,0 +1,2453 @@
+{
+ "id": "F02-jueves",
+ "corridas": [
+  {
+   "corrida": 1,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "consulta la agenda",
+     "tipo": "herramientas_llamadas",
+     "ok": true,
+     "detalle": "ejecutadas: ['consultar_agenda']"
+    },
+    {
+     "paso": "da las horas correctas",
+     "tipo": "texto_contiene",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "sin identidad",
+     "tipo": "texto_no_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O1 · 2 llamadas · 5099+100 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop', 'stop']"
+    }
+   ],
+   "respuesta": "El jueves tienes dos citas reservadas: C-0A03 a las 10:00 y C-0A04 a las 11:00.",
+   "llamadas": [
+    {
+     "nombre": "consultar_agenda",
+     "argumentos": {
+      "desde": "jueves"
+     }
+    }
+   ],
+   "ejecutadas": [
+    "consultar_agenda"
+   ],
+   "propuestas": [],
+   "consumo": {
+    "entrada": 5099,
+    "salida": 100,
+    "llamadas": 2,
+    "ruta": "O1",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop",
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 8.51,
+   "transitorios": {
+    "aplica": false,
+    "lanzadas": 0
+   },
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-09T18:10:09.144+00:00",
+     "decision": "herramienta",
+     "herramientas": [
+      {
+       "nombre": "consultar_agenda",
+       "argumentos": {
+        "desde": "jueves"
+       },
+       "ejecutada": true,
+       "status": "ok",
+       "error_code": null,
+       "dato": "{\"agenda_de\": \"b.lopez\", \"zona\": \"America/Guayaquil\", \"desde\": \"2026-11-05\", \"hasta\": \"2026-11-05\", \"citas\": [{\"cita_id\": \"da33d693-2e2c-4d86-80b6-b8c61caac394\", \"caso_id\": \"0a030000-0000-4000-8000-000000002563\", \"caso\": \"C-0A03\", \"inicio\": \"2026-11-05 10:00\", \"estado\": \"reservada\", \"version\": 1}, {"
+      }
+     ],
+     "razon": null,
+     "texto": "Buscando tu agenda para el jueves...",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 1644,
+     "tokens_entrada": 2354,
+     "tokens_salida": 43,
+     "finish_reason": "stop"
+    },
+    {
+     "paso": 1,
+     "ts": "2026-11-09T18:10:11.557+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "El jueves tienes dos citas reservadas: C-0A03 a las 10:00 y C-0A04 a las 11:00.",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 2139,
+     "tokens_entrada": 2745,
+     "tokens_salida": 57,
+     "finish_reason": "stop"
+    }
+   ]
+  },
+  {
+   "corrida": 2,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "consulta la agenda",
+     "tipo": "herramientas_llamadas",
+     "ok": true,
+     "detalle": "ejecutadas: ['consultar_agenda']"
+    },
+    {
+     "paso": "da las horas correctas",
+     "tipo": "texto_contiene",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "sin identidad",
+     "tipo": "texto_no_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O2 · 2 llamadas · 5472+142 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop', 'stop']"
+    }
+   ],
+   "respuesta": "El jueves tienes dos citas reservadas: C-0A03 a las 10:00 y C-0A04 a las 11:00. También hay varias franjas libres disponibles.",
+   "llamadas": [
+    {
+     "nombre": "consultar_agenda",
+     "argumentos": {
+      "desde": "jueves",
+      "incluir_libres": true
+     }
+    }
+   ],
+   "ejecutadas": [
+    "consultar_agenda"
+   ],
+   "propuestas": [],
+   "consumo": {
+    "entrada": 5472,
+    "salida": 142,
+    "llamadas": 2,
+    "ruta": "O2",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop",
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 9.99,
+   "transitorios": {
+    "aplica": false,
+    "lanzadas": 0
+   },
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-09T18:10:12.356+00:00",
+     "decision": "herramienta",
+     "herramientas": [
+      {
+       "nombre": "consultar_agenda",
+       "argumentos": {
+        "desde": "jueves",
+        "incluir_libres": true
+       },
+       "ejecutada": true,
+       "status": "ok",
+       "error_code": null,
+       "dato": "{\"agenda_de\": \"b.lopez\", \"zona\": \"America/Guayaquil\", \"desde\": \"2026-11-05\", \"hasta\": \"2026-11-05\", \"citas\": [{\"cita_id\": \"da33d693-2e2c-4d86-80b6-b8c61caac394\", \"caso_id\": \"0a030000-0000-4000-8000-000000002563\", \"caso\": \"C-0A03\", \"inicio\": \"2026-11-05 10:00\", \"estado\": \"reservada\", \"version\": 1}, {"
+      }
+     ],
+     "razon": null,
+     "texto": "Buscando tu agenda para el jueves. Por favor, confirma si deseas ver las citas agendadas o si quieres ver también las franjas libres.",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 2675,
+     "tokens_entrada": 2354,
+     "tokens_salida": 76,
+     "finish_reason": "stop"
+    },
+    {
+     "paso": 1,
+     "ts": "2026-11-09T18:10:15.755+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "El jueves tienes dos citas reservadas: C-0A03 a las 10:00 y C-0A04 a las 11:00. También hay varias franjas libres disponibles.",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 2473,
+     "tokens_entrada": 3118,
+     "tokens_salida": 66,
+     "finish_reason": "stop"
+    }
+   ]
+  },
+  {
+   "corrida": 3,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "consulta la agenda",
+     "tipo": "herramientas_llamadas",
+     "ok": true,
+     "detalle": "ejecutadas: ['consultar_agenda']"
+    },
+    {
+     "paso": "da las horas correctas",
+     "tipo": "texto_contiene",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "sin identidad",
+     "tipo": "texto_no_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O1 · 2 llamadas · 5099+101 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop', 'stop']"
+    }
+   ],
+   "respuesta": "El jueves tienes dos citas reservadas: C-0A03 a las 10:00 y C-0A04 a las 11:00.",
+   "llamadas": [
+    {
+     "nombre": "consultar_agenda",
+     "argumentos": {
+      "desde": "jueves"
+     }
+    }
+   ],
+   "ejecutadas": [
+    "consultar_agenda"
+   ],
+   "propuestas": [],
+   "consumo": {
+    "entrada": 5099,
+    "salida": 101,
+    "llamadas": 2,
+    "ruta": "O1",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop",
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 8.97,
+   "transitorios": {
+    "aplica": false,
+    "lanzadas": 0
+   },
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-09T18:10:17.684+00:00",
+     "decision": "herramienta",
+     "herramientas": [
+      {
+       "nombre": "consultar_agenda",
+       "argumentos": {
+        "desde": "jueves"
+       },
+       "ejecutada": true,
+       "status": "ok",
+       "error_code": null,
+       "dato": "{\"agenda_de\": \"b.lopez\", \"zona\": \"America/Guayaquil\", \"desde\": \"2026-11-05\", \"hasta\": \"2026-11-05\", \"citas\": [{\"cita_id\": \"da33d693-2e2c-4d86-80b6-b8c61caac394\", \"caso_id\": \"0a030000-0000-4000-8000-000000002563\", \"caso\": \"C-0A03\", \"inicio\": \"2026-11-05 10:00\", \"estado\": \"reservada\", \"version\": 1}, {"
+      }
+     ],
+     "razon": null,
+     "texto": "Buscando tu agenda para el jueves...",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 1663,
+     "tokens_entrada": 2354,
+     "tokens_salida": 44,
+     "finish_reason": "stop"
+    },
+    {
+     "paso": 1,
+     "ts": "2026-11-09T18:10:19.775+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "El jueves tienes dos citas reservadas: C-0A03 a las 10:00 y C-0A04 a las 11:00.",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 2130,
+     "tokens_entrada": 2745,
+     "tokens_salida": 57,
+     "finish_reason": "stop"
+    }
+   ]
+  },
+  {
+   "corrida": 4,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "consulta la agenda",
+     "tipo": "herramientas_llamadas",
+     "ok": true,
+     "detalle": "ejecutadas: ['consultar_agenda']"
+    },
+    {
+     "paso": "da las horas correctas",
+     "tipo": "texto_contiene",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "sin identidad",
+     "tipo": "texto_no_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O1 · 2 llamadas · 5099+101 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop', 'stop']"
+    }
+   ],
+   "respuesta": "El jueves tienes dos citas reservadas: C-0A03 a las 10:00 y C-0A04 a las 11:00.",
+   "llamadas": [
+    {
+     "nombre": "consultar_agenda",
+     "argumentos": {
+      "desde": "jueves"
+     }
+    }
+   ],
+   "ejecutadas": [
+    "consultar_agenda"
+   ],
+   "propuestas": [],
+   "consumo": {
+    "entrada": 5099,
+    "salida": 101,
+    "llamadas": 2,
+    "ruta": "O1",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop",
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 8.79,
+   "transitorios": {
+    "aplica": false,
+    "lanzadas": 0
+   },
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-09T18:10:22.929+00:00",
+     "decision": "herramienta",
+     "herramientas": [
+      {
+       "nombre": "consultar_agenda",
+       "argumentos": {
+        "desde": "jueves"
+       },
+       "ejecutada": true,
+       "status": "ok",
+       "error_code": null,
+       "dato": "{\"agenda_de\": \"b.lopez\", \"zona\": \"America/Guayaquil\", \"desde\": \"2026-11-05\", \"hasta\": \"2026-11-05\", \"citas\": [{\"cita_id\": \"da33d693-2e2c-4d86-80b6-b8c61caac394\", \"caso_id\": \"0a030000-0000-4000-8000-000000002563\", \"caso\": \"C-0A03\", \"inicio\": \"2026-11-05 10:00\", \"estado\": \"reservada\", \"version\": 1}, {"
+      }
+     ],
+     "razon": null,
+     "texto": "Buscando tu agenda para el jueves...",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 1572,
+     "tokens_entrada": 2354,
+     "tokens_salida": 44,
+     "finish_reason": "stop"
+    },
+    {
+     "paso": 1,
+     "ts": "2026-11-09T18:10:25.121+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "El jueves tienes dos citas reservadas: C-0A03 a las 10:00 y C-0A04 a las 11:00.",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 2079,
+     "tokens_entrada": 2745,
+     "tokens_salida": 57,
+     "finish_reason": "stop"
+    }
+   ]
+  },
+  {
+   "corrida": 5,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "consulta la agenda",
+     "tipo": "herramientas_llamadas",
+     "ok": true,
+     "detalle": "ejecutadas: ['consultar_agenda']"
+    },
+    {
+     "paso": "da las horas correctas",
+     "tipo": "texto_contiene",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "sin identidad",
+     "tipo": "texto_no_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O1 · 2 llamadas · 5099+101 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop', 'stop']"
+    }
+   ],
+   "respuesta": "El jueves tienes dos citas reservadas: C-0A03 a las 10:00 y C-0A04 a las 11:00.",
+   "llamadas": [
+    {
+     "nombre": "consultar_agenda",
+     "argumentos": {
+      "desde": "jueves"
+     }
+    }
+   ],
+   "ejecutadas": [
+    "consultar_agenda"
+   ],
+   "propuestas": [],
+   "consumo": {
+    "entrada": 5099,
+    "salida": 101,
+    "llamadas": 2,
+    "ruta": "O1",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop",
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 8.85,
+   "transitorios": {
+    "aplica": false,
+    "lanzadas": 0
+   },
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-09T18:10:27.012+00:00",
+     "decision": "herramienta",
+     "herramientas": [
+      {
+       "nombre": "consultar_agenda",
+       "argumentos": {
+        "desde": "jueves"
+       },
+       "ejecutada": true,
+       "status": "ok",
+       "error_code": null,
+       "dato": "{\"agenda_de\": \"b.lopez\", \"zona\": \"America/Guayaquil\", \"desde\": \"2026-11-05\", \"hasta\": \"2026-11-05\", \"citas\": [{\"cita_id\": \"da33d693-2e2c-4d86-80b6-b8c61caac394\", \"caso_id\": \"0a030000-0000-4000-8000-000000002563\", \"caso\": \"C-0A03\", \"inicio\": \"2026-11-05 10:00\", \"estado\": \"reservada\", \"version\": 1}, {"
+      }
+     ],
+     "razon": null,
+     "texto": "Buscando tu agenda para el jueves...",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 1638,
+     "tokens_entrada": 2354,
+     "tokens_salida": 44,
+     "finish_reason": "stop"
+    },
+    {
+     "paso": 1,
+     "ts": "2026-11-09T18:10:29.061+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "El jueves tienes dos citas reservadas: C-0A03 a las 10:00 y C-0A04 a las 11:00.",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 2089,
+     "tokens_entrada": 2745,
+     "tokens_salida": 57,
+     "finish_reason": "stop"
+    }
+   ]
+  },
+  {
+   "corrida": 6,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "consulta la agenda",
+     "tipo": "herramientas_llamadas",
+     "ok": true,
+     "detalle": "ejecutadas: ['consultar_agenda']"
+    },
+    {
+     "paso": "da las horas correctas",
+     "tipo": "texto_contiene",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "sin identidad",
+     "tipo": "texto_no_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O1 · 2 llamadas · 5099+101 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop', 'stop']"
+    }
+   ],
+   "respuesta": "El jueves tienes dos citas reservadas: C-0A03 a las 10:00 y C-0A04 a las 11:00.",
+   "llamadas": [
+    {
+     "nombre": "consultar_agenda",
+     "argumentos": {
+      "desde": "jueves"
+     }
+    }
+   ],
+   "ejecutadas": [
+    "consultar_agenda"
+   ],
+   "propuestas": [],
+   "consumo": {
+    "entrada": 5099,
+    "salida": 101,
+    "llamadas": 2,
+    "ruta": "O1",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop",
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 7.91,
+   "transitorios": {
+    "aplica": false,
+    "lanzadas": 0
+   },
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-09T18:10:31.140+00:00",
+     "decision": "herramienta",
+     "herramientas": [
+      {
+       "nombre": "consultar_agenda",
+       "argumentos": {
+        "desde": "jueves"
+       },
+       "ejecutada": true,
+       "status": "ok",
+       "error_code": null,
+       "dato": "{\"agenda_de\": \"b.lopez\", \"zona\": \"America/Guayaquil\", \"desde\": \"2026-11-05\", \"hasta\": \"2026-11-05\", \"citas\": [{\"cita_id\": \"da33d693-2e2c-4d86-80b6-b8c61caac394\", \"caso_id\": \"0a030000-0000-4000-8000-000000002563\", \"caso\": \"C-0A03\", \"inicio\": \"2026-11-05 10:00\", \"estado\": \"reservada\", \"version\": 1}, {"
+      }
+     ],
+     "razon": null,
+     "texto": "Buscando tu agenda para el jueves...",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 1663,
+     "tokens_entrada": 2354,
+     "tokens_salida": 44,
+     "finish_reason": "stop"
+    },
+    {
+     "paso": 1,
+     "ts": "2026-11-09T18:10:33.074+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "El jueves tienes dos citas reservadas: C-0A03 a las 10:00 y C-0A04 a las 11:00.",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 2158,
+     "tokens_entrada": 2745,
+     "tokens_salida": 57,
+     "finish_reason": "stop"
+    }
+   ]
+  },
+  {
+   "corrida": 7,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "consulta la agenda",
+     "tipo": "herramientas_llamadas",
+     "ok": true,
+     "detalle": "ejecutadas: ['consultar_agenda']"
+    },
+    {
+     "paso": "da las horas correctas",
+     "tipo": "texto_contiene",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "sin identidad",
+     "tipo": "texto_no_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O1 · 2 llamadas · 5099+100 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop', 'stop']"
+    }
+   ],
+   "respuesta": "El jueves tienes dos citas reservadas: C-0A03 a las 10:00 y C-0A04 a las 11:00.",
+   "llamadas": [
+    {
+     "nombre": "consultar_agenda",
+     "argumentos": {
+      "desde": "jueves"
+     }
+    }
+   ],
+   "ejecutadas": [
+    "consultar_agenda"
+   ],
+   "propuestas": [],
+   "consumo": {
+    "entrada": 5099,
+    "salida": 100,
+    "llamadas": 2,
+    "ruta": "O1",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop",
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 8.42,
+   "transitorios": {
+    "aplica": false,
+    "lanzadas": 0
+   },
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-09T18:10:35.566+00:00",
+     "decision": "herramienta",
+     "herramientas": [
+      {
+       "nombre": "consultar_agenda",
+       "argumentos": {
+        "desde": "jueves"
+       },
+       "ejecutada": true,
+       "status": "ok",
+       "error_code": null,
+       "dato": "{\"agenda_de\": \"b.lopez\", \"zona\": \"America/Guayaquil\", \"desde\": \"2026-11-05\", \"hasta\": \"2026-11-05\", \"citas\": [{\"cita_id\": \"da33d693-2e2c-4d86-80b6-b8c61caac394\", \"caso_id\": \"0a030000-0000-4000-8000-000000002563\", \"caso\": \"C-0A03\", \"inicio\": \"2026-11-05 10:00\", \"estado\": \"reservada\", \"version\": 1}, {"
+      }
+     ],
+     "razon": null,
+     "texto": "Buscando tu agenda para el jueves...",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 1582,
+     "tokens_entrada": 2354,
+     "tokens_salida": 43,
+     "finish_reason": "stop"
+    },
+    {
+     "paso": 1,
+     "ts": "2026-11-09T18:10:37.518+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "El jueves tienes dos citas reservadas: C-0A03 a las 10:00 y C-0A04 a las 11:00.",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 2046,
+     "tokens_entrada": 2745,
+     "tokens_salida": 57,
+     "finish_reason": "stop"
+    }
+   ]
+  },
+  {
+   "corrida": 8,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "consulta la agenda",
+     "tipo": "herramientas_llamadas",
+     "ok": true,
+     "detalle": "ejecutadas: ['consultar_agenda']"
+    },
+    {
+     "paso": "da las horas correctas",
+     "tipo": "texto_contiene",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "sin identidad",
+     "tipo": "texto_no_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O1 · 2 llamadas · 5099+101 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop', 'stop']"
+    }
+   ],
+   "respuesta": "El jueves tienes dos citas reservadas: C-0A03 a las 10:00 y C-0A04 a las 11:00.",
+   "llamadas": [
+    {
+     "nombre": "consultar_agenda",
+     "argumentos": {
+      "desde": "jueves"
+     }
+    }
+   ],
+   "ejecutadas": [
+    "consultar_agenda"
+   ],
+   "propuestas": [],
+   "consumo": {
+    "entrada": 5099,
+    "salida": 101,
+    "llamadas": 2,
+    "ruta": "O1",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop",
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 8.18,
+   "transitorios": {
+    "aplica": false,
+    "lanzadas": 0
+   },
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-09T18:10:39.080+00:00",
+     "decision": "herramienta",
+     "herramientas": [
+      {
+       "nombre": "consultar_agenda",
+       "argumentos": {
+        "desde": "jueves"
+       },
+       "ejecutada": true,
+       "status": "ok",
+       "error_code": null,
+       "dato": "{\"agenda_de\": \"b.lopez\", \"zona\": \"America/Guayaquil\", \"desde\": \"2026-11-05\", \"hasta\": \"2026-11-05\", \"citas\": [{\"cita_id\": \"da33d693-2e2c-4d86-80b6-b8c61caac394\", \"caso_id\": \"0a030000-0000-4000-8000-000000002563\", \"caso\": \"C-0A03\", \"inicio\": \"2026-11-05 10:00\", \"estado\": \"reservada\", \"version\": 1}, {"
+      }
+     ],
+     "razon": null,
+     "texto": "Buscando tu agenda para el jueves...",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 1608,
+     "tokens_entrada": 2354,
+     "tokens_salida": 44,
+     "finish_reason": "stop"
+    },
+    {
+     "paso": 1,
+     "ts": "2026-11-09T18:10:41.181+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "El jueves tienes dos citas reservadas: C-0A03 a las 10:00 y C-0A04 a las 11:00.",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 2079,
+     "tokens_entrada": 2745,
+     "tokens_salida": 57,
+     "finish_reason": "stop"
+    }
+   ]
+  },
+  {
+   "corrida": 9,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "consulta la agenda",
+     "tipo": "herramientas_llamadas",
+     "ok": true,
+     "detalle": "ejecutadas: ['consultar_agenda']"
+    },
+    {
+     "paso": "da las horas correctas",
+     "tipo": "texto_contiene",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "sin identidad",
+     "tipo": "texto_no_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O1 · 2 llamadas · 5099+100 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop', 'stop']"
+    }
+   ],
+   "respuesta": "El jueves tienes dos citas reservadas: C-0A03 a las 10:00 y C-0A04 a las 11:00.",
+   "llamadas": [
+    {
+     "nombre": "consultar_agenda",
+     "argumentos": {
+      "desde": "jueves"
+     }
+    }
+   ],
+   "ejecutadas": [
+    "consultar_agenda"
+   ],
+   "propuestas": [],
+   "consumo": {
+    "entrada": 5099,
+    "salida": 100,
+    "llamadas": 2,
+    "ruta": "O1",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop",
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 8.49,
+   "transitorios": {
+    "aplica": false,
+    "lanzadas": 0
+   },
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-09T18:10:44.021+00:00",
+     "decision": "herramienta",
+     "herramientas": [
+      {
+       "nombre": "consultar_agenda",
+       "argumentos": {
+        "desde": "jueves"
+       },
+       "ejecutada": true,
+       "status": "ok",
+       "error_code": null,
+       "dato": "{\"agenda_de\": \"b.lopez\", \"zona\": \"America/Guayaquil\", \"desde\": \"2026-11-05\", \"hasta\": \"2026-11-05\", \"citas\": [{\"cita_id\": \"da33d693-2e2c-4d86-80b6-b8c61caac394\", \"caso_id\": \"0a030000-0000-4000-8000-000000002563\", \"caso\": \"C-0A03\", \"inicio\": \"2026-11-05 10:00\", \"estado\": \"reservada\", \"version\": 1}, {"
+      }
+     ],
+     "razon": null,
+     "texto": "Buscando tu agenda para el jueves...",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 1676,
+     "tokens_entrada": 2354,
+     "tokens_salida": 43,
+     "finish_reason": "stop"
+    },
+    {
+     "paso": 1,
+     "ts": "2026-11-09T18:10:46.253+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "El jueves tienes dos citas reservadas: C-0A03 a las 10:00 y C-0A04 a las 11:00.",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 2068,
+     "tokens_entrada": 2745,
+     "tokens_salida": 57,
+     "finish_reason": "stop"
+    }
+   ]
+  },
+  {
+   "corrida": 10,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "consulta la agenda",
+     "tipo": "herramientas_llamadas",
+     "ok": true,
+     "detalle": "ejecutadas: ['consultar_agenda']"
+    },
+    {
+     "paso": "da las horas correctas",
+     "tipo": "texto_contiene",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "sin identidad",
+     "tipo": "texto_no_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O1 · 2 llamadas · 5099+100 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop', 'stop']"
+    }
+   ],
+   "respuesta": "El jueves tienes dos citas reservadas: C-0A03 a las 10:00 y C-0A04 a las 11:00.",
+   "llamadas": [
+    {
+     "nombre": "consultar_agenda",
+     "argumentos": {
+      "desde": "jueves"
+     }
+    }
+   ],
+   "ejecutadas": [
+    "consultar_agenda"
+   ],
+   "propuestas": [],
+   "consumo": {
+    "entrada": 5099,
+    "salida": 100,
+    "llamadas": 2,
+    "ruta": "O1",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop",
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 8.27,
+   "transitorios": {
+    "aplica": false,
+    "lanzadas": 0
+   },
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-09T18:10:47.143+00:00",
+     "decision": "herramienta",
+     "herramientas": [
+      {
+       "nombre": "consultar_agenda",
+       "argumentos": {
+        "desde": "jueves"
+       },
+       "ejecutada": true,
+       "status": "ok",
+       "error_code": null,
+       "dato": "{\"agenda_de\": \"b.lopez\", \"zona\": \"America/Guayaquil\", \"desde\": \"2026-11-05\", \"hasta\": \"2026-11-05\", \"citas\": [{\"cita_id\": \"da33d693-2e2c-4d86-80b6-b8c61caac394\", \"caso_id\": \"0a030000-0000-4000-8000-000000002563\", \"caso\": \"C-0A03\", \"inicio\": \"2026-11-05 10:00\", \"estado\": \"reservada\", \"version\": 1}, {"
+      }
+     ],
+     "razon": null,
+     "texto": "Buscando tu agenda para el jueves...",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 1609,
+     "tokens_entrada": 2354,
+     "tokens_salida": 43,
+     "finish_reason": "stop"
+    },
+    {
+     "paso": 1,
+     "ts": "2026-11-09T18:10:49.288+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "El jueves tienes dos citas reservadas: C-0A03 a las 10:00 y C-0A04 a las 11:00.",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 2100,
+     "tokens_entrada": 2745,
+     "tokens_salida": 57,
+     "finish_reason": "stop"
+    }
+   ]
+  },
+  {
+   "corrida": 11,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "consulta la agenda",
+     "tipo": "herramientas_llamadas",
+     "ok": true,
+     "detalle": "ejecutadas: ['consultar_agenda']"
+    },
+    {
+     "paso": "da las horas correctas",
+     "tipo": "texto_contiene",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "sin identidad",
+     "tipo": "texto_no_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O1 · 2 llamadas · 5099+101 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop', 'stop']"
+    }
+   ],
+   "respuesta": "El jueves tienes dos citas reservadas: C-0A03 a las 10:00 y C-0A04 a las 11:00.",
+   "llamadas": [
+    {
+     "nombre": "consultar_agenda",
+     "argumentos": {
+      "desde": "jueves"
+     }
+    }
+   ],
+   "ejecutadas": [
+    "consultar_agenda"
+   ],
+   "propuestas": [],
+   "consumo": {
+    "entrada": 5099,
+    "salida": 101,
+    "llamadas": 2,
+    "ruta": "O1",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop",
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 8.07,
+   "transitorios": {
+    "aplica": false,
+    "lanzadas": 0
+   },
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-09T18:10:52.106+00:00",
+     "decision": "herramienta",
+     "herramientas": [
+      {
+       "nombre": "consultar_agenda",
+       "argumentos": {
+        "desde": "jueves"
+       },
+       "ejecutada": true,
+       "status": "ok",
+       "error_code": null,
+       "dato": "{\"agenda_de\": \"b.lopez\", \"zona\": \"America/Guayaquil\", \"desde\": \"2026-11-05\", \"hasta\": \"2026-11-05\", \"citas\": [{\"cita_id\": \"da33d693-2e2c-4d86-80b6-b8c61caac394\", \"caso_id\": \"0a030000-0000-4000-8000-000000002563\", \"caso\": \"C-0A03\", \"inicio\": \"2026-11-05 10:00\", \"estado\": \"reservada\", \"version\": 1}, {"
+      }
+     ],
+     "razon": null,
+     "texto": "Buscando tu agenda para el jueves...",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 1594,
+     "tokens_entrada": 2354,
+     "tokens_salida": 44,
+     "finish_reason": "stop"
+    },
+    {
+     "paso": 1,
+     "ts": "2026-11-09T18:10:54.199+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "El jueves tienes dos citas reservadas: C-0A03 a las 10:00 y C-0A04 a las 11:00.",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 2125,
+     "tokens_entrada": 2745,
+     "tokens_salida": 57,
+     "finish_reason": "stop"
+    }
+   ]
+  },
+  {
+   "corrida": 12,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "consulta la agenda",
+     "tipo": "herramientas_llamadas",
+     "ok": true,
+     "detalle": "ejecutadas: ['consultar_agenda']"
+    },
+    {
+     "paso": "da las horas correctas",
+     "tipo": "texto_contiene",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "sin identidad",
+     "tipo": "texto_no_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O1 · 2 llamadas · 5099+101 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop', 'stop']"
+    }
+   ],
+   "respuesta": "El jueves tienes dos citas reservadas: C-0A03 a las 10:00 y C-0A04 a las 11:00.",
+   "llamadas": [
+    {
+     "nombre": "consultar_agenda",
+     "argumentos": {
+      "desde": "jueves"
+     }
+    }
+   ],
+   "ejecutadas": [
+    "consultar_agenda"
+   ],
+   "propuestas": [],
+   "consumo": {
+    "entrada": 5099,
+    "salida": 101,
+    "llamadas": 2,
+    "ruta": "O1",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop",
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 8.37,
+   "transitorios": {
+    "aplica": false,
+    "lanzadas": 0
+   },
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-09T18:10:55.199+00:00",
+     "decision": "herramienta",
+     "herramientas": [
+      {
+       "nombre": "consultar_agenda",
+       "argumentos": {
+        "desde": "jueves"
+       },
+       "ejecutada": true,
+       "status": "ok",
+       "error_code": null,
+       "dato": "{\"agenda_de\": \"b.lopez\", \"zona\": \"America/Guayaquil\", \"desde\": \"2026-11-05\", \"hasta\": \"2026-11-05\", \"citas\": [{\"cita_id\": \"da33d693-2e2c-4d86-80b6-b8c61caac394\", \"caso_id\": \"0a030000-0000-4000-8000-000000002563\", \"caso\": \"C-0A03\", \"inicio\": \"2026-11-05 10:00\", \"estado\": \"reservada\", \"version\": 1}, {"
+      }
+     ],
+     "razon": null,
+     "texto": "Buscando tu agenda para el jueves...",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 1655,
+     "tokens_entrada": 2354,
+     "tokens_salida": 44,
+     "finish_reason": "stop"
+    },
+    {
+     "paso": 1,
+     "ts": "2026-11-09T18:10:57.354+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "El jueves tienes dos citas reservadas: C-0A03 a las 10:00 y C-0A04 a las 11:00.",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 2198,
+     "tokens_entrada": 2745,
+     "tokens_salida": 57,
+     "finish_reason": "stop"
+    }
+   ]
+  },
+  {
+   "corrida": 13,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "consulta la agenda",
+     "tipo": "herramientas_llamadas",
+     "ok": true,
+     "detalle": "ejecutadas: ['consultar_agenda']"
+    },
+    {
+     "paso": "da las horas correctas",
+     "tipo": "texto_contiene",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "sin identidad",
+     "tipo": "texto_no_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O1 · 2 llamadas · 5099+101 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop', 'stop']"
+    }
+   ],
+   "respuesta": "El jueves tienes dos citas reservadas: C-0A03 a las 10:00 y C-0A04 a las 11:00.",
+   "llamadas": [
+    {
+     "nombre": "consultar_agenda",
+     "argumentos": {
+      "desde": "jueves"
+     }
+    }
+   ],
+   "ejecutadas": [
+    "consultar_agenda"
+   ],
+   "propuestas": [],
+   "consumo": {
+    "entrada": 5099,
+    "salida": 101,
+    "llamadas": 2,
+    "ruta": "O1",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop",
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 8.37,
+   "transitorios": {
+    "aplica": false,
+    "lanzadas": 0
+   },
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-09T18:11:00.406+00:00",
+     "decision": "herramienta",
+     "herramientas": [
+      {
+       "nombre": "consultar_agenda",
+       "argumentos": {
+        "desde": "jueves"
+       },
+       "ejecutada": true,
+       "status": "ok",
+       "error_code": null,
+       "dato": "{\"agenda_de\": \"b.lopez\", \"zona\": \"America/Guayaquil\", \"desde\": \"2026-11-05\", \"hasta\": \"2026-11-05\", \"citas\": [{\"cita_id\": \"da33d693-2e2c-4d86-80b6-b8c61caac394\", \"caso_id\": \"0a030000-0000-4000-8000-000000002563\", \"caso\": \"C-0A03\", \"inicio\": \"2026-11-05 10:00\", \"estado\": \"reservada\", \"version\": 1}, {"
+      }
+     ],
+     "razon": null,
+     "texto": "Buscando tu agenda para el jueves...",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 1592,
+     "tokens_entrada": 2354,
+     "tokens_salida": 44,
+     "finish_reason": "stop"
+    },
+    {
+     "paso": 1,
+     "ts": "2026-11-09T18:11:02.426+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "El jueves tienes dos citas reservadas: C-0A03 a las 10:00 y C-0A04 a las 11:00.",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 2102,
+     "tokens_entrada": 2745,
+     "tokens_salida": 57,
+     "finish_reason": "stop"
+    }
+   ]
+  },
+  {
+   "corrida": 14,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "consulta la agenda",
+     "tipo": "herramientas_llamadas",
+     "ok": true,
+     "detalle": "ejecutadas: ['consultar_agenda']"
+    },
+    {
+     "paso": "da las horas correctas",
+     "tipo": "texto_contiene",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "sin identidad",
+     "tipo": "texto_no_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O1 · 2 llamadas · 5099+101 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop', 'stop']"
+    }
+   ],
+   "respuesta": "El jueves tienes dos citas reservadas: C-0A03 a las 10:00 y C-0A04 a las 11:00.",
+   "llamadas": [
+    {
+     "nombre": "consultar_agenda",
+     "argumentos": {
+      "desde": "jueves"
+     }
+    }
+   ],
+   "ejecutadas": [
+    "consultar_agenda"
+   ],
+   "propuestas": [],
+   "consumo": {
+    "entrada": 5099,
+    "salida": 101,
+    "llamadas": 2,
+    "ruta": "O1",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop",
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 8.4,
+   "transitorios": {
+    "aplica": false,
+    "lanzadas": 0
+   },
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-09T18:11:03.659+00:00",
+     "decision": "herramienta",
+     "herramientas": [
+      {
+       "nombre": "consultar_agenda",
+       "argumentos": {
+        "desde": "jueves"
+       },
+       "ejecutada": true,
+       "status": "ok",
+       "error_code": null,
+       "dato": "{\"agenda_de\": \"b.lopez\", \"zona\": \"America/Guayaquil\", \"desde\": \"2026-11-05\", \"hasta\": \"2026-11-05\", \"citas\": [{\"cita_id\": \"da33d693-2e2c-4d86-80b6-b8c61caac394\", \"caso_id\": \"0a030000-0000-4000-8000-000000002563\", \"caso\": \"C-0A03\", \"inicio\": \"2026-11-05 10:00\", \"estado\": \"reservada\", \"version\": 1}, {"
+      }
+     ],
+     "razon": null,
+     "texto": "Buscando tu agenda para el jueves...",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 1634,
+     "tokens_entrada": 2354,
+     "tokens_salida": 44,
+     "finish_reason": "stop"
+    },
+    {
+     "paso": 1,
+     "ts": "2026-11-09T18:11:05.696+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "El jueves tienes dos citas reservadas: C-0A03 a las 10:00 y C-0A04 a las 11:00.",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 2087,
+     "tokens_entrada": 2745,
+     "tokens_salida": 57,
+     "finish_reason": "stop"
+    }
+   ]
+  },
+  {
+   "corrida": 15,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "consulta la agenda",
+     "tipo": "herramientas_llamadas",
+     "ok": true,
+     "detalle": "ejecutadas: ['consultar_agenda']"
+    },
+    {
+     "paso": "da las horas correctas",
+     "tipo": "texto_contiene",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "sin identidad",
+     "tipo": "texto_no_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O2 · 2 llamadas · 5472+149 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop', 'stop']"
+    }
+   ],
+   "respuesta": "El jueves tienes dos citas reservadas: C-0A03 a las 10:00 y C-0A04 a las 11:00. Hay varias franjas libres disponibles si necesitas reprogramar.",
+   "llamadas": [
+    {
+     "nombre": "consultar_agenda",
+     "argumentos": {
+      "desde": "jueves",
+      "incluir_libres": true
+     }
+    }
+   ],
+   "ejecutadas": [
+    "consultar_agenda"
+   ],
+   "propuestas": [],
+   "consumo": {
+    "entrada": 5472,
+    "salida": 149,
+    "llamadas": 2,
+    "ruta": "O2",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop",
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 10.51,
+   "transitorios": {
+    "aplica": false,
+    "lanzadas": 0
+   },
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-09T18:11:08.846+00:00",
+     "decision": "herramienta",
+     "herramientas": [
+      {
+       "nombre": "consultar_agenda",
+       "argumentos": {
+        "desde": "jueves",
+        "incluir_libres": true
+       },
+       "ejecutada": true,
+       "status": "ok",
+       "error_code": null,
+       "dato": "{\"agenda_de\": \"b.lopez\", \"zona\": \"America/Guayaquil\", \"desde\": \"2026-11-05\", \"hasta\": \"2026-11-05\", \"citas\": [{\"cita_id\": \"da33d693-2e2c-4d86-80b6-b8c61caac394\", \"caso_id\": \"0a030000-0000-4000-8000-000000002563\", \"caso\": \"C-0A03\", \"inicio\": \"2026-11-05 10:00\", \"estado\": \"reservada\", \"version\": 1}, {"
+      }
+     ],
+     "razon": null,
+     "texto": "Buscando tu agenda para el jueves. Por favor, confirma si deseas ver las citas agendadas o si quieres ver también las franjas libres.",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 2792,
+     "tokens_entrada": 2354,
+     "tokens_salida": 78,
+     "finish_reason": "stop"
+    },
+    {
+     "paso": 1,
+     "ts": "2026-11-09T18:11:12.759+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "El jueves tienes dos citas reservadas: C-0A03 a las 10:00 y C-0A04 a las 11:00. Hay varias franjas libres disponibles si necesitas reprogramar.",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 2546,
+     "tokens_entrada": 3118,
+     "tokens_salida": 71,
+     "finish_reason": "stop"
+    }
+   ]
+  },
+  {
+   "corrida": 16,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "consulta la agenda",
+     "tipo": "herramientas_llamadas",
+     "ok": true,
+     "detalle": "ejecutadas: ['consultar_agenda']"
+    },
+    {
+     "paso": "da las horas correctas",
+     "tipo": "texto_contiene",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "sin identidad",
+     "tipo": "texto_no_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O1 · 2 llamadas · 5107+130 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop', 'stop']"
+    }
+   ],
+   "respuesta": "El jueves tienes dos citas reservadas: C-0A03 a las 10:00 y C-0A04 a las 11:00.",
+   "llamadas": [
+    {
+     "nombre": "consultar_agenda",
+     "argumentos": {
+      "desde": "jueves",
+      "incluir_libres": false
+     }
+    }
+   ],
+   "ejecutadas": [
+    "consultar_agenda"
+   ],
+   "propuestas": [],
+   "consumo": {
+    "entrada": 5107,
+    "salida": 130,
+    "llamadas": 2,
+    "ruta": "O1",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop",
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 7.28,
+   "transitorios": {
+    "aplica": false,
+    "lanzadas": 0
+   },
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-09T18:11:12.095+00:00",
+     "decision": "herramienta",
+     "herramientas": [
+      {
+       "nombre": "consultar_agenda",
+       "argumentos": {
+        "desde": "jueves",
+        "incluir_libres": false
+       },
+       "ejecutada": true,
+       "status": "ok",
+       "error_code": null,
+       "dato": "{\"agenda_de\": \"b.lopez\", \"zona\": \"America/Guayaquil\", \"desde\": \"2026-11-05\", \"hasta\": \"2026-11-05\", \"citas\": [{\"cita_id\": \"da33d693-2e2c-4d86-80b6-b8c61caac394\", \"caso_id\": \"0a030000-0000-4000-8000-000000002563\", \"caso\": \"C-0A03\", \"inicio\": \"2026-11-05 10:00\", \"estado\": \"reservada\", \"version\": 1}, {"
+      }
+     ],
+     "razon": null,
+     "texto": "Buscando tu agenda para el jueves. Por favor, confirma si quieres ver las citas agendadas o las franjas libres.",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 2524,
+     "tokens_entrada": 2354,
+     "tokens_salida": 73,
+     "finish_reason": "stop"
+    },
+    {
+     "paso": 1,
+     "ts": "2026-11-09T18:11:15.262+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "El jueves tienes dos citas reservadas: C-0A03 a las 10:00 y C-0A04 a las 11:00.",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 2185,
+     "tokens_entrada": 2753,
+     "tokens_salida": 57,
+     "finish_reason": "stop"
+    }
+   ]
+  },
+  {
+   "corrida": 17,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "consulta la agenda",
+     "tipo": "herramientas_llamadas",
+     "ok": true,
+     "detalle": "ejecutadas: ['consultar_agenda']"
+    },
+    {
+     "paso": "da las horas correctas",
+     "tipo": "texto_contiene",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "sin identidad",
+     "tipo": "texto_no_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O1 · 2 llamadas · 5099+101 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop', 'stop']"
+    }
+   ],
+   "respuesta": "El jueves tienes dos citas reservadas: C-0A03 a las 10:00 y C-0A04 a las 11:00.",
+   "llamadas": [
+    {
+     "nombre": "consultar_agenda",
+     "argumentos": {
+      "desde": "jueves"
+     }
+    }
+   ],
+   "ejecutadas": [
+    "consultar_agenda"
+   ],
+   "propuestas": [],
+   "consumo": {
+    "entrada": 5099,
+    "salida": 101,
+    "llamadas": 2,
+    "ruta": "O1",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop",
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 8.0,
+   "transitorios": {
+    "aplica": false,
+    "lanzadas": 0
+   },
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-09T18:11:19.307+00:00",
+     "decision": "herramienta",
+     "herramientas": [
+      {
+       "nombre": "consultar_agenda",
+       "argumentos": {
+        "desde": "jueves"
+       },
+       "ejecutada": true,
+       "status": "ok",
+       "error_code": null,
+       "dato": "{\"agenda_de\": \"b.lopez\", \"zona\": \"America/Guayaquil\", \"desde\": \"2026-11-05\", \"hasta\": \"2026-11-05\", \"citas\": [{\"cita_id\": \"da33d693-2e2c-4d86-80b6-b8c61caac394\", \"caso_id\": \"0a030000-0000-4000-8000-000000002563\", \"caso\": \"C-0A03\", \"inicio\": \"2026-11-05 10:00\", \"estado\": \"reservada\", \"version\": 1}, {"
+      }
+     ],
+     "razon": null,
+     "texto": "Buscando tu agenda para el jueves...",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 1648,
+     "tokens_entrada": 2354,
+     "tokens_salida": 44,
+     "finish_reason": "stop"
+    },
+    {
+     "paso": 1,
+     "ts": "2026-11-09T18:11:21.381+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "El jueves tienes dos citas reservadas: C-0A03 a las 10:00 y C-0A04 a las 11:00.",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 2038,
+     "tokens_entrada": 2745,
+     "tokens_salida": 57,
+     "finish_reason": "stop"
+    }
+   ]
+  },
+  {
+   "corrida": 18,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "consulta la agenda",
+     "tipo": "herramientas_llamadas",
+     "ok": true,
+     "detalle": "ejecutadas: ['consultar_agenda']"
+    },
+    {
+     "paso": "da las horas correctas",
+     "tipo": "texto_contiene",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "sin identidad",
+     "tipo": "texto_no_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O1 · 2 llamadas · 5099+101 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop', 'stop']"
+    }
+   ],
+   "respuesta": "El jueves tienes dos citas reservadas: C-0A03 a las 10:00 y C-0A04 a las 11:00.",
+   "llamadas": [
+    {
+     "nombre": "consultar_agenda",
+     "argumentos": {
+      "desde": "jueves"
+     }
+    }
+   ],
+   "ejecutadas": [
+    "consultar_agenda"
+   ],
+   "propuestas": [],
+   "consumo": {
+    "entrada": 5099,
+    "salida": 101,
+    "llamadas": 2,
+    "ruta": "O1",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop",
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 7.97,
+   "transitorios": {
+    "aplica": false,
+    "lanzadas": 0
+   },
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-09T18:11:20.158+00:00",
+     "decision": "herramienta",
+     "herramientas": [
+      {
+       "nombre": "consultar_agenda",
+       "argumentos": {
+        "desde": "jueves"
+       },
+       "ejecutada": true,
+       "status": "ok",
+       "error_code": null,
+       "dato": "{\"agenda_de\": \"b.lopez\", \"zona\": \"America/Guayaquil\", \"desde\": \"2026-11-05\", \"hasta\": \"2026-11-05\", \"citas\": [{\"cita_id\": \"da33d693-2e2c-4d86-80b6-b8c61caac394\", \"caso_id\": \"0a030000-0000-4000-8000-000000002563\", \"caso\": \"C-0A03\", \"inicio\": \"2026-11-05 10:00\", \"estado\": \"reservada\", \"version\": 1}, {"
+      }
+     ],
+     "razon": null,
+     "texto": "Buscando tu agenda para el jueves...",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 1578,
+     "tokens_entrada": 2354,
+     "tokens_salida": 44,
+     "finish_reason": "stop"
+    },
+    {
+     "paso": 1,
+     "ts": "2026-11-09T18:11:22.149+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "El jueves tienes dos citas reservadas: C-0A03 a las 10:00 y C-0A04 a las 11:00.",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 2012,
+     "tokens_entrada": 2745,
+     "tokens_salida": 57,
+     "finish_reason": "stop"
+    }
+   ]
+  },
+  {
+   "corrida": 19,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "consulta la agenda",
+     "tipo": "herramientas_llamadas",
+     "ok": true,
+     "detalle": "ejecutadas: ['consultar_agenda']"
+    },
+    {
+     "paso": "da las horas correctas",
+     "tipo": "texto_contiene",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "sin identidad",
+     "tipo": "texto_no_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O1 · 2 llamadas · 5099+101 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop', 'stop']"
+    }
+   ],
+   "respuesta": "El jueves tienes dos citas reservadas: C-0A03 a las 10:00 y C-0A04 a las 11:00.",
+   "llamadas": [
+    {
+     "nombre": "consultar_agenda",
+     "argumentos": {
+      "desde": "jueves"
+     }
+    }
+   ],
+   "ejecutadas": [
+    "consultar_agenda"
+   ],
+   "propuestas": [],
+   "consumo": {
+    "entrada": 5099,
+    "salida": 101,
+    "llamadas": 2,
+    "ruta": "O1",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop",
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 8.57,
+   "transitorios": {
+    "aplica": false,
+    "lanzadas": 0
+   },
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-09T18:11:27.197+00:00",
+     "decision": "herramienta",
+     "herramientas": [
+      {
+       "nombre": "consultar_agenda",
+       "argumentos": {
+        "desde": "jueves"
+       },
+       "ejecutada": true,
+       "status": "ok",
+       "error_code": null,
+       "dato": "{\"agenda_de\": \"b.lopez\", \"zona\": \"America/Guayaquil\", \"desde\": \"2026-11-05\", \"hasta\": \"2026-11-05\", \"citas\": [{\"cita_id\": \"da33d693-2e2c-4d86-80b6-b8c61caac394\", \"caso_id\": \"0a030000-0000-4000-8000-000000002563\", \"caso\": \"C-0A03\", \"inicio\": \"2026-11-05 10:00\", \"estado\": \"reservada\", \"version\": 1}, {"
+      }
+     ],
+     "razon": null,
+     "texto": "Buscando tu agenda para el jueves...",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 1546,
+     "tokens_entrada": 2354,
+     "tokens_salida": 44,
+     "finish_reason": "stop"
+    },
+    {
+     "paso": 1,
+     "ts": "2026-11-09T18:11:29.158+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "El jueves tienes dos citas reservadas: C-0A03 a las 10:00 y C-0A04 a las 11:00.",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 2600,
+     "tokens_entrada": 2745,
+     "tokens_salida": 57,
+     "finish_reason": "stop"
+    }
+   ]
+  },
+  {
+   "corrida": 20,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "consulta la agenda",
+     "tipo": "herramientas_llamadas",
+     "ok": true,
+     "detalle": "ejecutadas: ['consultar_agenda']"
+    },
+    {
+     "paso": "da las horas correctas",
+     "tipo": "texto_contiene",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "sin identidad",
+     "tipo": "texto_no_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O2 · 2 llamadas · 5472+148 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop', 'stop']"
+    }
+   ],
+   "respuesta": "Tienes dos citas el jueves: C-0A03 a las 10:00 y C-0A04 a las 11:00. Hay varias franjas libres disponibles si necesitas reprogramar.",
+   "llamadas": [
+    {
+     "nombre": "consultar_agenda",
+     "argumentos": {
+      "desde": "jueves",
+      "incluir_libres": true
+     }
+    }
+   ],
+   "ejecutadas": [
+    "consultar_agenda"
+   ],
+   "propuestas": [],
+   "consumo": {
+    "entrada": 5472,
+    "salida": 148,
+    "llamadas": 2,
+    "ruta": "O2",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop",
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 12.11,
+   "transitorios": {
+    "aplica": false,
+    "lanzadas": 0
+   },
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-09T18:11:27.799+00:00",
+     "decision": "herramienta",
+     "herramientas": [
+      {
+       "nombre": "consultar_agenda",
+       "argumentos": {
+        "desde": "jueves",
+        "incluir_libres": true
+       },
+       "ejecutada": true,
+       "status": "ok",
+       "error_code": null,
+       "dato": "{\"agenda_de\": \"b.lopez\", \"zona\": \"America/Guayaquil\", \"desde\": \"2026-11-05\", \"hasta\": \"2026-11-05\", \"citas\": [{\"cita_id\": \"da33d693-2e2c-4d86-80b6-b8c61caac394\", \"caso_id\": \"0a030000-0000-4000-8000-000000002563\", \"caso\": \"C-0A03\", \"inicio\": \"2026-11-05 10:00\", \"estado\": \"reservada\", \"version\": 1}, {"
+      }
+     ],
+     "razon": null,
+     "texto": "Buscando tu agenda para el jueves. Por favor, confirma si deseas ver las citas agendadas o si quieres ver también las franjas libres.",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 3269,
+     "tokens_entrada": 2354,
+     "tokens_salida": 78,
+     "finish_reason": "stop"
+    },
+    {
+     "paso": 1,
+     "ts": "2026-11-09T18:11:33.008+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "Tienes dos citas el jueves: C-0A03 a las 10:00 y C-0A04 a las 11:00. Hay varias franjas libres disponibles si necesitas reprogramar.",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 2484,
+     "tokens_entrada": 3118,
+     "tokens_salida": 70,
+     "finish_reason": "stop"
+    }
+   ]
+  }
+ ]
+}

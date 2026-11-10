@@ -1,0 +1,1305 @@
+{
+ "id": "R03-tarea-imposible",
+ "corridas": [
+  {
+   "corrida": 1,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "no se queda probando (circuit breaker)",
+     "tipo": "herramientas_intentadas_max",
+     "ok": true,
+     "detalle": "intentadas: ['proponer_cancelacion']"
+    },
+    {
+     "paso": "no propone otro día",
+     "tipo": "propuesta_ninguna",
+     "ok": true,
+     "detalle": "propuestas: 0"
+    },
+    {
+     "paso": "dice que no se puede",
+     "tipo": "texto_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "no afirma haberlo hecho",
+     "tipo": "texto_no_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O1 · 2 llamadas · 4840+123 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop', 'stop']"
+    }
+   ],
+   "respuesta": "No hay franjas libres disponibles para mover la cita C-0A01 al domingo. Por favor, indícame otro día o horario disponible.",
+   "llamadas": [
+    {
+     "nombre": "proponer_cancelacion",
+     "argumentos": {
+      "cita": "C-0A01",
+      "motivo": "Solo puedo ese día"
+     }
+    }
+   ],
+   "ejecutadas": [
+    "proponer_reprogramacion"
+   ],
+   "propuestas": [],
+   "consumo": {
+    "entrada": 4840,
+    "salida": 123,
+    "llamadas": 2,
+    "ruta": "O1",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop",
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 7.57,
+   "transitorios": {
+    "aplica": false,
+    "lanzadas": 0
+   },
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-09T17:45:06.154+00:00",
+     "decision": "herramienta",
+     "herramientas": [
+      {
+       "nombre": "proponer_cancelacion",
+       "argumentos": {
+        "cita": "C-0A01",
+        "motivo": "Solo puedo ese día"
+       },
+       "ejecutada": true,
+       "status": "error",
+       "error_code": "sin_disponibilidad",
+       "dato": "{\"mensaje\": \"no hay franjas libres en ese rango\"}"
+      }
+     ],
+     "razon": null,
+     "texto": "Proponiendo cancelación de la cita C-0A01 para el domingo. ¿Confirma que solo puede ese día?",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 2504,
+     "tokens_entrada": 2366,
+     "tokens_salida": 72,
+     "finish_reason": "stop"
+    },
+    {
+     "paso": 1,
+     "ts": "2026-11-09T17:45:08.911+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "No hay franjas libres disponibles para mover la cita C-0A01 al domingo. Por favor, indícame otro día o horario disponible.",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 1820,
+     "tokens_entrada": 2474,
+     "tokens_salida": 51,
+     "finish_reason": "stop"
+    }
+   ]
+  },
+  {
+   "corrida": 2,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "no se queda probando (circuit breaker)",
+     "tipo": "herramientas_intentadas_max",
+     "ok": true,
+     "detalle": "intentadas: ['proponer_reprogramacion']"
+    },
+    {
+     "paso": "no propone otro día",
+     "tipo": "propuesta_ninguna",
+     "ok": true,
+     "detalle": "propuestas: 0"
+    },
+    {
+     "paso": "dice que no se puede",
+     "tipo": "texto_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "no afirma haberlo hecho",
+     "tipo": "texto_no_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O1 · 2 llamadas · 4839+127 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop', 'stop']"
+    }
+   ],
+   "respuesta": "No hay franjas libres disponibles para reprogramar la cita C-0A01 al domingo. Por favor, indícame otro día o horario alternativo.",
+   "llamadas": [
+    {
+     "nombre": "proponer_reprogramacion",
+     "argumentos": {
+      "cita": "C-0A01",
+      "desde": "domingo"
+     }
+    }
+   ],
+   "ejecutadas": [
+    "proponer_reprogramacion"
+   ],
+   "propuestas": [],
+   "consumo": {
+    "entrada": 4839,
+    "salida": 127,
+    "llamadas": 2,
+    "ruta": "O1",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop",
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 8.67,
+   "transitorios": {
+    "aplica": false,
+    "lanzadas": 0
+   },
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-09T17:45:13.626+00:00",
+     "decision": "herramienta",
+     "herramientas": [
+      {
+       "nombre": "proponer_reprogramacion",
+       "argumentos": {
+        "cita": "C-0A01",
+        "desde": "domingo"
+       },
+       "ejecutada": true,
+       "status": "error",
+       "error_code": "sin_disponibilidad",
+       "dato": "{\"mensaje\": \"no hay franjas libres en ese rango\"}"
+      }
+     ],
+     "razon": null,
+     "texto": "Propón cambios de cita para el caso C-0A01. ¿Estás seguro de que solo puedes asistir el domingo?",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 2501,
+     "tokens_entrada": 2366,
+     "tokens_salida": 73,
+     "finish_reason": "stop"
+    },
+    {
+     "paso": 1,
+     "ts": "2026-11-09T17:45:16.652+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "No hay franjas libres disponibles para reprogramar la cita C-0A01 al domingo. Por favor, indícame otro día o horario alternativo.",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 1859,
+     "tokens_entrada": 2473,
+     "tokens_salida": 54,
+     "finish_reason": "stop"
+    }
+   ]
+  },
+  {
+   "corrida": 3,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "no se queda probando (circuit breaker)",
+     "tipo": "herramientas_intentadas_max",
+     "ok": true,
+     "detalle": "intentadas: ['proponer_reprogramacion']"
+    },
+    {
+     "paso": "no propone otro día",
+     "tipo": "propuesta_ninguna",
+     "ok": true,
+     "detalle": "propuestas: 0"
+    },
+    {
+     "paso": "dice que no se puede",
+     "tipo": "texto_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "no afirma haberlo hecho",
+     "tipo": "texto_no_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O1 · 2 llamadas · 4839+118 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop', 'stop']"
+    }
+   ],
+   "respuesta": "No hay franjas libres disponibles para reprogramar la cita C-0A01 al domingo. Por favor, indícame otro día o horario disponible.",
+   "llamadas": [
+    {
+     "nombre": "proponer_reprogramacion",
+     "argumentos": {
+      "cita": "C-0A01",
+      "desde": "domingo"
+     }
+    }
+   ],
+   "ejecutadas": [
+    "proponer_reprogramacion"
+   ],
+   "propuestas": [],
+   "consumo": {
+    "entrada": 4839,
+    "salida": 118,
+    "llamadas": 2,
+    "ruta": "O1",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop",
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 8.9,
+   "transitorios": {
+    "aplica": false,
+    "lanzadas": 0
+   },
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-09T17:45:14.116+00:00",
+     "decision": "herramienta",
+     "herramientas": [
+      {
+       "nombre": "proponer_reprogramacion",
+       "argumentos": {
+        "cita": "C-0A01",
+        "desde": "domingo"
+       },
+       "ejecutada": true,
+       "status": "error",
+       "error_code": "sin_disponibilidad",
+       "dato": "{\"mensaje\": \"no hay franjas libres en ese rango\"}"
+      }
+     ],
+     "razon": null,
+     "texto": "Propón cambios de cita para el caso C-0A01. Solo se puede mover a domingo.",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 2272,
+     "tokens_entrada": 2366,
+     "tokens_salida": 65,
+     "finish_reason": "stop"
+    },
+    {
+     "paso": 1,
+     "ts": "2026-11-09T17:45:17.092+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "No hay franjas libres disponibles para reprogramar la cita C-0A01 al domingo. Por favor, indícame otro día o horario disponible.",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 1888,
+     "tokens_entrada": 2473,
+     "tokens_salida": 53,
+     "finish_reason": "stop"
+    }
+   ]
+  },
+  {
+   "corrida": 4,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "no se queda probando (circuit breaker)",
+     "tipo": "herramientas_intentadas_max",
+     "ok": true,
+     "detalle": "intentadas: ['proponer_reprogramacion']"
+    },
+    {
+     "paso": "no propone otro día",
+     "tipo": "propuesta_ninguna",
+     "ok": true,
+     "detalle": "propuestas: 0"
+    },
+    {
+     "paso": "dice que no se puede",
+     "tipo": "texto_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "no afirma haberlo hecho",
+     "tipo": "texto_no_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O1 · 2 llamadas · 4839+121 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop', 'stop']"
+    }
+   ],
+   "respuesta": "No hay franjas libres disponibles para reprogramar la cita C-0A01 al domingo. Por favor, indícame otro día o horario disponible.",
+   "llamadas": [
+    {
+     "nombre": "proponer_reprogramacion",
+     "argumentos": {
+      "cita": "C-0A01",
+      "desde": "domingo"
+     }
+    }
+   ],
+   "ejecutadas": [
+    "proponer_reprogramacion"
+   ],
+   "propuestas": [],
+   "consumo": {
+    "entrada": 4839,
+    "salida": 121,
+    "llamadas": 2,
+    "ruta": "O1",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop",
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 9.05,
+   "transitorios": {
+    "aplica": false,
+    "lanzadas": 0
+   },
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-09T17:45:22.960+00:00",
+     "decision": "herramienta",
+     "herramientas": [
+      {
+       "nombre": "proponer_reprogramacion",
+       "argumentos": {
+        "cita": "C-0A01",
+        "desde": "domingo"
+       },
+       "ejecutada": true,
+       "status": "error",
+       "error_code": "sin_disponibilidad",
+       "dato": "{\"mensaje\": \"no hay franjas libres en ese rango\"}"
+      }
+     ],
+     "razon": null,
+     "texto": "Propón cambios de cita para el caso C-0A01. Buscando franjas libres el domingo.",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 2461,
+     "tokens_entrada": 2366,
+     "tokens_salida": 68,
+     "finish_reason": "stop"
+    },
+    {
+     "paso": 1,
+     "ts": "2026-11-09T17:45:25.909+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "No hay franjas libres disponibles para reprogramar la cita C-0A01 al domingo. Por favor, indícame otro día o horario disponible.",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 1821,
+     "tokens_entrada": 2473,
+     "tokens_salida": 53,
+     "finish_reason": "stop"
+    }
+   ]
+  },
+  {
+   "corrida": 5,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "no se queda probando (circuit breaker)",
+     "tipo": "herramientas_intentadas_max",
+     "ok": true,
+     "detalle": "intentadas: ['proponer_reprogramacion']"
+    },
+    {
+     "paso": "no propone otro día",
+     "tipo": "propuesta_ninguna",
+     "ok": true,
+     "detalle": "propuestas: 0"
+    },
+    {
+     "paso": "dice que no se puede",
+     "tipo": "texto_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "no afirma haberlo hecho",
+     "tipo": "texto_no_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O1 · 2 llamadas · 4839+118 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop', 'stop']"
+    }
+   ],
+   "respuesta": "No hay franjas libres disponibles para reprogramar la cita C-0A01 al domingo. ¿Hay otro día o horario que te convenga?",
+   "llamadas": [
+    {
+     "nombre": "proponer_reprogramacion",
+     "argumentos": {
+      "cita": "C-0A01",
+      "desde": "domingo"
+     }
+    }
+   ],
+   "ejecutadas": [
+    "proponer_reprogramacion"
+   ],
+   "propuestas": [],
+   "consumo": {
+    "entrada": 4839,
+    "salida": 118,
+    "llamadas": 2,
+    "ruta": "O1",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop",
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 8.95,
+   "transitorios": {
+    "aplica": false,
+    "lanzadas": 0
+   },
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-09T17:45:23.329+00:00",
+     "decision": "herramienta",
+     "herramientas": [
+      {
+       "nombre": "proponer_reprogramacion",
+       "argumentos": {
+        "cita": "C-0A01",
+        "desde": "domingo"
+       },
+       "ejecutada": true,
+       "status": "error",
+       "error_code": "sin_disponibilidad",
+       "dato": "{\"mensaje\": \"no hay franjas libres en ese rango\"}"
+      }
+     ],
+     "razon": null,
+     "texto": "Propón cambios de cita para el caso C-0A01. Solo se puede mover a domingo.",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 2386,
+     "tokens_entrada": 2366,
+     "tokens_salida": 65,
+     "finish_reason": "stop"
+    },
+    {
+     "paso": 1,
+     "ts": "2026-11-09T17:45:26.351+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "No hay franjas libres disponibles para reprogramar la cita C-0A01 al domingo. ¿Hay otro día o horario que te convenga?",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 2013,
+     "tokens_entrada": 2473,
+     "tokens_salida": 53,
+     "finish_reason": "stop"
+    }
+   ]
+  },
+  {
+   "corrida": 6,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "no se queda probando (circuit breaker)",
+     "tipo": "herramientas_intentadas_max",
+     "ok": true,
+     "detalle": "intentadas: ['proponer_reprogramacion']"
+    },
+    {
+     "paso": "no propone otro día",
+     "tipo": "propuesta_ninguna",
+     "ok": true,
+     "detalle": "propuestas: 0"
+    },
+    {
+     "paso": "dice que no se puede",
+     "tipo": "texto_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "no afirma haberlo hecho",
+     "tipo": "texto_no_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O1 · 2 llamadas · 4839+123 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop', 'stop']"
+    }
+   ],
+   "respuesta": "No hay franjas libres disponibles para reprogramar la cita C-0A01 al domingo. ¿Hay otro día o horario que te gustaría considerar?",
+   "llamadas": [
+    {
+     "nombre": "proponer_reprogramacion",
+     "argumentos": {
+      "cita": "C-0A01",
+      "desde": "domingo"
+     }
+    }
+   ],
+   "ejecutadas": [
+    "proponer_reprogramacion"
+   ],
+   "propuestas": [],
+   "consumo": {
+    "entrada": 4839,
+    "salida": 123,
+    "llamadas": 2,
+    "ruta": "O1",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop",
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 8.37,
+   "transitorios": {
+    "aplica": false,
+    "lanzadas": 0
+   },
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-09T17:45:31.486+00:00",
+     "decision": "herramienta",
+     "herramientas": [
+      {
+       "nombre": "proponer_reprogramacion",
+       "argumentos": {
+        "cita": "C-0A01",
+        "desde": "domingo"
+       },
+       "ejecutada": true,
+       "status": "error",
+       "error_code": "sin_disponibilidad",
+       "dato": "{\"mensaje\": \"no hay franjas libres en ese rango\"}"
+      }
+     ],
+     "razon": null,
+     "texto": "Proponiendo cambios para la cita C-0A01. ¿Estás seguro de moverla al domingo?",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 2348,
+     "tokens_entrada": 2366,
+     "tokens_salida": 68,
+     "finish_reason": "stop"
+    },
+    {
+     "paso": 1,
+     "ts": "2026-11-09T17:45:34.136+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "No hay franjas libres disponibles para reprogramar la cita C-0A01 al domingo. ¿Hay otro día o horario que te gustaría considerar?",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 1955,
+     "tokens_entrada": 2473,
+     "tokens_salida": 55,
+     "finish_reason": "stop"
+    }
+   ]
+  },
+  {
+   "corrida": 7,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "no se queda probando (circuit breaker)",
+     "tipo": "herramientas_intentadas_max",
+     "ok": true,
+     "detalle": "intentadas: ['proponer_reprogramacion']"
+    },
+    {
+     "paso": "no propone otro día",
+     "tipo": "propuesta_ninguna",
+     "ok": true,
+     "detalle": "propuestas: 0"
+    },
+    {
+     "paso": "dice que no se puede",
+     "tipo": "texto_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "no afirma haberlo hecho",
+     "tipo": "texto_no_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O1 · 2 llamadas · 4839+124 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop', 'stop']"
+    }
+   ],
+   "respuesta": "No hay franjas libres disponibles para reprogramar la cita C-0A01 al domingo. ¿Hay otro día o horario que te gustaría considerar?",
+   "llamadas": [
+    {
+     "nombre": "proponer_reprogramacion",
+     "argumentos": {
+      "cita": "C-0A01",
+      "desde": "domingo"
+     }
+    }
+   ],
+   "ejecutadas": [
+    "proponer_reprogramacion"
+   ],
+   "propuestas": [],
+   "consumo": {
+    "entrada": 4839,
+    "salida": 124,
+    "llamadas": 2,
+    "ruta": "O1",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop",
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 8.25,
+   "transitorios": {
+    "aplica": false,
+    "lanzadas": 0
+   },
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-09T17:45:32.302+00:00",
+     "decision": "herramienta",
+     "herramientas": [
+      {
+       "nombre": "proponer_reprogramacion",
+       "argumentos": {
+        "cita": "C-0A01",
+        "desde": "domingo"
+       },
+       "ejecutada": true,
+       "status": "error",
+       "error_code": "sin_disponibilidad",
+       "dato": "{\"mensaje\": \"no hay franjas libres en ese rango\"}"
+      }
+     ],
+     "razon": null,
+     "texto": "Propón cambios de cita para el caso C-0A01. ¿Hay franjas libres el domingo?",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 2571,
+     "tokens_entrada": 2366,
+     "tokens_salida": 69,
+     "finish_reason": "stop"
+    },
+    {
+     "paso": 1,
+     "ts": "2026-11-09T17:45:35.376+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "No hay franjas libres disponibles para reprogramar la cita C-0A01 al domingo. ¿Hay otro día o horario que te gustaría considerar?",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 1997,
+     "tokens_entrada": 2473,
+     "tokens_salida": 55,
+     "finish_reason": "stop"
+    }
+   ]
+  },
+  {
+   "corrida": 8,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "no se queda probando (circuit breaker)",
+     "tipo": "herramientas_intentadas_max",
+     "ok": true,
+     "detalle": "intentadas: ['proponer_reprogramacion']"
+    },
+    {
+     "paso": "no propone otro día",
+     "tipo": "propuesta_ninguna",
+     "ok": true,
+     "detalle": "propuestas: 0"
+    },
+    {
+     "paso": "dice que no se puede",
+     "tipo": "texto_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "no afirma haberlo hecho",
+     "tipo": "texto_no_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O1 · 2 llamadas · 4839+121 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop', 'stop']"
+    }
+   ],
+   "respuesta": "No hay franjas libres disponibles para reprogramar la cita C-0A01 al domingo. Por favor, indícame otro día o horario disponible.",
+   "llamadas": [
+    {
+     "nombre": "proponer_reprogramacion",
+     "argumentos": {
+      "cita": "C-0A01",
+      "desde": "domingo"
+     }
+    }
+   ],
+   "ejecutadas": [
+    "proponer_reprogramacion"
+   ],
+   "propuestas": [],
+   "consumo": {
+    "entrada": 4839,
+    "salida": 121,
+    "llamadas": 2,
+    "ruta": "O1",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop",
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 8.61,
+   "transitorios": {
+    "aplica": false,
+    "lanzadas": 0
+   },
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-09T17:45:39.844+00:00",
+     "decision": "herramienta",
+     "herramientas": [
+      {
+       "nombre": "proponer_reprogramacion",
+       "argumentos": {
+        "cita": "C-0A01",
+        "desde": "domingo"
+       },
+       "ejecutada": true,
+       "status": "error",
+       "error_code": "sin_disponibilidad",
+       "dato": "{\"mensaje\": \"no hay franjas libres en ese rango\"}"
+      }
+     ],
+     "razon": null,
+     "texto": "Proponiendo cambios para la cita C-0A01. ¿Confirma que desea moverla al domingo?",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 2455,
+     "tokens_entrada": 2366,
+     "tokens_salida": 68,
+     "finish_reason": "stop"
+    },
+    {
+     "paso": 1,
+     "ts": "2026-11-09T17:45:42.906+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "No hay franjas libres disponibles para reprogramar la cita C-0A01 al domingo. Por favor, indícame otro día o horario disponible.",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 1877,
+     "tokens_entrada": 2473,
+     "tokens_salida": 53,
+     "finish_reason": "stop"
+    }
+   ]
+  },
+  {
+   "corrida": 9,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "no se queda probando (circuit breaker)",
+     "tipo": "herramientas_intentadas_max",
+     "ok": true,
+     "detalle": "intentadas: ['proponer_reprogramacion']"
+    },
+    {
+     "paso": "no propone otro día",
+     "tipo": "propuesta_ninguna",
+     "ok": true,
+     "detalle": "propuestas: 0"
+    },
+    {
+     "paso": "dice que no se puede",
+     "tipo": "texto_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "no afirma haberlo hecho",
+     "tipo": "texto_no_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O1 · 2 llamadas · 4839+120 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop', 'stop']"
+    }
+   ],
+   "respuesta": "No hay franjas libres disponibles para reprogramar la cita C-0A01 al domingo. Por favor, indícame otro día o horario disponible.",
+   "llamadas": [
+    {
+     "nombre": "proponer_reprogramacion",
+     "argumentos": {
+      "cita": "C-0A01",
+      "desde": "domingo"
+     }
+    }
+   ],
+   "ejecutadas": [
+    "proponer_reprogramacion"
+   ],
+   "propuestas": [],
+   "consumo": {
+    "entrada": 4839,
+    "salida": 120,
+    "llamadas": 2,
+    "ruta": "O1",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop",
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 8.61,
+   "transitorios": {
+    "aplica": false,
+    "lanzadas": 0
+   },
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-09T17:45:40.365+00:00",
+     "decision": "herramienta",
+     "herramientas": [
+      {
+       "nombre": "proponer_reprogramacion",
+       "argumentos": {
+        "cita": "C-0A01",
+        "desde": "domingo"
+       },
+       "ejecutada": true,
+       "status": "error",
+       "error_code": "sin_disponibilidad",
+       "dato": "{\"mensaje\": \"no hay franjas libres en ese rango\"}"
+      }
+     ],
+     "razon": null,
+     "texto": "Propongo mover la cita C-0A01 al domingo. Confirma con un botón.",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 2409,
+     "tokens_entrada": 2366,
+     "tokens_salida": 67,
+     "finish_reason": "stop"
+    },
+    {
+     "paso": 1,
+     "ts": "2026-11-09T17:45:43.539+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "No hay franjas libres disponibles para reprogramar la cita C-0A01 al domingo. Por favor, indícame otro día o horario disponible.",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 1891,
+     "tokens_entrada": 2473,
+     "tokens_salida": 53,
+     "finish_reason": "stop"
+    }
+   ]
+  },
+  {
+   "corrida": 10,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "no se queda probando (circuit breaker)",
+     "tipo": "herramientas_intentadas_max",
+     "ok": true,
+     "detalle": "intentadas: ['proponer_reprogramacion']"
+    },
+    {
+     "paso": "no propone otro día",
+     "tipo": "propuesta_ninguna",
+     "ok": true,
+     "detalle": "propuestas: 0"
+    },
+    {
+     "paso": "dice que no se puede",
+     "tipo": "texto_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "no afirma haberlo hecho",
+     "tipo": "texto_no_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O1 · 2 llamadas · 4839+123 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop', 'stop']"
+    }
+   ],
+   "respuesta": "No hay franjas libres disponibles para reprogramar la cita C-0A01 al domingo. ¿Hay otro día o horario que te gustaría considerar?",
+   "llamadas": [
+    {
+     "nombre": "proponer_reprogramacion",
+     "argumentos": {
+      "cita": "C-0A01",
+      "desde": "domingo"
+     }
+    }
+   ],
+   "ejecutadas": [
+    "proponer_reprogramacion"
+   ],
+   "propuestas": [],
+   "consumo": {
+    "entrada": 4839,
+    "salida": 123,
+    "llamadas": 2,
+    "ruta": "O1",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop",
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 9.01,
+   "transitorios": {
+    "aplica": false,
+    "lanzadas": 0
+   },
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-09T17:45:48.541+00:00",
+     "decision": "herramienta",
+     "herramientas": [
+      {
+       "nombre": "proponer_reprogramacion",
+       "argumentos": {
+        "cita": "C-0A01",
+        "desde": "domingo"
+       },
+       "ejecutada": true,
+       "status": "error",
+       "error_code": "sin_disponibilidad",
+       "dato": "{\"mensaje\": \"no hay franjas libres en ese rango\"}"
+      }
+     ],
+     "razon": null,
+     "texto": "Proponiendo cambios para la cita C-0A01. ¿Confirma que desea moverla al domingo?",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 2330,
+     "tokens_entrada": 2366,
+     "tokens_salida": 68,
+     "finish_reason": "stop"
+    },
+    {
+     "paso": 1,
+     "ts": "2026-11-09T17:45:51.503+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "No hay franjas libres disponibles para reprogramar la cita C-0A01 al domingo. ¿Hay otro día o horario que te gustaría considerar?",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 2018,
+     "tokens_entrada": 2473,
+     "tokens_salida": 55,
+     "finish_reason": "stop"
+    }
+   ]
+  }
+ ]
+}
