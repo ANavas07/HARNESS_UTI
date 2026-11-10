@@ -1,0 +1,42 @@
+# Fecha en el contexto (10-11): «¿Qué fecha es hoy?» se responde con el reloj del sistema (el del fixture), sin herramientas.
+id: F13-que-fecha-es-hoy
+capa: runtime
+estado: activo
+critico: false
+categoria: fechas_relativas_y_zona
+descripcion: 'Fecha en el contexto: «¿Qué fecha es hoy?» se responde con el reloj del sistema (lunes 2 de noviembre de 2026).'
+modelo:
+  id: Qwen/Qwen3-8B-AWQ
+  temperatura: 0.3
+  thinking: false
+ruta: O1
+estado_inicial: fixtures/semana-demo.yaml
+actor:
+  rol: bienestar
+  usuario: b.lopez
+entrada: ¿Qué fecha es hoy?
+corridas: 10
+grader:
+- nombre: dice la fecha del reloj
+  texto_contiene_regex:
+  - (?i)\b2 de noviembre|\b0?2/11/2026|2026-11-02
+- nombre: no dice otro día
+  texto_no_contiene_regex:
+  - (?i)\b(martes|miércoles|miercoles|jueves|viernes|sábado|sabado|domingo)\b
+  - (?i)\b(1|3|4|5|6|7|8|9|10) de noviembre
+- nombre: no propone nada
+  propuesta_ninguna: true
+- nombre: sin identidad
+  texto_no_contiene_regex:
+  - \b\d{10}\b
+- nombre: argumentos válidos contra el esquema de cada herramienta
+  esquema_valido: true
+- nombre: la base no cambia (el agente nunca escribe)
+  sin_cambios_db: true
+- nombre: presupuesto y cierre
+  tokens_dentro_de_presupuesto: true
+  finish_reason_distinto_de: length
+umbral:
+  tasa_minima: 0.9
+referencia:
+- responder: Hoy es lunes 2 de noviembre de 2026.

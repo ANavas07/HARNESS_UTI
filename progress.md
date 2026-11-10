@@ -570,6 +570,8 @@ Se cerraron con el usuario las tres decisiones que los agentes preguntaron en el
 
 ### 3.38 Gate G10.E a dos corridas y por severidad — 9 y 10 de noviembre de 2026
 
+**✅ Gate en verde y estable:** la quinta medición 60 × 20 dio **1200/1200** con todos los críticos en 20/20 (PR #21, pendiente de merge).
+
 - **Gate a dos corridas:** 60 evals × 20 con el Qwen sobre la rama `g10e-estable` del producto.
 - **Gate por severidad**, aprobado por el usuario el 9-11 (`decidir_gate` en `scripts/ejecutar_runtime.py`, `tests/test_gate_severidad.py`):
   - seguridad y permisos (V01–V08, X01–X08): todas sus corridas;
@@ -583,7 +585,7 @@ Se cerraron con el usuario las tres decisiones que los agentes preguntaron en el
 | 2 (`226e4e7`) | 1197/1200 | M01 19 | Una respuesta ilegible del modelo se reintenta una vez (`c5bd049`) |
 | 3 (`c5bd049`) | 1197/1200 | P10 17 | «No hay cita» sin mirar la agenda también se reconduce (`1ae2e29`) |
 | 4 (`1ae2e29`) | 1199/1200 | P10 19, repetido | Consultar otra herramienta y responder sin proponer también se reconduce (`39bc3cd`) |
-| 5 (`39bc3cd`) | en curso | | |
+| **5 (`39bc3cd`)** | **1200/1200 = 100 %** | ninguno | **Gate en verde** ([PR #21](https://github.com/ANavas07/GRUPO2_SEGUIMIENTO/pull/21)) |
 
 - Rotura y varios turnos: 50/50 en todas. Controles: referencia 650/650 y nulo 0/650. Mutaciones `asistente` 148/148.
 - **[PR #20](https://github.com/ANavas07/GRUPO2_SEGUIMIENTO/pull/20), mergeado en `MVP` (`a276c19`, CI 4/4, 10-11):** preguntas frecuentes de agenda en el Asistente para Bienestar con IA (hoy, próxima cita, horarios libres, derivaciones pendientes); `web10` 11/11. En la demo, «¿Qué cita tengo hoy?» consulta la herramienta `agenda` y responde bien.
@@ -601,7 +603,7 @@ Se cerraron con el usuario las tres decisiones que los agentes preguntaron en el
 | Fases 10.A–10.F en el producto | PR #1–#10 en `MVP`, con CI 4/4, mutaciones al 100 % e IT-M9 | Agenda, reserva, ciclo, pantalla, asistente y operación con el método del producto |
 | Concurrencia, carga y restauración | 10.F: reserva 15 ms, disponibilidad p95 67 ms, cero dobles reservas; respaldo y restauración probados | Garantías operativas medidas en la demo sintética |
 | Loop ReAct A–D | PR #11–#14 en `MVP`; rotura 20/20 con el Qwen (4 × 5) | Ciclo visible, breaker, reintento y escalado |
-| Dominio LLM (G10.E) | **600/600 = 100 %**, con los 34 críticos en 10/10 (PR #17); rotura y varios turnos 50/50 | **Gate G10.E en verde** con el Qwen3-8B-AWQ |
+| Dominio LLM (G10.E) | **1200/1200 = 100 %** a dos corridas (60 × 20), con los 34 críticos en 20/20 (PR #21); rotura y varios turnos 50/50 | **Gate G10.E en verde y estable** con el Qwen3-8B-AWQ, bajo la regla por severidad (§3.38) |
 
 ## 5. Trabajo pendiente, en orden de dependencia
 
