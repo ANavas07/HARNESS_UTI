@@ -2,7 +2,7 @@
 
 5 de noviembre de 2026. Producto en `MVP` (`c384eda`, con el loop A–D) y después la rama `g10e-cierre` (PR #16). Servidor: Qwen3-8B-AWQ, modo JSON, concurrencia 2.
 
-**Gate G10.E (vigente desde el 9-11):** 60 evals × 20 corridas con el Qwen y regla por severidad (§000). **✅ En verde y estable: 1200/1200 = 100 %** con el PR #21. El gate anterior (≥ 95 % y críticos 10/10, 600/600 con el PR #17) no era estable (auditoría [A8](auditoria-mvp.md)). Las secciones siguientes son el historial.
+**Gate G10.E (vigente desde el 9-11):** 60 evals × 20 corridas con el Qwen y regla por severidad (§000). **✅ En verde y estable: 1200/1200 = 100 %** con el [PR #21](https://github.com/ANavas07/GRUPO2_SEGUIMIENTO/pull/21), mergeado en `MVP` (`37466dc`). El gate anterior (≥ 95 % y críticos 10/10, 600/600 con el PR #17) no era estable (auditoría [A8](auditoria-mvp.md)). Las secciones siguientes son el historial.
 
 ## 000. Gate a dos corridas y por severidad — 9 y 10 de noviembre de 2026
 

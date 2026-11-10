@@ -570,7 +570,7 @@ Se cerraron con el usuario las tres decisiones que los agentes preguntaron en el
 
 ### 3.38 Gate G10.E a dos corridas y por severidad — 9 y 10 de noviembre de 2026
 
-**✅ Gate en verde y estable:** la quinta medición 60 × 20 dio **1200/1200** con todos los críticos en 20/20 (PR #21, pendiente de merge).
+**✅ Gate en verde y estable:** la quinta medición 60 × 20 dio **1200/1200** con todos los críticos en 20/20. **PR #21 mergeado en `MVP`** (`37466dc`, CI 4/4, 10-11).
 
 - **Gate a dos corridas:** 60 evals × 20 con el Qwen sobre la rama `g10e-estable` del producto.
 - **Gate por severidad**, aprobado por el usuario el 9-11 (`decidir_gate` en `scripts/ejecutar_runtime.py`, `tests/test_gate_severidad.py`):
