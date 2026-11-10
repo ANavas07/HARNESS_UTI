@@ -586,7 +586,7 @@ Se cerraron con el usuario las tres decisiones que los agentes preguntaron en el
 | 5 (`39bc3cd`) | en curso | | |
 
 - Rotura y varios turnos: 50/50 en todas. Controles: referencia 650/650 y nulo 0/650. Mutaciones `asistente` 148/148.
-- **[PR #20](https://github.com/ANavas07/GRUPO2_SEGUIMIENTO/pull/20):** preguntas frecuentes de agenda en el Asistente para Bienestar con IA (hoy, próxima cita, horarios libres, derivaciones pendientes); `web10` 11/11. En la demo, «¿Qué cita tengo hoy?» consulta la herramienta `agenda` y responde bien.
+- **[PR #20](https://github.com/ANavas07/GRUPO2_SEGUIMIENTO/pull/20), mergeado en `MVP` (`a276c19`, CI 4/4, 10-11):** preguntas frecuentes de agenda en el Asistente para Bienestar con IA (hoy, próxima cita, horarios libres, derivaciones pendientes); `web10` 11/11. En la demo, «¿Qué cita tengo hoy?» consulta la herramienta `agenda` y responde bien.
 - **Dónde se rompió:**
   - en P10, el Qwen consulta derivaciones en vez de la agenda; cada medición mostró una forma distinta de responder después («no hay cita», «¿deseas cancelarla?»), y cada una se corrigió según lo que hizo el modelo;
   - una corrida cortada por la suspensión de la máquina se relanzó;
