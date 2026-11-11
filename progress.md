@@ -617,7 +617,7 @@ Se cerraron con el usuario las tres decisiones que los agentes preguntaron en el
 
 ### 3.40 La agenda del asistente incluye las tareas — 11 de noviembre de 2026
 
-**[PR #22](https://github.com/ANavas07/GRUPO2_SEGUIMIENTO/pull/22)** (rama `tareas-en-agenda`, `229b6a3`, sobre `MVP` `37466dc`): CI 4/4 en verde; espera el OK del usuario para mergear.
+**[PR #22](https://github.com/ANavas07/GRUPO2_SEGUIMIENTO/pull/22)** (rama `tareas-en-agenda`, `229b6a3`, sobre `MVP` `37466dc`): CI 4/4 en verde; ✅ **mergeado en `MVP`** con el OK del usuario el 11-11 (`927b716`).
 
 - **Qué pasó:** en la demo, b.lopez preguntó «¿Qué citas tengo hoy?» y el asistente respondió «No tienes citas programadas para hoy», pero el calendario mostraba «16:00 · Llamar para confirmar · C-A39F».
 - **Causa:** eso era una **tarea** (`core.agenda_tareas`), no una cita. El calendario dibuja citas y tareas (`agenda.listar`), pero `consultar_agenda` solo leía `core.v_citas_chat`, así que el modelo veía el día vacío.
