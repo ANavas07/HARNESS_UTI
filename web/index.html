@@ -22,6 +22,7 @@
 <aside class="sidebar" aria-label="Navegación del documento">
   <div class="brand"><svg aria-hidden="true" width="32" height="32" viewBox="0 0 32 32" fill="none"><rect x="3" y="6" width="26" height="23" rx="6" stroke="#9ec7b7" stroke-width="1.5"/><path d="M3 13H29M10 3V9M22 3V9M10 20L14 24L23 17" stroke="#9ec7b7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Agenda<br><span style="font-weight:400;color:#a9c9bf;font-size:.78rem">Harness · Permanencia</span></span></div>
   <div><div class="eyebrow" style="margin:0 10px 12px">Guía del sistema</div><nav class="nav">
+    <button data-view="presentacion"><b>00</b> Presentación</button>
     <button data-view="mapa" aria-current="page"><b>01</b> Diagrama interactivo</button>
     <button data-view="resumen"><b>↳</b> Arquitectura y detalle</button>
     <button data-view="recorrido"><b>02</b> Simular derivaciones</button>
@@ -32,10 +33,433 @@
     <button data-view="validacion"><b>06</b> Cómo validarlo</button>
     <button data-view="evals"><b>07</b> Evals del lab</button>
   </nav></div>
-  <div class="sidefoot small"><strong>Documento interactivo</strong><br>Basado en SPEC.md · v0.9<br>Actualizado el 6 de noviembre de 2026<br><br>Simulación local con datos ficticios. Sin conexiones al modelo, al producto ni a la agenda.</div>
+  <div class="sidefoot small"><strong>Documento interactivo</strong><br>Basado en SPEC.md · v0.9<br>Actualizado el 11 de noviembre de 2026<br><br>Simulación local con datos ficticios. Sin conexiones al modelo, al producto ni a la agenda.</div>
 </aside>
 <main class="main" id="contenido">
 <div class="topbar"><span class="small">Producto de deserción <span aria-hidden="true">/</span> Módulo de agenda (opción A)</span><span class="badge green"><span class="dot"></span> SPEC v0.9 · Etapa 10 en desarrollo</span></div>
+
+<section class="view" id="presentacion" hidden aria-labelledby="title-presentacion">
+ <style>
+  #presentacion .pr-kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+  #presentacion .pr-kpi{border:1px solid var(--line);border-radius:12px;background:var(--white);padding:16px}
+  #presentacion .pr-kpi strong{display:block;font-size:1.7rem;letter-spacing:-.03em;color:var(--green);line-height:1.1}
+  #presentacion .pr-kpi span{font-size:.8rem;color:var(--muted)}
+  #presentacion .pr-capas{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:20px;align-items:start}
+  #presentacion .pr-stack{display:flex;flex-direction:column;gap:6px}
+  #presentacion .pr-capa{display:grid;grid-template-columns:34px 1fr auto;gap:10px;align-items:center;text-align:left;border:1px solid var(--line);border-radius:10px;padding:10px 12px;background:var(--white);color:var(--ink);transition:transform .12s}
+  #presentacion .pr-capa b{font-size:.72rem;color:var(--muted)}
+  #presentacion .pr-capa span{font-weight:600;font-size:.9rem}
+  #presentacion .pr-capa small{font-size:.72rem;color:var(--muted)}
+  #presentacion .pr-capa[aria-pressed="true"]{border-color:var(--green);background:var(--soft);transform:translateX(6px)}
+  #presentacion .pr-capa.t-ui{border-left:5px solid #7a8fa0}#presentacion .pr-capa.t-ctx{border-left:5px solid var(--blue)}
+  #presentacion .pr-capa.t-ctl{border-left:5px solid var(--green)}#presentacion .pr-capa.t-tool{border-left:5px solid var(--orange)}
+  #presentacion .pr-capa.t-obs{border-left:5px solid #6b4fa0}
+  #presentacion .pr-detalle{border:1px solid var(--line);border-radius:12px;padding:18px;background:#fbfcfb;position:sticky;top:16px}
+  #presentacion .pr-detalle h3{font-size:1.05rem;margin-bottom:4px}
+  #presentacion .pr-detalle code{font-size:.78rem}
+  #presentacion .pr-detalle ul{margin:10px 0 0;padding-left:18px;font-size:.88rem}
+  #presentacion .pr-detalle li{margin-bottom:5px}
+  #presentacion .pr-leyenda{display:flex;flex-wrap:wrap;gap:8px 16px;font-size:.78rem;color:var(--muted);margin-top:12px}
+  #presentacion .pr-leyenda i{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+  #presentacion .pr-ventana{position:relative;height:46px;border-radius:8px;background:#eef1ef;display:flex;overflow:visible;margin-top:48px}
+  #presentacion .pr-ventana>div.seg{height:100%;display:flex;align-items:center;justify-content:center;font-size:.7rem;color:white;white-space:nowrap;overflow:hidden;transition:width .35s}
+  #presentacion .pr-ventana>div.seg:first-child{border-radius:8px 0 0 8px}
+  #presentacion .pr-marca{position:absolute;top:-24px;bottom:-4px;border-left:2px dashed var(--ink);font-size:.68rem;padding-left:4px;color:var(--ink);white-space:nowrap;transition:left .35s}
+  #presentacion .pr-marca.roja{border-color:var(--red);color:var(--red)}
+  #presentacion .pr-guardas{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+  #presentacion .pr-guarda{border:1px solid var(--line);border-radius:12px;padding:14px;background:var(--white)}
+  #presentacion .pr-guarda strong{display:block;font-size:1.35rem;color:var(--green);line-height:1.1}
+  #presentacion .pr-guarda h3{font-size:.88rem;margin:6px 0 4px}
+  #presentacion .pr-guarda p{font-size:.8rem;color:var(--muted)}
+  #presentacion .pr-sim-ctl{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;align-items:end}
+  #presentacion .pr-sim-ctl label{display:block;font-size:.75rem;color:var(--muted);margin-bottom:4px}
+  #presentacion .pr-sim-ctl select,#presentacion .pr-sim-ctl input[type=range]{width:100%}
+  #presentacion .pr-sim-ctl select{padding:8px;border:1px solid var(--line);border-radius:8px;background:white}
+  #presentacion .pr-checks{display:flex;gap:16px;flex-wrap:wrap;font-size:.84rem;margin-top:12px}
+  #presentacion .pr-botones{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+  #presentacion .pr-contadores{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px;margin-top:18px}
+  #presentacion .pr-cont{border:1px solid var(--line);border-radius:10px;padding:9px 10px;background:white}
+  #presentacion .pr-cont span{display:block;font-size:.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+  #presentacion .pr-cont strong{font-size:1rem}
+  #presentacion .pr-cont .barra{height:5px;border-radius:3px;background:#eef1ef;margin-top:6px;overflow:hidden}
+  #presentacion .pr-cont .barra i{display:block;height:100%;background:var(--green);transition:width .3s}
+  #presentacion .pr-cont.alerta .barra i{background:var(--orange)}#presentacion .pr-cont.lleno .barra i{background:var(--red)}
+  #presentacion .pr-sim-cuerpo{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:18px;margin-top:18px}
+  #presentacion .pr-log{list-style:none;margin:0;padding:0;max-height:360px;overflow:auto;border:1px solid var(--line);border-radius:10px;background:white}
+  #presentacion .pr-log li{padding:8px 12px;border-bottom:1px solid #eef1ef;font-size:.82rem;display:grid;grid-template-columns:22px 1fr;gap:6px}
+  #presentacion .pr-log li code{display:block;font-size:.72rem;color:var(--muted)}
+  #presentacion .pr-log li.ok::before{content:"●";color:var(--green)}#presentacion .pr-log li.warn::before{content:"▲";color:var(--orange)}
+  #presentacion .pr-log li.stop::before{content:"■";color:var(--red)}#presentacion .pr-log li.info::before{content:"○";color:var(--blue)}
+  #presentacion .pr-log li.actual{background:var(--soft)}
+  #presentacion .pr-final{margin-top:14px;border-radius:10px;padding:12px 14px;font-size:.88rem;display:none}
+  #presentacion .pr-final.ok{display:block;background:var(--soft);color:var(--green)}
+  #presentacion .pr-final.warn{display:block;background:var(--sand);color:var(--orange)}
+  #presentacion .pr-final.stop{display:block;background:#f8e7e7;color:var(--red)}
+  #presentacion svg text{font-family:inherit}
+  #presentacion .pr-nota{font-size:.78rem;color:var(--muted);margin-top:10px}
+  @media(max-width:1050px){#presentacion .pr-capas,#presentacion .pr-sim-cuerpo{grid-template-columns:1fr}#presentacion .pr-detalle{position:static}
+   #presentacion .pr-guardas,#presentacion .pr-sim-ctl{grid-template-columns:repeat(2,minmax(0,1fr))}#presentacion .pr-contadores{grid-template-columns:repeat(3,minmax(0,1fr))}}
+  @media(max-width:620px){#presentacion .pr-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}#presentacion .pr-guardas,#presentacion .pr-sim-ctl{grid-template-columns:1fr}
+   #presentacion .pr-contadores{grid-template-columns:repeat(2,minmax(0,1fr))}#presentacion .pr-capa small{display:none}}
+ </style>
+ <header class="hero"><div class="eyebrow">00 / Presentación técnica</div><h1 id="title-presentacion">Un modelo pequeño,<br>con todo el control en el código.</h1><p class="lead">El asistente de agenda usa un modelo de 8 mil millones de parámetros con una ventana de 8.192 tokens. El harness es todo lo que lo rodea: arma el contexto de cada llamada, decide qué herramientas ve, cuenta y reserva tokens antes de llamar, compacta cuando no cabe, corta los bucles y deja una traza sin datos personales. Esta sección lo desglosa por capas y simula qué hace cuando el contexto se satura.</p></header>
+
+ <div class="pr-kpis">
+  <div class="pr-kpi"><strong>1200/1200</strong><span>Gate G10.E con el Qwen: 60 evals × 20 corridas, 34 críticas en 20/20</span></div>
+  <div class="pr-kpi"><strong>0</strong><span>fallos de seguridad y permisos en todas las mediciones (V01–V08, X01–X08)</span></div>
+  <div class="pr-kpi"><strong>8.192</strong><span>tokens de ventana; ninguna llamada se envía sin contarla antes</span></div>
+  <div class="pr-kpi"><strong>153/153</strong><span>mutaciones del asistente detectadas por las pruebas (2.248 pruebas)</span></div>
+ </div>
+
+ <div class="panel gap">
+  <div class="sectionhead"><div><h2>Las capas del harness</h2><p>De afuera hacia adentro: cada pregunta las atraviesa en este orden. Elige una capa para ver qué controla, dónde vive y qué la prueba.</p></div><span class="badge green">Código del producto</span></div>
+  <div class="pr-capas">
+   <div class="pr-stack" id="pr-stack" role="group" aria-label="Capas del harness"></div>
+   <div class="pr-detalle" id="pr-detalle" aria-live="polite"></div>
+  </div>
+  <div class="pr-leyenda"><span><i style="background:#7a8fa0"></i>Interfaz</span><span><i style="background:var(--blue)"></i>Contexto</span><span><i style="background:var(--green)"></i>Control (presupuesto y loop)</span><span><i style="background:var(--orange)"></i>Herramientas y correcciones</span><span><i style="background:#6b4fa0"></i>Observación y evaluación</span></div>
+ </div>
+
+ <div class="panel gap">
+  <div class="sectionhead"><div><h2>Cómo se reparte la ventana en cada llamada</h2><p>Una pregunta típica en la ruta O1. El historial y los resultados se reenvían en cada llamada, así que vuelven a contar como entrada.</p></div><span class="badge gray">Valores aproximados</span></div>
+  <div class="pr-ventana" id="pr-ventana-fija" aria-label="Reparto de la ventana de 8.192 tokens"></div>
+  <div class="pr-leyenda" id="pr-ventana-leyenda"></div>
+  <div class="twocol gap">
+   <div><h3 style="font-size:.95rem;margin-bottom:6px">Reglas del ejecutor (<code>presupuesto.py</code>)</h3>
+    <ul class="bullets small">
+     <li><strong>Contar antes de llamar:</strong> se tokeniza el contexto completo con las herramientas que se ofrecen.</li>
+     <li><strong>No cabe</strong> si entrada + salida reservada + margen (820) &gt; 8.192, o si la entrada pasa el tope de la ruta (O1: 3.000; O2: 5.000; nunca más de 5.734).</li>
+     <li><strong>Reservar y liquidar:</strong> se reserva la salida máxima y luego se cobra el consumo real del servidor (<code>usage</code>). Una reserva huérfana por una caída se cobra entera.</li>
+     <li><strong>Presupuesto por pregunta:</strong> O1 = 3 llamadas y 9.000 tokens de entrada en 45 s; O2 = 4 llamadas y 20.000 en 150 s.</li>
+    </ul></div>
+   <div><h3 style="font-size:.95rem;margin-bottom:6px">Compactación con continuidad (<code>compactacion.py</code>)</h3>
+    <ul class="bullets small">
+     <li><strong>Paso 1, sin costo:</strong> quita los pares pedido→resultado repetidos por una consulta igual posterior.</li>
+     <li><strong>Paso 2:</strong> resume el historial antiguo en un mensaje, sin otra llamada al modelo.</li>
+     <li><strong>Nunca se quitan</strong> el mensaje de sistema, la pregunta actual ni un pedido con resultado pendiente.</li>
+     <li><strong>Como mucho dos reducciones</strong> por tarea, y cada una debe bajar los tokens. Sin progreso, se escala de O1 a O2 una sola vez. Si tampoco cabe, responde «acota la pregunta» sin inventar.</li>
+    </ul></div>
+  </div>
+ </div>
+
+ <div class="panel gap">
+  <div class="sectionhead"><div><h2>Ocho frenos contra el bucle</h2><p>Un modelo pequeño puede insistir con la misma llamada o pedir herramientas sin fin. Cada freno vive en el código y tiene una mutación que demuestra que una prueba lo vigila.</p></div><span class="badge green">Fase C del loop</span></div>
+  <div class="pr-guardas">
+   <div class="pr-guarda"><strong>4</strong><h3>Rondas de herramientas</h3><p><code>MAX_PASOS</code>: después de 4 rondas ya no se ofrecen herramientas y el modelo debe responder.</p></div>
+   <div class="pr-guarda"><strong>3 / 4</strong><h3>Llamadas por ruta</h3><p>O1 tiene 3 y O2 tiene 4. La última se reserva para responder: con una sola restante no se ofrecen herramientas.</p></div>
+   <div class="pr-guarda"><strong>= firma</strong><h3>Llamada repetida</h3><p>Misma herramienta y mismos argumentos: no se ejecuta otra vez. Se responde «ya tienes el resultado» o «ya falló, cambia los argumentos».</p></div>
+   <div class="pr-guarda"><strong>3 fallos</strong><h3>Circuit breaker</h3><p>Con 3 fallos de herramientas la tarea deja de pedirlas y responde con lo obtenido y lo que intentó.</p></div>
+   <div class="pr-guarda"><strong>2</strong><h3>Reducciones de contexto</h3><p>Como mucho dos compactaciones por tarea, y cada una tiene que bajar los tokens.</p></div>
+   <div class="pr-guarda"><strong>O1 → O2</strong><h3>Un solo escalado</h3><p>Nunca se baja de ruta ni se escala dos veces. En O2 sin lugar ni presupuesto: <code>budget_exceeded</code>.</p></div>
+   <div class="pr-guarda"><strong>45 / 150 s</strong><h3>Plazo de la ruta</h3><p>El reintento ante un corte del servidor solo ocurre si cabe en el plazo restante. Una respuesta ilegible se reintenta una sola vez.</p></div>
+   <div class="pr-guarda"><strong>12</strong><h3>Límite del grafo</h3><p><code>recursion_limit = 2 × MAX_PASOS + 4</code>: aunque todo lo demás fallara, LangGraph corta el ciclo.</p></div>
+  </div>
+ </div>
+
+ <div class="panel gap" id="pr-sim">
+  <div class="sectionhead"><div><h2>Simulación: qué pasa cuando se satura el contexto</h2><p>Reproduce las reglas del ejecutor, la compactación y los frenos con un modelo de juguete. Elige un escenario o ajusta los valores, y avanza paso a paso.</p></div><span class="badge amber">Simulación local · sin modelo</span></div>
+  <div class="pr-sim-ctl">
+   <div><label for="pr-esc">Escenario</label><select id="pr-esc">
+    <option value="normal">Pregunta normal</option>
+    <option value="historial">Historial largo (no cabe)</option>
+    <option value="resultado">Resultado grande sin recorte</option>
+    <option value="repite">El modelo repite la llamada</option>
+    <option value="caida">Herramienta caída y modelo insistente</option>
+    <option value="nocabe">No cabe ni en O2</option>
+   </select></div>
+   <div><label for="pr-ruta">Ruta inicial</label><select id="pr-ruta"><option value="O1">O1 · normal</option><option value="O2">O2 · excepción</option></select></div>
+   <div><label for="pr-hist">Historial previo: <strong id="pr-hist-v"></strong> tokens</label><input type="range" id="pr-hist" min="0" max="6000" step="50"></div>
+   <div><label for="pr-res">Resultado de la herramienta: <strong id="pr-res-v"></strong> tokens</label><input type="range" id="pr-res" min="100" max="7000" step="50"></div>
+  </div>
+  <div class="pr-checks">
+   <label><input type="checkbox" id="pr-recorte"> Recorte de resultados (≈ 600 tokens, «Hay N más…»)</label>
+   <label><input type="checkbox" id="pr-caida"> La herramienta falla</label>
+   <label><input type="checkbox" id="pr-insiste"> El modelo insiste con la misma llamada</label>
+  </div>
+  <div class="pr-botones">
+   <button class="btn" id="pr-paso" type="button">Siguiente paso</button>
+   <button class="btn secondary" id="pr-play" type="button">Reproducir todo</button>
+   <button class="btn secondary" id="pr-reset" type="button">Reiniciar</button>
+  </div>
+  <div class="pr-ventana" id="pr-ventana-sim" aria-label="Ocupación de la ventana en la llamada actual"></div>
+  <div class="pr-leyenda" id="pr-ventana-sim-leyenda"></div>
+  <div class="pr-contadores" id="pr-contadores"></div>
+  <div class="pr-sim-cuerpo">
+   <div><h3 style="font-size:.9rem;margin-bottom:8px">Eventos (los mismos nombres que la traza real)</h3><ol class="pr-log" id="pr-log" aria-live="polite"></ol><div class="pr-final" id="pr-final"></div></div>
+   <div><h3 style="font-size:.9rem;margin-bottom:8px">Entrada por llamada: con harness y sin harness</h3><svg id="pr-comp" viewBox="0 0 420 260" width="100%" style="max-width:560px" role="img" aria-label="Comparación de la entrada por llamada con y sin harness"></svg>
+    <p class="pr-nota">Sin harness, cada vuelta reenvía el resultado anterior y la entrada crece hasta que el servidor rechaza la llamada por pasar los 8.192 tokens. Si la herramienta falla y el modelo insiste, nada lo detiene antes. Con harness, la entrada se mantiene bajo el tope y la tarea termina siempre.</p></div>
+  </div>
+ </div>
+
+ <div class="panel gap">
+  <div class="sectionhead"><div><h2>Lo que dicen las mediciones</h2><p>Cada barra es una medición completa de 60 evals × 20 corridas con el Qwen (1.200 corridas). En verde, las que pasaron el gate por severidad.</p></div><span class="badge green">Evidencia real</span></div>
+  <svg id="pr-gate" viewBox="0 0 720 290" width="100%" role="img" aria-label="Historial de mediciones del gate"></svg>
+  <div class="pr-leyenda"><span><i style="background:#176950"></i>Gate en verde</span><span><i style="background:#8aa9c9"></i>Gate NO</span><span><i style="background:#a94e21"></i>Fecha en el contexto (gate NO)</span><span>La escala empieza en 1.175: el umbral del 95 % (1.140) queda debajo de todas las barras.</span></div>
+  <div class="twocol gap">
+   <div><h3 style="font-size:.95rem;margin-bottom:6px">Qué muestran</h3><ul class="bullets small">
+    <li>Las correcciones subieron de 1.192 a 1.200 en cinco mediciones, sin tocar la seguridad, que siempre estuvo en cero fallos.</li>
+    <li>Agregar la fecha al mensaje de sistema bajó a 1.183 y luego a 1.193. Las 2.248 pruebas y las 153 mutaciones pasaban: <strong>solo la medición con el modelo lo detectó</strong>, y el cambio no se mergeó.</li>
+    <li>Costo medio: 4.650 tokens y 1,83 llamadas por pregunta, muy por debajo del presupuesto de O1.</li>
+   </ul></div>
+   <div><h3 style="font-size:.95rem;margin-bottom:6px">Controles de cada medición</h3><ul class="bullets small">
+    <li><strong>Agente de guion</strong> (responde lo correcto): 660/660. Prueba que los graders aceptan una buena respuesta.</li>
+    <li><strong>Agente nulo</strong> (no hace nada): 0/660. Prueba que ningún eval pasa por casualidad.</li>
+    <li><strong>Mutaciones:</strong> cada freno de esta página tiene una versión rota a propósito, y alguna prueba la detecta.</li>
+   </ul></div>
+  </div>
+ </div>
+
+ <script>
+ (function(){
+  const $p = id => document.getElementById(id);
+  const fmt = n => n.toLocaleString('es-EC');
+  const VENTANA = 8192, MARGEN = 820, TOPE = 5734, SAL_MIN = 64, SISTEMA = 1650, HERR = 750, PREGUNTA = 35, LLAMADA = 60, RECORTE = 600;
+  const RUTAS = {O1:{n:'O1', ent:3000, sal:256, llam:3, entT:9000, salT:768, plazo:45}, O2:{n:'O2', ent:5000, sal:768, llam:4, entT:20000, salT:3072, plazo:150}};
+  const COLORES = {sis:'#285c91', herr:'#5a86b5', his:'#8aa9c9', pre:'#172c36', llamada:'#c27a4a', res:'#a94e21', bloq:'#a33135', sal:'#176950', margen:'#9aa5a1'};
+  const NOMBRES = {sis:'Sistema y reglas', herr:'Esquemas de herramientas', his:'Historial', pre:'Pregunta', llamada:'Pedido de herramienta', res:'Resultado', bloq:'Aviso de repetida', sal:'Salida reservada', margen:'Margen (820)'};
+
+  /* ---------- Capas ---------- */
+  const CAPAS = [
+   {t:'ui', n:'Interfaz del Asistente', f:'frontend/src/paginas/Asistente.tsx', d:'La persona pregunta y confirma. Nada cambia en la agenda sin su clic.', l:['Preguntas frecuentes según el rol (Bienestar ve las de agenda).','Las propuestas llegan como botones firmados; el texto del modelo nunca ejecuta nada.','Muestra el consumo de la pregunta (llamadas, tokens, ruta).'], e:'web10: 11/11 mutaciones'},
+   {t:'ctx', n:'Sesión, rol y permisos', f:'api/app/chat/herramientas.py · permitidas(rol, contexto)', d:'Antes de hablar con el modelo, se decide qué puede ver según quién pregunta.', l:['El modelo solo ve las herramientas de su rol; si pide otra, no se ejecuta.','Las de agenda solo existen sabiendo quién pregunta (cada profesional ve su agenda).','Las consultas usan un usuario de base de datos de solo lectura.'], e:'X01–X08: 0 fallos en todas las mediciones'},
+   {t:'ctx', n:'Construcción del contexto', f:'api/app/chat/agente.py · memoria.py', d:'Arma lo que el modelo lee en cada llamada: reglas, rol, historial y pregunta.', l:['Mensaje de sistema con las reglas y el rol de quien pregunta.','Historial acotado a los últimos 12 mensajes (MAX_HISTORIAL).','Los tokens de las propuestas nunca entran al contexto ni a la memoria.'], e:'B01–B04: historial largo y resultados grandes, 20/20'},
+   {t:'ctl', n:'Ejecutor de presupuesto y ventana', f:'api/app/chat/presupuesto.py', d:'Cuenta, reserva, llama con max_tokens y liquida con el consumo real.', l:['Ventana 8.192, margen 820, tope de entrada 5.734.','Rutas O1 (3 llamadas, 9.000 tokens, 45 s) y O2 (4, 20.000, 150 s).','Si no cabe, lanza Compactar; si se pasa del presupuesto, budget_exceeded.'], e:'Tramo 1: 22/22 mutaciones'},
+   {t:'ctl', n:'Compactación con continuidad', f:'api/app/chat/compactacion.py', d:'Reduce el contexto sin perder el hilo cuando una llamada no cabe.', l:['Paso 1 sin costo: quita consultas repetidas.','Paso 2: resume el historial antiguo; sistema y pregunta quedan intactos.','Como mucho dos reducciones; sin progreso, escala O1→O2 o pide acotar.'], e:'B02: historial que no cabe, 20/20'},
+   {t:'ctl', n:'Grafo del agente (loop ReAct)', f:'api/app/chat/agente.py · AgenteChat', d:'LangGraph con dos nodos: modelo ⇄ herramientas, y los frenos del bucle.', l:['MAX_PASOS = 4 rondas; MAX_FALLOS = 3 (circuit breaker).','La misma llamada no se repite; recursion_limit = 12.','Respuesta ilegible: un reintento. Corte del servidor: reintento si cabe en el plazo.'], e:'Loop fase C: 66/66 mutaciones · R01–R04 10/10'},
+   {t:'tool', n:'Herramientas validadas', f:'api/app/chat/herramientas_agenda.py', d:'Cada argumento pasa el esquema; cada resultado pasa el detector de datos personales.', l:['Resultados acotados (≈ 600 tokens) con «Hay N más que no aparecen aquí».','Proponer reprogramación o cancelación no escribe: firma una propuesta.','Fechas relativas («jueves en la tarde») resueltas en el código, no por el modelo.'], e:'Esquema válido en todos los evals'},
+   {t:'tool', n:'Correcciones según lo que hizo el modelo', f:'api/app/chat/agente.py · _modelo', d:'El código revisa la respuesta y corrige fallos conocidos del modelo, siempre a partir de lo que el modelo hizo.', l:['Si pidió mover con fecha y el modelo llamó a cancelar, se reconduce (P09).','Si consultó sin negarse a dar la cédula, se agrega el límite de identidad.','Si afirma «ya la moví», se reemplaza: nada cambia sin confirmar.'], e:'El agente nulo sigue en 0/660'},
+   {t:'obs', n:'Trazas y evals', f:'shared/trazas.py · scripts/ejecutar_runtime.py (HARNESS)', d:'Lo que pasó queda medido sin guardar prompts, respuestas ni datos personales.', l:['Eventos: agenda.tarea, llm.llamada, agenda.compactacion, chat.tool, chat.decision.','Evals de runtime: 60 × 20 con el Qwen, controles de guion y nulo, gate por severidad.','Pruebas de mutación: cada freno roto a propósito debe hacer fallar una prueba.'], e:'1200/1200 · 153/153'}
+  ];
+  const stack = $p('pr-stack'), detalle = $p('pr-detalle');
+  function verCapa(i){
+   const c = CAPAS[i];
+   stack.querySelectorAll('button').forEach((b,j)=>b.setAttribute('aria-pressed', j===i ? 'true' : 'false'));
+   detalle.innerHTML = `<div class="eyebrow" style="margin-bottom:6px">Capa ${i+1} de ${CAPAS.length}</div><h3>${c.n}</h3><p class="small muted">${c.d}</p><p style="margin-top:8px"><code>${c.f}</code></p><ul>${c.l.map(x=>`<li>${x}</li>`).join('')}</ul><p class="small" style="margin-top:10px"><span class="badge green">${c.e}</span></p>`;
+  }
+  CAPAS.forEach((c,i)=>{
+   const b = document.createElement('button');
+   b.type = 'button'; b.className = 'pr-capa t-' + c.t;
+   b.innerHTML = `<b>${String(i+1).padStart(2,'0')}</b><span>${c.n}</span><small>${c.f.split(' · ')[0].split('/').pop()}</small>`;
+   b.addEventListener('click', ()=>verCapa(i));
+   stack.appendChild(b);
+  });
+  verCapa(3);
+
+  /* ---------- Barra de la ventana ---------- */
+  function pintarVentana(el, leyenda, partes, marcas){
+   const total = partes.reduce((a,p)=>a+p.t, 0), escala = Math.max(VENTANA, total);
+   el.innerHTML = partes.filter(p=>p.t>0).map(p=>`<div class="seg" style="width:${100*p.t/escala}%;background:${COLORES[p.k]}" title="${NOMBRES[p.k]}: ${fmt(p.t)} tokens">${100*p.t/escala > 7 ? fmt(p.t) : ''}</div>`).join('')
+    + marcas.map((m,i)=>`<div class="pr-marca ${m.roja?'roja':''}" style="left:${100*m.v/escala}%;top:${i%2 ? -42 : -24}px">${m.roja && total > VENTANA ? m.l + ' · no cabe' : m.l}</div>`).join('');
+   if (leyenda) leyenda.innerHTML = [...new Set(partes.filter(p=>p.t>0).map(p=>p.k))].map(k=>`<span><i style="background:${COLORES[k]}"></i>${NOMBRES[k]}</span>`).join('') + `<span>Total ocupado: <strong>${fmt(total)}</strong> de ${fmt(VENTANA)}</span>`;
+  }
+  pintarVentana($p('pr-ventana-fija'), $p('pr-ventana-leyenda'),
+   [{k:'sis',t:SISTEMA},{k:'herr',t:HERR},{k:'his',t:400},{k:'pre',t:PREGUNTA},{k:'llamada',t:LLAMADA},{k:'res',t:450},{k:'sal',t:256},{k:'margen',t:MARGEN}],
+   [{v:3000,l:'tope O1 · 3.000'},{v:TOPE,l:'tope de entrada · 5.734'},{v:VENTANA,l:'8.192',roja:true}]);
+
+  /* ---------- Simulación ---------- */
+  const ESC = {
+   normal:   {ruta:'O1', hist:0,    res:250,  recorte:true,  caida:false, insiste:false},
+   historial:{ruta:'O1', hist:2600, res:250,  recorte:true,  caida:false, insiste:false},
+   resultado:{ruta:'O1', hist:300,  res:1800, recorte:false, caida:false, insiste:false},
+   repite:   {ruta:'O1', hist:0,    res:250,  recorte:true,  caida:false, insiste:true},
+   caida:    {ruta:'O2', hist:300,  res:450,  recorte:true,  caida:true,  insiste:true},
+   nocabe:   {ruta:'O1', hist:1200, res:6500, recorte:false, caida:false, insiste:false}
+  };
+  const firma = 'consultar_agenda{"desde":"jueves tarde"}';
+
+  function simular(cfg){
+   const frames = [];
+   let rn = cfg.ruta, ruta = RUTAS[rn];
+   let msgs = [{k:'sis',t:SISTEMA}];
+   if (cfg.hist > 0) msgs.push({k:'his',t:cfg.hist});
+   msgs.push({k:'pre',t:PREGUNTA});
+   const c = {ent:0, sal:0, llam:0, comp:0};
+   let pasos = 0, fallos = 0, pedidas = 0, fin = null, ofrecio = null, ultimaEnt = [];
+   const vistas = {};
+   const suma = (m, herr) => m.reduce((a,x)=>a+x.t, 0) + (herr ? HERR : 0);
+   const snap = (ev, txt, tipo, herr, sal) => frames.push({ev, txt, tipo, rn, c:{...c}, pasos, fallos, msgs:msgs.map(m=>({...m})), herr:!!herr, sal:sal||0, fin, ent:[...ultimaEnt]});
+   snap(`agenda.tarea abierta · ruta=${rn}`, `Se abre la tarea con la ruta ${rn}: ${ruta.llam} llamadas, ${fmt(ruta.entT)} tokens de entrada y ${ruta.plazo} s.`, 'info');
+
+   for (let vuelta = 0; vuelta < 20 && !fin; vuelta++){
+    const restantes = ruta.llam - c.llam;
+    const herr = pasos < 4 && fallos < 3 && restantes > 1;
+    if (!herr && ofrecio !== false){
+     const porque = fallos >= 3 ? 'Circuit breaker: 3 fallos de herramientas. Ya no se ofrecen herramientas; debe responder con lo obtenido.'
+      : pasos >= 4 ? 'MAX_PASOS: se usaron las 4 rondas. Debe responder con lo que tiene.'
+      : 'Queda una sola llamada en la ruta: se reserva para responder, sin herramientas.';
+     snap(fallos >= 3 ? 'chat.modelo corte=breaker' : pasos >= 4 ? 'chat.modelo corte=pasos' : 'presupuesto · última llamada para responder', porque, 'warn', false);
+    }
+    ofrecio = herr;
+    // Ejecutor: contar, compactar o escalar, reservar
+    let entrada = 0, salMax = 0;
+    for (let intento = 0; intento < 6 && !fin; intento++){
+     entrada = suma(msgs, herr); salMax = Math.min(ruta.sal, ruta.salT - c.sal);
+     const limite = Math.min(ruta.ent, TOPE);
+     if (entrada + salMax + MARGEN > VENTANA || entrada > limite){
+      snap('agenda.compactacion resultado=compactar', `Contada la entrada: ${fmt(entrada)} tokens. No cabe en ${rn} (tope ${fmt(limite)}). Se intenta compactar.`, 'warn', herr, salMax);
+      const objetivo = Math.min(ruta.ent, TOPE, VENTANA - MARGEN - ruta.sal);
+      let copia = msgs.map(m=>({...m})), hechos = [], sinProgreso = false;
+      if (c.comp >= 2) sinProgreso = true;
+      else {
+       const antes = suma(copia, herr);
+       const ultimo = {}; copia.forEach((m,i)=>{ if (m.k==='llamada') ultimo[m.f] = i; });
+       const fuera = new Set();
+       copia.forEach((m,i)=>{ if (m.k==='llamada' && ultimo[m.f] !== i && copia[i+1] && copia[i+1].k !== 'llamada'){ fuera.add(i); fuera.add(i+1); } });
+       if (fuera.size){ copia = copia.filter((_,i)=>!fuera.has(i)); }
+       if (suma(copia, herr) < antes) hechos.push([1, antes, suma(copia, herr)]);
+       if (suma(copia, herr) > objetivo && c.comp + hechos.length < 2){
+        const h = copia.findIndex(m=>m.k==='his');
+        if (h >= 0 && copia[h].t > 180){ const previo = suma(copia, herr); copia[h] = {k:'his', t:180, resumen:true}; hechos.push([2, previo, suma(copia, herr)]); }
+       }
+       if (!hechos.length || suma(copia, herr) > objetivo) sinProgreso = true;
+      }
+      if (sinProgreso){
+       if (rn !== 'O1'){
+        fin = 'presupuesto';
+        snap('agenda.tarea estado=budget_exceeded', `Sin progreso al compactar en O2 (${c.comp >= 2 ? 'ya usó sus dos reducciones' : 'no se pudo bajar del tope de ' + fmt(objetivo)}). Responde «Esta consulta necesita más de lo que el asistente puede usar en una sola pregunta. Acótala…», sin inventar.`, 'stop', herr, salMax);
+        break;
+       }
+       rn = 'O2'; ruta = RUTAS.O2;
+       snap('agenda.tarea ruta=O2 resultado=escalada', `La compactación no basta en O1 (objetivo ${fmt(objetivo)}). Se escala una sola vez a O2: tope de ${fmt(ruta.ent)} por llamada y 4 llamadas, conservando lo consumido.`, 'warn', herr, salMax);
+       continue;
+      }
+      msgs = copia;
+      hechos.forEach(([p,a,d])=>{ c.comp++; snap(`agenda.compactacion paso=${p}`, p===1 ? `Paso 1, sin costo: se quitan consultas repetidas. ${fmt(a)} → ${fmt(d)} tokens.` : `Paso 2: el historial se resume en un mensaje; sistema y pregunta intactos. ${fmt(a)} → ${fmt(d)} tokens (reducción ${c.comp} de 2).`, 'ok', herr, salMax); });
+      continue;
+     }
+     let motivo = null;
+     if (c.ent + entrada > ruta.entT) motivo = `la entrada acumulada ${fmt(c.ent)} + ${fmt(entrada)} supera ${fmt(ruta.entT)}`;
+     else if (salMax < SAL_MIN) motivo = `quedan ${salMax} tokens de salida: menos que una respuesta útil`;
+     else if (c.llam + 1 > ruta.llam) motivo = `se usaron las ${ruta.llam} llamadas de la ruta`;
+     if (motivo){ fin = 'presupuesto'; snap('agenda.tarea estado=budget_exceeded', `El presupuesto se agotó: ${motivo}. Responde que acote la pregunta, sin inventar.`, 'stop', herr, salMax); }
+     break;
+    }
+    if (fin) break;
+    // Llamada al modelo
+    c.llam++; c.ent += entrada; ultimaEnt.push(entrada);
+    const pide = herr && (cfg.insiste ? true : pedidas < 1);
+    const sal = pide ? 40 : 110; c.sal += sal;
+    snap(`llm.llamada · n=${c.llam} entrada=${fmt(entrada)}`, `Reserva ${fmt(salMax)} de salida y llama al modelo ${herr ? 'con' : 'sin'} herramientas. Ocupa ${Math.round(100*(entrada+salMax+MARGEN)/VENTANA)} % de la ventana. Se liquida con el consumo real.`, 'ok', herr, salMax);
+    if (!pide){
+     fin = fallos > 0 ? 'escalado' : 'respondio';
+     snap('chat.decision resultado=respuesta', fallos > 0 ? 'El modelo responde con lo obtenido y el código agrega qué intentó y qué falló, con frases fijas.' : 'El modelo responde con los datos de la herramienta. La tarea termina.', fallos > 0 ? 'warn' : 'ok', false);
+     break;
+    }
+    pedidas++;
+    msgs.push({k:'llamada', t:LLAMADA, f:firma});
+    if (vistas[firma]){
+     const fallida = vistas[firma] === 'error';
+     if (fallida) fallos++;
+     msgs.push({k:'bloq', t:45});
+     snap(`chat.tool resultado=denegada · ${fallida ? 'bloqueada_por_repeticion' : 'repetida'}`, fallida ? `Pide la misma llamada que ya falló: no se ejecuta. Fallo ${fallos} de 3.` : 'Pide una llamada idéntica a una anterior: no se ejecuta otra vez; se le recuerda que ya tiene el resultado.', 'warn', false);
+    } else if (cfg.caida){
+     fallos++; vistas[firma] = 'error'; msgs.push({k:'res', t:70});
+     snap('chat.tool resultado=error · herramienta_no_responde', `La herramienta no responde. Fallo ${fallos} de 3.`, 'warn', false);
+    } else {
+     vistas[firma] = 'ok';
+     const t = cfg.recorte ? Math.min(cfg.res, RECORTE) : cfg.res;
+     msgs.push({k:'res', t});
+     snap('chat.tool resultado=ok', cfg.recorte && cfg.res > RECORTE ? `Resultado recortado a ${fmt(t)} tokens con «Hay N más que no aparecen aquí».` : `La herramienta responde con ${fmt(t)} tokens.`, 'ok', false);
+    }
+    pasos++;
+   }
+   return frames;
+  }
+
+  function sinHarness(cfg){
+   const base = SISTEMA + HERR + cfg.hist + PREGUNTA, r = cfg.caida ? 70 : cfg.res;
+   const puntos = []; let e = base, n = 0, rechazada = false;
+   while (n < 12){
+    n++; puntos.push(e);
+    if (e + 256 > VENTANA){ rechazada = true; break; }
+    const sigue = cfg.caida || cfg.insiste || n < 2;
+    if (!sigue) break;
+    e += LLAMADA + r;
+   }
+   return {puntos, rechazada, infinita: !rechazada && n >= 12};
+  }
+
+  function grafComparacion(conH, sinH){
+   const svg = $p('pr-comp'), W = 420, H = 260, L = 46, R = 12, T = 34, B = 34;
+   const n = Math.max(conH.length, sinH.puntos.length, 2), maxY = Math.max(VENTANA, ...sinH.puntos, ...conH) * 1.05;
+   const x = i => L + (W-L-R) * (n === 1 ? 0 : i/(n-1)), y = v => T + (H-T-B) * (1 - v/maxY);
+   let s = '';
+   [0, 2000, 4000, 6000, 8000].forEach(v=>{ s += `<line x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}" stroke="#e3e8e6"/><text x="${L-6}" y="${y(v)+4}" font-size="10" text-anchor="end" fill="#596b70">${fmt(v)}</text>`; });
+   s += `<line x1="${L}" x2="${W-R}" y1="${y(VENTANA)}" y2="${y(VENTANA)}" stroke="#a33135" stroke-dasharray="5 4"/><text x="${W-R}" y="${y(VENTANA)-5}" font-size="10" text-anchor="end" fill="#a33135">ventana 8.192</text>`;
+   for (let i = 0; i < n; i++) s += `<text x="${x(i)}" y="${H-B+16}" font-size="10" text-anchor="middle" fill="#596b70">${i+1}</text>`;
+   s += `<text x="${(L+W-R)/2}" y="${H-4}" font-size="10" text-anchor="middle" fill="#596b70">llamada al modelo</text>`;
+   const linea = (pts, color, dash) => pts.length ? `<polyline fill="none" stroke="${color}" stroke-width="2.5" ${dash?'stroke-dasharray="6 4"':''} points="${pts.map((v,i)=>x(i)+','+y(v)).join(' ')}"/>` + pts.map((v,i)=>`<circle cx="${x(i)}" cy="${y(v)}" r="3.5" fill="${color}"/>`).join('') : '';
+   s += linea(sinH.puntos, '#a33135', true) + linea(conH, '#176950');
+   if (sinH.rechazada){ const i = sinH.puntos.length-1; s += `<text x="${Math.min(x(i), W-R-4)}" y="${y(sinH.puntos[i])-10}" font-size="10" text-anchor="end" fill="#a33135">el servidor la rechaza</text>`; }
+   if (sinH.infinita){ const i = sinH.puntos.length-1; s += `<text x="${x(i)}" y="${y(sinH.puntos[i])+18}" font-size="10" text-anchor="end" fill="#a33135">sigue llamando…</text>`; }
+   s += `<g font-size="10"><rect x="${L}" y="8" width="10" height="3" fill="#176950"/><text x="${L+14}" y="12" fill="#172c36">con harness</text><rect x="${L+88}" y="8" width="10" height="3" fill="#a33135"/><text x="${L+102}" y="12" fill="#172c36">sin harness</text></g>`;
+   svg.innerHTML = s;
+  }
+
+  const ui = {esc:$p('pr-esc'), ruta:$p('pr-ruta'), hist:$p('pr-hist'), res:$p('pr-res'), recorte:$p('pr-recorte'), caida:$p('pr-caida'), insiste:$p('pr-insiste')};
+  let frames = [], actual = 0, timer = null;
+  const leer = () => ({ruta:ui.ruta.value, hist:+ui.hist.value, res:+ui.res.value, recorte:ui.recorte.checked, caida:ui.caida.checked, insiste:ui.insiste.checked});
+  function aplicarEscenario(){ const e = ESC[ui.esc.value]; ui.ruta.value = e.ruta; ui.hist.value = e.hist; ui.res.value = e.res; ui.recorte.checked = e.recorte; ui.caida.checked = e.caida; ui.insiste.checked = e.insiste; reiniciar(); }
+  function contador(nombre, valor, max, texto){
+   const r = max ? Math.min(1, valor/max) : 0;
+   return `<div class="pr-cont ${r>=1?'lleno':r>=.7?'alerta':''}"><span>${nombre}</span><strong>${texto}</strong><div class="barra"><i style="width:${100*r}%"></i></div></div>`;
+  }
+  function pintar(){
+   const f = frames[actual], ruta = RUTAS[f.rn];
+   const partes = f.msgs.map(m=>({k:m.k, t:m.t}));
+   if (f.herr) partes.splice(1, 0, {k:'herr', t:HERR});
+   if (f.sal) partes.push({k:'sal', t:f.sal}, {k:'margen', t:MARGEN});
+   pintarVentana($p('pr-ventana-sim'), $p('pr-ventana-sim-leyenda'), partes, [{v:Math.min(ruta.ent, TOPE), l:`tope ${f.rn} · ${fmt(Math.min(ruta.ent, TOPE))}`},{v:VENTANA, l:'8.192', roja:true}]);
+   $p('pr-contadores').innerHTML = contador('Ruta', f.rn==='O2'?1:0, 1, f.rn) + contador('Llamadas', f.c.llam, ruta.llam, `${f.c.llam} / ${ruta.llam}`)
+    + contador('Entrada acumulada', f.c.ent, ruta.entT, `${fmt(f.c.ent)} / ${fmt(ruta.entT)}`) + contador('Compactaciones', f.c.comp, 2, `${f.c.comp} / 2`)
+    + contador('Rondas', f.pasos, 4, `${f.pasos} / 4`) + contador('Fallos (breaker)', f.fallos, 3, `${f.fallos} / 3`);
+   $p('pr-log').innerHTML = frames.slice(0, actual+1).map((x,i)=>`<li class="${x.tipo}${i===actual?' actual':''}"><div>${x.txt}<code>${x.ev}</code></div></li>`).join('');
+   $p('pr-log').scrollTop = $p('pr-log').scrollHeight;
+   const ultimo = actual === frames.length-1, fin = frames[frames.length-1].fin, el = $p('pr-final');
+   el.className = 'pr-final';
+   if (ultimo){
+    const msg = {respondio:['ok','✓ Terminó: respondió dentro del presupuesto.'], escalado:['warn','✓ Terminó sin bucle: respondió con lo obtenido y explicó qué falló.'], presupuesto:['stop','■ Terminó con budget_exceeded: pidió acotar la pregunta en lugar de inventar o seguir llamando.']}[fin] || ['warn','Terminó.'];
+    el.classList.add(msg[0]); el.textContent = `${msg[1]} ${frames[frames.length-1].c.llam} ${frames[frames.length-1].c.llam === 1 ? 'llamada' : 'llamadas'}, ${fmt(frames[frames.length-1].c.ent)} tokens de entrada.`;
+   }
+   $p('pr-paso').disabled = ultimo;
+   grafComparacion(ultimo ? frames[frames.length-1].ent : f.ent, sinHarness(leer()));
+  }
+  function reiniciar(){
+   if (timer){ clearInterval(timer); timer = null; $p('pr-play').textContent = 'Reproducir todo'; }
+   $p('pr-hist-v').textContent = fmt(+ui.hist.value); $p('pr-res-v').textContent = fmt(+ui.res.value);
+   frames = simular(leer()); actual = 0; pintar();
+  }
+  $p('pr-paso').addEventListener('click', ()=>{ if (actual < frames.length-1){ actual++; pintar(); } });
+  $p('pr-play').addEventListener('click', ()=>{
+   if (timer){ clearInterval(timer); timer = null; $p('pr-play').textContent = 'Reproducir todo'; return; }
+   if (actual >= frames.length-1) actual = 0;
+   $p('pr-play').textContent = 'Pausar';
+   timer = setInterval(()=>{ if (actual >= frames.length-1){ clearInterval(timer); timer = null; $p('pr-play').textContent = 'Reproducir todo'; return; } actual++; pintar(); }, 900);
+  });
+  $p('pr-reset').addEventListener('click', reiniciar);
+  ui.esc.addEventListener('change', aplicarEscenario);
+  [ui.ruta, ui.hist, ui.res, ui.recorte, ui.caida, ui.insiste].forEach(el=>el.addEventListener('input', reiniciar));
+  aplicarEscenario();
+
+  /* ---------- Gráfica del gate ---------- */
+  (function(){
+   const datos = [['M1',1192,false,'336e13e'],['M2',1197,true,'226e4e7'],['M3',1197,false,'c5bd049'],['M4',1199,false,'1ae2e29'],['M5',1200,true,'39bc3cd'],['Fecha larga',1183,false,'e026b1e'],['Fecha corta',1193,false,'735a959']];
+   const svg = $p('pr-gate'), W = 720, H = 290, L = 54, R = 14, T = 20, B = 44, min = 1175, max = 1200;
+   const bw = (W-L-R)/datos.length, y = v => T + (H-T-B) * (1 - (v-min)/(max-min));
+   let s = '';
+   for (let v = min; v <= max; v += 5) s += `<line x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}" stroke="#e3e8e6"/><text x="${L-8}" y="${y(v)+4}" font-size="11" text-anchor="end" fill="#596b70">${fmt(v)}</text>`;
+   s += `<line x1="${L+bw*5}" x2="${L+bw*5}" y1="${T-6}" y2="${H-B+40}" stroke="#596b70" stroke-dasharray="4 4"/><text x="${L+bw*5+8}" y="${T+4}" font-size="11" fill="#596b70">fecha en el contexto (no mergeada)</text>`;
+   datos.forEach(([n,v,ok,sha],i)=>{
+    const x = L + i*bw + bw*.2, w = bw*.6;
+    s += `<rect x="${x}" y="${y(v)}" width="${w}" height="${H-B-y(v)}" rx="5" fill="${ok ? '#176950' : i>4 ? '#a94e21' : '#8aa9c9'}"><title>${n}: ${v}/1200 (${sha})</title></rect>`;
+    s += `<text x="${x+w/2}" y="${y(v)-7}" font-size="12" font-weight="600" text-anchor="middle" fill="#172c36">${fmt(v)}</text>`;
+    s += `<text x="${x+w/2}" y="${H-B+18}" font-size="11.5" text-anchor="middle" fill="#172c36">${n}</text><text x="${x+w/2}" y="${H-B+33}" font-size="10" text-anchor="middle" fill="#596b70">${sha}</text>`;
+   });
+   svg.innerHTML = s;
+  })();
+ })();
+ </script>
+</section>
 
 <section class="view" id="mapa" aria-labelledby="title-mapa">
  <header class="diagram-heading"><div><div class="eyebrow">Flujo del harness · SPEC §7 y §33</div><h1 id="title-mapa">De la derivación a la cita: el diagrama.</h1></div><span class="badge amber">Simulación visual</span></header>
