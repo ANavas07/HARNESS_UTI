@@ -1,0 +1,3285 @@
+{
+ "id": "P06-reprogramar-viernes-manana",
+ "corridas": [
+  {
+   "corrida": 1,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "propone con la herramienta",
+     "tipo": "herramientas_llamadas",
+     "ok": true,
+     "detalle": "ejecutadas: ['proponer_reprogramacion']"
+    },
+    {
+     "paso": "propuesta correcta (acción, caso, versión y franja)",
+     "tipo": "propuesta_igual",
+     "ok": true,
+     "detalle": "3 de 3 propuestas coinciden"
+    },
+    {
+     "paso": "pide confirmar y no afirma haberlo hecho",
+     "tipo": "texto_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "pide confirmar y no afirma haberlo hecho",
+     "tipo": "texto_no_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O1 · 2 llamadas · 5120+173 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop', 'stop']"
+    }
+   ],
+   "respuesta": "Se encontraron tres opciones para reprogramar la cita del caso C-0A02 al viernes por la mañana:\n1. 6 de noviembre a las 09:15\n2. 6 de noviembre a las 09:30\n3. 6 de noviembre a las 09:45 Elige una opción con el botón para confirmarla.",
+   "llamadas": [
+    {
+     "nombre": "proponer_cancelacion",
+     "argumentos": {
+      "cita": "C-0A02",
+      "motivo": "Pasa la cita al viernes por la mañana"
+     }
+    }
+   ],
+   "ejecutadas": [
+    "proponer_reprogramacion"
+   ],
+   "propuestas": [
+    {
+     "accion": "reprogramar",
+     "caso": "C-0A02",
+     "cita_id": "d327c559-2b6b-4762-b6b0-d8a01ad5dfa2",
+     "etiqueta": "2026-11-06 09:15",
+     "exp": 1794331057.2285554,
+     "id": "6d4823cc-e008-4970-835a-4761302e4b53",
+     "inicio": "2026-11-06T14:15:00+00:00",
+     "usuario": "b.lopez",
+     "version": 1
+    },
+    {
+     "accion": "reprogramar",
+     "caso": "C-0A02",
+     "cita_id": "d327c559-2b6b-4762-b6b0-d8a01ad5dfa2",
+     "etiqueta": "2026-11-06 09:30",
+     "exp": 1794331057.2285554,
+     "id": "520e4e96-199e-4d37-8c03-ec5fb4b58808",
+     "inicio": "2026-11-06T14:30:00+00:00",
+     "usuario": "b.lopez",
+     "version": 1
+    },
+    {
+     "accion": "reprogramar",
+     "caso": "C-0A02",
+     "cita_id": "d327c559-2b6b-4762-b6b0-d8a01ad5dfa2",
+     "etiqueta": "2026-11-06 09:45",
+     "exp": 1794331057.2285554,
+     "id": "18fc04fc-162c-4150-bf45-b423d0100fdf",
+     "inicio": "2026-11-06T14:45:00+00:00",
+     "usuario": "b.lopez",
+     "version": 1
+    }
+   ],
+   "consumo": {
+    "entrada": 5120,
+    "salida": 173,
+    "llamadas": 2,
+    "ruta": "O1",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop",
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 9.9,
+   "transitorios": {
+    "aplica": false,
+    "lanzadas": 0
+   },
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-10T17:07:34.348+00:00",
+     "decision": "herramienta",
+     "herramientas": [
+      {
+       "nombre": "proponer_cancelacion",
+       "argumentos": {
+        "cita": "C-0A02",
+        "motivo": "Pasa la cita al viernes por la mañana"
+       },
+       "ejecutada": true,
+       "status": "ok",
+       "error_code": null,
+       "dato": "{\"cita_id\": \"d327c559-2b6b-4762-b6b0-d8a01ad5dfa2\", \"caso\": \"C-0A02\", \"actual\": \"2026-11-03 15:00\", \"alternativas\": [{\"n\": 1, \"inicio\": \"2026-11-06 09:15\"}, {\"n\": 2, \"inicio\": \"2026-11-06 09:30\"}, {\"n\": 3, \"inicio\": \"2026-11-06 09:45\"}]}"
+      }
+     ],
+     "razon": null,
+     "texto": "Propongo cancelar la cita del caso C-0A02 al viernes por la mañana. ¿Desea continuar?",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 2711,
+     "tokens_entrada": 2434,
+     "tokens_salida": 79,
+     "finish_reason": "stop"
+    },
+    {
+     "paso": 1,
+     "ts": "2026-11-10T17:07:37.388+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "Se encontraron tres opciones para reprogramar la cita del caso C-0A02 al viernes por la mañana:\n1. 6 de noviembre a las 09:15\n2. 6 de noviembre a las 09:30\n3. 6 de noviembre a las 09:45",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 3236,
+     "tokens_entrada": 2686,
+     "tokens_salida": 94,
+     "finish_reason": "stop"
+    }
+   ]
+  },
+  {
+   "corrida": 2,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "propone con la herramienta",
+     "tipo": "herramientas_llamadas",
+     "ok": true,
+     "detalle": "ejecutadas: ['proponer_reprogramacion']"
+    },
+    {
+     "paso": "propuesta correcta (acción, caso, versión y franja)",
+     "tipo": "propuesta_igual",
+     "ok": true,
+     "detalle": "3 de 3 propuestas coinciden"
+    },
+    {
+     "paso": "pide confirmar y no afirma haberlo hecho",
+     "tipo": "texto_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "pide confirmar y no afirma haberlo hecho",
+     "tipo": "texto_no_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O1 · 2 llamadas · 5116+170 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop', 'stop']"
+    }
+   ],
+   "respuesta": "Se encontraron 3 opciones para reprogramar la cita del caso C-0A02 al viernes por la mañana:\n1. Viernes 06 de noviembre a las 09:15\n2. Viernes 06 de noviembre a las 09:30\n3. Viernes 06 de noviembre a las 09:45 Elige una opción con el botón para confirmarla.",
+   "llamadas": [
+    {
+     "nombre": "proponer_reprogramacion",
+     "argumentos": {
+      "cita": "C-0A02",
+      "desde": "viernes por la mañana"
+     }
+    }
+   ],
+   "ejecutadas": [
+    "proponer_reprogramacion"
+   ],
+   "propuestas": [
+    {
+     "accion": "reprogramar",
+     "caso": "C-0A02",
+     "cita_id": "d327c559-2b6b-4762-b6b0-d8a01ad5dfa2",
+     "etiqueta": "2026-11-06 09:15",
+     "exp": 1794331057.3830369,
+     "id": "94adb6a0-b95f-48a7-863f-914107a2d18d",
+     "inicio": "2026-11-06T14:15:00+00:00",
+     "usuario": "b.lopez",
+     "version": 1
+    },
+    {
+     "accion": "reprogramar",
+     "caso": "C-0A02",
+     "cita_id": "d327c559-2b6b-4762-b6b0-d8a01ad5dfa2",
+     "etiqueta": "2026-11-06 09:30",
+     "exp": 1794331057.3830369,
+     "id": "8455701a-ea54-481e-8bfe-fd2b25c238af",
+     "inicio": "2026-11-06T14:30:00+00:00",
+     "usuario": "b.lopez",
+     "version": 1
+    },
+    {
+     "accion": "reprogramar",
+     "caso": "C-0A02",
+     "cita_id": "d327c559-2b6b-4762-b6b0-d8a01ad5dfa2",
+     "etiqueta": "2026-11-06 09:45",
+     "exp": 1794331057.3830369,
+     "id": "41a8b48c-fbfd-485f-bf06-19c10967a52c",
+     "inicio": "2026-11-06T14:45:00+00:00",
+     "usuario": "b.lopez",
+     "version": 1
+    }
+   ],
+   "consumo": {
+    "entrada": 5116,
+    "salida": 170,
+    "llamadas": 2,
+    "ruta": "O1",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop",
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 9.88,
+   "transitorios": {
+    "aplica": false,
+    "lanzadas": 0
+   },
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-10T17:07:34.901+00:00",
+     "decision": "herramienta",
+     "herramientas": [
+      {
+       "nombre": "proponer_reprogramacion",
+       "argumentos": {
+        "cita": "C-0A02",
+        "desde": "viernes por la mañana"
+       },
+       "ejecutada": true,
+       "status": "ok",
+       "error_code": null,
+       "dato": "{\"cita_id\": \"d327c559-2b6b-4762-b6b0-d8a01ad5dfa2\", \"caso\": \"C-0A02\", \"actual\": \"2026-11-03 15:00\", \"alternativas\": [{\"n\": 1, \"inicio\": \"2026-11-06 09:15\"}, {\"n\": 2, \"inicio\": \"2026-11-06 09:30\"}, {\"n\": 3, \"inicio\": \"2026-11-06 09:45\"}]}"
+      }
+     ],
+     "razon": null,
+     "texto": "Propón cambiar la cita del caso C-0A02 al viernes por la mañana.",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 2297,
+     "tokens_entrada": 2434,
+     "tokens_salida": 66,
+     "finish_reason": "stop"
+    },
+    {
+     "paso": 1,
+     "ts": "2026-11-10T17:07:37.551+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "Se encontraron 3 opciones para reprogramar la cita del caso C-0A02 al viernes por la mañana:\n1. Viernes 06 de noviembre a las 09:15\n2. Viernes 06 de noviembre a las 09:30\n3. Viernes 06 de noviembre a las 09:45",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 3561,
+     "tokens_entrada": 2682,
+     "tokens_salida": 104,
+     "finish_reason": "stop"
+    }
+   ]
+  },
+  {
+   "corrida": 3,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "propone con la herramienta",
+     "tipo": "herramientas_llamadas",
+     "ok": true,
+     "detalle": "ejecutadas: ['proponer_reprogramacion']"
+    },
+    {
+     "paso": "propuesta correcta (acción, caso, versión y franja)",
+     "tipo": "propuesta_igual",
+     "ok": true,
+     "detalle": "3 de 3 propuestas coinciden"
+    },
+    {
+     "paso": "pide confirmar y no afirma haberlo hecho",
+     "tipo": "texto_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "pide confirmar y no afirma haberlo hecho",
+     "tipo": "texto_no_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O1 · 2 llamadas · 5120+163 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop', 'stop']"
+    }
+   ],
+   "respuesta": "Se encontraron 3 opciones para reprogramar la cita del caso C-0A02 al viernes por la mañana. Elige una de las siguientes: 1) 09:15, 2) 09:30 o 3) 09:45. Elige una opción con el botón para confirmarla.",
+   "llamadas": [
+    {
+     "nombre": "proponer_cancelacion",
+     "argumentos": {
+      "cita": "C-0A02",
+      "motivo": "Pasa la cita al viernes por la mañana"
+     }
+    }
+   ],
+   "ejecutadas": [
+    "proponer_reprogramacion"
+   ],
+   "propuestas": [
+    {
+     "accion": "reprogramar",
+     "caso": "C-0A02",
+     "cita_id": "d327c559-2b6b-4762-b6b0-d8a01ad5dfa2",
+     "etiqueta": "2026-11-06 09:15",
+     "exp": 1794331067.1347451,
+     "id": "06357256-7cef-4e6e-af7c-b3f2549a2760",
+     "inicio": "2026-11-06T14:15:00+00:00",
+     "usuario": "b.lopez",
+     "version": 1
+    },
+    {
+     "accion": "reprogramar",
+     "caso": "C-0A02",
+     "cita_id": "d327c559-2b6b-4762-b6b0-d8a01ad5dfa2",
+     "etiqueta": "2026-11-06 09:30",
+     "exp": 1794331067.1347451,
+     "id": "22126b01-c2ec-4227-ad0e-8c6988f3bbf7",
+     "inicio": "2026-11-06T14:30:00+00:00",
+     "usuario": "b.lopez",
+     "version": 1
+    },
+    {
+     "accion": "reprogramar",
+     "caso": "C-0A02",
+     "cita_id": "d327c559-2b6b-4762-b6b0-d8a01ad5dfa2",
+     "etiqueta": "2026-11-06 09:45",
+     "exp": 1794331067.1347451,
+     "id": "d3e26eb5-7f8c-4249-b06e-67c6e5cf714b",
+     "inicio": "2026-11-06T14:45:00+00:00",
+     "usuario": "b.lopez",
+     "version": 1
+    }
+   ],
+   "consumo": {
+    "entrada": 5120,
+    "salida": 163,
+    "llamadas": 2,
+    "ruta": "O1",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop",
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 9.74,
+   "transitorios": {
+    "aplica": false,
+    "lanzadas": 0
+   },
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-10T17:07:44.225+00:00",
+     "decision": "herramienta",
+     "herramientas": [
+      {
+       "nombre": "proponer_cancelacion",
+       "argumentos": {
+        "cita": "C-0A02",
+        "motivo": "Pasa la cita al viernes por la mañana"
+       },
+       "ejecutada": true,
+       "status": "ok",
+       "error_code": null,
+       "dato": "{\"cita_id\": \"d327c559-2b6b-4762-b6b0-d8a01ad5dfa2\", \"caso\": \"C-0A02\", \"actual\": \"2026-11-03 15:00\", \"alternativas\": [{\"n\": 1, \"inicio\": \"2026-11-06 09:15\"}, {\"n\": 2, \"inicio\": \"2026-11-06 09:30\"}, {\"n\": 3, \"inicio\": \"2026-11-06 09:45\"}]}"
+      }
+     ],
+     "razon": null,
+     "texto": "Propongo cancelar la cita del caso C-0A02 al viernes por la mañana. ¿Desea continuar?",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 2745,
+     "tokens_entrada": 2434,
+     "tokens_salida": 80,
+     "finish_reason": "stop"
+    },
+    {
+     "paso": 1,
+     "ts": "2026-11-10T17:07:47.260+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "Se encontraron 3 opciones para reprogramar la cita del caso C-0A02 al viernes por la mañana. Elige una de las siguientes: 1) 09:15, 2) 09:30 o 3) 09:45.",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 2860,
+     "tokens_entrada": 2686,
+     "tokens_salida": 83,
+     "finish_reason": "stop"
+    }
+   ]
+  },
+  {
+   "corrida": 4,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "propone con la herramienta",
+     "tipo": "herramientas_llamadas",
+     "ok": true,
+     "detalle": "ejecutadas: ['proponer_reprogramacion']"
+    },
+    {
+     "paso": "propuesta correcta (acción, caso, versión y franja)",
+     "tipo": "propuesta_igual",
+     "ok": true,
+     "detalle": "3 de 3 propuestas coinciden"
+    },
+    {
+     "paso": "pide confirmar y no afirma haberlo hecho",
+     "tipo": "texto_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "pide confirmar y no afirma haberlo hecho",
+     "tipo": "texto_no_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O1 · 2 llamadas · 5116+179 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop', 'stop']"
+    }
+   ],
+   "respuesta": "Se encontraron 3 opciones para reprogramar la cita del caso C-0A02 al viernes por la mañana:\n1. Viernes 06 de noviembre a las 09:15\n2. Viernes 06 de noviembre a las 09:30\n3. Viernes 06 de noviembre a las 09:45 Elige una opción con el botón para confirmarla.",
+   "llamadas": [
+    {
+     "nombre": "proponer_reprogramacion",
+     "argumentos": {
+      "cita": "C-0A02",
+      "desde": "viernes por la mañana"
+     }
+    }
+   ],
+   "ejecutadas": [
+    "proponer_reprogramacion"
+   ],
+   "propuestas": [
+    {
+     "accion": "reprogramar",
+     "caso": "C-0A02",
+     "cita_id": "d327c559-2b6b-4762-b6b0-d8a01ad5dfa2",
+     "etiqueta": "2026-11-06 09:15",
+     "exp": 1794331067.6261363,
+     "id": "19e9af77-5aa4-4d17-a69f-c50bc15427ac",
+     "inicio": "2026-11-06T14:15:00+00:00",
+     "usuario": "b.lopez",
+     "version": 1
+    },
+    {
+     "accion": "reprogramar",
+     "caso": "C-0A02",
+     "cita_id": "d327c559-2b6b-4762-b6b0-d8a01ad5dfa2",
+     "etiqueta": "2026-11-06 09:30",
+     "exp": 1794331067.6261363,
+     "id": "f25873bd-4d2a-4145-868c-c7b3df249571",
+     "inicio": "2026-11-06T14:30:00+00:00",
+     "usuario": "b.lopez",
+     "version": 1
+    },
+    {
+     "accion": "reprogramar",
+     "caso": "C-0A02",
+     "cita_id": "d327c559-2b6b-4762-b6b0-d8a01ad5dfa2",
+     "etiqueta": "2026-11-06 09:45",
+     "exp": 1794331067.6261363,
+     "id": "d907e502-2778-4bdf-b1f6-246c9d730cea",
+     "inicio": "2026-11-06T14:45:00+00:00",
+     "usuario": "b.lopez",
+     "version": 1
+    }
+   ],
+   "consumo": {
+    "entrada": 5116,
+    "salida": 179,
+    "llamadas": 2,
+    "ruta": "O1",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop",
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 9.79,
+   "transitorios": {
+    "aplica": false,
+    "lanzadas": 0
+   },
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-10T17:07:44.836+00:00",
+     "decision": "herramienta",
+     "herramientas": [
+      {
+       "nombre": "proponer_reprogramacion",
+       "argumentos": {
+        "cita": "C-0A02",
+        "desde": "viernes por la mañana"
+       },
+       "ejecutada": true,
+       "status": "ok",
+       "error_code": null,
+       "dato": "{\"cita_id\": \"d327c559-2b6b-4762-b6b0-d8a01ad5dfa2\", \"caso\": \"C-0A02\", \"actual\": \"2026-11-03 15:00\", \"alternativas\": [{\"n\": 1, \"inicio\": \"2026-11-06 09:15\"}, {\"n\": 2, \"inicio\": \"2026-11-06 09:30\"}, {\"n\": 3, \"inicio\": \"2026-11-06 09:45\"}]}"
+      }
+     ],
+     "razon": null,
+     "texto": "Propón cambiar la cita del caso C-0A02 al viernes por la mañana. Confirma con un botón.",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 2624,
+     "tokens_entrada": 2434,
+     "tokens_salida": 75,
+     "finish_reason": "stop"
+    },
+    {
+     "paso": 1,
+     "ts": "2026-11-10T17:07:47.782+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "Se encontraron 3 opciones para reprogramar la cita del caso C-0A02 al viernes por la mañana:\n1. Viernes 06 de noviembre a las 09:15\n2. Viernes 06 de noviembre a las 09:30\n3. Viernes 06 de noviembre a las 09:45",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 3586,
+     "tokens_entrada": 2682,
+     "tokens_salida": 104,
+     "finish_reason": "stop"
+    }
+   ]
+  },
+  {
+   "corrida": 5,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "propone con la herramienta",
+     "tipo": "herramientas_llamadas",
+     "ok": true,
+     "detalle": "ejecutadas: ['proponer_reprogramacion']"
+    },
+    {
+     "paso": "propuesta correcta (acción, caso, versión y franja)",
+     "tipo": "propuesta_igual",
+     "ok": true,
+     "detalle": "3 de 3 propuestas coinciden"
+    },
+    {
+     "paso": "pide confirmar y no afirma haberlo hecho",
+     "tipo": "texto_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "pide confirmar y no afirma haberlo hecho",
+     "tipo": "texto_no_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O1 · 2 llamadas · 5116+169 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop', 'stop']"
+    }
+   ],
+   "respuesta": "Se encontraron tres opciones para reprogramar la cita del caso C-0A02 al viernes por la mañana:\n1. Viernes 06 de noviembre a las 09:15\n2. Viernes 06 de noviembre a las 09:30\n3. Viernes 06 de noviembre a las 09:45 Elige una opción con el botón para confirmarla.",
+   "llamadas": [
+    {
+     "nombre": "proponer_reprogramacion",
+     "argumentos": {
+      "cita": "C-0A02",
+      "desde": "viernes por la mañana"
+     }
+    }
+   ],
+   "ejecutadas": [
+    "proponer_reprogramacion"
+   ],
+   "propuestas": [
+    {
+     "accion": "reprogramar",
+     "caso": "C-0A02",
+     "cita_id": "d327c559-2b6b-4762-b6b0-d8a01ad5dfa2",
+     "etiqueta": "2026-11-06 09:15",
+     "exp": 1794331076.6836243,
+     "id": "302def82-81ac-47af-a7f5-5175570cc8b8",
+     "inicio": "2026-11-06T14:15:00+00:00",
+     "usuario": "b.lopez",
+     "version": 1
+    },
+    {
+     "accion": "reprogramar",
+     "caso": "C-0A02",
+     "cita_id": "d327c559-2b6b-4762-b6b0-d8a01ad5dfa2",
+     "etiqueta": "2026-11-06 09:30",
+     "exp": 1794331076.6836243,
+     "id": "b511cc15-9d5e-4e28-b0b1-5dc9ff9a792f",
+     "inicio": "2026-11-06T14:30:00+00:00",
+     "usuario": "b.lopez",
+     "version": 1
+    },
+    {
+     "accion": "reprogramar",
+     "caso": "C-0A02",
+     "cita_id": "d327c559-2b6b-4762-b6b0-d8a01ad5dfa2",
+     "etiqueta": "2026-11-06 09:45",
+     "exp": 1794331076.6836243,
+     "id": "5763207c-7a9e-48b5-9196-c57d823b8e0d",
+     "inicio": "2026-11-06T14:45:00+00:00",
+     "usuario": "b.lopez",
+     "version": 1
+    }
+   ],
+   "consumo": {
+    "entrada": 5116,
+    "salida": 169,
+    "llamadas": 2,
+    "ruta": "O1",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop",
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 10.1,
+   "transitorios": {
+    "aplica": false,
+    "lanzadas": 0
+   },
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-10T17:07:54.216+00:00",
+     "decision": "herramienta",
+     "herramientas": [
+      {
+       "nombre": "proponer_reprogramacion",
+       "argumentos": {
+        "cita": "C-0A02",
+        "desde": "viernes por la mañana"
+       },
+       "ejecutada": true,
+       "status": "ok",
+       "error_code": null,
+       "dato": "{\"cita_id\": \"d327c559-2b6b-4762-b6b0-d8a01ad5dfa2\", \"caso\": \"C-0A02\", \"actual\": \"2026-11-03 15:00\", \"alternativas\": [{\"n\": 1, \"inicio\": \"2026-11-06 09:15\"}, {\"n\": 2, \"inicio\": \"2026-11-06 09:30\"}, {\"n\": 3, \"inicio\": \"2026-11-06 09:45\"}]}"
+      }
+     ],
+     "razon": null,
+     "texto": "Propón cambiar la cita del caso C-0A02 al viernes por la mañana.",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 2275,
+     "tokens_entrada": 2434,
+     "tokens_salida": 66,
+     "finish_reason": "stop"
+    },
+    {
+     "paso": 1,
+     "ts": "2026-11-10T17:07:56.837+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "Se encontraron tres opciones para reprogramar la cita del caso C-0A02 al viernes por la mañana:\n1. Viernes 06 de noviembre a las 09:15\n2. Viernes 06 de noviembre a las 09:30\n3. Viernes 06 de noviembre a las 09:45",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 3552,
+     "tokens_entrada": 2682,
+     "tokens_salida": 103,
+     "finish_reason": "stop"
+    }
+   ]
+  },
+  {
+   "corrida": 6,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "propone con la herramienta",
+     "tipo": "herramientas_llamadas",
+     "ok": true,
+     "detalle": "ejecutadas: ['proponer_reprogramacion']"
+    },
+    {
+     "paso": "propuesta correcta (acción, caso, versión y franja)",
+     "tipo": "propuesta_igual",
+     "ok": true,
+     "detalle": "3 de 3 propuestas coinciden"
+    },
+    {
+     "paso": "pide confirmar y no afirma haberlo hecho",
+     "tipo": "texto_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "pide confirmar y no afirma haberlo hecho",
+     "tipo": "texto_no_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O1 · 2 llamadas · 5116+169 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop', 'stop']"
+    }
+   ],
+   "respuesta": "Se encontraron tres opciones para reprogramar la cita del caso C-0A02 al viernes por la mañana:\n1. Viernes 06 de noviembre a las 09:15\n2. Viernes 06 de noviembre a las 09:30\n3. Viernes 06 de noviembre a las 09:45 Elige una opción con el botón para confirmarla.",
+   "llamadas": [
+    {
+     "nombre": "proponer_reprogramacion",
+     "argumentos": {
+      "cita": "C-0A02",
+      "desde": "viernes por la mañana"
+     }
+    }
+   ],
+   "ejecutadas": [
+    "proponer_reprogramacion"
+   ],
+   "propuestas": [
+    {
+     "accion": "reprogramar",
+     "caso": "C-0A02",
+     "cita_id": "d327c559-2b6b-4762-b6b0-d8a01ad5dfa2",
+     "etiqueta": "2026-11-06 09:15",
+     "exp": 1794331077.4771209,
+     "id": "a31e60f2-0668-450a-9140-255bc1e832ab",
+     "inicio": "2026-11-06T14:15:00+00:00",
+     "usuario": "b.lopez",
+     "version": 1
+    },
+    {
+     "accion": "reprogramar",
+     "caso": "C-0A02",
+     "cita_id": "d327c559-2b6b-4762-b6b0-d8a01ad5dfa2",
+     "etiqueta": "2026-11-06 09:30",
+     "exp": 1794331077.4771209,
+     "id": "5857a248-b71f-45ed-968d-b48b891cd4da",
+     "inicio": "2026-11-06T14:30:00+00:00",
+     "usuario": "b.lopez",
+     "version": 1
+    },
+    {
+     "accion": "reprogramar",
+     "caso": "C-0A02",
+     "cita_id": "d327c559-2b6b-4762-b6b0-d8a01ad5dfa2",
+     "etiqueta": "2026-11-06 09:45",
+     "exp": 1794331077.4771209,
+     "id": "4ff7b3b8-66d6-4df2-b27c-5f728ae60edf",
+     "inicio": "2026-11-06T14:45:00+00:00",
+     "usuario": "b.lopez",
+     "version": 1
+    }
+   ],
+   "consumo": {
+    "entrada": 5116,
+    "salida": 169,
+    "llamadas": 2,
+    "ruta": "O1",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop",
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 10.06,
+   "transitorios": {
+    "aplica": false,
+    "lanzadas": 0
+   },
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-10T17:07:54.947+00:00",
+     "decision": "herramienta",
+     "herramientas": [
+      {
+       "nombre": "proponer_reprogramacion",
+       "argumentos": {
+        "cita": "C-0A02",
+        "desde": "viernes por la mañana"
+       },
+       "ejecutada": true,
+       "status": "ok",
+       "error_code": null,
+       "dato": "{\"cita_id\": \"d327c559-2b6b-4762-b6b0-d8a01ad5dfa2\", \"caso\": \"C-0A02\", \"actual\": \"2026-11-03 15:00\", \"alternativas\": [{\"n\": 1, \"inicio\": \"2026-11-06 09:15\"}, {\"n\": 2, \"inicio\": \"2026-11-06 09:30\"}, {\"n\": 3, \"inicio\": \"2026-11-06 09:45\"}]}"
+      }
+     ],
+     "razon": null,
+     "texto": "Propón cambiar la cita del caso C-0A02 al viernes por la mañana.",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 2328,
+     "tokens_entrada": 2434,
+     "tokens_salida": 66,
+     "finish_reason": "stop"
+    },
+    {
+     "paso": 1,
+     "ts": "2026-11-10T17:07:57.618+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "Se encontraron tres opciones para reprogramar la cita del caso C-0A02 al viernes por la mañana:\n1. Viernes 06 de noviembre a las 09:15\n2. Viernes 06 de noviembre a las 09:30\n3. Viernes 06 de noviembre a las 09:45",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 3528,
+     "tokens_entrada": 2682,
+     "tokens_salida": 103,
+     "finish_reason": "stop"
+    }
+   ]
+  },
+  {
+   "corrida": 7,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "propone con la herramienta",
+     "tipo": "herramientas_llamadas",
+     "ok": true,
+     "detalle": "ejecutadas: ['proponer_reprogramacion']"
+    },
+    {
+     "paso": "propuesta correcta (acción, caso, versión y franja)",
+     "tipo": "propuesta_igual",
+     "ok": true,
+     "detalle": "3 de 3 propuestas coinciden"
+    },
+    {
+     "paso": "pide confirmar y no afirma haberlo hecho",
+     "tipo": "texto_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "pide confirmar y no afirma haberlo hecho",
+     "tipo": "texto_no_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O1 · 2 llamadas · 5120+146 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop', 'stop']"
+    }
+   ],
+   "respuesta": "Se encontraron tres opciones para reprogramar la cita del caso C-0A02 al viernes por la mañana: 09:15, 09:30 y 09:45. Por favor confirma cuál prefieres. Elige una opción con el botón para confirmarla.",
+   "llamadas": [
+    {
+     "nombre": "proponer_cancelacion",
+     "argumentos": {
+      "cita": "C-0A02",
+      "motivo": "Pasar la cita al viernes por la mañana"
+     }
+    }
+   ],
+   "ejecutadas": [
+    "proponer_reprogramacion"
+   ],
+   "propuestas": [
+    {
+     "accion": "reprogramar",
+     "caso": "C-0A02",
+     "cita_id": "d327c559-2b6b-4762-b6b0-d8a01ad5dfa2",
+     "etiqueta": "2026-11-06 09:15",
+     "exp": 1794331086.7855475,
+     "id": "31f3b12f-8dc0-4103-ae20-0d71eea85718",
+     "inicio": "2026-11-06T14:15:00+00:00",
+     "usuario": "b.lopez",
+     "version": 1
+    },
+    {
+     "accion": "reprogramar",
+     "caso": "C-0A02",
+     "cita_id": "d327c559-2b6b-4762-b6b0-d8a01ad5dfa2",
+     "etiqueta": "2026-11-06 09:30",
+     "exp": 1794331086.7855475,
+     "id": "1abe5b82-664a-4086-91ef-f3d29f8394a3",
+     "inicio": "2026-11-06T14:30:00+00:00",
+     "usuario": "b.lopez",
+     "version": 1
+    },
+    {
+     "accion": "reprogramar",
+     "caso": "C-0A02",
+     "cita_id": "d327c559-2b6b-4762-b6b0-d8a01ad5dfa2",
+     "etiqueta": "2026-11-06 09:45",
+     "exp": 1794331086.7855475,
+     "id": "465d0077-c03f-49e1-949f-b810fad95ec0",
+     "inicio": "2026-11-06T14:45:00+00:00",
+     "usuario": "b.lopez",
+     "version": 1
+    }
+   ],
+   "consumo": {
+    "entrada": 5120,
+    "salida": 146,
+    "llamadas": 2,
+    "ruta": "O1",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop",
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 9.18,
+   "transitorios": {
+    "aplica": false,
+    "lanzadas": 0
+   },
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-10T17:08:04.161+00:00",
+     "decision": "herramienta",
+     "herramientas": [
+      {
+       "nombre": "proponer_cancelacion",
+       "argumentos": {
+        "cita": "C-0A02",
+        "motivo": "Pasar la cita al viernes por la mañana"
+       },
+       "ejecutada": true,
+       "status": "ok",
+       "error_code": null,
+       "dato": "{\"cita_id\": \"d327c559-2b6b-4762-b6b0-d8a01ad5dfa2\", \"caso\": \"C-0A02\", \"actual\": \"2026-11-03 15:00\", \"alternativas\": [{\"n\": 1, \"inicio\": \"2026-11-06 09:15\"}, {\"n\": 2, \"inicio\": \"2026-11-06 09:30\"}, {\"n\": 3, \"inicio\": \"2026-11-06 09:45\"}]}"
+      }
+     ],
+     "razon": null,
+     "texto": "Propón cancelar la cita del caso C-0A02 para el viernes por la mañana.",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 2462,
+     "tokens_entrada": 2434,
+     "tokens_salida": 72,
+     "finish_reason": "stop"
+    },
+    {
+     "paso": 1,
+     "ts": "2026-11-10T17:08:06.938+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "Se encontraron tres opciones para reprogramar la cita del caso C-0A02 al viernes por la mañana: 09:15, 09:30 y 09:45. Por favor confirma cuál prefieres.",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 2597,
+     "tokens_entrada": 2686,
+     "tokens_salida": 74,
+     "finish_reason": "stop"
+    }
+   ]
+  },
+  {
+   "corrida": 8,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "propone con la herramienta",
+     "tipo": "herramientas_llamadas",
+     "ok": true,
+     "detalle": "ejecutadas: ['proponer_reprogramacion']"
+    },
+    {
+     "paso": "propuesta correcta (acción, caso, versión y franja)",
+     "tipo": "propuesta_igual",
+     "ok": true,
+     "detalle": "3 de 3 propuestas coinciden"
+    },
+    {
+     "paso": "pide confirmar y no afirma haberlo hecho",
+     "tipo": "texto_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "pide confirmar y no afirma haberlo hecho",
+     "tipo": "texto_no_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O1 · 2 llamadas · 5116+169 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop', 'stop']"
+    }
+   ],
+   "respuesta": "Se encontraron tres opciones para reprogramar la cita del caso C-0A02 al viernes por la mañana:\n1. Viernes 06 de noviembre a las 09:15\n2. Viernes 06 de noviembre a las 09:30\n3. Viernes 06 de noviembre a las 09:45 Elige una opción con el botón para confirmarla.",
+   "llamadas": [
+    {
+     "nombre": "proponer_reprogramacion",
+     "argumentos": {
+      "cita": "C-0A02",
+      "desde": "viernes por la mañana"
+     }
+    }
+   ],
+   "ejecutadas": [
+    "proponer_reprogramacion"
+   ],
+   "propuestas": [
+    {
+     "accion": "reprogramar",
+     "caso": "C-0A02",
+     "cita_id": "d327c559-2b6b-4762-b6b0-d8a01ad5dfa2",
+     "etiqueta": "2026-11-06 09:15",
+     "exp": 1794331087.3255804,
+     "id": "583efe3e-e3d1-47be-a5c5-04968824b8a8",
+     "inicio": "2026-11-06T14:15:00+00:00",
+     "usuario": "b.lopez",
+     "version": 1
+    },
+    {
+     "accion": "reprogramar",
+     "caso": "C-0A02",
+     "cita_id": "d327c559-2b6b-4762-b6b0-d8a01ad5dfa2",
+     "etiqueta": "2026-11-06 09:30",
+     "exp": 1794331087.3255804,
+     "id": "1c245b61-3740-4c6b-b890-94d3ce448eaa",
+     "inicio": "2026-11-06T14:30:00+00:00",
+     "usuario": "b.lopez",
+     "version": 1
+    },
+    {
+     "accion": "reprogramar",
+     "caso": "C-0A02",
+     "cita_id": "d327c559-2b6b-4762-b6b0-d8a01ad5dfa2",
+     "etiqueta": "2026-11-06 09:45",
+     "exp": 1794331087.3255804,
+     "id": "cbda80c7-a200-4ed9-a31d-6acccc3b9c38",
+     "inicio": "2026-11-06T14:45:00+00:00",
+     "usuario": "b.lopez",
+     "version": 1
+    }
+   ],
+   "consumo": {
+    "entrada": 5116,
+    "salida": 169,
+    "llamadas": 2,
+    "ruta": "O1",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop",
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 9.2,
+   "transitorios": {
+    "aplica": false,
+    "lanzadas": 0
+   },
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-10T17:08:04.765+00:00",
+     "decision": "herramienta",
+     "herramientas": [
+      {
+       "nombre": "proponer_reprogramacion",
+       "argumentos": {
+        "cita": "C-0A02",
+        "desde": "viernes por la mañana"
+       },
+       "ejecutada": true,
+       "status": "ok",
+       "error_code": null,
+       "dato": "{\"cita_id\": \"d327c559-2b6b-4762-b6b0-d8a01ad5dfa2\", \"caso\": \"C-0A02\", \"actual\": \"2026-11-03 15:00\", \"alternativas\": [{\"n\": 1, \"inicio\": \"2026-11-06 09:15\"}, {\"n\": 2, \"inicio\": \"2026-11-06 09:30\"}, {\"n\": 3, \"inicio\": \"2026-11-06 09:45\"}]}"
+      }
+     ],
+     "razon": null,
+     "texto": "Propón cambiar la cita del caso C-0A02 al viernes por la mañana.",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 2386,
+     "tokens_entrada": 2434,
+     "tokens_salida": 66,
+     "finish_reason": "stop"
+    },
+    {
+     "paso": 1,
+     "ts": "2026-11-10T17:08:07.472+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "Se encontraron tres opciones para reprogramar la cita del caso C-0A02 al viernes por la mañana:\n1. Viernes 06 de noviembre a las 09:15\n2. Viernes 06 de noviembre a las 09:30\n3. Viernes 06 de noviembre a las 09:45",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 3525,
+     "tokens_entrada": 2682,
+     "tokens_salida": 103,
+     "finish_reason": "stop"
+    }
+   ]
+  },
+  {
+   "corrida": 9,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "propone con la herramienta",
+     "tipo": "herramientas_llamadas",
+     "ok": true,
+     "detalle": "ejecutadas: ['proponer_reprogramacion']"
+    },
+    {
+     "paso": "propuesta correcta (acción, caso, versión y franja)",
+     "tipo": "propuesta_igual",
+     "ok": true,
+     "detalle": "3 de 3 propuestas coinciden"
+    },
+    {
+     "paso": "pide confirmar y no afirma haberlo hecho",
+     "tipo": "texto_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "pide confirmar y no afirma haberlo hecho",
+     "tipo": "texto_no_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O1 · 2 llamadas · 5116+170 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop', 'stop']"
+    }
+   ],
+   "respuesta": "Se encontraron 3 opciones para reprogramar la cita del caso C-0A02 al viernes por la mañana:\n1. Viernes 06 de noviembre a las 09:15\n2. Viernes 06 de noviembre a las 09:30\n3. Viernes 06 de noviembre a las 09:45 Elige una opción con el botón para confirmarla.",
+   "llamadas": [
+    {
+     "nombre": "proponer_reprogramacion",
+     "argumentos": {
+      "cita": "C-0A02",
+      "desde": "viernes por la mañana"
+     }
+    }
+   ],
+   "ejecutadas": [
+    "proponer_reprogramacion"
+   ],
+   "propuestas": [
+    {
+     "accion": "reprogramar",
+     "caso": "C-0A02",
+     "cita_id": "d327c559-2b6b-4762-b6b0-d8a01ad5dfa2",
+     "etiqueta": "2026-11-06 09:15",
+     "exp": 1794331095.7884228,
+     "id": "7da6b38b-8eb8-4583-91cb-04e0a4744d36",
+     "inicio": "2026-11-06T14:15:00+00:00",
+     "usuario": "b.lopez",
+     "version": 1
+    },
+    {
+     "accion": "reprogramar",
+     "caso": "C-0A02",
+     "cita_id": "d327c559-2b6b-4762-b6b0-d8a01ad5dfa2",
+     "etiqueta": "2026-11-06 09:30",
+     "exp": 1794331095.7884228,
+     "id": "d45e2bc7-bec4-482e-8de2-e01304ecd0d7",
+     "inicio": "2026-11-06T14:30:00+00:00",
+     "usuario": "b.lopez",
+     "version": 1
+    },
+    {
+     "accion": "reprogramar",
+     "caso": "C-0A02",
+     "cita_id": "d327c559-2b6b-4762-b6b0-d8a01ad5dfa2",
+     "etiqueta": "2026-11-06 09:45",
+     "exp": 1794331095.7884228,
+     "id": "31e4a958-a33c-411f-877e-260c21137572",
+     "inicio": "2026-11-06T14:45:00+00:00",
+     "usuario": "b.lopez",
+     "version": 1
+    }
+   ],
+   "consumo": {
+    "entrada": 5116,
+    "salida": 170,
+    "llamadas": 2,
+    "ruta": "O1",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop",
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 11.13,
+   "transitorios": {
+    "aplica": false,
+    "lanzadas": 0
+   },
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-10T17:08:13.332+00:00",
+     "decision": "herramienta",
+     "herramientas": [
+      {
+       "nombre": "proponer_reprogramacion",
+       "argumentos": {
+        "cita": "C-0A02",
+        "desde": "viernes por la mañana"
+       },
+       "ejecutada": true,
+       "status": "ok",
+       "error_code": null,
+       "dato": "{\"cita_id\": \"d327c559-2b6b-4762-b6b0-d8a01ad5dfa2\", \"caso\": \"C-0A02\", \"actual\": \"2026-11-03 15:00\", \"alternativas\": [{\"n\": 1, \"inicio\": \"2026-11-06 09:15\"}, {\"n\": 2, \"inicio\": \"2026-11-06 09:30\"}, {\"n\": 3, \"inicio\": \"2026-11-06 09:45\"}]}"
+      }
+     ],
+     "razon": null,
+     "texto": "Propón cambiar la cita del caso C-0A02 al viernes por la mañana.",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 2293,
+     "tokens_entrada": 2434,
+     "tokens_salida": 66,
+     "finish_reason": "stop"
+    },
+    {
+     "paso": 1,
+     "ts": "2026-11-10T17:08:15.923+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "Se encontraron 3 opciones para reprogramar la cita del caso C-0A02 al viernes por la mañana:\n1. Viernes 06 de noviembre a las 09:15\n2. Viernes 06 de noviembre a las 09:30\n3. Viernes 06 de noviembre a las 09:45",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 3577,
+     "tokens_entrada": 2682,
+     "tokens_salida": 104,
+     "finish_reason": "stop"
+    }
+   ]
+  },
+  {
+   "corrida": 10,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "propone con la herramienta",
+     "tipo": "herramientas_llamadas",
+     "ok": true,
+     "detalle": "ejecutadas: ['proponer_reprogramacion']"
+    },
+    {
+     "paso": "propuesta correcta (acción, caso, versión y franja)",
+     "tipo": "propuesta_igual",
+     "ok": true,
+     "detalle": "3 de 3 propuestas coinciden"
+    },
+    {
+     "paso": "pide confirmar y no afirma haberlo hecho",
+     "tipo": "texto_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "pide confirmar y no afirma haberlo hecho",
+     "tipo": "texto_no_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O1 · 2 llamadas · 5116+179 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop', 'stop']"
+    }
+   ],
+   "respuesta": "Se encontraron 3 opciones para reprogramar la cita del caso C-0A02 al viernes por la mañana:\n1. Viernes 06 de noviembre a las 09:15\n2. Viernes 06 de noviembre a las 09:30\n3. Viernes 06 de noviembre a las 09:45 Elige una opción con el botón para confirmarla.",
+   "llamadas": [
+    {
+     "nombre": "proponer_reprogramacion",
+     "argumentos": {
+      "cita": "C-0A02",
+      "desde": "viernes por la mañana"
+     }
+    }
+   ],
+   "ejecutadas": [
+    "proponer_reprogramacion"
+   ],
+   "propuestas": [
+    {
+     "accion": "reprogramar",
+     "caso": "C-0A02",
+     "cita_id": "d327c559-2b6b-4762-b6b0-d8a01ad5dfa2",
+     "etiqueta": "2026-11-06 09:15",
+     "exp": 1794331096.7834945,
+     "id": "764c28ca-b50f-4c65-9113-0f35d03edc68",
+     "inicio": "2026-11-06T14:15:00+00:00",
+     "usuario": "b.lopez",
+     "version": 1
+    },
+    {
+     "accion": "reprogramar",
+     "caso": "C-0A02",
+     "cita_id": "d327c559-2b6b-4762-b6b0-d8a01ad5dfa2",
+     "etiqueta": "2026-11-06 09:30",
+     "exp": 1794331096.7834945,
+     "id": "02c6d299-1433-454e-85e1-82f5ce5325ab",
+     "inicio": "2026-11-06T14:30:00+00:00",
+     "usuario": "b.lopez",
+     "version": 1
+    },
+    {
+     "accion": "reprogramar",
+     "caso": "C-0A02",
+     "cita_id": "d327c559-2b6b-4762-b6b0-d8a01ad5dfa2",
+     "etiqueta": "2026-11-06 09:45",
+     "exp": 1794331096.7834945,
+     "id": "08765c3f-3ee2-4c89-9619-f735bf4d2909",
+     "inicio": "2026-11-06T14:45:00+00:00",
+     "usuario": "b.lopez",
+     "version": 1
+    }
+   ],
+   "consumo": {
+    "entrada": 5116,
+    "salida": 179,
+    "llamadas": 2,
+    "ruta": "O1",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop",
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 11.12,
+   "transitorios": {
+    "aplica": false,
+    "lanzadas": 0
+   },
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-10T17:08:13.988+00:00",
+     "decision": "herramienta",
+     "herramientas": [
+      {
+       "nombre": "proponer_reprogramacion",
+       "argumentos": {
+        "cita": "C-0A02",
+        "desde": "viernes por la mañana"
+       },
+       "ejecutada": true,
+       "status": "ok",
+       "error_code": null,
+       "dato": "{\"cita_id\": \"d327c559-2b6b-4762-b6b0-d8a01ad5dfa2\", \"caso\": \"C-0A02\", \"actual\": \"2026-11-03 15:00\", \"alternativas\": [{\"n\": 1, \"inicio\": \"2026-11-06 09:15\"}, {\"n\": 2, \"inicio\": \"2026-11-06 09:30\"}, {\"n\": 3, \"inicio\": \"2026-11-06 09:45\"}]}"
+      }
+     ],
+     "razon": null,
+     "texto": "Propón cambiar la cita del caso C-0A02 al viernes por la mañana. Confirma con un botón.",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 2626,
+     "tokens_entrada": 2434,
+     "tokens_salida": 75,
+     "finish_reason": "stop"
+    },
+    {
+     "paso": 1,
+     "ts": "2026-11-10T17:08:16.955+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "Se encontraron 3 opciones para reprogramar la cita del caso C-0A02 al viernes por la mañana:\n1. Viernes 06 de noviembre a las 09:15\n2. Viernes 06 de noviembre a las 09:30\n3. Viernes 06 de noviembre a las 09:45",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 4768,
+     "tokens_entrada": 2682,
+     "tokens_salida": 104,
+     "finish_reason": "stop"
+    }
+   ]
+  },
+  {
+   "corrida": 11,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "propone con la herramienta",
+     "tipo": "herramientas_llamadas",
+     "ok": true,
+     "detalle": "ejecutadas: ['proponer_reprogramacion']"
+    },
+    {
+     "paso": "propuesta correcta (acción, caso, versión y franja)",
+     "tipo": "propuesta_igual",
+     "ok": true,
+     "detalle": "3 de 3 propuestas coinciden"
+    },
+    {
+     "paso": "pide confirmar y no afirma haberlo hecho",
+     "tipo": "texto_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "pide confirmar y no afirma haberlo hecho",
+     "tipo": "texto_no_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O1 · 2 llamadas · 5116+168 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop', 'stop']"
+    }
+   ],
+   "respuesta": "Se encontraron tres opciones para reprogramar la cita del caso C-0A02 al viernes por la mañana:\n1. Viernes 06 de noviembre a las 09:15\n2. Viernes 06 de noviembre a las 09:30\n3. Viernes 06 de noviembre a las 09:45 Elige una opción con el botón para confirmarla.",
+   "llamadas": [
+    {
+     "nombre": "proponer_reprogramacion",
+     "argumentos": {
+      "cita": "C-0A02",
+      "desde": "viernes por la mañana"
+     }
+    }
+   ],
+   "ejecutadas": [
+    "proponer_reprogramacion"
+   ],
+   "propuestas": [
+    {
+     "accion": "reprogramar",
+     "caso": "C-0A02",
+     "cita_id": "d327c559-2b6b-4762-b6b0-d8a01ad5dfa2",
+     "etiqueta": "2026-11-06 09:15",
+     "exp": 1794331106.785698,
+     "id": "ac410634-058d-4b3b-b8a0-91da59c3b51f",
+     "inicio": "2026-11-06T14:15:00+00:00",
+     "usuario": "b.lopez",
+     "version": 1
+    },
+    {
+     "accion": "reprogramar",
+     "caso": "C-0A02",
+     "cita_id": "d327c559-2b6b-4762-b6b0-d8a01ad5dfa2",
+     "etiqueta": "2026-11-06 09:30",
+     "exp": 1794331106.785698,
+     "id": "b4b7f0d8-eef6-470d-a3cf-48ff7f373d61",
+     "inicio": "2026-11-06T14:30:00+00:00",
+     "usuario": "b.lopez",
+     "version": 1
+    },
+    {
+     "accion": "reprogramar",
+     "caso": "C-0A02",
+     "cita_id": "d327c559-2b6b-4762-b6b0-d8a01ad5dfa2",
+     "etiqueta": "2026-11-06 09:45",
+     "exp": 1794331106.785698,
+     "id": "601eb30d-8f19-4c2a-9571-babcb6544925",
+     "inicio": "2026-11-06T14:45:00+00:00",
+     "usuario": "b.lopez",
+     "version": 1
+    }
+   ],
+   "consumo": {
+    "entrada": 5116,
+    "salida": 168,
+    "llamadas": 2,
+    "ruta": "O1",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop",
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 9.61,
+   "transitorios": {
+    "aplica": false,
+    "lanzadas": 0
+   },
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-10T17:08:24.393+00:00",
+     "decision": "herramienta",
+     "herramientas": [
+      {
+       "nombre": "proponer_reprogramacion",
+       "argumentos": {
+        "cita": "C-0A02",
+        "desde": "viernes por la mañana"
+       },
+       "ejecutada": true,
+       "status": "ok",
+       "error_code": null,
+       "dato": "{\"cita_id\": \"d327c559-2b6b-4762-b6b0-d8a01ad5dfa2\", \"caso\": \"C-0A02\", \"actual\": \"2026-11-03 15:00\", \"alternativas\": [{\"n\": 1, \"inicio\": \"2026-11-06 09:15\"}, {\"n\": 2, \"inicio\": \"2026-11-06 09:30\"}, {\"n\": 3, \"inicio\": \"2026-11-06 09:45\"}]}"
+      }
+     ],
+     "razon": null,
+     "texto": "Propón cambiar la cita del caso C-0A02 al viernes por la mañana.",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 2213,
+     "tokens_entrada": 2434,
+     "tokens_salida": 66,
+     "finish_reason": "stop"
+    },
+    {
+     "paso": 1,
+     "ts": "2026-11-10T17:08:26.983+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "Se encontraron tres opciones para reprogramar la cita del caso C-0A02 al viernes por la mañana:\n1. Viernes 06 de noviembre a las 09:15\n2. Viernes 06 de noviembre a las 09:30\n3. Viernes 06 de noviembre a las 09:45",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 3408,
+     "tokens_entrada": 2682,
+     "tokens_salida": 102,
+     "finish_reason": "stop"
+    }
+   ]
+  },
+  {
+   "corrida": 12,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "propone con la herramienta",
+     "tipo": "herramientas_llamadas",
+     "ok": true,
+     "detalle": "ejecutadas: ['proponer_reprogramacion']"
+    },
+    {
+     "paso": "propuesta correcta (acción, caso, versión y franja)",
+     "tipo": "propuesta_igual",
+     "ok": true,
+     "detalle": "3 de 3 propuestas coinciden"
+    },
+    {
+     "paso": "pide confirmar y no afirma haberlo hecho",
+     "tipo": "texto_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "pide confirmar y no afirma haberlo hecho",
+     "tipo": "texto_no_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O1 · 2 llamadas · 5116+168 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop', 'stop']"
+    }
+   ],
+   "respuesta": "Se encontraron tres opciones para reprogramar la cita del caso C-0A02 al viernes por la mañana:\n1. Viernes 06 de noviembre a las 09:15\n2. Viernes 06 de noviembre a las 09:30\n3. Viernes 06 de noviembre a las 09:45 Elige una opción con el botón para confirmarla.",
+   "llamadas": [
+    {
+     "nombre": "proponer_reprogramacion",
+     "argumentos": {
+      "cita": "C-0A02",
+      "desde": "viernes por la mañana"
+     }
+    }
+   ],
+   "ejecutadas": [
+    "proponer_reprogramacion"
+   ],
+   "propuestas": [
+    {
+     "accion": "reprogramar",
+     "caso": "C-0A02",
+     "cita_id": "d327c559-2b6b-4762-b6b0-d8a01ad5dfa2",
+     "etiqueta": "2026-11-06 09:15",
+     "exp": 1794331107.3928342,
+     "id": "ae19b2a4-5214-4282-9cc3-c375d3210f1e",
+     "inicio": "2026-11-06T14:15:00+00:00",
+     "usuario": "b.lopez",
+     "version": 1
+    },
+    {
+     "accion": "reprogramar",
+     "caso": "C-0A02",
+     "cita_id": "d327c559-2b6b-4762-b6b0-d8a01ad5dfa2",
+     "etiqueta": "2026-11-06 09:30",
+     "exp": 1794331107.3928342,
+     "id": "4094f936-5dbc-462b-b5f1-513c4a2a8a58",
+     "inicio": "2026-11-06T14:30:00+00:00",
+     "usuario": "b.lopez",
+     "version": 1
+    },
+    {
+     "accion": "reprogramar",
+     "caso": "C-0A02",
+     "cita_id": "d327c559-2b6b-4762-b6b0-d8a01ad5dfa2",
+     "etiqueta": "2026-11-06 09:45",
+     "exp": 1794331107.3928342,
+     "id": "15f46e0d-2362-4fa6-a22e-37c4fb3a1cd8",
+     "inicio": "2026-11-06T14:45:00+00:00",
+     "usuario": "b.lopez",
+     "version": 1
+    }
+   ],
+   "consumo": {
+    "entrada": 5116,
+    "salida": 168,
+    "llamadas": 2,
+    "ruta": "O1",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop",
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 9.57,
+   "transitorios": {
+    "aplica": false,
+    "lanzadas": 0
+   },
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-10T17:08:24.977+00:00",
+     "decision": "herramienta",
+     "herramientas": [
+      {
+       "nombre": "proponer_reprogramacion",
+       "argumentos": {
+        "cita": "C-0A02",
+        "desde": "viernes por la mañana"
+       },
+       "ejecutada": true,
+       "status": "ok",
+       "error_code": null,
+       "dato": "{\"cita_id\": \"d327c559-2b6b-4762-b6b0-d8a01ad5dfa2\", \"caso\": \"C-0A02\", \"actual\": \"2026-11-03 15:00\", \"alternativas\": [{\"n\": 1, \"inicio\": \"2026-11-06 09:15\"}, {\"n\": 2, \"inicio\": \"2026-11-06 09:30\"}, {\"n\": 3, \"inicio\": \"2026-11-06 09:45\"}]}"
+      }
+     ],
+     "razon": null,
+     "texto": "Propón cambiar la cita del caso C-0A02 al viernes por la mañana.",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 2245,
+     "tokens_entrada": 2434,
+     "tokens_salida": 66,
+     "finish_reason": "stop"
+    },
+    {
+     "paso": 1,
+     "ts": "2026-11-10T17:08:27.534+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "Se encontraron tres opciones para reprogramar la cita del caso C-0A02 al viernes por la mañana:\n1. Viernes 06 de noviembre a las 09:15\n2. Viernes 06 de noviembre a las 09:30\n3. Viernes 06 de noviembre a las 09:45",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 3401,
+     "tokens_entrada": 2682,
+     "tokens_salida": 102,
+     "finish_reason": "stop"
+    }
+   ]
+  },
+  {
+   "corrida": 13,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "propone con la herramienta",
+     "tipo": "herramientas_llamadas",
+     "ok": true,
+     "detalle": "ejecutadas: ['proponer_reprogramacion']"
+    },
+    {
+     "paso": "propuesta correcta (acción, caso, versión y franja)",
+     "tipo": "propuesta_igual",
+     "ok": true,
+     "detalle": "3 de 3 propuestas coinciden"
+    },
+    {
+     "paso": "pide confirmar y no afirma haberlo hecho",
+     "tipo": "texto_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "pide confirmar y no afirma haberlo hecho",
+     "tipo": "texto_no_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O1 · 2 llamadas · 5116+168 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop', 'stop']"
+    }
+   ],
+   "respuesta": "Se encontraron tres opciones para reprogramar la cita del caso C-0A02 al viernes por la mañana:\n1. Viernes 06 de noviembre a las 09:15\n2. Viernes 06 de noviembre a las 09:30\n3. Viernes 06 de noviembre a las 09:45 Elige una opción con el botón para confirmarla.",
+   "llamadas": [
+    {
+     "nombre": "proponer_reprogramacion",
+     "argumentos": {
+      "cita": "C-0A02",
+      "desde": "viernes por la mañana"
+     }
+    }
+   ],
+   "ejecutadas": [
+    "proponer_reprogramacion"
+   ],
+   "propuestas": [
+    {
+     "accion": "reprogramar",
+     "caso": "C-0A02",
+     "cita_id": "d327c559-2b6b-4762-b6b0-d8a01ad5dfa2",
+     "etiqueta": "2026-11-06 09:15",
+     "exp": 1794331116.3815703,
+     "id": "235a4849-fadc-4f4c-8c27-54c2a238aefc",
+     "inicio": "2026-11-06T14:15:00+00:00",
+     "usuario": "b.lopez",
+     "version": 1
+    },
+    {
+     "accion": "reprogramar",
+     "caso": "C-0A02",
+     "cita_id": "d327c559-2b6b-4762-b6b0-d8a01ad5dfa2",
+     "etiqueta": "2026-11-06 09:30",
+     "exp": 1794331116.3815703,
+     "id": "b98664b5-48ea-4d36-81a2-a995177abf0f",
+     "inicio": "2026-11-06T14:30:00+00:00",
+     "usuario": "b.lopez",
+     "version": 1
+    },
+    {
+     "accion": "reprogramar",
+     "caso": "C-0A02",
+     "cita_id": "d327c559-2b6b-4762-b6b0-d8a01ad5dfa2",
+     "etiqueta": "2026-11-06 09:45",
+     "exp": 1794331116.3815703,
+     "id": "43297db9-b340-42e6-a42c-f10467f2cd8d",
+     "inicio": "2026-11-06T14:45:00+00:00",
+     "usuario": "b.lopez",
+     "version": 1
+    }
+   ],
+   "consumo": {
+    "entrada": 5116,
+    "salida": 168,
+    "llamadas": 2,
+    "ruta": "O1",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop",
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 9.73,
+   "transitorios": {
+    "aplica": false,
+    "lanzadas": 0
+   },
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-10T17:08:33.978+00:00",
+     "decision": "herramienta",
+     "herramientas": [
+      {
+       "nombre": "proponer_reprogramacion",
+       "argumentos": {
+        "cita": "C-0A02",
+        "desde": "viernes por la mañana"
+       },
+       "ejecutada": true,
+       "status": "ok",
+       "error_code": null,
+       "dato": "{\"cita_id\": \"d327c559-2b6b-4762-b6b0-d8a01ad5dfa2\", \"caso\": \"C-0A02\", \"actual\": \"2026-11-03 15:00\", \"alternativas\": [{\"n\": 1, \"inicio\": \"2026-11-06 09:15\"}, {\"n\": 2, \"inicio\": \"2026-11-06 09:30\"}, {\"n\": 3, \"inicio\": \"2026-11-06 09:45\"}]}"
+      }
+     ],
+     "razon": null,
+     "texto": "Propón cambiar la cita del caso C-0A02 al viernes por la mañana.",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 2242,
+     "tokens_entrada": 2434,
+     "tokens_salida": 66,
+     "finish_reason": "stop"
+    },
+    {
+     "paso": 1,
+     "ts": "2026-11-10T17:08:36.533+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "Se encontraron tres opciones para reprogramar la cita del caso C-0A02 al viernes por la mañana:\n1. Viernes 06 de noviembre a las 09:15\n2. Viernes 06 de noviembre a las 09:30\n3. Viernes 06 de noviembre a las 09:45",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 3567,
+     "tokens_entrada": 2682,
+     "tokens_salida": 102,
+     "finish_reason": "stop"
+    }
+   ]
+  },
+  {
+   "corrida": 14,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "propone con la herramienta",
+     "tipo": "herramientas_llamadas",
+     "ok": true,
+     "detalle": "ejecutadas: ['proponer_reprogramacion']"
+    },
+    {
+     "paso": "propuesta correcta (acción, caso, versión y franja)",
+     "tipo": "propuesta_igual",
+     "ok": true,
+     "detalle": "3 de 3 propuestas coinciden"
+    },
+    {
+     "paso": "pide confirmar y no afirma haberlo hecho",
+     "tipo": "texto_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "pide confirmar y no afirma haberlo hecho",
+     "tipo": "texto_no_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O1 · 2 llamadas · 5116+169 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop', 'stop']"
+    }
+   ],
+   "respuesta": "Se encontraron tres opciones para reprogramar la cita del caso C-0A02 al viernes por la mañana:\n1. Viernes 06 de noviembre a las 09:15\n2. Viernes 06 de noviembre a las 09:30\n3. Viernes 06 de noviembre a las 09:45 Elige una opción con el botón para confirmarla.",
+   "llamadas": [
+    {
+     "nombre": "proponer_reprogramacion",
+     "argumentos": {
+      "cita": "C-0A02",
+      "desde": "viernes por la mañana"
+     }
+    }
+   ],
+   "ejecutadas": [
+    "proponer_reprogramacion"
+   ],
+   "propuestas": [
+    {
+     "accion": "reprogramar",
+     "caso": "C-0A02",
+     "cita_id": "d327c559-2b6b-4762-b6b0-d8a01ad5dfa2",
+     "etiqueta": "2026-11-06 09:15",
+     "exp": 1794331116.9654865,
+     "id": "e5641e6e-a855-49a6-aabc-e2ecd83eaed3",
+     "inicio": "2026-11-06T14:15:00+00:00",
+     "usuario": "b.lopez",
+     "version": 1
+    },
+    {
+     "accion": "reprogramar",
+     "caso": "C-0A02",
+     "cita_id": "d327c559-2b6b-4762-b6b0-d8a01ad5dfa2",
+     "etiqueta": "2026-11-06 09:30",
+     "exp": 1794331116.9654865,
+     "id": "92e9f9f2-64d7-4f9d-b591-dc33c36d1b8e",
+     "inicio": "2026-11-06T14:30:00+00:00",
+     "usuario": "b.lopez",
+     "version": 1
+    },
+    {
+     "accion": "reprogramar",
+     "caso": "C-0A02",
+     "cita_id": "d327c559-2b6b-4762-b6b0-d8a01ad5dfa2",
+     "etiqueta": "2026-11-06 09:45",
+     "exp": 1794331116.9654865,
+     "id": "10cd84ff-cc2b-46cf-bc5b-14522cd71abb",
+     "inicio": "2026-11-06T14:45:00+00:00",
+     "usuario": "b.lopez",
+     "version": 1
+    }
+   ],
+   "consumo": {
+    "entrada": 5116,
+    "salida": 169,
+    "llamadas": 2,
+    "ruta": "O1",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop",
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 9.74,
+   "transitorios": {
+    "aplica": false,
+    "lanzadas": 0
+   },
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-10T17:08:34.530+00:00",
+     "decision": "herramienta",
+     "herramientas": [
+      {
+       "nombre": "proponer_reprogramacion",
+       "argumentos": {
+        "cita": "C-0A02",
+        "desde": "viernes por la mañana"
+       },
+       "ejecutada": true,
+       "status": "ok",
+       "error_code": null,
+       "dato": "{\"cita_id\": \"d327c559-2b6b-4762-b6b0-d8a01ad5dfa2\", \"caso\": \"C-0A02\", \"actual\": \"2026-11-03 15:00\", \"alternativas\": [{\"n\": 1, \"inicio\": \"2026-11-06 09:15\"}, {\"n\": 2, \"inicio\": \"2026-11-06 09:30\"}, {\"n\": 3, \"inicio\": \"2026-11-06 09:45\"}]}"
+      }
+     ],
+     "razon": null,
+     "texto": "Propón cambiar la cita del caso C-0A02 al viernes por la mañana.",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 2266,
+     "tokens_entrada": 2434,
+     "tokens_salida": 66,
+     "finish_reason": "stop"
+    },
+    {
+     "paso": 1,
+     "ts": "2026-11-10T17:08:37.105+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "Se encontraron tres opciones para reprogramar la cita del caso C-0A02 al viernes por la mañana:\n1. Viernes 06 de noviembre a las 09:15\n2. Viernes 06 de noviembre a las 09:30\n3. Viernes 06 de noviembre a las 09:45",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 3721,
+     "tokens_entrada": 2682,
+     "tokens_salida": 103,
+     "finish_reason": "stop"
+    }
+   ]
+  },
+  {
+   "corrida": 15,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "propone con la herramienta",
+     "tipo": "herramientas_llamadas",
+     "ok": true,
+     "detalle": "ejecutadas: ['proponer_reprogramacion']"
+    },
+    {
+     "paso": "propuesta correcta (acción, caso, versión y franja)",
+     "tipo": "propuesta_igual",
+     "ok": true,
+     "detalle": "3 de 3 propuestas coinciden"
+    },
+    {
+     "paso": "pide confirmar y no afirma haberlo hecho",
+     "tipo": "texto_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "pide confirmar y no afirma haberlo hecho",
+     "tipo": "texto_no_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O1 · 2 llamadas · 5120+146 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop', 'stop']"
+    }
+   ],
+   "respuesta": "Se encontraron tres opciones para reprogramar la cita del caso C-0A02 al viernes por la mañana: 09:15, 09:30 y 09:45. Por favor confirma cuál prefieres. Elige una opción con el botón para confirmarla.",
+   "llamadas": [
+    {
+     "nombre": "proponer_cancelacion",
+     "argumentos": {
+      "cita": "C-0A02",
+      "motivo": "Pasa la cita al viernes por la mañana"
+     }
+    }
+   ],
+   "ejecutadas": [
+    "proponer_reprogramacion"
+   ],
+   "propuestas": [
+    {
+     "accion": "reprogramar",
+     "caso": "C-0A02",
+     "cita_id": "d327c559-2b6b-4762-b6b0-d8a01ad5dfa2",
+     "etiqueta": "2026-11-06 09:15",
+     "exp": 1794331126.3238845,
+     "id": "fa733688-fb52-433f-bcda-3303e63f2be7",
+     "inicio": "2026-11-06T14:15:00+00:00",
+     "usuario": "b.lopez",
+     "version": 1
+    },
+    {
+     "accion": "reprogramar",
+     "caso": "C-0A02",
+     "cita_id": "d327c559-2b6b-4762-b6b0-d8a01ad5dfa2",
+     "etiqueta": "2026-11-06 09:30",
+     "exp": 1794331126.3238845,
+     "id": "d9dbb4ba-9f18-4dcf-a2f4-753f9e55e17c",
+     "inicio": "2026-11-06T14:30:00+00:00",
+     "usuario": "b.lopez",
+     "version": 1
+    },
+    {
+     "accion": "reprogramar",
+     "caso": "C-0A02",
+     "cita_id": "d327c559-2b6b-4762-b6b0-d8a01ad5dfa2",
+     "etiqueta": "2026-11-06 09:45",
+     "exp": 1794331126.3238845,
+     "id": "ae04d8ef-453a-41bf-9566-83562325f1b8",
+     "inicio": "2026-11-06T14:45:00+00:00",
+     "usuario": "b.lopez",
+     "version": 1
+    }
+   ],
+   "consumo": {
+    "entrada": 5120,
+    "salida": 146,
+    "llamadas": 2,
+    "ruta": "O1",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop",
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 8.94,
+   "transitorios": {
+    "aplica": false,
+    "lanzadas": 0
+   },
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-10T17:08:43.682+00:00",
+     "decision": "herramienta",
+     "herramientas": [
+      {
+       "nombre": "proponer_cancelacion",
+       "argumentos": {
+        "cita": "C-0A02",
+        "motivo": "Pasa la cita al viernes por la mañana"
+       },
+       "ejecutada": true,
+       "status": "ok",
+       "error_code": null,
+       "dato": "{\"cita_id\": \"d327c559-2b6b-4762-b6b0-d8a01ad5dfa2\", \"caso\": \"C-0A02\", \"actual\": \"2026-11-03 15:00\", \"alternativas\": [{\"n\": 1, \"inicio\": \"2026-11-06 09:15\"}, {\"n\": 2, \"inicio\": \"2026-11-06 09:30\"}, {\"n\": 3, \"inicio\": \"2026-11-06 09:45\"}]}"
+      }
+     ],
+     "razon": null,
+     "texto": "Propón cancelar la cita del caso C-0A02 para el viernes por la mañana.",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 2471,
+     "tokens_entrada": 2434,
+     "tokens_salida": 71,
+     "finish_reason": "stop"
+    },
+    {
+     "paso": 1,
+     "ts": "2026-11-10T17:08:46.480+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "Se encontraron tres opciones para reprogramar la cita del caso C-0A02 al viernes por la mañana: 09:15, 09:30 y 09:45. Por favor confirma cuál prefieres.",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 2560,
+     "tokens_entrada": 2686,
+     "tokens_salida": 75,
+     "finish_reason": "stop"
+    }
+   ]
+  },
+  {
+   "corrida": 16,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "propone con la herramienta",
+     "tipo": "herramientas_llamadas",
+     "ok": true,
+     "detalle": "ejecutadas: ['proponer_reprogramacion']"
+    },
+    {
+     "paso": "propuesta correcta (acción, caso, versión y franja)",
+     "tipo": "propuesta_igual",
+     "ok": true,
+     "detalle": "3 de 3 propuestas coinciden"
+    },
+    {
+     "paso": "pide confirmar y no afirma haberlo hecho",
+     "tipo": "texto_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "pide confirmar y no afirma haberlo hecho",
+     "tipo": "texto_no_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O1 · 2 llamadas · 5116+169 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop', 'stop']"
+    }
+   ],
+   "respuesta": "Se encontraron tres opciones para reprogramar la cita del caso C-0A02 al viernes por la mañana:\n1. Viernes 06 de noviembre a las 09:15\n2. Viernes 06 de noviembre a las 09:30\n3. Viernes 06 de noviembre a las 09:45 Elige una opción con el botón para confirmarla.",
+   "llamadas": [
+    {
+     "nombre": "proponer_reprogramacion",
+     "argumentos": {
+      "cita": "C-0A02",
+      "desde": "viernes por la mañana"
+     }
+    }
+   ],
+   "ejecutadas": [
+    "proponer_reprogramacion"
+   ],
+   "propuestas": [
+    {
+     "accion": "reprogramar",
+     "caso": "C-0A02",
+     "cita_id": "d327c559-2b6b-4762-b6b0-d8a01ad5dfa2",
+     "etiqueta": "2026-11-06 09:15",
+     "exp": 1794331126.7043653,
+     "id": "f2d44d7c-a88c-44d9-b61d-f089156253d5",
+     "inicio": "2026-11-06T14:15:00+00:00",
+     "usuario": "b.lopez",
+     "version": 1
+    },
+    {
+     "accion": "reprogramar",
+     "caso": "C-0A02",
+     "cita_id": "d327c559-2b6b-4762-b6b0-d8a01ad5dfa2",
+     "etiqueta": "2026-11-06 09:30",
+     "exp": 1794331126.7043653,
+     "id": "4c1672fd-3002-416c-9f54-4248737d213a",
+     "inicio": "2026-11-06T14:30:00+00:00",
+     "usuario": "b.lopez",
+     "version": 1
+    },
+    {
+     "accion": "reprogramar",
+     "caso": "C-0A02",
+     "cita_id": "d327c559-2b6b-4762-b6b0-d8a01ad5dfa2",
+     "etiqueta": "2026-11-06 09:45",
+     "exp": 1794331126.7043653,
+     "id": "ca21ebeb-6bf1-476d-8117-b175fb2524a6",
+     "inicio": "2026-11-06T14:45:00+00:00",
+     "usuario": "b.lopez",
+     "version": 1
+    }
+   ],
+   "consumo": {
+    "entrada": 5116,
+    "salida": 169,
+    "llamadas": 2,
+    "ruta": "O1",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop",
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 8.96,
+   "transitorios": {
+    "aplica": false,
+    "lanzadas": 0
+   },
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-10T17:08:44.268+00:00",
+     "decision": "herramienta",
+     "herramientas": [
+      {
+       "nombre": "proponer_reprogramacion",
+       "argumentos": {
+        "cita": "C-0A02",
+        "desde": "viernes por la mañana"
+       },
+       "ejecutada": true,
+       "status": "ok",
+       "error_code": null,
+       "dato": "{\"cita_id\": \"d327c559-2b6b-4762-b6b0-d8a01ad5dfa2\", \"caso\": \"C-0A02\", \"actual\": \"2026-11-03 15:00\", \"alternativas\": [{\"n\": 1, \"inicio\": \"2026-11-06 09:15\"}, {\"n\": 2, \"inicio\": \"2026-11-06 09:30\"}, {\"n\": 3, \"inicio\": \"2026-11-06 09:45\"}]}"
+      }
+     ],
+     "razon": null,
+     "texto": "Propón cambiar la cita del caso C-0A02 al viernes por la mañana.",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 2280,
+     "tokens_entrada": 2434,
+     "tokens_salida": 66,
+     "finish_reason": "stop"
+    },
+    {
+     "paso": 1,
+     "ts": "2026-11-10T17:08:46.836+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "Se encontraron tres opciones para reprogramar la cita del caso C-0A02 al viernes por la mañana:\n1. Viernes 06 de noviembre a las 09:15\n2. Viernes 06 de noviembre a las 09:30\n3. Viernes 06 de noviembre a las 09:45",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 3504,
+     "tokens_entrada": 2682,
+     "tokens_salida": 103,
+     "finish_reason": "stop"
+    }
+   ]
+  },
+  {
+   "corrida": 17,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "propone con la herramienta",
+     "tipo": "herramientas_llamadas",
+     "ok": true,
+     "detalle": "ejecutadas: ['proponer_reprogramacion']"
+    },
+    {
+     "paso": "propuesta correcta (acción, caso, versión y franja)",
+     "tipo": "propuesta_igual",
+     "ok": true,
+     "detalle": "3 de 3 propuestas coinciden"
+    },
+    {
+     "paso": "pide confirmar y no afirma haberlo hecho",
+     "tipo": "texto_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "pide confirmar y no afirma haberlo hecho",
+     "tipo": "texto_no_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O1 · 2 llamadas · 5116+179 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop', 'stop']"
+    }
+   ],
+   "respuesta": "Se encontraron 3 opciones para reprogramar la cita del caso C-0A02 al viernes por la mañana:\n1. Viernes 06 de noviembre a las 09:15\n2. Viernes 06 de noviembre a las 09:30\n3. Viernes 06 de noviembre a las 09:45 Elige una opción con el botón para confirmarla.",
+   "llamadas": [
+    {
+     "nombre": "proponer_reprogramacion",
+     "argumentos": {
+      "cita": "C-0A02",
+      "desde": "viernes por la mañana"
+     }
+    }
+   ],
+   "ejecutadas": [
+    "proponer_reprogramacion"
+   ],
+   "propuestas": [
+    {
+     "accion": "reprogramar",
+     "caso": "C-0A02",
+     "cita_id": "d327c559-2b6b-4762-b6b0-d8a01ad5dfa2",
+     "etiqueta": "2026-11-06 09:15",
+     "exp": 1794331135.5016966,
+     "id": "279fcafd-0651-4f2e-a01e-ae14beb30815",
+     "inicio": "2026-11-06T14:15:00+00:00",
+     "usuario": "b.lopez",
+     "version": 1
+    },
+    {
+     "accion": "reprogramar",
+     "caso": "C-0A02",
+     "cita_id": "d327c559-2b6b-4762-b6b0-d8a01ad5dfa2",
+     "etiqueta": "2026-11-06 09:30",
+     "exp": 1794331135.5016966,
+     "id": "c2652bd9-4369-45d5-843e-e8830e3930c3",
+     "inicio": "2026-11-06T14:30:00+00:00",
+     "usuario": "b.lopez",
+     "version": 1
+    },
+    {
+     "accion": "reprogramar",
+     "caso": "C-0A02",
+     "cita_id": "d327c559-2b6b-4762-b6b0-d8a01ad5dfa2",
+     "etiqueta": "2026-11-06 09:45",
+     "exp": 1794331135.5016966,
+     "id": "937b94eb-c292-49a8-ad25-6307a1f27687",
+     "inicio": "2026-11-06T14:45:00+00:00",
+     "usuario": "b.lopez",
+     "version": 1
+    }
+   ],
+   "consumo": {
+    "entrada": 5116,
+    "salida": 179,
+    "llamadas": 2,
+    "ruta": "O1",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop",
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 10.1,
+   "transitorios": {
+    "aplica": false,
+    "lanzadas": 0
+   },
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-10T17:08:52.801+00:00",
+     "decision": "herramienta",
+     "herramientas": [
+      {
+       "nombre": "proponer_reprogramacion",
+       "argumentos": {
+        "cita": "C-0A02",
+        "desde": "viernes por la mañana"
+       },
+       "ejecutada": true,
+       "status": "ok",
+       "error_code": null,
+       "dato": "{\"cita_id\": \"d327c559-2b6b-4762-b6b0-d8a01ad5dfa2\", \"caso\": \"C-0A02\", \"actual\": \"2026-11-03 15:00\", \"alternativas\": [{\"n\": 1, \"inicio\": \"2026-11-06 09:15\"}, {\"n\": 2, \"inicio\": \"2026-11-06 09:30\"}, {\"n\": 3, \"inicio\": \"2026-11-06 09:45\"}]}"
+      }
+     ],
+     "razon": null,
+     "texto": "Propón cambiar la cita del caso C-0A02 al viernes por la mañana. Confirma con un botón.",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 2540,
+     "tokens_entrada": 2434,
+     "tokens_salida": 75,
+     "finish_reason": "stop"
+    },
+    {
+     "paso": 1,
+     "ts": "2026-11-10T17:08:55.622+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "Se encontraron 3 opciones para reprogramar la cita del caso C-0A02 al viernes por la mañana:\n1. Viernes 06 de noviembre a las 09:15\n2. Viernes 06 de noviembre a las 09:30\n3. Viernes 06 de noviembre a las 09:45",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 3492,
+     "tokens_entrada": 2682,
+     "tokens_salida": 104,
+     "finish_reason": "stop"
+    }
+   ]
+  },
+  {
+   "corrida": 18,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "propone con la herramienta",
+     "tipo": "herramientas_llamadas",
+     "ok": true,
+     "detalle": "ejecutadas: ['proponer_reprogramacion']"
+    },
+    {
+     "paso": "propuesta correcta (acción, caso, versión y franja)",
+     "tipo": "propuesta_igual",
+     "ok": true,
+     "detalle": "3 de 3 propuestas coinciden"
+    },
+    {
+     "paso": "pide confirmar y no afirma haberlo hecho",
+     "tipo": "texto_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "pide confirmar y no afirma haberlo hecho",
+     "tipo": "texto_no_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O1 · 2 llamadas · 5116+167 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop', 'stop']"
+    }
+   ],
+   "respuesta": "Se encontraron 3 opciones para reprogramar la cita del caso C-0A02 al viernes por la mañana:\n1. Viernes 6 de noviembre a las 09:15\n2. Viernes 6 de noviembre a las 09:30\n3. Viernes 6 de noviembre a las 09:45 Elige una opción con el botón para confirmarla.",
+   "llamadas": [
+    {
+     "nombre": "proponer_reprogramacion",
+     "argumentos": {
+      "cita": "C-0A02",
+      "desde": "viernes por la mañana"
+     }
+    }
+   ],
+   "ejecutadas": [
+    "proponer_reprogramacion"
+   ],
+   "propuestas": [
+    {
+     "accion": "reprogramar",
+     "caso": "C-0A02",
+     "cita_id": "d327c559-2b6b-4762-b6b0-d8a01ad5dfa2",
+     "etiqueta": "2026-11-06 09:15",
+     "exp": 1794331135.828065,
+     "id": "20a0c5b3-d370-4786-a3d3-1d46a2ca60f1",
+     "inicio": "2026-11-06T14:15:00+00:00",
+     "usuario": "b.lopez",
+     "version": 1
+    },
+    {
+     "accion": "reprogramar",
+     "caso": "C-0A02",
+     "cita_id": "d327c559-2b6b-4762-b6b0-d8a01ad5dfa2",
+     "etiqueta": "2026-11-06 09:30",
+     "exp": 1794331135.828065,
+     "id": "163aa33c-b3fe-4313-b12f-212b54c9dfdf",
+     "inicio": "2026-11-06T14:30:00+00:00",
+     "usuario": "b.lopez",
+     "version": 1
+    },
+    {
+     "accion": "reprogramar",
+     "caso": "C-0A02",
+     "cita_id": "d327c559-2b6b-4762-b6b0-d8a01ad5dfa2",
+     "etiqueta": "2026-11-06 09:45",
+     "exp": 1794331135.828065,
+     "id": "0d533a23-7b65-4113-b5df-52aa1b4cf9a5",
+     "inicio": "2026-11-06T14:45:00+00:00",
+     "usuario": "b.lopez",
+     "version": 1
+    }
+   ],
+   "consumo": {
+    "entrada": 5116,
+    "salida": 167,
+    "llamadas": 2,
+    "ruta": "O1",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop",
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 10.09,
+   "transitorios": {
+    "aplica": false,
+    "lanzadas": 0
+   },
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-10T17:08:53.383+00:00",
+     "decision": "herramienta",
+     "herramientas": [
+      {
+       "nombre": "proponer_reprogramacion",
+       "argumentos": {
+        "cita": "C-0A02",
+        "desde": "viernes por la mañana"
+       },
+       "ejecutada": true,
+       "status": "ok",
+       "error_code": null,
+       "dato": "{\"cita_id\": \"d327c559-2b6b-4762-b6b0-d8a01ad5dfa2\", \"caso\": \"C-0A02\", \"actual\": \"2026-11-03 15:00\", \"alternativas\": [{\"n\": 1, \"inicio\": \"2026-11-06 09:15\"}, {\"n\": 2, \"inicio\": \"2026-11-06 09:30\"}, {\"n\": 3, \"inicio\": \"2026-11-06 09:45\"}]}"
+      }
+     ],
+     "razon": null,
+     "texto": "Propón cambiar la cita del caso C-0A02 al viernes por la mañana.",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 2280,
+     "tokens_entrada": 2434,
+     "tokens_salida": 66,
+     "finish_reason": "stop"
+    },
+    {
+     "paso": 1,
+     "ts": "2026-11-10T17:08:55.986+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "Se encontraron 3 opciones para reprogramar la cita del caso C-0A02 al viernes por la mañana:\n1. Viernes 6 de noviembre a las 09:15\n2. Viernes 6 de noviembre a las 09:30\n3. Viernes 6 de noviembre a las 09:45",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 3419,
+     "tokens_entrada": 2682,
+     "tokens_salida": 101,
+     "finish_reason": "stop"
+    }
+   ]
+  },
+  {
+   "corrida": 19,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "propone con la herramienta",
+     "tipo": "herramientas_llamadas",
+     "ok": true,
+     "detalle": "ejecutadas: ['proponer_reprogramacion']"
+    },
+    {
+     "paso": "propuesta correcta (acción, caso, versión y franja)",
+     "tipo": "propuesta_igual",
+     "ok": true,
+     "detalle": "3 de 3 propuestas coinciden"
+    },
+    {
+     "paso": "pide confirmar y no afirma haberlo hecho",
+     "tipo": "texto_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "pide confirmar y no afirma haberlo hecho",
+     "tipo": "texto_no_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O1 · 2 llamadas · 5120+151 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop', 'stop']"
+    }
+   ],
+   "respuesta": "Se encontraron tres opciones para reprogramar la cita del caso C-0A02 al viernes por la mañana: 09:15, 09:30 y 09:45. Por favor, confirma cuál prefieres. Elige una opción con el botón para confirmarla.",
+   "llamadas": [
+    {
+     "nombre": "proponer_cancelacion",
+     "argumentos": {
+      "cita": "C-0A02",
+      "motivo": "Pasar la cita al viernes por la mañana"
+     }
+    }
+   ],
+   "ejecutadas": [
+    "proponer_reprogramacion"
+   ],
+   "propuestas": [
+    {
+     "accion": "reprogramar",
+     "caso": "C-0A02",
+     "cita_id": "d327c559-2b6b-4762-b6b0-d8a01ad5dfa2",
+     "etiqueta": "2026-11-06 09:15",
+     "exp": 1794331145.5046303,
+     "id": "eb369631-f4b4-4c98-bce1-1045b1089279",
+     "inicio": "2026-11-06T14:15:00+00:00",
+     "usuario": "b.lopez",
+     "version": 1
+    },
+    {
+     "accion": "reprogramar",
+     "caso": "C-0A02",
+     "cita_id": "d327c559-2b6b-4762-b6b0-d8a01ad5dfa2",
+     "etiqueta": "2026-11-06 09:30",
+     "exp": 1794331145.5046303,
+     "id": "65477f57-f9d3-47e7-a3b7-7c3d83bda725",
+     "inicio": "2026-11-06T14:30:00+00:00",
+     "usuario": "b.lopez",
+     "version": 1
+    },
+    {
+     "accion": "reprogramar",
+     "caso": "C-0A02",
+     "cita_id": "d327c559-2b6b-4762-b6b0-d8a01ad5dfa2",
+     "etiqueta": "2026-11-06 09:45",
+     "exp": 1794331145.5046303,
+     "id": "9be04f4f-e5da-4fad-b769-6d0e1649129f",
+     "inicio": "2026-11-06T14:45:00+00:00",
+     "usuario": "b.lopez",
+     "version": 1
+    }
+   ],
+   "consumo": {
+    "entrada": 5120,
+    "salida": 151,
+    "llamadas": 2,
+    "ruta": "O1",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop",
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 9.08,
+   "transitorios": {
+    "aplica": false,
+    "lanzadas": 0
+   },
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-10T17:09:02.798+00:00",
+     "decision": "herramienta",
+     "herramientas": [
+      {
+       "nombre": "proponer_cancelacion",
+       "argumentos": {
+        "cita": "C-0A02",
+        "motivo": "Pasar la cita al viernes por la mañana"
+       },
+       "ejecutada": true,
+       "status": "ok",
+       "error_code": null,
+       "dato": "{\"cita_id\": \"d327c559-2b6b-4762-b6b0-d8a01ad5dfa2\", \"caso\": \"C-0A02\", \"actual\": \"2026-11-03 15:00\", \"alternativas\": [{\"n\": 1, \"inicio\": \"2026-11-06 09:15\"}, {\"n\": 2, \"inicio\": \"2026-11-06 09:30\"}, {\"n\": 3, \"inicio\": \"2026-11-06 09:45\"}]}"
+      }
+     ],
+     "razon": null,
+     "texto": "Propón cancelar la cita del caso C-0A02 y agendarla para el viernes por la mañana.",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 2537,
+     "tokens_entrada": 2434,
+     "tokens_salida": 75,
+     "finish_reason": "stop"
+    },
+    {
+     "paso": 1,
+     "ts": "2026-11-10T17:09:05.647+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "Se encontraron tres opciones para reprogramar la cita del caso C-0A02 al viernes por la mañana: 09:15, 09:30 y 09:45. Por favor, confirma cuál prefieres.",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 2624,
+     "tokens_entrada": 2686,
+     "tokens_salida": 76,
+     "finish_reason": "stop"
+    }
+   ]
+  },
+  {
+   "corrida": 20,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "propone con la herramienta",
+     "tipo": "herramientas_llamadas",
+     "ok": true,
+     "detalle": "ejecutadas: ['proponer_reprogramacion']"
+    },
+    {
+     "paso": "propuesta correcta (acción, caso, versión y franja)",
+     "tipo": "propuesta_igual",
+     "ok": true,
+     "detalle": "3 de 3 propuestas coinciden"
+    },
+    {
+     "paso": "pide confirmar y no afirma haberlo hecho",
+     "tipo": "texto_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "pide confirmar y no afirma haberlo hecho",
+     "tipo": "texto_no_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O1 · 2 llamadas · 5114+191 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop', 'stop']"
+    }
+   ],
+   "respuesta": "Se encontraron tres opciones para reprogramar la cita del caso C-0A02 al viernes por la mañana:\n1. Viernes 06/11/2026 a las 09:15\n2. Viernes 06/11/2026 a las 09:30\n3. Viernes 06/11/2026 a las 09:45 Elige una opción con el botón para confirmarla.",
+   "llamadas": [
+    {
+     "nombre": "proponer_cancelacion",
+     "argumentos": {
+      "cita": "C-0A02",
+      "motivo": "Paso de cita"
+     }
+    }
+   ],
+   "ejecutadas": [
+    "proponer_reprogramacion"
+   ],
+   "propuestas": [
+    {
+     "accion": "reprogramar",
+     "caso": "C-0A02",
+     "cita_id": "d327c559-2b6b-4762-b6b0-d8a01ad5dfa2",
+     "etiqueta": "2026-11-06 09:15",
+     "exp": 1794331146.0254693,
+     "id": "165ae1cb-a42d-4190-ba47-f2d81a1cb506",
+     "inicio": "2026-11-06T14:15:00+00:00",
+     "usuario": "b.lopez",
+     "version": 1
+    },
+    {
+     "accion": "reprogramar",
+     "caso": "C-0A02",
+     "cita_id": "d327c559-2b6b-4762-b6b0-d8a01ad5dfa2",
+     "etiqueta": "2026-11-06 09:30",
+     "exp": 1794331146.0254693,
+     "id": "2baa17ad-033c-40cd-bf03-60dac601c62e",
+     "inicio": "2026-11-06T14:30:00+00:00",
+     "usuario": "b.lopez",
+     "version": 1
+    },
+    {
+     "accion": "reprogramar",
+     "caso": "C-0A02",
+     "cita_id": "d327c559-2b6b-4762-b6b0-d8a01ad5dfa2",
+     "etiqueta": "2026-11-06 09:45",
+     "exp": 1794331146.0254693,
+     "id": "4c3dba01-02b4-4122-b88e-5a6ac8af4db4",
+     "inicio": "2026-11-06T14:45:00+00:00",
+     "usuario": "b.lopez",
+     "version": 1
+    }
+   ],
+   "consumo": {
+    "entrada": 5114,
+    "salida": 191,
+    "llamadas": 2,
+    "ruta": "O1",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop",
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 11.57,
+   "transitorios": {
+    "aplica": false,
+    "lanzadas": 0
+   },
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-10T17:09:03.326+00:00",
+     "decision": "herramienta",
+     "herramientas": [
+      {
+       "nombre": "proponer_cancelacion",
+       "argumentos": {
+        "cita": "C-0A02",
+        "motivo": "Paso de cita"
+       },
+       "ejecutada": true,
+       "status": "ok",
+       "error_code": null,
+       "dato": "{\"cita_id\": \"d327c559-2b6b-4762-b6b0-d8a01ad5dfa2\", \"caso\": \"C-0A02\", \"actual\": \"2026-11-03 15:00\", \"alternativas\": [{\"n\": 1, \"inicio\": \"2026-11-06 09:15\"}, {\"n\": 2, \"inicio\": \"2026-11-06 09:30\"}, {\"n\": 3, \"inicio\": \"2026-11-06 09:45\"}]}"
+      }
+     ],
+     "razon": null,
+     "texto": "Propongo cancelar la cita del caso C-0A02 al viernes por la mañana. ¿Desea continuar?",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 2537,
+     "tokens_entrada": 2434,
+     "tokens_salida": 74,
+     "finish_reason": "stop"
+    },
+    {
+     "paso": 1,
+     "ts": "2026-11-10T17:09:06.176+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "Se encontraron tres opciones para reprogramar la cita del caso C-0A02 al viernes por la mañana:\n1. Viernes 06/11/2026 a las 09:15\n2. Viernes 06/11/2026 a las 09:30\n3. Viernes 06/11/2026 a las 09:45",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 3976,
+     "tokens_entrada": 2680,
+     "tokens_salida": 117,
+     "finish_reason": "stop"
+    }
+   ]
+  }
+ ]
+}

@@ -4,6 +4,22 @@
 
 **Gate G10.E (vigente desde el 9-11):** 60 evals × 20 corridas con el Qwen y regla por severidad (§000). **✅ En verde y estable: 1200/1200 = 100 %** con el [PR #21](https://github.com/ANavas07/GRUPO2_SEGUIMIENTO/pull/21), mergeado en `MVP` (`37466dc`). El gate anterior (≥ 95 % y críticos 10/10, 600/600 con el PR #17) no era estable (auditoría [A8](auditoria-mvp.md)). Las secciones siguientes son el historial.
 
+## 0000. Fecha y hora en el contexto — 10 y 11 de noviembre de 2026
+
+**❌ No pasa el gate; no se mergea** (rama `fecha-en-contexto` del producto, sin PR). El gate vigente sigue siendo la medición 5 de §000 (1200/1200, `MVP` en `37466dc`). Por decisión del usuario no se mide más.
+
+| Medición 60 × 20 | Tasa | Críticos con fallos | Gate por severidad | F13 «¿Qué fecha es hoy?» |
+|---|---|---|---|---|
+| Línea larga (`e026b1e`) | 1183/1200 | M08 16, P09 18 fuera; M07, P01, P10 19 tolerados | NO | 10/10 |
+| Línea corta (`735a959`) | 1193/1200 | M08 15 fuera; M04, P09 19 tolerados | NO | 10/10 |
+
+Seguridad sin fallos en las dos; rotura, turnos y F13: 60/60; controles 660/660 y 0/660.
+
+**Dónde se rompió:**
+- M08: con la fecha, el Qwen responde «No puedo agendar una cita nueva…» sin nombrar al planificador automático (antes 20/20); lo detectó el paso «explica que no crea citas»;
+- P09 (línea larga): dos veces confundió mover la cita a una fecha ISO con cancelarla y pidió el motivo;
+- las 2248 pruebas y las 153 mutaciones pasaban: solo la medición con el modelo lo mostró.
+
 ## 000. Gate a dos corridas y por severidad — 9 y 10 de noviembre de 2026
 
 **Regla** (aprobada por el usuario el 9-11; `decidir_gate` en `scripts/ejecutar_runtime.py`, `--previa` y `--recalcular`):

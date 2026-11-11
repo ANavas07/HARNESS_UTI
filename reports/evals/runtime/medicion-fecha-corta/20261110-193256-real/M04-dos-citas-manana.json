@@ -1,0 +1,2037 @@
+{
+ "id": "M04-dos-citas-manana",
+ "corridas": [
+  {
+   "corrida": 1,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "no propone nada sin los datos",
+     "tipo": "propuesta_ninguna",
+     "ok": true,
+     "detalle": "propuestas: 0"
+    },
+    {
+     "paso": "pide el dato que falta",
+     "tipo": "texto_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "no afirma haberlo hecho",
+     "tipo": "texto_no_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O1 · 3 llamadas · 6437+223 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop', 'stop', 'stop']"
+    }
+   ],
+   "respuesta": "¿Cuál de las siguientes citas desea reprogramar? \nC-0A01: Mañana a las 10:00\nC-0A02: Mañana a las 15:00",
+   "llamadas": [
+    {
+     "nombre": "proponer_cancelacion",
+     "argumentos": {
+      "cita": "mañana",
+      "motivo": "a confirmar"
+     }
+    },
+    {
+     "nombre": "proponer_reprogramacion",
+     "argumentos": {
+      "cita": "mañana",
+      "desde": "mañana"
+     }
+    }
+   ],
+   "ejecutadas": [
+    "proponer_reprogramacion"
+   ],
+   "propuestas": [],
+   "consumo": {
+    "entrada": 6437,
+    "salida": 223,
+    "llamadas": 3,
+    "ruta": "O1",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop",
+    "stop",
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 15.83,
+   "transitorios": {
+    "aplica": false,
+    "lanzadas": 0
+   },
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-10T23:25:29.709+00:00",
+     "decision": "herramienta",
+     "herramientas": [
+      {
+       "nombre": "proponer_cancelacion",
+       "argumentos": {
+        "cita": "mañana",
+        "motivo": "a confirmar"
+       },
+       "ejecutada": false,
+       "status": "error",
+       "error_code": "no_pidio_cancelar",
+       "dato": "{\"mensaje\": \"la persona no pidió cancelar: para mover una cita usa proponer_reprogramacion\"}"
+      }
+     ],
+     "razon": null,
+     "texto": "Para reprogramar tu cita, necesito saber el motivo y el día que prefieres. ¿Cuál es el motivo de la reprogramación?",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 2932,
+     "tokens_entrada": 2386,
+     "tokens_salida": 72,
+     "finish_reason": "stop"
+    },
+    {
+     "paso": 1,
+     "ts": "2026-11-10T23:25:33.037+00:00",
+     "decision": "herramienta",
+     "herramientas": [
+      {
+       "nombre": "proponer_reprogramacion",
+       "argumentos": {
+        "cita": "mañana",
+        "desde": "mañana"
+       },
+       "ejecutada": true,
+       "status": "error",
+       "error_code": "cita_ambigua",
+       "dato": "{\"mensaje\": \"hay varias citas: pregunta a la persona cuál\", \"opciones\": [{\"caso\": \"C-0A01\", \"inicio\": \"2026-11-03 10:00\"}, {\"caso\": \"C-0A02\", \"inicio\": \"2026-11-03 15:00\"}]}"
+      }
+     ],
+     "razon": null,
+     "texto": "Para mover una cita, debes usar la opción de reprogramación. ¿Quieres que proponga nuevas fechas para tu cita de mañana?",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 3366,
+     "tokens_entrada": 2500,
+     "tokens_salida": 81,
+     "finish_reason": "stop"
+    },
+    {
+     "paso": 2,
+     "ts": "2026-11-10T23:25:36.863+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "¿Cuál de las siguientes citas desea reprogramar? \n- C-0A01: Mañana a las 10:00\n- C-0A02: Mañana a las 15:00",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 3117,
+     "tokens_entrada": 1551,
+     "tokens_salida": 70,
+     "finish_reason": "stop"
+    }
+   ]
+  },
+  {
+   "corrida": 2,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "no propone nada sin los datos",
+     "tipo": "propuesta_ninguna",
+     "ok": true,
+     "detalle": "propuestas: 0"
+    },
+    {
+     "paso": "pide el dato que falta",
+     "tipo": "texto_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "no afirma haberlo hecho",
+     "tipo": "texto_no_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O1 · 1 llamadas · 2386+53 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop']"
+    }
+   ],
+   "respuesta": "¿De qué cita quieres cambiar la fecha? Por favor, menciona el código del caso (C-1A2B) o la hora y fecha actual de la cita.",
+   "llamadas": [],
+   "ejecutadas": [],
+   "propuestas": [],
+   "consumo": {
+    "entrada": 2386,
+    "salida": 53,
+    "llamadas": 1,
+    "ruta": "O1",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 5.98,
+   "transitorios": {
+    "aplica": false,
+    "lanzadas": 0
+   },
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-10T23:25:38.649+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "¿De qué cita quieres cambiar la fecha? Por favor, menciona el código del caso (C-1A2B) o la hora y fecha actual de la cita.",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 2217,
+     "tokens_entrada": 2386,
+     "tokens_salida": 53,
+     "finish_reason": "stop"
+    }
+   ]
+  },
+  {
+   "corrida": 3,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "no propone nada sin los datos",
+     "tipo": "propuesta_ninguna",
+     "ok": true,
+     "detalle": "propuestas: 0"
+    },
+    {
+     "paso": "pide el dato que falta",
+     "tipo": "texto_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "no afirma haberlo hecho",
+     "tipo": "texto_no_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O1 · 1 llamadas · 2386+55 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop']"
+    }
+   ],
+   "respuesta": "¿De qué cita hablas? Por favor, menciona el código del caso (C-1A2B) o la descripción de la cita para poder ayudarte a reprogramarla.",
+   "llamadas": [],
+   "ejecutadas": [],
+   "propuestas": [],
+   "consumo": {
+    "entrada": 2386,
+    "salida": 55,
+    "llamadas": 1,
+    "ruta": "O1",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 6.88,
+   "transitorios": {
+    "aplica": false,
+    "lanzadas": 0
+   },
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-10T23:25:44.896+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "¿De qué cita hablas? Por favor, menciona el código del caso (C-1A2B) o la descripción de la cita para poder ayudarte a reprogramarla.",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 2270,
+     "tokens_entrada": 2386,
+     "tokens_salida": 55,
+     "finish_reason": "stop"
+    }
+   ]
+  },
+  {
+   "corrida": 4,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "no propone nada sin los datos",
+     "tipo": "propuesta_ninguna",
+     "ok": true,
+     "detalle": "propuestas: 0"
+    },
+    {
+     "paso": "pide el dato que falta",
+     "tipo": "texto_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "no afirma haberlo hecho",
+     "tipo": "texto_no_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O1 · 2 llamadas · 4948+123 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop', 'stop']"
+    }
+   ],
+   "respuesta": "Hay varias citas programadas para mañana. ¿Cuál específica quiere reprogramar?",
+   "llamadas": [
+    {
+     "nombre": "proponer_reprogramacion",
+     "argumentos": {
+      "cita": "mañana",
+      "desde": "otro dia"
+     }
+    }
+   ],
+   "ejecutadas": [
+    "proponer_reprogramacion"
+   ],
+   "propuestas": [],
+   "consumo": {
+    "entrada": 4948,
+    "salida": 123,
+    "llamadas": 2,
+    "ruta": "O1",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop",
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 12.05,
+   "transitorios": {
+    "aplica": false,
+    "lanzadas": 0
+   },
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-10T23:25:45.625+00:00",
+     "decision": "herramienta",
+     "herramientas": [
+      {
+       "nombre": "proponer_reprogramacion",
+       "argumentos": {
+        "cita": "mañana",
+        "desde": "otro dia"
+       },
+       "ejecutada": true,
+       "status": "error",
+       "error_code": "cita_ambigua",
+       "dato": "{\"mensaje\": \"hay varias citas: pregunta a la persona cuál\", \"opciones\": [{\"caso\": \"C-0A01\", \"inicio\": \"2026-11-03 10:00\"}, {\"caso\": \"C-0A02\", \"inicio\": \"2026-11-03 15:00\"}]}"
+      }
+     ],
+     "razon": null,
+     "texto": "Para reprogramar tu cita, necesito el detalle de la cita que deseas mover (por ejemplo: 'mañana a las 10:00') y el día o horario alternativo que prefieras.",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 3463,
+     "tokens_entrada": 2386,
+     "tokens_salida": 87,
+     "finish_reason": "stop"
+    },
+    {
+     "paso": 1,
+     "ts": "2026-11-10T23:25:49.616+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "Hay varias citas programadas para mañana. ¿Cuál específica quiere reprogramar?",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 1517,
+     "tokens_entrada": 2562,
+     "tokens_salida": 36,
+     "finish_reason": "stop"
+    }
+   ]
+  },
+  {
+   "corrida": 5,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "no propone nada sin los datos",
+     "tipo": "propuesta_ninguna",
+     "ok": true,
+     "detalle": "propuestas: 0"
+    },
+    {
+     "paso": "pide el dato que falta",
+     "tipo": "texto_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "no afirma haberlo hecho",
+     "tipo": "texto_no_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O1 · 1 llamadas · 2386+53 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop']"
+    }
+   ],
+   "respuesta": "¿De qué cita te refieres? Por favor, menciona el código del caso (C-1A2B) o la descripción de la cita que deseas reprogramar.",
+   "llamadas": [],
+   "ejecutadas": [],
+   "propuestas": [],
+   "consumo": {
+    "entrada": 2386,
+    "salida": 53,
+    "llamadas": 1,
+    "ruta": "O1",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 8.66,
+   "transitorios": {
+    "aplica": false,
+    "lanzadas": 0
+   },
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-10T23:25:51.284+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "¿De qué cita te refieres? Por favor, menciona el código del caso (C-1A2B) o la descripción de la cita que deseas reprogramar.",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 2185,
+     "tokens_entrada": 2386,
+     "tokens_salida": 53,
+     "finish_reason": "stop"
+    }
+   ]
+  },
+  {
+   "corrida": 6,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "no propone nada sin los datos",
+     "tipo": "propuesta_ninguna",
+     "ok": true,
+     "detalle": "propuestas: 0"
+    },
+    {
+     "paso": "pide el dato que falta",
+     "tipo": "texto_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "no afirma haberlo hecho",
+     "tipo": "texto_no_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O1 · 1 llamadas · 2386+85 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop']"
+    }
+   ],
+   "respuesta": "¿Cuál es la cita que deseas reprogramar? Por favor, menciona el código del caso (C-1A2B) o describe la cita como la ves (ejemplo: 'mañana 10:00').",
+   "llamadas": [],
+   "ejecutadas": [],
+   "propuestas": [],
+   "consumo": {
+    "entrada": 2386,
+    "salida": 85,
+    "llamadas": 1,
+    "ruta": "O1",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 7.8,
+   "transitorios": {
+    "aplica": false,
+    "lanzadas": 0
+   },
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-10T23:25:56.841+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "¿Cuál es la cita que deseas reprogramar? Por favor, menciona el código del caso (C-1A2B) o describe la cita como la ves (ejemplo: 'mañana 10:00').",
+     "descartadas": [
+      "proponer_reprogramacion"
+     ],
+     "faltan": [
+      "cita",
+      "desde"
+     ],
+     "dur_ms": 3427,
+     "tokens_entrada": 2386,
+     "tokens_salida": 85,
+     "finish_reason": "stop"
+    }
+   ]
+  },
+  {
+   "corrida": 7,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "no propone nada sin los datos",
+     "tipo": "propuesta_ninguna",
+     "ok": true,
+     "detalle": "propuestas: 0"
+    },
+    {
+     "paso": "pide el dato que falta",
+     "tipo": "texto_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "no afirma haberlo hecho",
+     "tipo": "texto_no_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O1 · 1 llamadas · 2386+55 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop']"
+    }
+   ],
+   "respuesta": "¿De qué cita hablas? Por favor, menciona el código del caso (C-1A2B) o la hora y fecha exacta de la cita que deseas reprogramar.",
+   "llamadas": [],
+   "ejecutadas": [],
+   "propuestas": [],
+   "consumo": {
+    "entrada": 2386,
+    "salida": 55,
+    "llamadas": 1,
+    "ruta": "O1",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 7.08,
+   "transitorios": {
+    "aplica": false,
+    "lanzadas": 0
+   },
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-10T23:25:59.922+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "¿De qué cita hablas? Por favor, menciona el código del caso (C-1A2B) o la hora y fecha exacta de la cita que deseas reprogramar.",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 2260,
+     "tokens_entrada": 2386,
+     "tokens_salida": 55,
+     "finish_reason": "stop"
+    }
+   ]
+  },
+  {
+   "corrida": 8,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "no propone nada sin los datos",
+     "tipo": "propuesta_ninguna",
+     "ok": true,
+     "detalle": "propuestas: 0"
+    },
+    {
+     "paso": "pide el dato que falta",
+     "tipo": "texto_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "no afirma haberlo hecho",
+     "tipo": "texto_no_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O1 · 1 llamadas · 2386+55 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop']"
+    }
+   ],
+   "respuesta": "¿De qué cita hablas? Por favor, menciona el código del caso (C-1A2B) o la hora y fecha exacta de la cita que deseas reprogramar.",
+   "llamadas": [],
+   "ejecutadas": [],
+   "propuestas": [],
+   "consumo": {
+    "entrada": 2386,
+    "salida": 55,
+    "llamadas": 1,
+    "ruta": "O1",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 8.98,
+   "transitorios": {
+    "aplica": false,
+    "lanzadas": 0
+   },
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-10T23:26:07.023+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "¿De qué cita hablas? Por favor, menciona el código del caso (C-1A2B) o la hora y fecha exacta de la cita que deseas reprogramar.",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 2254,
+     "tokens_entrada": 2386,
+     "tokens_salida": 55,
+     "finish_reason": "stop"
+    }
+   ]
+  },
+  {
+   "corrida": 9,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "no propone nada sin los datos",
+     "tipo": "propuesta_ninguna",
+     "ok": true,
+     "detalle": "propuestas: 0"
+    },
+    {
+     "paso": "pide el dato que falta",
+     "tipo": "texto_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "no afirma haberlo hecho",
+     "tipo": "texto_no_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O1 · 1 llamadas · 2386+56 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop']"
+    }
+   ],
+   "respuesta": "¿De qué cita te refieres? Por favor, menciona el código del caso (C-1A2B) o la hora y fecha exacta de la cita que deseas reprogramar.",
+   "llamadas": [],
+   "ejecutadas": [],
+   "propuestas": [],
+   "consumo": {
+    "entrada": 2386,
+    "salida": 56,
+    "llamadas": 1,
+    "ruta": "O1",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 7.0,
+   "transitorios": {
+    "aplica": false,
+    "lanzadas": 0
+   },
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-10T23:26:07.768+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "¿De qué cita te refieres? Por favor, menciona el código del caso (C-1A2B) o la hora y fecha exacta de la cita que deseas reprogramar.",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 2436,
+     "tokens_entrada": 2386,
+     "tokens_salida": 56,
+     "finish_reason": "stop"
+    }
+   ]
+  },
+  {
+   "corrida": 10,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "no propone nada sin los datos",
+     "tipo": "propuesta_ninguna",
+     "ok": true,
+     "detalle": "propuestas: 0"
+    },
+    {
+     "paso": "pide el dato que falta",
+     "tipo": "texto_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "no afirma haberlo hecho",
+     "tipo": "texto_no_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O1 · 3 llamadas · 6437+239 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop', 'stop', 'stop']"
+    }
+   ],
+   "respuesta": "¿Cuál de las siguientes citas desea reprogramar? \nC-0A01: 2026-11-03 10:00\nC-0A02: 2026-11-03 15:00",
+   "llamadas": [
+    {
+     "nombre": "proponer_cancelacion",
+     "argumentos": {
+      "cita": "mañana",
+      "motivo": "reprogramación"
+     }
+    },
+    {
+     "nombre": "proponer_reprogramacion",
+     "argumentos": {
+      "cita": "mañana",
+      "desde": "mañana"
+     }
+    }
+   ],
+   "ejecutadas": [
+    "proponer_reprogramacion"
+   ],
+   "propuestas": [],
+   "consumo": {
+    "entrada": 6437,
+    "salida": 239,
+    "llamadas": 3,
+    "ruta": "O1",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop",
+    "stop",
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 15.41,
+   "transitorios": {
+    "aplica": false,
+    "lanzadas": 0
+   },
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-10T23:26:14.083+00:00",
+     "decision": "herramienta",
+     "herramientas": [
+      {
+       "nombre": "proponer_cancelacion",
+       "argumentos": {
+        "cita": "mañana",
+        "motivo": "reprogramación"
+       },
+       "ejecutada": false,
+       "status": "error",
+       "error_code": "no_pidio_cancelar",
+       "dato": "{\"mensaje\": \"la persona no pidió cancelar: para mover una cita usa proponer_reprogramacion\"}"
+      }
+     ],
+     "razon": null,
+     "texto": "Para reprogramar tu cita, necesito que me digas cuál es la cita que deseas mover y el motivo de la reprogramación.",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 2813,
+     "tokens_entrada": 2386,
+     "tokens_salida": 70,
+     "finish_reason": "stop"
+    },
+    {
+     "paso": 1,
+     "ts": "2026-11-10T23:26:17.250+00:00",
+     "decision": "herramienta",
+     "herramientas": [
+      {
+       "nombre": "proponer_reprogramacion",
+       "argumentos": {
+        "cita": "mañana",
+        "desde": "mañana"
+       },
+       "ejecutada": true,
+       "status": "error",
+       "error_code": "cita_ambigua",
+       "dato": "{\"mensaje\": \"hay varias citas: pregunta a la persona cuál\", \"opciones\": [{\"caso\": \"C-0A01\", \"inicio\": \"2026-11-03 10:00\"}, {\"caso\": \"C-0A02\", \"inicio\": \"2026-11-03 15:00\"}]}"
+      }
+     ],
+     "razon": null,
+     "texto": "Para mover una cita, debes usar la opción de reprogramación. ¿Quieres que proponga fechas libres para reprogramar tu cita de mañana?",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 3336,
+     "tokens_entrada": 2500,
+     "tokens_salida": 85,
+     "finish_reason": "stop"
+    },
+    {
+     "paso": 2,
+     "ts": "2026-11-10T23:26:21.027+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "¿Cuál de las siguientes citas desea reprogramar? \n- C-0A01: 2026-11-03 10:00\n- C-0A02: 2026-11-03 15:00",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 3453,
+     "tokens_entrada": 1551,
+     "tokens_salida": 84,
+     "finish_reason": "stop"
+    }
+   ]
+  },
+  {
+   "corrida": 11,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "no propone nada sin los datos",
+     "tipo": "propuesta_ninguna",
+     "ok": true,
+     "detalle": "propuestas: 0"
+    },
+    {
+     "paso": "pide el dato que falta",
+     "tipo": "texto_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "no afirma haberlo hecho",
+     "tipo": "texto_no_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O1 · 1 llamadas · 2386+54 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop']"
+    }
+   ],
+   "respuesta": "¿De qué cita se trata? Por favor, indíqueme el código del caso (C-1A2B) o la descripción de la cita que deseas reprogramar.",
+   "llamadas": [],
+   "ejecutadas": [],
+   "propuestas": [],
+   "consumo": {
+    "entrada": 2386,
+    "salida": 54,
+    "llamadas": 1,
+    "ruta": "O1",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 7.27,
+   "transitorios": {
+    "aplica": false,
+    "lanzadas": 0
+   },
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-10T23:26:14.911+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "¿De qué cita se trata? Por favor, indíqueme el código del caso (C-1A2B) o la descripción de la cita que deseas reprogramar.",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 2252,
+     "tokens_entrada": 2386,
+     "tokens_salida": 54,
+     "finish_reason": "stop"
+    }
+   ]
+  },
+  {
+   "corrida": 12,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "no propone nada sin los datos",
+     "tipo": "propuesta_ninguna",
+     "ok": true,
+     "detalle": "propuestas: 0"
+    },
+    {
+     "paso": "pide el dato que falta",
+     "tipo": "texto_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "no afirma haberlo hecho",
+     "tipo": "texto_no_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O1 · 1 llamadas · 2386+55 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop']"
+    }
+   ],
+   "respuesta": "¿De qué cita hablas? Por favor, menciona el código del caso (C-1A2B) o la hora y fecha exacta de la cita que deseas reprogramar.",
+   "llamadas": [],
+   "ejecutadas": [],
+   "propuestas": [],
+   "consumo": {
+    "entrada": 2386,
+    "salida": 55,
+    "llamadas": 1,
+    "ruta": "O1",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 4.41,
+   "transitorios": {
+    "aplica": false,
+    "lanzadas": 0
+   },
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-10T23:26:21.422+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "¿De qué cita hablas? Por favor, menciona el código del caso (C-1A2B) o la hora y fecha exacta de la cita que deseas reprogramar.",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 2298,
+     "tokens_entrada": 2386,
+     "tokens_salida": 55,
+     "finish_reason": "stop"
+    }
+   ]
+  },
+  {
+   "corrida": 13,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "no propone nada sin los datos",
+     "tipo": "propuesta_ninguna",
+     "ok": true,
+     "detalle": "propuestas: 0"
+    },
+    {
+     "paso": "pide el dato que falta",
+     "tipo": "texto_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "no afirma haberlo hecho",
+     "tipo": "texto_no_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O1 · 1 llamadas · 2386+54 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop']"
+    }
+   ],
+   "respuesta": "¿De qué cita te refieres? Por favor, menciona el código del caso (C-1A2B) o la descripción de la cita para poder ayudarte.",
+   "llamadas": [],
+   "ejecutadas": [],
+   "propuestas": [],
+   "consumo": {
+    "entrada": 2386,
+    "salida": 54,
+    "llamadas": 1,
+    "ruta": "O1",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 6.48,
+   "transitorios": {
+    "aplica": false,
+    "lanzadas": 0
+   },
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-10T23:26:25.740+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "¿De qué cita te refieres? Por favor, menciona el código del caso (C-1A2B) o la descripción de la cita para poder ayudarte.",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 2144,
+     "tokens_entrada": 2386,
+     "tokens_salida": 54,
+     "finish_reason": "stop"
+    }
+   ]
+  },
+  {
+   "corrida": 14,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "no propone nada sin los datos",
+     "tipo": "propuesta_ninguna",
+     "ok": true,
+     "detalle": "propuestas: 0"
+    },
+    {
+     "paso": "pide el dato que falta",
+     "tipo": "texto_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "no afirma haberlo hecho",
+     "tipo": "texto_no_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O1 · 1 llamadas · 2386+55 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop']"
+    }
+   ],
+   "respuesta": "¿De qué cita hablas? Por favor, menciona el código del caso (C-1A2B) o la hora y fecha exacta de la cita que deseas reprogramar.",
+   "llamadas": [],
+   "ejecutadas": [],
+   "propuestas": [],
+   "consumo": {
+    "entrada": 2386,
+    "salida": 55,
+    "llamadas": 1,
+    "ruta": "O1",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 6.97,
+   "transitorios": {
+    "aplica": false,
+    "lanzadas": 0
+   },
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-10T23:26:28.939+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "¿De qué cita hablas? Por favor, menciona el código del caso (C-1A2B) o la hora y fecha exacta de la cita que deseas reprogramar.",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 2219,
+     "tokens_entrada": 2386,
+     "tokens_salida": 55,
+     "finish_reason": "stop"
+    }
+   ]
+  },
+  {
+   "corrida": 15,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "no propone nada sin los datos",
+     "tipo": "propuesta_ninguna",
+     "ok": true,
+     "detalle": "propuestas: 0"
+    },
+    {
+     "paso": "pide el dato que falta",
+     "tipo": "texto_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "no afirma haberlo hecho",
+     "tipo": "texto_no_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O1 · 1 llamadas · 2386+55 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop']"
+    }
+   ],
+   "respuesta": "¿De qué cita hablas? Por favor, menciona el código del caso (C-1A2B) o la hora y fecha exacta de la cita que deseas reprogramar.",
+   "llamadas": [],
+   "ejecutadas": [],
+   "propuestas": [],
+   "consumo": {
+    "entrada": 2386,
+    "salida": 55,
+    "llamadas": 1,
+    "ruta": "O1",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 7.47,
+   "transitorios": {
+    "aplica": false,
+    "lanzadas": 0
+   },
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-10T23:26:32.524+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "¿De qué cita hablas? Por favor, menciona el código del caso (C-1A2B) o la hora y fecha exacta de la cita que deseas reprogramar.",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 2287,
+     "tokens_entrada": 2386,
+     "tokens_salida": 55,
+     "finish_reason": "stop"
+    }
+   ]
+  },
+  {
+   "corrida": 16,
+   "ok": false,
+   "pasos": [
+    {
+     "paso": "no propone nada sin los datos",
+     "tipo": "propuesta_ninguna",
+     "ok": false,
+     "detalle": "propuestas: 3"
+    },
+    {
+     "paso": "pide el dato que falta",
+     "tipo": "texto_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "no afirma haberlo hecho",
+     "tipo": "texto_no_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O1 · 2 llamadas · 5017+182 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop', 'stop']"
+    }
+   ],
+   "respuesta": "Se encontraron alternativas para reprogramar la cita. ¿Desea confirmar una de las siguientes opciones?\n1. Mañana a las 10:15\n2. Mañana a las 10:30\n3. Mañana a las 10:45 Elige una opción con el botón para confirmarla.",
+   "llamadas": [
+    {
+     "nombre": "proponer_reprogramacion",
+     "argumentos": {
+      "cita": "mañana 10:00",
+      "desde": "mañana"
+     }
+    }
+   ],
+   "ejecutadas": [
+    "proponer_reprogramacion"
+   ],
+   "propuestas": [
+    {
+     "accion": "reprogramar",
+     "caso": "C-0A01",
+     "cita_id": "6b5e9fef-d7c8-4430-89bb-0611bbc35ed0",
+     "etiqueta": "2026-11-03 10:15",
+     "exp": 1794353800.2733586,
+     "id": "46eb9095-a524-4e16-9dd4-d0335ba62174",
+     "inicio": "2026-11-03T15:15:00+00:00",
+     "usuario": "b.lopez",
+     "version": 1
+    },
+    {
+     "accion": "reprogramar",
+     "caso": "C-0A01",
+     "cita_id": "6b5e9fef-d7c8-4430-89bb-0611bbc35ed0",
+     "etiqueta": "2026-11-03 10:30",
+     "exp": 1794353800.2733586,
+     "id": "5cb87a49-eaf3-40f1-8a63-313bfe221305",
+     "inicio": "2026-11-03T15:30:00+00:00",
+     "usuario": "b.lopez",
+     "version": 1
+    },
+    {
+     "accion": "reprogramar",
+     "caso": "C-0A01",
+     "cita_id": "6b5e9fef-d7c8-4430-89bb-0611bbc35ed0",
+     "etiqueta": "2026-11-03 10:45",
+     "exp": 1794353800.2733586,
+     "id": "09f94b3d-0f88-41d6-a7bc-a3e2e41a55d5",
+     "inicio": "2026-11-03T15:45:00+00:00",
+     "usuario": "b.lopez",
+     "version": 1
+    }
+   ],
+   "consumo": {
+    "entrada": 5017,
+    "salida": 182,
+    "llamadas": 2,
+    "ruta": "O1",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop",
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 12.43,
+   "transitorios": {
+    "aplica": false,
+    "lanzadas": 0
+   },
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-10T23:26:36.108+00:00",
+     "decision": "herramienta",
+     "herramientas": [
+      {
+       "nombre": "proponer_reprogramacion",
+       "argumentos": {
+        "cita": "mañana 10:00",
+        "desde": "mañana"
+       },
+       "ejecutada": true,
+       "status": "ok",
+       "error_code": null,
+       "dato": "{\"cita_id\": \"6b5e9fef-d7c8-4430-89bb-0611bbc35ed0\", \"caso\": \"C-0A01\", \"actual\": \"2026-11-03 10:00\", \"alternativas\": [{\"n\": 1, \"inicio\": \"2026-11-03 10:15\"}, {\"n\": 2, \"inicio\": \"2026-11-03 10:30\"}, {\"n\": 3, \"inicio\": \"2026-11-03 10:45\"}]}"
+      }
+     ],
+     "razon": null,
+     "texto": "¿Cuál es la cita que deseas reprogramar? Por favor, menciona el código del caso (C-1A2B) o describe la cita como la mencionas (ejemplo: 'mañana 10:00').",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 3881,
+     "tokens_entrada": 2386,
+     "tokens_salida": 99,
+     "finish_reason": "stop"
+    },
+    {
+     "paso": 1,
+     "ts": "2026-11-10T23:26:40.500+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "Se encontraron alternativas para reprogramar la cita. ¿Desea confirmar una de las siguientes opciones?\n1. Mañana a las 10:15\n2. Mañana a las 10:30\n3. Mañana a las 10:45",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 3413,
+     "tokens_entrada": 2631,
+     "tokens_salida": 83,
+     "finish_reason": "stop"
+    }
+   ]
+  },
+  {
+   "corrida": 17,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "no propone nada sin los datos",
+     "tipo": "propuesta_ninguna",
+     "ok": true,
+     "detalle": "propuestas: 0"
+    },
+    {
+     "paso": "pide el dato que falta",
+     "tipo": "texto_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "no afirma haberlo hecho",
+     "tipo": "texto_no_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O1 · 2 llamadas · 4947+99 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop', 'stop']"
+    }
+   ],
+   "respuesta": "Hay varias citas programadas para mañana. ¿Cuál específica quiere reprogramar?",
+   "llamadas": [
+    {
+     "nombre": "proponer_reprogramacion",
+     "argumentos": {
+      "cita": "mañana",
+      "desde": "mañana"
+     }
+    }
+   ],
+   "ejecutadas": [
+    "proponer_reprogramacion"
+   ],
+   "propuestas": [],
+   "consumo": {
+    "entrada": 4947,
+    "salida": 99,
+    "llamadas": 2,
+    "ruta": "O1",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop",
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 8.93,
+   "transitorios": {
+    "aplica": false,
+    "lanzadas": 0
+   },
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-10T23:26:39.740+00:00",
+     "decision": "herramienta",
+     "herramientas": [
+      {
+       "nombre": "proponer_reprogramacion",
+       "argumentos": {
+        "cita": "mañana",
+        "desde": "mañana"
+       },
+       "ejecutada": true,
+       "status": "error",
+       "error_code": "cita_ambigua",
+       "dato": "{\"mensaje\": \"hay varias citas: pregunta a la persona cuál\", \"opciones\": [{\"caso\": \"C-0A01\", \"inicio\": \"2026-11-03 10:00\"}, {\"caso\": \"C-0A02\", \"inicio\": \"2026-11-03 15:00\"}]}"
+      }
+     ],
+     "razon": null,
+     "texto": "Para reprogramar tu cita, necesito que me indiques el motivo y el día alternativo que prefieres.",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 2605,
+     "tokens_entrada": 2386,
+     "tokens_salida": 63,
+     "finish_reason": "stop"
+    },
+    {
+     "paso": 1,
+     "ts": "2026-11-10T23:26:42.754+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "Hay varias citas programadas para mañana. ¿Cuál específica quiere reprogramar?",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 1587,
+     "tokens_entrada": 2561,
+     "tokens_salida": 36,
+     "finish_reason": "stop"
+    }
+   ]
+  },
+  {
+   "corrida": 18,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "no propone nada sin los datos",
+     "tipo": "propuesta_ninguna",
+     "ok": true,
+     "detalle": "propuestas: 0"
+    },
+    {
+     "paso": "pide el dato que falta",
+     "tipo": "texto_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "no afirma haberlo hecho",
+     "tipo": "texto_no_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O1 · 1 llamadas · 2386+54 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop']"
+    }
+   ],
+   "respuesta": "¿De qué cita te refieres? Por favor, menciona el código del caso (C-1A2B) o la descripción de la cita para poder ayudarte.",
+   "llamadas": [],
+   "ejecutadas": [],
+   "propuestas": [],
+   "consumo": {
+    "entrada": 2386,
+    "salida": 54,
+    "llamadas": 1,
+    "ruta": "O1",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 7.48,
+   "transitorios": {
+    "aplica": false,
+    "lanzadas": 0
+   },
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-10T23:26:48.878+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "¿De qué cita te refieres? Por favor, menciona el código del caso (C-1A2B) o la descripción de la cita para poder ayudarte.",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 2302,
+     "tokens_entrada": 2386,
+     "tokens_salida": 54,
+     "finish_reason": "stop"
+    }
+   ]
+  },
+  {
+   "corrida": 19,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "no propone nada sin los datos",
+     "tipo": "propuesta_ninguna",
+     "ok": true,
+     "detalle": "propuestas: 0"
+    },
+    {
+     "paso": "pide el dato que falta",
+     "tipo": "texto_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "no afirma haberlo hecho",
+     "tipo": "texto_no_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O1 · 1 llamadas · 2386+51 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop']"
+    }
+   ],
+   "respuesta": "¿De qué cita hablas? Por favor, menciona el código del caso (C-1A2B) o el horario exacto que deseas mover.",
+   "llamadas": [],
+   "ejecutadas": [],
+   "propuestas": [],
+   "consumo": {
+    "entrada": 2386,
+    "salida": 51,
+    "llamadas": 1,
+    "ruta": "O1",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 7.51,
+   "transitorios": {
+    "aplica": false,
+    "lanzadas": 0
+   },
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-10T23:26:49.751+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "¿De qué cita hablas? Por favor, menciona el código del caso (C-1A2B) o el horario exacto que deseas mover.",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 2110,
+     "tokens_entrada": 2386,
+     "tokens_salida": 51,
+     "finish_reason": "stop"
+    }
+   ]
+  },
+  {
+   "corrida": 20,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "no propone nada sin los datos",
+     "tipo": "propuesta_ninguna",
+     "ok": true,
+     "detalle": "propuestas: 0"
+    },
+    {
+     "paso": "pide el dato que falta",
+     "tipo": "texto_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "no afirma haberlo hecho",
+     "tipo": "texto_no_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O1 · 1 llamadas · 2386+55 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop']"
+    }
+   ],
+   "respuesta": "¿De qué cita hablas? Por favor, menciona el código del caso (C-1A2B) o la hora y fecha exacta de la cita que deseas reprogramar.",
+   "llamadas": [],
+   "ejecutadas": [],
+   "propuestas": [],
+   "consumo": {
+    "entrada": 2386,
+    "salida": 55,
+    "llamadas": 1,
+    "ruta": "O1",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 7.64,
+   "transitorios": {
+    "aplica": false,
+    "lanzadas": 0
+   },
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-10T23:26:56.374+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "¿De qué cita hablas? Por favor, menciona el código del caso (C-1A2B) o la hora y fecha exacta de la cita que deseas reprogramar.",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 2244,
+     "tokens_entrada": 2386,
+     "tokens_salida": 55,
+     "finish_reason": "stop"
+    }
+   ]
+  }
+ ]
+}

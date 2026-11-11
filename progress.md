@@ -594,6 +594,27 @@ Se cerraron con el usuario las tres decisiones que los agentes preguntaron en el
   - una corrida cortada por la suspensión de la máquina se relanzó;
   - en el PR #20 sobrevivió una mutación porque la prueba de Seguimiento miraba la pantalla antes de que llegara el modo del Asistente; ahora espera la etiqueta «Con IA».
 
+### 3.39 Fecha y hora actuales en el contexto del agente — 10 y 11 de noviembre de 2026
+
+**❌ No pasa el gate; no se mergea.** La rama `fecha-en-contexto` del producto queda sin PR y `MVP` sigue en `37466dc` (1200/1200). Por decisión del usuario (11-11) no se hacen más mediciones: cada una tarda unas 2 h 30.
+
+- **Qué se probó:** pasar al modelo la fecha y hora de America/Guayaquil en el mensaje de sistema, del mismo reloj que usan las herramientas (en los evals, el del fixture: lunes 2-11-2026 10:00). Eval nuevo `evals/runtime-fecha/F13-que-fecha-es-hoy.yaml` (guion 10/10, nulo 0/10).
+- **Sin el Qwen pasaba todo:** 2248 pruebas, ruff, mypy, contratos 4/4, mutaciones `asistente` 153/153 (cinco nuevas sobre la fecha).
+
+| Medición 60 × 20 (`--previa` = medición 5 de §3.38) | Tasa | Críticos con fallos | Gate | F13 |
+|---|---|---|---|---|
+| Línea larga (`e026b1e`): «Fecha y hora actuales…» + «Úsala para ubicarte…» | 1183/1200 | M08 16, P09 18 fuera; M07, P01, P10 19 tolerados | NO | 10/10 |
+| Línea corta (`735a959`): «Hoy es lunes 2 de noviembre de 2026, 10:00 (America/Guayaquil).» | 1193/1200 | M08 15 fuera; M04, P09 19 tolerados | NO | 10/10 |
+
+- Seguridad (V01–V08, X01–X08): sin fallos en las dos. Rotura, turnos y F13 (× 10): 60/60 en las dos. Controles: referencia 660/660, nulo 0/660.
+- Reportes: `reports/evals/runtime/medicion-fecha{,-extra}` y `medicion-fecha-corta{,-extra}`.
+- **Dónde se rompió:**
+  - la fecha distrae al Qwen 8B en preguntas que antes acertaba 20/20: en M08 («Agenda una cita nueva … mañana a las 9») contesta «No puedo agendar una cita nueva. Solo puedo proponer cambios…» y ya no dice que las citas las crea el planificador automático (se detectó en el paso «explica que no crea citas»);
+  - con la línea larga, en P09 («al 2026-11-10») dos veces lo trató como cancelación y pidió el motivo;
+  - las pruebas unitarias y las mutaciones no lo vieron: solo la medición con el modelo;
+  - acortar la línea mejoró de 1183 a 1193 pero no bastó.
+- **Si se retoma:** una herramienta `fecha_actual` que el modelo llame solo cuando la necesite, en vez de la fecha fija en el sistema, o una corrección que dependa de lo que dijo el modelo en M08; cualquiera necesita una medición nueva.
+
 ## 4. Verificaciones realizadas y alcance
 
 | Verificación | Resultado registrado | Qué demuestra |
