@@ -615,6 +615,22 @@ Se cerraron con el usuario las tres decisiones que los agentes preguntaron en el
   - acortar la línea mejoró de 1183 a 1193 pero no bastó.
 - **Si se retoma:** una herramienta `fecha_actual` que el modelo llame solo cuando la necesite, en vez de la fecha fija en el sistema, o una corrección que dependa de lo que dijo el modelo en M08; cualquiera necesita una medición nueva.
 
+### 3.40 La agenda del asistente incluye las tareas — 11 de noviembre de 2026
+
+**Rama `tareas-en-agenda` del producto (`229b6a3`, sobre `MVP` `37466dc`), sin PR todavía.**
+
+- **Qué pasó:** en la demo, b.lopez preguntó «¿Qué citas tengo hoy?» y el asistente respondió «No tienes citas programadas para hoy», pero el calendario mostraba «16:00 · Llamar para confirmar · C-A39F».
+- **Causa:** eso era una **tarea** (`core.agenda_tareas`), no una cita. El calendario dibuja citas y tareas (`agenda.listar`), pero `consultar_agenda` solo leía `core.v_citas_chat`, así que el modelo veía el día vacío.
+- **Corrección (pruebas en rojo primero):**
+  - migración 0016: vista `core.v_tareas_chat` (caso, título, fecha y estado; sin indicaciones ni observaciones, que son texto libre), legible por `app_chat_ro`; la tabla sigue cerrada para el chat;
+  - `consultar_agenda` devuelve las tareas del período, sin las canceladas ni las de otro profesional;
+  - si la respuesta no nombra una tarea, el código la agrega («También tienes 1 tarea: 16:00 · Llamar para confirmar (C-A39F).»), según lo que dijo el modelo.
+- **Evidencia:** 2248 pruebas, ruff, mypy y contratos 4/4; mutaciones `asistente` **154/154** (6 nuevas). En la demo reiniciada, «¿Qué citas tengo hoy?» responde «Tienes una tarea pendiente: Llamar para confirmar con el caso … a las 16:00 hoy» (O1, 2 llamadas).
+- **Sin medición 60 × 20 con el Qwen**, por decisión del usuario (11-11): el cambio agrega datos al resultado de la herramienta y no está comparado contra el 1200/1200.
+- **Dónde se rompió:**
+  - la herramienta del asistente y la pantalla Agenda leían fuentes distintas; ningún eval tenía un día con solo una tarea; lo detectó el usuario probando la demo;
+  - el caso creado para la tarea en la prueba nueva no tenía solicitud y la limpieza no lo borraba: `test_itm9b_agenda` contó un sexto aviso (6 ≠ 5) al correr después; se borra aparte al cerrar el fixture.
+
 ## 4. Verificaciones realizadas y alcance
 
 | Verificación | Resultado registrado | Qué demuestra |
