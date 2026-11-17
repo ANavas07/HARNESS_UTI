@@ -633,7 +633,7 @@ Se cerraron con el usuario las tres decisiones que los agentes preguntaron en el
 
 ### 3.41 La agenda del Asistente con A2UI — 17 de noviembre de 2026
 
-**[PR #23](https://github.com/ANavas07/GRUPO2_SEGUIMIENTO/pull/23)** (rama `a2ui-agenda` sobre `MVP` `927b716`): CI en curso; espera el OK del usuario para mergear.
+**[PR #23](https://github.com/ANavas07/GRUPO2_SEGUIMIENTO/pull/23)** (rama `a2ui-agenda` sobre `MVP` `927b716`): CI 4/4 en verde; espera el OK del usuario para mergear.
 
 - **Pedido del usuario:** «¿Qué horarios libres tengo esta semana?» respondía con una lista larga de horas en un párrafo; se pidió usar A2UI, como el chat de deserción, para mostrarlo en una tabla.
 - **Componente `Agenda`** del catálogo `urn:uti:a2ui:acompanamiento:v1`:
