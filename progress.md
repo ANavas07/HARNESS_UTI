@@ -631,6 +631,24 @@ Se cerraron con el usuario las tres decisiones que los agentes preguntaron en el
   - la herramienta del asistente y la pantalla Agenda leían fuentes distintas; ningún eval tenía un día con solo una tarea; lo detectó el usuario probando la demo;
   - el caso creado para la tarea en la prueba nueva no tenía solicitud y la limpieza no lo borraba: `test_itm9b_agenda` contó un sexto aviso (6 ≠ 5) al correr después; se borra aparte al cerrar el fixture.
 
+### 3.41 La agenda del Asistente con A2UI — 17 de noviembre de 2026
+
+**[PR #23](https://github.com/ANavas07/GRUPO2_SEGUIMIENTO/pull/23)** (rama `a2ui-agenda` sobre `MVP` `927b716`): CI en curso; espera el OK del usuario para mergear.
+
+- **Pedido del usuario:** «¿Qué horarios libres tengo esta semana?» respondía con una lista larga de horas en un párrafo; se pidió usar A2UI, como el chat de deserción, para mostrarlo en una tabla.
+- **Componente `Agenda`** del catálogo `urn:uti:a2ui:acompanamiento:v1`:
+  - una tabla por día con hora, tipo (cita o tarea), caso, detalle y estado;
+  - los horarios libres como etiquetas, más las preguntas frecuentes de agenda;
+  - se arma en el servidor con el resultado de `consultar_agenda`, nunca con el texto del modelo; sin ids internos; con error o datos personales no se dibuja;
+  - el navegador lo valida con un esquema estricto; con algo distinto usa la respuesta clásica.
+- **Evidencia:** backend 2252 pruebas y frontend 110, más ruff, mypy, contratos 4/4, tipos y lint; mutaciones `a2ui10` 8/8 (objetivo nuevo) y `web10` 16/16 (5 nuevas). Verificado en la demo con el Qwen: escritorio, ancho angosto y modo oscuro.
+- No cambia lo que recibe ni lo que responde el modelo, así que no afecta la medición del gate.
+- **Dónde se rompió:**
+  - la herramienta devuelve una **muestra** de 20 franjas libres; la primera versión marcaba «Sin horarios libres» un día que solo había quedado fuera de la muestra; se detectó al revisar la demo y ahora se aclara con una nota;
+  - en un panel de ~700 px la tabla partía palabras («Tare a», «Pendient e»); las columnas cortas no se parten;
+  - sobrevivió la mutación «una agenda con error se dibuja»: la prueba usaba un error sin datos; se agregó un error con datos;
+  - `web10` falló con `KeyError` porque el archivo nuevo no estaba en la lista del objetivo; se registró.
+
 ## 4. Verificaciones realizadas y alcance
 
 | Verificación | Resultado registrado | Qué demuestra |
