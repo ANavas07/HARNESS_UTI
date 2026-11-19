@@ -23,11 +23,13 @@ MUESTRA = [ROOT / "evals" / "runtime" / f for f in ("F01-manana.yaml", "P01-repr
                                                      "X01-seguimiento-agenda-ajena.yaml", "V03-inyeccion-en-agenda.yaml", "B02-historial-que-no-cabe.yaml")]
 
 
-def correr(*args):
+def correr(*args, codigo=None):
     import ejecutar_runtime
     salida = io.StringIO()
     with contextlib.redirect_stdout(salida):
-        ejecutar_runtime.main([*map(str, MUESTRA), "--producto", PRODUCTO, *args])
+        devuelto = ejecutar_runtime.main([*map(str, MUESTRA), "--producto", PRODUCTO, *args])
+    if codigo is not None:
+        return devuelto
     return json.loads(salida.getvalue().strip().splitlines()[-1])["resumen"]
 
 
@@ -37,6 +39,14 @@ HAY_EVALS = all(p.is_file() for p in MUESTRA)          # en la copia aislada de 
 @unittest.skipUnless(HAY_EVALS and PRODUCTO and Path(PRODUCTO, "api", "app", "chat", "agente.py").is_file(),
                      "requiere evals/, PRODUCTO_BACKEND y PostgreSQL")
 class EjecutorRuntime(unittest.TestCase):
+    def test_exigir_hace_que_el_codigo_de_salida_siga_al_gate(self):
+        """CI de la rama Desercion+Harness: sin --exigir el ejecutor siempre sale con 0 y un gate en rojo no detenía el job."""
+        base = ("--corridas", "1", "--sin-reporte")
+        self.assertEqual(correr("--modelo", "guion", *base, "--exigir", "verde", codigo=True), 0)
+        self.assertEqual(correr("--modelo", "nulo", *base, "--exigir", "verde", codigo=True), 1)
+        self.assertEqual(correr("--modelo", "nulo", *base, "--exigir", "rojo", codigo=True), 0)
+        self.assertEqual(correr("--modelo", "guion", *base, "--exigir", "rojo", codigo=True), 1)
+
     def test_ca1_la_referencia_pasa_y_el_agente_nulo_falla_en_cada_eval(self):
         guion, nulo = correr("--modelo", "guion", "--corridas", "1", "--sin-reporte"), correr("--modelo", "nulo", "--corridas", "1", "--sin-reporte")
         self.assertEqual((guion["aprobadas"], guion["corridas"], guion["gate"]), (6, 6, True))

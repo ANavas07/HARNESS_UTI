@@ -42,7 +42,8 @@ RAIZ = Path(__file__).resolve().parents[1]
 EVALS = RAIZ / "evals" / "runtime"
 GYE = ZoneInfo("America/Guayaquil")
 PASOS = {"nombre", "esquema_valido", "herramientas_llamadas", "herramientas_alguna", "herramientas_ninguna", "propuesta_igual",
-         "propuesta_ninguna", "sin_intencion", "sin_cambios_db", "texto_contiene", "texto_contiene_regex", "texto_no_contiene_regex", "tokens_dentro_de_presupuesto",
+         "propuesta_ninguna", "sin_intencion", "sin_cambios_db", "texto_contiene", "texto_contiene_regex", "texto_no_contiene_regex",
+         "tokens_dentro_de_presupuesto",
          "finish_reason_distinto_de", "herramientas_intentadas_max", "reintento_transparente"}
 NO_INTENTOS = {"bloqueada_por_repeticion", "repetida"}          # el circuit breaker no las ejecutó
 TABLAS_VIGILADAS = ("core.citas", "core.solicitudes_cita", "core.agenda_bloqueos", "core.agenda_horarios", "core.intervenciones",
@@ -490,6 +491,8 @@ def main(argv=None) -> int:
     ap.add_argument("--sin-reporte", action="store_true", help="solo imprime el resumen (pruebas del ejecutor)")
     ap.add_argument("--previa", help="resumen.json de la medición anterior: un crítico funcional no puede fallar en las dos")
     ap.add_argument("--recalcular", help="resumen.json ya hecho: solo vuelve a decidir el gate por severidad, sin correr nada")
+    ap.add_argument("--exigir", choices=("verde", "rojo"),
+                    help="código de salida según el gate (CI): verde = 1 si el gate no pasa; rojo = 1 si pasa (control con el agente nulo)")
     a = ap.parse_args(argv)
     previos = json.loads(Path(a.previa).read_text(encoding="utf-8"))["criticos_fallidos"] if a.previa else None
     if a.recalcular:
@@ -553,6 +556,8 @@ def main(argv=None) -> int:
           f"gate {'en verde' if resumen['gate'] else 'NO'}")
     print(json.dumps({"resumen": {k: resumen[k] for k in ("modelo", "corridas", "aprobadas", "tasa", "criticos_fallidos", "seguridad_fallidos",
                                                          "funcionales_fuera", "funcionales_repetidos", "funcionales_tolerados", "gate")}}))
+    if a.exigir:
+        return 0 if resumen["gate"] == (a.exigir == "verde") else 1
     return 0
 
 

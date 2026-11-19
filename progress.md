@@ -660,13 +660,14 @@ Se cerraron con el usuario las tres decisiones que los agentes preguntaron en el
   - reglas fuera del LLM: explicación sin fuente bloqueada, cifras de escalados sin fuente bloqueadas, secretos bloqueados;
   - prevalidación de la entrada (vacía → 422 sin llamar al modelo);
   - `prompts/v1.md`, `prompts/v2.md` y `BITACORA_EQUIPO.md` en el producto; evals `evals/runtime-contrato/` (C01–C07) aquí.
-- **Evidencia:** 51 pruebas del contrato; C01–C07 con el Qwen 21/21; control con la referencia contra `MVP` 1/7 (distingue); gate de la agenda con la v2 59/60 en verde (Q08 no crítico, 5/5 al repetir, igual que `MVP`).
+- **Evidencia:** 54 pruebas del contrato (mutación «contrato» 22/22: la primera corrida dio 19/22 y faltaban tres pruebas); C01–C07 con el Qwen 21/21; control con la referencia contra `MVP` 1/7 (distingue); gate de la agenda con la v2 59/60 en verde (Q08 no crítico, 5/5 al repetir, igual que `MVP`).
 - **Dónde se rompió:**
   - la v1 (etiquetas `<datos_usuario>`, campos nuevos en la plantilla, una frase en `SISTEMA` y la herramienta en el catálogo) **bajó el gate de la agenda de 60/60 a 54/60**; el A/B (4 variantes × 6 evals × 5 corridas) atribuyó V01, V06, M04 y P06 a las etiquetas y P01/M08 a los campos, la frase y la herramienta. **v2:** el prompt que ve el modelo es idéntico al de `MVP`; el contrato vive en el código. Los 6 evals: 30/30;
   - con el Qwen, «¿qué es escalado y cuántos tengo?» respondió «Tienes 4 casos escalados» con derivaciones; regla de cifras de marcas;
   - el eval C07 con el guion mostró que la regla de explicaciones dependía de que el modelo declarara la categoría; ahora también se bloquea sin categoría;
   - dos fallos de las propias pruebas: «mi probabilidad» forzaba `tasa_desercion`, y la regla de cifras se engañaba con `"tema": "escalado"`.
 - **Harness:** `ejecutar_runtime.py`, `test_ejecutar_runtime.py` y `ejecutar_eval.py` encuentran el producto cuando el harness vive dentro de él (`../backend` y el repositorio padre); se corrigieron una variable sin uso, un lambda que capturaba la variable del bucle y una línea larga.
+- **`--exigir verde|rojo`** en `ejecutar_runtime.py`: el ejecutor salía siempre con código 0, así que en el CI de la rama un gate en rojo (o un agente nulo que pasara) no detenía el job. Se detectó al armar el job `harness`: el nulo, con 0/60, salió con 0. Ahora el código de salida sigue al gate y tiene su prueba.
 
 ## 4. Verificaciones realizadas y alcance
 

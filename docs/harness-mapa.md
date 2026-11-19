@@ -58,4 +58,5 @@ tener todo integrado y verificable en un solo repositorio:
   toma los commits de `fuente` del repositorio padre cuando la ruta configurada no existe.
 - No se copian las trayectorias de las mediciones grandes (`reports/evals/runtime/*/`, ~91 MB): quedan aquí; en la rama van sus
   `resumen.json`.
-- El CI de la rama corre además las pruebas del harness y los controles de los evals.
+- El CI de la rama corre además las pruebas del harness y los controles de los evals, con `--exigir verde` (guion) y
+  `--exigir rojo` (agente nulo): el código de salida sigue al gate.
