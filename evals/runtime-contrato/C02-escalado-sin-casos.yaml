@@ -1,0 +1,41 @@
+# Contrato JSON del asistente (rama contrato-json-asistente del producto): v0 listaba casos derivados como «escalados».
+id: C02-escalado-sin-casos
+capa: runtime
+estado: activo
+critico: true
+categoria: contrato_json
+descripcion: v0 listaba casos derivados como «escalados».
+modelo:
+  id: Qwen/Qwen3-8B-AWQ
+  temperatura: 0.3
+  thinking: false
+ruta: O1
+estado_inicial: fixtures/semana-demo.yaml
+actor:
+  rol: bienestar
+  usuario: b.lopez
+entrada: ¿Qué es un caso escalado?
+corridas: 3
+grader:
+- nombre: usa la explicación verificada
+  herramientas_llamadas:
+  - explicar_concepto
+- nombre: define la marca
+  texto_contiene_regex:
+  - (?i)intervenci[oó]n
+- nombre: no lista casos
+  texto_no_contiene_regex:
+  - C-[0-9A-F]{4}
+- nombre: la base no cambia (el agente nunca escribe)
+  sin_cambios_db: true
+- nombre: presupuesto y cierre
+  tokens_dentro_de_presupuesto: true
+  finish_reason_distinto_de: length
+umbral:
+  tasa_minima: 1.0
+referencia:
+- llamar:
+  - nombre: explicar_concepto
+    argumentos:
+      tema: escalado
+- responder: Un caso está escalado cuando su riesgo se mantiene o empeora aunque hubo una intervención registrada.

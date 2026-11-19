@@ -17,6 +17,7 @@ Cada pieza que vive en el producto queda listada aquí, con su razón.
 | Evals de desarrollo | `evals/desarrollo/` | Tareas para el agente que construye la agenda (D01, D02, …) |
 | Lab de evals | `evals/lab/`, [evals-lab.md](evals-lab.md) | Una tarea por pieza del harness (contexto, entorno, herramientas), con graders y soluciones de referencia |
 | Evals de runtime | `evals/runtime/` (60 evals y `fixtures/semana-demo.yaml`) | Conversaciones del asistente de agenda en 7 categorías (SPEC §33.5), con grader y respuesta de referencia |
+| Evals del contrato JSON | `evals/runtime-contrato/` (C01–C07) | Explicaciones verificadas, cifras sin fuente, secretos e inyección con `<datos_usuario>`; el control es la referencia contra `MVP` sin contrato (debe fallar) |
 | Ejecutor de evals de runtime | `scripts/ejecutar_runtime.py` + `tests/test_ejecutar_runtime.py` | Corre el ciclo real del asistente del producto (`--producto <backend>`) con una base temporal por corrida, reloj fijo y el modelo real, el guion de referencia o un agente nulo; reporta en `reports/evals/runtime/` |
 | Loop de mejora | [loop-mejora.md](loop-mejora.md) | Fallos del agente → diagnóstico por pieza → corrección → métrica |
 | Presupuestos y rutas | [rutas-por-costo.md](rutas-por-costo.md), `scripts/calcular_rutas.py`, `config/` | Límites de tokens por llamada y tarea, medidos contra Qwen |
@@ -35,6 +36,7 @@ Cada pieza que vive en el producto queda listada aquí, con su razón.
 | Runner de mutaciones | `backend/scripts/correr_mutaciones.py` (objetivos `agenda`, `reserva`, `ciclo`, `presupuesto` y `asistente`) | Muta el código del producto y corre sus pruebas | Gate de cada fase |
 | Entorno sintético de la agenda | `backend/scripts/demo_agenda.py` | Levanta la API y la interfaz del producto con datos inventados para IT-M9.D y demostraciones; usa el código y la fábrica del producto | Fase 10.D |
 | Trazas de consumo | `backend/shared/trazas.py` | Las escribe el asistente en ejecución (fase 10.E) | SPEC §33.4 |
+| Contrato JSON del asistente | `backend/tests/servicios/test_chat_contrato.py`, `prompts/v1.md` (registro), `prompts/v2.md` (vigente) y `BITACORA_EQUIPO.md` | Las pruebas tienen que fallar en el CI del producto; el prompt documentado se compara con el que envía el código | Práctica del contrato JSON (19-11-2026) |
 | IT-M9.E | `backend/tests/integration/test_itm9e_asistente.py` | Recorre la API del producto, de la pregunta a la cita confirmada (con `llm_real`, contra el servidor) | Gate G10.E |
 
 Una pieza del harness nueva va **aquí** salvo que tenga que ejecutarse dentro del producto. En ese caso se agrega a esta tabla en el mismo cambio.
@@ -44,3 +46,16 @@ Una pieza del harness nueva va **aquí** salvo que tenga que ejecutarse dentro d
 1. El SPEC y el contrato de este repositorio definen cada fase. El producto la implementa en una rama y un PR hacia `MVP`.
 2. Los evals de este repositorio apuntan a un commit del producto (`fuente` en el YAML). El runner prepara una copia limpia, el agente trabaja y el grader califica sin tocar el repositorio del producto.
 3. Los fallos se analizan en el loop de mejora. Si la corrección es de contexto, entorno o pruebas del producto, va al producto y se registra arriba. Si es del eval, el grader o el método, queda aquí.
+
+## Rama `Desercion+Harness` del producto (19-11-2026)
+
+A pedido del usuario, la rama `Desercion+Harness` de GRUPO2_SEGUIMIENTO lleva el producto **y** este harness en `harness/`, para
+tener todo integrado y verificable en un solo repositorio:
+
+- `harness/` es una copia de este repositorio en el commit indicado en `harness/INTEGRACION.md`; este repositorio sigue siendo la
+  fuente del harness y se sincroniza copiando de nuevo.
+- Dentro de la rama, el harness encuentra el producto solo: `ejecutar_runtime.py` y sus pruebas usan `../backend`, y `ejecutar_eval.py`
+  toma los commits de `fuente` del repositorio padre cuando la ruta configurada no existe.
+- No se copian las trayectorias de las mediciones grandes (`reports/evals/runtime/*/`, ~91 MB): quedan aquí; en la rama van sus
+  `resumen.json`.
+- El CI de la rama corre además las pruebas del harness y los controles de los evals.

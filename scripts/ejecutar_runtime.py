@@ -41,8 +41,8 @@ from zoneinfo import ZoneInfo
 RAIZ = Path(__file__).resolve().parents[1]
 EVALS = RAIZ / "evals" / "runtime"
 GYE = ZoneInfo("America/Guayaquil")
-PASOS = {"nombre", "esquema_valido", "herramientas_llamadas", "herramientas_alguna", "herramientas_ninguna", "propuesta_igual", "propuesta_ninguna", "sin_intencion",
-         "sin_cambios_db", "texto_contiene", "texto_contiene_regex", "texto_no_contiene_regex", "tokens_dentro_de_presupuesto",
+PASOS = {"nombre", "esquema_valido", "herramientas_llamadas", "herramientas_alguna", "herramientas_ninguna", "propuesta_igual",
+         "propuesta_ninguna", "sin_intencion", "sin_cambios_db", "texto_contiene", "texto_contiene_regex", "texto_no_contiene_regex", "tokens_dentro_de_presupuesto",
          "finish_reason_distinto_de", "herramientas_intentadas_max", "reintento_transparente"}
 NO_INTENTOS = {"bloqueada_por_repeticion", "repetida"}          # el circuit breaker no las ejecutó
 TABLAS_VIGILADAS = ("core.citas", "core.solicitudes_cita", "core.agenda_bloqueos", "core.agenda_horarios", "core.intervenciones",
@@ -72,6 +72,14 @@ def cargar(rutas: list[str]) -> list[dict]:
 
 # ---------------------------------------------------------------- producto y fixture
 PRODUCTO: Path | None = None
+
+
+def producto_por_defecto() -> str:
+    """PRODUCTO_BACKEND o, con el harness dentro del repositorio del producto (rama Desercion+Harness: `harness/`), su `../backend`."""
+    if os.environ.get("PRODUCTO_BACKEND"):
+        return os.environ["PRODUCTO_BACKEND"]
+    vecino = RAIZ.parent / "backend"
+    return str(vecino) if (vecino / "api" / "app" / "chat" / "agente.py").is_file() else ""
 
 
 def importar_producto(ruta: str) -> None:
@@ -473,7 +481,7 @@ def decidir_gate(filas: list[dict], previos: list[str] | None = None) -> dict:
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("evals", nargs="*", help="archivos o carpetas (por defecto evals/runtime)")
-    ap.add_argument("--producto", default=os.environ.get("PRODUCTO_BACKEND", ""), help="carpeta backend del producto")
+    ap.add_argument("--producto", default=producto_por_defecto(), help="carpeta backend del producto (o PRODUCTO_BACKEND)")
     ap.add_argument("--modelo", choices=("guion", "nulo", "real"), default="guion")
     ap.add_argument("--corridas", type=int, default=None, help="por defecto, las del eval (10)")
     ap.add_argument("--concurrencia", type=int, default=1)
@@ -499,7 +507,6 @@ def main(argv=None) -> int:
     reloj = datetime.fromisoformat(fixture["reloj"])
     clave, candado = secrets.token_bytes(32), threading.Lock()
     base = Base(fixture)
-    resultados = []
     try:
         trabajos = [(e, n) for e in evals for n in range(a.corridas or e.get("corridas", 10))]
         with ThreadPoolExecutor(max_workers=max(1, a.concurrencia)) as pool:

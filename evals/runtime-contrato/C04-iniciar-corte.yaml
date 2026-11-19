@@ -1,0 +1,41 @@
+# Contrato JSON del asistente (rama contrato-json-asistente del producto): v0 consultaba datos en vez de explicar la pantalla Cortes.
+id: C04-iniciar-corte
+capa: runtime
+estado: activo
+critico: true
+categoria: contrato_json
+descripcion: v0 consultaba datos en vez de explicar la pantalla Cortes.
+modelo:
+  id: Qwen/Qwen3-8B-AWQ
+  temperatura: 0.3
+  thinking: false
+ruta: O1
+estado_inicial: fixtures/semana-demo.yaml
+actor:
+  rol: seguimiento
+  usuario: s.uno
+entrada: ¿Cómo inicio un corte?
+corridas: 3
+grader:
+- nombre: usa la explicación verificada
+  herramientas_llamadas:
+  - explicar_concepto
+- nombre: remite a la pantalla
+  texto_contiene_regex:
+  - Cortes
+- nombre: no afirma haberlo iniciado
+  texto_no_contiene_regex:
+  - (?i)(inici[eé]|he iniciado|ya inici)
+- nombre: la base no cambia (el agente nunca escribe)
+  sin_cambios_db: true
+- nombre: presupuesto y cierre
+  tokens_dentro_de_presupuesto: true
+  finish_reason_distinto_de: length
+umbral:
+  tasa_minima: 1.0
+referencia:
+- llamar:
+  - nombre: explicar_concepto
+    argumentos:
+      tema: iniciar_corte
+- responder: 'Se inicia en la pantalla Cortes: eliges el tipo y el periodo y lo inicias.'

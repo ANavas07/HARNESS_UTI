@@ -1,0 +1,42 @@
+# Contrato JSON del asistente (rama contrato-json-asistente del producto): v0 respondía «tasas históricas por carrera»: la explicación sale de explicar_concepto.
+id: C01-probabilidad-verificada
+capa: runtime
+estado: activo
+critico: true
+categoria: contrato_json
+descripcion: 'v0 respondía «tasas históricas por carrera»: la explicación sale de explicar_concepto.'
+modelo:
+  id: Qwen/Qwen3-8B-AWQ
+  temperatura: 0.3
+  thinking: false
+ruta: O1
+estado_inicial: fixtures/semana-demo.yaml
+actor:
+  rol: bienestar
+  usuario: b.lopez
+entrada: ¿Cómo calcula el sistema la probabilidad de deserción?
+corridas: 3
+grader:
+- nombre: usa la explicación verificada
+  herramientas_llamadas:
+  - explicar_concepto
+- nombre: explica el modelo entrenado
+  texto_contiene_regex:
+  - (?i)modelo
+  - (?i)calibrad
+- nombre: no inventa tasas como origen
+  texto_no_contiene_regex:
+  - (?i)tasas? hist[oó]ric
+- nombre: la base no cambia (el agente nunca escribe)
+  sin_cambios_db: true
+- nombre: presupuesto y cierre
+  tokens_dentro_de_presupuesto: true
+  finish_reason_distinto_de: length
+umbral:
+  tasa_minima: 1.0
+referencia:
+- llamar:
+  - nombre: explicar_concepto
+    argumentos:
+      tema: probabilidad
+- responder: Es una estimación de un modelo de aprendizaje automático entrenado con la historia de la universidad; está calibrada.

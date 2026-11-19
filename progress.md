@@ -649,6 +649,25 @@ Se cerraron con el usuario las tres decisiones que los agentes preguntaron en el
   - sobrevivió la mutación «una agenda con error se dibuja»: la prueba usaba un error sin datos; se agregó un error con datos;
   - `web10` falló con `KeyError` porque el archivo nuevo no estaba en la lista del objetivo; se registró.
 
+### 3.42 Contrato JSON del asistente y rama `Desercion+Harness` — 19 de noviembre de 2026
+
+**Rama `contrato-json-asistente`** del producto (desde `MVP` `0ad08ed`), práctica «contrato JSON y primer prompt funcional».
+
+- **Pedido del usuario:** el asistente explicaba mal cómo funciona el agente de deserción. Con el Qwen real, 5 de 10 preguntas conceptuales salían inventadas o evasivas («la probabilidad sale de tasas históricas por carrera», derivados listados como «escalados»), aunque el entrenamiento está completo en el producto.
+- **Qué se hizo:**
+  - explicaciones verificadas (`conceptos.py`, sin cifras de configuración) y la herramienta `explicar_concepto`;
+  - validador estricto del JSON del modelo (campos fuera del contrato y tipos incorrectos se rechazan; `categoria` con lista cerrada);
+  - reglas fuera del LLM: explicación sin fuente bloqueada, cifras de escalados sin fuente bloqueadas, secretos bloqueados;
+  - prevalidación de la entrada (vacía → 422 sin llamar al modelo);
+  - `prompts/v1.md`, `prompts/v2.md` y `BITACORA_EQUIPO.md` en el producto; evals `evals/runtime-contrato/` (C01–C07) aquí.
+- **Evidencia:** 51 pruebas del contrato; C01–C07 con el Qwen 21/21; control con la referencia contra `MVP` 1/7 (distingue); gate de la agenda con la v2 59/60 en verde (Q08 no crítico, 5/5 al repetir, igual que `MVP`).
+- **Dónde se rompió:**
+  - la v1 (etiquetas `<datos_usuario>`, campos nuevos en la plantilla, una frase en `SISTEMA` y la herramienta en el catálogo) **bajó el gate de la agenda de 60/60 a 54/60**; el A/B (4 variantes × 6 evals × 5 corridas) atribuyó V01, V06, M04 y P06 a las etiquetas y P01/M08 a los campos, la frase y la herramienta. **v2:** el prompt que ve el modelo es idéntico al de `MVP`; el contrato vive en el código. Los 6 evals: 30/30;
+  - con el Qwen, «¿qué es escalado y cuántos tengo?» respondió «Tienes 4 casos escalados» con derivaciones; regla de cifras de marcas;
+  - el eval C07 con el guion mostró que la regla de explicaciones dependía de que el modelo declarara la categoría; ahora también se bloquea sin categoría;
+  - dos fallos de las propias pruebas: «mi probabilidad» forzaba `tasa_desercion`, y la regla de cifras se engañaba con `"tema": "escalado"`.
+- **Harness:** `ejecutar_runtime.py`, `test_ejecutar_runtime.py` y `ejecutar_eval.py` encuentran el producto cuando el harness vive dentro de él (`../backend` y el repositorio padre); se corrigieron una variable sin uso, un lambda que capturaba la variable del bucle y una línea larga.
+
 ## 4. Verificaciones realizadas y alcance
 
 | Verificación | Resultado registrado | Qué demuestra |

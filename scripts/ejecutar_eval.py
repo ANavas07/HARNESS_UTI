@@ -69,6 +69,8 @@ def materialize(dest, origin, exclude, source=None):
     dest.mkdir(parents=True)
     if source:
         ruta = Path(source["ruta"])
+        if not ruta.is_dir() and (PROJECT_ROOT.parent / ".git").exists():
+            ruta = PROJECT_ROOT.parent       # harness dentro del repositorio del producto (rama Desercion+Harness): el commit está ahí
         commit = git("rev-parse", source["commit"], cwd=ruta).decode().strip()
         extract(dest, git("archive", "--format=tar", commit, cwd=ruta), exclude)
         return commit, False

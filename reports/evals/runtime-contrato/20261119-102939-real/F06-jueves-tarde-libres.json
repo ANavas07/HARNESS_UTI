@@ -1,0 +1,129 @@
+{
+ "id": "F06-jueves-tarde-libres",
+ "corridas": [
+  {
+   "corrida": 1,
+   "ok": true,
+   "pasos": [
+    {
+     "paso": "consulta la agenda",
+     "tipo": "herramientas_llamadas",
+     "ok": true,
+     "detalle": "ejecutadas: ['consultar_agenda']"
+    },
+    {
+     "paso": "da las horas correctas",
+     "tipo": "texto_contiene",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "sin identidad",
+     "tipo": "texto_no_contiene_regex",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "argumentos válidos contra el esquema de cada herramienta",
+     "tipo": "esquema_valido",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "la base no cambia (el agente nunca escribe)",
+     "tipo": "sin_cambios_db",
+     "ok": true,
+     "detalle": ""
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "tokens_dentro_de_presupuesto",
+     "ok": true,
+     "detalle": "O2 · 2 llamadas · 6035+194 tokens · terminada"
+    },
+    {
+     "paso": "presupuesto y cierre",
+     "tipo": "finish_reason_distinto_de",
+     "ok": true,
+     "detalle": "finish_reason: ['stop', 'stop']"
+    }
+   ],
+   "respuesta": "El jueves por la tarde tienes las siguientes horas libres: 14:00, 14:15, 14:30, 14:45, 15:00, 15:15, 15:30, 15:45 y 16:00.",
+   "llamadas": [
+    {
+     "nombre": "consultar_agenda",
+     "argumentos": {
+      "desde": "jueves por la tarde",
+      "incluir_libres": true
+     }
+    }
+   ],
+   "ejecutadas": [
+    "consultar_agenda"
+   ],
+   "propuestas": [],
+   "consumo": {
+    "entrada": 6035,
+    "salida": 194,
+    "llamadas": 2,
+    "ruta": "O2",
+    "estado": "terminada",
+    "compactaciones": 0,
+    "desajustes": 0
+   },
+   "finish_reason": [
+    "stop",
+    "stop"
+   ],
+   "cambio_db": false,
+   "error": null,
+   "duracion_s": 11.39,
+   "transitorios": {
+    "aplica": false,
+    "lanzadas": 0
+   },
+   "trayectoria": [
+    {
+     "paso": 0,
+     "ts": "2026-11-19T15:21:34.311+00:00",
+     "decision": "herramienta",
+     "herramientas": [
+      {
+       "nombre": "consultar_agenda",
+       "argumentos": {
+        "desde": "jueves por la tarde",
+        "incluir_libres": true
+       },
+       "ejecutada": true,
+       "status": "ok",
+       "error_code": null,
+       "dato": "{\"agenda_de\": \"b.lopez\", \"zona\": \"America/Guayaquil\", \"desde\": \"2026-11-05\", \"hasta\": \"2026-11-05\", \"citas\": [{\"cita_id\": \"8c39996e-82d5-43cf-a3b8-e745463762ea\", \"caso_id\": \"0a030000-0000-4000-8000-000000002563\", \"caso\": \"C-0A03\", \"inicio\": \"2026-11-05 10:00\", \"estado\": \"reservada\", \"version\": 1}, {"
+      }
+     ],
+     "razon": null,
+     "texto": "Buscando horas libres el jueves por la tarde.",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 2627,
+     "tokens_entrada": 2703,
+     "tokens_salida": 76,
+     "finish_reason": "stop"
+    },
+    {
+     "paso": 1,
+     "ts": "2026-11-19T15:21:38.236+00:00",
+     "decision": "respuesta",
+     "herramientas": [],
+     "razon": null,
+     "texto": "El jueves por la tarde tienes las siguientes horas libres: 14:00, 14:15, 14:30, 14:45, 15:00, 15:15, 15:30, 15:45 y 16:00.",
+     "descartadas": [],
+     "faltan": [],
+     "dur_ms": 4141,
+     "tokens_entrada": 3332,
+     "tokens_salida": 118,
+     "finish_reason": "stop"
+    }
+   ]
+  }
+ ]
+}

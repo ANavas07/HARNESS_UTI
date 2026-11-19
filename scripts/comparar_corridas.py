@@ -63,8 +63,8 @@ def main(argv=None) -> int:
     for clave, et in (("tasa", "tasa"), ("criticos_ok", "críticos ok"), ("tokens_tarea", "tokens/tarea"), ("pasos_tarea", "pasos/tarea"),
                       ("duracion_tarea", "segundos/tarea")):
         va, vb = r["a"][clave], r["b"][clave]
-        fmt = (lambda v: f"{v:.1%}") if clave == "tasa" else (lambda v: f"{v:.0f}" if clave != "pasos_tarea" else f"{v:.2f}")
-        print(f"{et:<16}{fmt(va):>12}{fmt(vb):>12}")
+        formato = ".1%" if clave == "tasa" else ".2f" if clave == "pasos_tarea" else ".0f"
+        print(f"{et:<16}{va:>12{formato}}{vb:>12{formato}}")
     print(f"\n{nb} gana: {r['gana'] or '—'}\n{nb} pierde: {r['pierde'] or '—'}\nΔ tokens/tarea: {r['delta_tokens']:+.1%}")
     print(f"criterios: {r['criterios']} → {'SE QUEDA' if r['se_queda'] else 'NO SE QUEDA'}")
     print(json.dumps({"comparacion": {k: r[k] for k in ("gana", "pierde", "delta_tokens", "criterios", "se_queda")}}, ensure_ascii=False))

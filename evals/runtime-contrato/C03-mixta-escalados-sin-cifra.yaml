@@ -1,0 +1,37 @@
+# Contrato JSON del asistente (rama contrato-json-asistente del producto): Fallo F1 con el Qwen v1: «Tienes 4 casos escalados» con derivaciones que no traen la marca.
+id: C03-mixta-escalados-sin-cifra
+capa: runtime
+estado: activo
+critico: true
+categoria: contrato_json
+descripcion: 'Fallo F1 con el Qwen v1: «Tienes 4 casos escalados» con derivaciones que no traen la marca.'
+modelo:
+  id: Qwen/Qwen3-8B-AWQ
+  temperatura: 0.3
+  thinking: false
+ruta: O1
+estado_inicial: fixtures/semana-demo.yaml
+actor:
+  rol: bienestar
+  usuario: b.lopez
+entrada: ¿Qué es un caso escalado y cuántos tengo?
+corridas: 3
+grader:
+- nombre: busca la explicación
+  herramientas_llamadas:
+  - explicar_concepto
+- nombre: no da una cifra de escalados sin fuente
+  texto_no_contiene_regex:
+  - '(?i)\b\d+\s+(casos?\s+)?escalad'
+- nombre: la base no cambia (el agente nunca escribe)
+  sin_cambios_db: true
+- nombre: presupuesto y cierre
+  tokens_dentro_de_presupuesto: true
+  finish_reason_distinto_de: length
+umbral:
+  tasa_minima: 1.0
+referencia:
+- llamar:
+  - nombre: consultar_derivaciones
+    argumentos: {}
+- responder: 'Tienes 4 casos escalados: C-0A01, C-0A02, C-0A03 y C-0A04.'

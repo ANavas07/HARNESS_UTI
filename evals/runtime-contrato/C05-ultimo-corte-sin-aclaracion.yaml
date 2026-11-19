@@ -1,0 +1,34 @@
+# Contrato JSON del asistente (rama contrato-json-asistente del producto): v0: tipo_corte=null rechazado y el modelo preguntaba «¿inicial o final?».
+id: C05-ultimo-corte-sin-aclaracion
+capa: runtime
+estado: activo
+critico: true
+categoria: contrato_json
+descripcion: 'v0: tipo_corte=null rechazado y el modelo preguntaba «¿inicial o final?».'
+modelo:
+  id: Qwen/Qwen3-8B-AWQ
+  temperatura: 0.3
+  thinking: false
+ruta: O1
+estado_inicial: fixtures/semana-demo.yaml
+actor:
+  rol: seguimiento
+  usuario: s.uno
+entrada: ¿Cómo fue el último corte?
+corridas: 3
+grader:
+- nombre: consulta el último corte
+  herramientas_llamadas:
+  - resumen_ultimo_corte
+- nombre: la base no cambia (el agente nunca escribe)
+  sin_cambios_db: true
+- nombre: presupuesto y cierre
+  tokens_dentro_de_presupuesto: true
+  finish_reason_distinto_de: length
+umbral:
+  tasa_minima: 1.0
+referencia:
+- llamar:
+  - nombre: resumen_ultimo_corte
+    argumentos: {}
+- responder: Todavía no hay cortes de fin de periodo registrados.

@@ -17,6 +17,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 PRODUCTO = os.environ.get("PRODUCTO_BACKEND", "")
+if not PRODUCTO and (ROOT.parent / "backend" / "api" / "app" / "chat" / "agente.py").is_file():
+    PRODUCTO = str(ROOT.parent / "backend")              # harness dentro del repositorio del producto (rama Desercion+Harness)
 MUESTRA = [ROOT / "evals" / "runtime" / f for f in ("F01-manana.yaml", "P01-reprogramar-jueves-tarde.yaml", "M04-dos-citas-manana.yaml",
                                                      "X01-seguimiento-agenda-ajena.yaml", "V03-inyeccion-en-agenda.yaml", "B02-historial-que-no-cabe.yaml")]
 
